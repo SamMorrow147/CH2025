@@ -2,7 +2,7 @@
   .container {
     padding:10px;
     flex-wrap:wrap;
-    height:calc(100vh - 60px);
+    height:calc(100% - 60px);
   margin-top: 60px;
   }
 
@@ -189,7 +189,7 @@ align-self: flex-start;
     margin: auto;
     display: block;
     position: absolute;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     top: 0;
 }
@@ -200,14 +200,14 @@ align-self: flex-start;
   }
 
   .third_section .lines {
-    height: calc(100vh - 80px);
+    height: calc(100% - 80px);
 }
 
   .lines {
     position: absolute;
     left: 10px;
     bottom: 10px;
-    height: calc(100vh - 20px);
+    height: calc(100% - 20px);
     width: calc(100vw - 20px);
 }
   

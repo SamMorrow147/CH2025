@@ -18,6 +18,12 @@
 
 
 
+.fp-responsive .fp-auto-height-responsive .fp-slide, 
+.fp-responsive .fp-auto-height-responsive .fp-tableCell,
+.fp-responsive .fp-auto-height-responsive.fp-section {
+    height: auto!important;
+}
+
 
 
 a {

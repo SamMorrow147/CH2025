@@ -94,17 +94,17 @@ font-weight: 700;
   margin: auto;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 60px);
+  height: calc(100% - 60px);
   justify-content: center;
 }
 
 
 .second_wrapper, .icons_wrapper, .heart_wrapper, .agency_wrapper {
-  height: calc(100vh - 60px);
+  height: calc(100% - 60px);
   margin-top:60px;
 }
 
-.lines { position:absolute; left:20px; bottom:20px; height:calc(100vh - 40px); width:calc(100vw - 40px)}
+.lines { position:absolute; left:20px; bottom:20px; height:calc(100% - 40px); width:calc(100vw - 40px)}
 .lines .top-left {left:20px; top:20px; height:calc(50vh - 40px); width:calc(50vw - 40px); stroke-dashoffset: 100;}
 .lines .bottom-right {bottom:20px; right:20px; height:calc(50vh - 40px); width:calc(50vw - 40px); stroke-dashoffset: 100;}
 
@@ -126,8 +126,8 @@ font-weight: 700;
 }
 
 .top_section {
-  position:absolute;
-  height:100vh !important;
+  position:relative;
+  height:100% ;
   width:100vw;
   top:0;
 }
@@ -360,7 +360,7 @@ z-index:2;}
 
 
 .icons_section, .agency_section, .services_section {
-  height: 100vh;
+  height: 100%;
   width:100%;
   background-color:#293a8d;
   background-image:url('../public/images/back-blue.png');
@@ -479,7 +479,7 @@ z-index:2;}
 .animation-back {
   display: block;
   width:100vw;
-  height:100vh;
+  height:100%;
   overflow: hidden;
   background-image:url('../public/images/back.png');
   position:absolute;
@@ -495,7 +495,7 @@ z-index:2;}
 
 
 .second_section, .icons_section, .heart_section, .agency_section {
-
+  height:100%;
     display: block;
     width:100vw;
     overflow: hidden;
@@ -546,7 +546,7 @@ img.logo-bottom {
 .glimmer {
   background: rgb(255,255,255);
   background: linear-gradient(131deg, rgba(255,255,255,1) 4%, rgba(255,255,255,0) 16%, rgba(255,255,255,1) 36%, rgba(255,255,255,1) 55%, rgba(255,255,255,0.23573179271708689) 79%, rgba(255,255,255,1) 94%);
-  height:100vh;
+  height:100%;
   width:100vw;
 }
 
@@ -624,17 +624,17 @@ animation: shorten .5s forwards !important;
 }
 
 .second_section {
-  height:100vh;
+  height:100%;
 
 }
 
 .white_background .animation-back{
-  height:calc(100vh - 60px);
+  height:calc(100% - 60px);
   top:60px;
 }
 
 .white_background .lines {
-  height: calc(100vh - 100px);
+  height: calc(100% - 60px);
 }
 
 
@@ -642,13 +642,13 @@ animation: shorten .5s forwards !important;
   position:fixed;
   top:0;
   left:0;
-  height:100vh;
+  height:100%;
   width:100vw;
   z-index: 2;
 }
 
 .contact_back {
-  height:100vh;
+  height:100%;
   width:100vw;
   position:absolute;
   animation:slideInRight .5s forwards;

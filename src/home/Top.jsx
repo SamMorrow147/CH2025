@@ -6,7 +6,7 @@ export default function Top({onClick}) {
 
     return (
         <div className="top_section">
-        <Alt_background/>
+        <Background/>
         {/* <Background/> */}
 
             <div className="top_content">

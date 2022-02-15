@@ -9,10 +9,10 @@ export default function Alt_background() {
            <div className="right anim_border"></div>
            <div className="bottom anim_border"></div>
 
-            <div className="center_section_left"></div>
-            <div className="center_section_right"></div>
+            <div className="center_section"></div>
 
-            <div className="center_circle"></div>
+
+           
           
 
          

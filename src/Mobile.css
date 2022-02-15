@@ -88,8 +88,8 @@ align-self: flex-start;
     flex-direction: column-reverse;
 }
 @keyframes shorten {
-    0% {width:300px;}
-    100% {width:100px;}
+    0% {width:300px;  filter: brightness(11)grayscale(1);}
+    100% {width:100px;  filter: none;}
   }
 
   @keyframes move_up {

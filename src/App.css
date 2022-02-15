@@ -199,7 +199,7 @@ font-weight: 700;
 }
 
 .top_content .logo {
-  width:120px;
+  width:220px;
   margin-bottom:20px;
   animation:fadeIn 2s;
 }
@@ -209,6 +209,7 @@ font-weight: 700;
   height:auto;
   animation:fadeIn 1s;
   transition:1s;
+  filter: brightness(11)grayscale(1);
 }
 
 .second_content {
@@ -224,6 +225,8 @@ font-weight: 700;
   animation-delay: .4s;
  
 }
+
+
 
 .second_content h2 {
   color:#293a8d;
@@ -596,13 +599,13 @@ animation: shorten .5s forwards !important;
 }
 
 @keyframes shorten {
-  0% {width:600px;}
-  100% {width:200px;}
+  0% {width:600px;     filter: brightness(11)grayscale(1);}
+  100% {width:200px; filter:none;}
 }
 
 @keyframes logo_shorten {
-  0% {width:120px; transform:rotate(0deg)}
-  100% {width:40px; margin-bottom:0px; transform:rotate(360deg)}
+  0% {width:230px; transform:rotate(0deg)}
+  100% {width:40px; margin-bottom:0px; transform:rotate(360deg); }
 }
 
 @keyframes buttons_move {

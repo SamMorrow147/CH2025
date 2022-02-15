@@ -1,0 +1,46 @@
+import './App.css';
+import Top from './home/Top'
+import ReactFullpage from '@fullpage/react-fullpage';
+import About from './home/About'
+import React, { Component, useEffect, useState } from 'react';
+import AnimateCC, { GetAnimationObjectParameter } from "react-adobe-animate";
+
+
+
+const anchors = ["first", "second", "third"];
+
+const App = () => (
+
+ 
+  
+  <ReactFullpage
+    anchors={anchors}
+
+    onLeave={(origin, destination, direction) => {
+      console.log("onLeave event", { origin, destination, direction });
+    }}
+    render={({ state, fullpageApi }) => {
+      console.log("render prop change", state, fullpageApi); // eslint-disable-line no-console
+
+     
+      return (
+        <ReactFullpage.Wrapper>
+          <div className="section top_section">
+            <Top/>
+          </div>
+          <div className="section ">
+          <AnimateCC
+        animationName="heartcityTRANSITIONfinished"
+        composition="4F52BEB06C36473D9D26E331A183CF52"
+      />
+  
+          </div>
+        </ReactFullpage.Wrapper>
+      );
+    }}
+  />
+
+);
+ 
+
+export default App;

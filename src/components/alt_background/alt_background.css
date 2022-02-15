@@ -1,0 +1,197 @@
+
+:root {
+
+    --animation_speed:900s;
+
+}
+
+.alt-animation-back {
+    display: block;
+    width:100vw;
+    height:100vh;
+    overflow: hidden;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:0;
+    display:block;
+    background-size:200px;
+    background-color:black;
+  }
+  
+  .anim_border {
+    background-image:url('../../../public/images/pattern_2.png');
+    position:absolute;
+    background-size:30px;
+  }
+  
+  .alt-animation-back .top {
+    width:100vw;
+    height:10vh;
+    max-height:120px;
+    top:0;
+    animation: top-animation var(--animation_speed) infinite linear;
+    animation-direction: reverse;
+    border-top-right-radius: 50px;
+    border-top-left-radius: 50px;
+    border-top: 20px double black;
+    border-right: 20px double black;
+    border-left: 20px double black;
+
+  }
+  
+  
+  @keyframes top-animation {
+    0% {
+      background-position:0vw;
+    }
+    100% {
+      background-position:0 1000vw;
+  
+    }
+  }
+  
+  
+  
+  .alt-animation-back .right {
+    width:10vw;
+    max-width:120px;
+    height:calc(100vh - 20vh);
+    top:10vh;
+    right:0;
+    animation: right-animation var(--animation_speed) infinite linear;
+    border-right: 20px double black;
+
+  }
+  
+  
+  @keyframes right-animation {
+    0% {
+    background-position: 0vw;
+    }
+    100% {
+      background-position:1000vw  0vw;
+    }
+  }
+  
+  
+  
+  .alt-animation-back .bottom {
+    width:100vw;
+    height:10vh;
+    bottom:0;
+    right:0;
+    animation: bottom-animation var(--animation_speed) infinite linear;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom: 20px double black;
+    border-right: 20px double black;
+    border-left: 20px double black;
+  }
+  
+  
+  @keyframes bottom-animation {
+    0% {
+      background-position:0vw;
+    }
+    100% {
+      background-position:0vw 1000vw;
+  
+    }
+  }
+  
+  .alt-animation-back .left {
+    width:10vw;
+    max-width:120px;
+    height:calc(100vh - 20vh);
+    top:10vh;
+    left:0;
+    animation: right-animation var(--animation_speed) infinite linear;
+    animation-direction: reverse;
+    border-left: 20px double black;
+
+  }
+  
+  
+  .center_section_left {
+    position:absolute; 
+    width:calc(50vw - 10vw);
+    height:calc(100vh - 20vh);
+    background: linear-gradient(90deg, rgba(37,38,80,1) 0%, rgba(14,8,30,1) 45%);
+
+    top:50%;
+    left:0;
+    transform:translate(15%, -50%);
+    border:17px double black;
+    /* background-image:url('../../../public/images/pattern_4.png'); */
+    background-size:cover;
+  }
+
+  .center_section_right {
+    position:absolute; 
+    width:calc(50vw - 10vw);
+    height:calc(100vh - 20vh);
+    background: linear-gradient(90deg, rgba(14,8,30,1) 45%, rgba(37,38,80,1) 100%);
+
+    top:50%;
+    right:0;
+    transform:translate(-15%, -50%);
+    border:17px double black;
+    /* background-image:url('../../../public/images/pattern_4.png'); */
+    background-size:cover;
+  }
+
+  .center_section_right:before {
+    content:'';
+    position:absolute; 
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    /* background:url('../../../public/images/pattern_4.png'); */
+    background-size:40px;
+    animation: right-animation var(--animation_speed) infinite linear;
+
+} 
+
+ .center_section_left:before {
+     content:'';
+     position:absolute; 
+     left:0;
+     top:0;
+     width:100%;
+     height:100%;
+     /* background:url('../../../public/images/pattern_4.png'); */
+     background-size:40px;
+     animation: right-animation var(--animation_speed) infinite linear;
+     animation-direction: reverse;
+
+ } 
+  .center_circle {
+      width:850px;
+      height:850px;
+      background:white;
+      border-radius:100%;
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      border: 20px double black;
+      background:white;
+      background-image:url('../../../public/images/back.png');
+
+  }
+  .center_circle:before {
+      width:100%;
+      height:100%;
+      position:absolute;
+      top:0;
+      left:0;
+      border-radius:100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.006039915966386533) 0%, rgba(255,255,255,1) 34%, rgba(255,255,255,1) 60%, rgba(255,255,255,0) 100%);
+            content:'';
+  }
+  .anim_border {
+      animation:grow 4s forwards;
+  }
+

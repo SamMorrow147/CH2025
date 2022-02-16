@@ -25,9 +25,10 @@ export default function Services({paused}) {
 
                                 <div className="service_content">
                                     <h2>CONTENT</h2>
-                                    <div className="service_text">
+                                    <p className="service_text">
                                         The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. 
-                                    </div>
+                                    </p>
+                                    <a href="#" class="button">CONTACT US</a>
                                 </div>
 
                                 <div>
@@ -47,9 +48,10 @@ export default function Services({paused}) {
 
                                 <div className="service_content">
                                     <h2>BRANDING</h2>
-                                    <div className="service_text">
+                                    <p className="service_text">
                                         The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. 
-                                    </div>
+                                    </p>
+                                    <a href="#" class="button">CONTACT US</a>
                                 </div>
 
                                 <div>
@@ -68,9 +70,10 @@ export default function Services({paused}) {
 
                                 <div className="service_content">
                                     <h2>STRATEGY</h2>
-                                    <div className="service_text">
+                                    <p className="service_text">
                                         The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. 
-                                    </div>
+                                    </p>
+                                    <a href="#" class="button">CONTACT US</a>
                                 </div>
 
                                 <div>
@@ -80,9 +83,24 @@ export default function Services({paused}) {
                             </div> 
                         </Grid.Column>
                         <Grid.Column >
-                            <div> 
-                           
-                            </div> 
+                           <div className="service">
+
+                                <div>
+                                    <Image src='./images/animations/computer-guy.gif' /> 
+                               </div>
+
+                                <div className="service_content">
+                                    <h2>WEB</h2>
+                                    <p className="service_text">
+                                        The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. 
+                                    </p>
+                                    <a href="#" class="button">CONTACT US</a>
+                                </div>
+
+                                <div>
+                                    <Image src='./images/animations/computer-guy.gif' /> 
+                               </div>
+                            </div>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

@@ -137,7 +137,6 @@
     margin: auto;
     left: 0;
     transform: translate(0, -50%);
-    border:17px double black;
     /* background-image:url('../../../public/images/pattern_4.png'); */
     background-size:cover;
   }

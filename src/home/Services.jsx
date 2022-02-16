@@ -1,6 +1,6 @@
 import { Grid, Image } from 'semantic-ui-react'
 import Typist from 'react-typist'
-
+import Button from '../components/button/button'
 
 export default function Services({paused}) {
 
@@ -28,7 +28,7 @@ export default function Services({paused}) {
                                     <p className="service_text">
                                         The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. 
                                     </p>
-                                    <a href="#" class="button">CONTACT US</a>
+                                  <Button text="CONTACT US" />
                                 </div>
 
                                 <div>
@@ -51,7 +51,7 @@ export default function Services({paused}) {
                                     <p className="service_text">
                                         The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. 
                                     </p>
-                                    <a href="#" class="button">CONTACT US</a>
+                                    <Button text="CONTACT US" />
                                 </div>
 
                                 <div>
@@ -73,7 +73,7 @@ export default function Services({paused}) {
                                     <p className="service_text">
                                         The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. 
                                     </p>
-                                    <a href="#" class="button">CONTACT US</a>
+                                    <Button text="CONTACT US" />
                                 </div>
 
                                 <div>
@@ -94,7 +94,7 @@ export default function Services({paused}) {
                                     <p className="service_text">
                                         The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. 
                                     </p>
-                                    <a href="#" class="button">CONTACT US</a>
+                                    <Button text="CONTACT US" />
                                 </div>
 
                                 <div>
@@ -102,7 +102,7 @@ export default function Services({paused}) {
                                </div>
                             </div>
                         </Grid.Column>
-                    </Grid.Row>
+                    </Grid.Row> 
                 </Grid>
 
 

@@ -83,16 +83,18 @@ font-weight: 700;
 
 .container {
   display: flex;
-  max-width: 1300px;
+  max-width: 1600px;
   width: auto;
   position: relative;
   padding-left:50px;
   padding-right:50px;
   margin:auto;
+  align-items: center;
+    justify-content: space-around;
 }
 
 .container_full_width {
-  max-width: 1300px;
+  max-width: 1600px;
   width: auto;
   position: relative;
   padding-left: 50px;
@@ -223,9 +225,8 @@ font-weight: 700;
 }
 
 .second_content {
-  align-self: flex-end;
-  width: 70%;
-  margin-bottom: 10vh;
+  align-self: center;
+  width: 50%;
   transition:2s;
   opacity:0;
 }
@@ -251,14 +252,13 @@ font-weight: 700;
 }
 
 .table_animation {
-  align-self: top;
-  margin-top:10vh;
+  align-self: center;
+  
 }
 
 .heart_content {
-  align-self: flex-end;
-  width: 70%;
-  margin-bottom: 10vh;
+  align-self: center;
+  width: 50%;
   transition:2s;
   opacity:0;
 }
@@ -628,14 +628,12 @@ animation: shorten .5s forwards !important;
   max-width: 786px;
   position: relative;
   margin-left: auto;
-  top: 50px;
   z-index: 1;
   z-index:0;
 }
 
 .second_section {
   height:100%;
-
 }
 
 .white_background .animation-back{
@@ -801,8 +799,9 @@ transform:rotate(30deg);
   text-align: center;
   width:100%;
   display: block;
- 
+ padding-top:0px;
   margin-bottom:0px;
+  transition:.3s;
 }
 
 .service_content {
@@ -837,6 +836,7 @@ transform:rotate(30deg);
 
 .service:hover .button { display:block; color:white; border-color:white; width:100%; text-align:center;}
 
+.service:hover h2 {padding-top:20px;}
 .service_content p {
   padding:10px; 
   color:white;

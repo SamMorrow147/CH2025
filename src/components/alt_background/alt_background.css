@@ -32,8 +32,6 @@
     top:0;
     animation: top-animation var(--animation_speed) infinite linear;
     animation-direction: reverse;
-    border-top-right-radius: 50px;
-    border-top-left-radius: 50px;
     border-top: 20px double black;
     border-right: 20px double black;
     border-left: 20px double black;
@@ -56,7 +54,7 @@
   .alt-animation-back .right {
     width:10vw;
     max-width:120px;
-    height:calc(100% - 20vh);
+    height:100%;
     top:10vh;
     right:0;
     animation: right-animation var(--animation_speed) infinite linear;
@@ -82,8 +80,7 @@
     bottom:0;
     right:0;
     animation: bottom-animation var(--animation_speed) infinite linear;
-    border-bottom-right-radius: 50px;
-    border-bottom-left-radius: 50px;
+
     border-bottom: 20px double black;
     border-right: 20px double black;
     border-left: 20px double black;
@@ -99,11 +96,14 @@
   
     }
   }
-  
+  .alt-animation-back > div {
+    background-color: #11183a;
+  }
+
   .alt-animation-back .left {
     width:10vw;
     max-width:120px;
-    height:calc(100% - 20vh);
+    height:100%;
     top:10vh;
     left:0;
     animation: right-animation var(--animation_speed) infinite linear;
@@ -129,9 +129,10 @@
 
   .center_section{
     position:absolute; 
-    width:calc(100vw - 10vw);
-    height:calc(100% - 20vh);
-    background: #293a8d;
+    width: calc(100vw - 10%);
+    height: calc(100% - 19%);
+    background: #293a8d !important;
+    border: 16px double #3577b9;
     top: 50%;
     right: 0;
     margin: auto;

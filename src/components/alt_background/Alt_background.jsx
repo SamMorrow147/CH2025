@@ -11,13 +11,6 @@ export default function Alt_background() {
 
             <div className="center_section"></div>
 
-
-           
-          
-
-         
-           
-
         </div>
 
 

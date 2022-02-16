@@ -1,0 +1,47 @@
+.btn {
+    width: 180px;
+    height: 45px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    transition: 1s ease-in-out;
+    background: #233178;
+    border: 2px solid #329ec7;
+    position: relative;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 2px;
+  }
+  
+  .btn svg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    fill: none;
+    stroke: #fff;
+    stroke-dasharray: 480;
+    stroke-dashoffset: 480;
+    transition: 1s ease-in-out;
+    margin: auto;
+  }
+  
+  .btn:hover {
+    transition: .5s ease-in-out;
+    letter-spacing: 2px;
+    background:transparent;
+  }
+  
+  .btn:hover svg {
+    stroke-dashoffset: 0;
+
+  }
+  
+  .btn span {
+    color: white;
+    font-size: 18px;
+    font-weight: 100;
+  }

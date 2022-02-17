@@ -13,6 +13,7 @@ import Icons from './home/Icons'
 import New_top from './home/New_top'
 import Membership from './home/Membership';
 import Services from './home/Services';
+import Breadcrumbs from './components/navigation/Breadcrumbs';
 
 const anchors = ["first", "second", "third","fourth","fifth","sixth"];
 
@@ -24,7 +25,7 @@ export default function Fullpage({onClick}) {
      
   <ReactFullpage
     anchors={anchors}
-
+    fixedElements='.breadcrumbs'
     onLeave={(origin, destination, direction) => {
     //   console.log("onLeave event", { origin, destination, direction });
     }}
@@ -82,6 +83,9 @@ export default function Fullpage({onClick}) {
     
 
       return (
+        <div>
+        <Breadcrumbs items={anchors} anchor={currentPanel} />
+
         <ReactFullpage.Wrapper>
           <div className="section">
             <Top onClick={onClick} />
@@ -101,9 +105,8 @@ export default function Fullpage({onClick}) {
           <div className="section">
           <Membership  paused = {currentPanel != 'sixth'}/>
           </div>
-
         </ReactFullpage.Wrapper>
-     
+      </div>
       );
 
 

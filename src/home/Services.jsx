@@ -13,14 +13,14 @@ export default function Services({paused}) {
 
             <div className="membership_wrapper container_full_width">
 
-                <Grid columns='four' divided>
+                <Grid columns='four' divided stackable>
                     <Grid.Row>
                         <Grid.Column >
 
                             <div className="service">
 
                                 <div>
-                                    <Image src='./images/animations/social-media-girl.gif' /> 
+                                { paused ? <Image src=''/> : <Image src='./images/animations/social-media-girl.gif' />  }
                                </div>
 
                                 <div className="service_content">
@@ -32,7 +32,7 @@ export default function Services({paused}) {
                                 </div>
 
                                 <div>
-                                    <Image src='./images/animations/social-media-girl.gif' /> 
+                                { paused ? <Image src=''/> : <Image src='./images/animations/social-media-girl.gif' />  }
                                </div>
 
                             </div> 
@@ -43,7 +43,7 @@ export default function Services({paused}) {
                             <div className="service">
 
                                 <div>
-                                    <Image src='./images/animations/painting-guy.gif' /> 
+                                { paused ? <Image src=''/> : <Image src='./images/animations/painting-guy.gif' />  }
                                </div>
 
                                 <div className="service_content">
@@ -55,7 +55,7 @@ export default function Services({paused}) {
                                 </div>
 
                                 <div>
-                                    <Image src='./images/animations/painting-guy.gif' /> 
+                                { paused ? <Image src=''/> : <Image src='./images/animations/painting-guy.gif' />  }
                                </div>
 
                             </div> 
@@ -65,7 +65,7 @@ export default function Services({paused}) {
                            <div className="service">
 
                                 <div>
-                                    <Image src='./images/animations/drawing-guy.gif' /> 
+                                { paused ? <Image src=''/> : <Image src='./images/animations/drawing-guy.gif' />  }
                                </div>
 
                                 <div className="service_content">
@@ -77,16 +77,16 @@ export default function Services({paused}) {
                                 </div>
 
                                 <div>
-                                    <Image src='./images/animations/drawing-guy.gif' /> 
+                                { paused ? <Image src=''/> : <Image src='./images/animations/drawing-guy.gif' />  }
                                </div>
 
                             </div> 
                         </Grid.Column>
-                        <Grid.Column >
+                        <Grid.Column  >
                            <div className="service">
 
                                 <div>
-                                    <Image src='./images/animations/computer-guy.gif' /> 
+                                { paused ? <Image src=''/> : <Image src='./images/animations/computer-guy.gif' />  }
                                </div>
 
                                 <div className="service_content">
@@ -98,7 +98,7 @@ export default function Services({paused}) {
                                 </div>
 
                                 <div>
-                                    <Image src='./images/animations/computer-guy.gif' /> 
+                                { paused ? <Image src=''/> : <Image src='./images/animations/computer-guy.gif' />  }
                                </div>
                             </div>
                         </Grid.Column>

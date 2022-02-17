@@ -862,3 +862,22 @@ transform:rotate(30deg);
 .service > div {flex-grow: 100%;}
 
 .service img {max-height:270px;}
+
+.breadcrumbs {
+  position: fixed;
+  top: 0px;
+  right: 20px;
+  /* background: red; */
+  width: 300px;
+  /* height: 100px; */
+  z-index: 3;
+  display: flex;
+  list-style-type: none;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.fp-viewing-first .breadcrumbs {display:none;}
+
+.breadcrumbs li {opacity:.4; transform:scale(.8); transition:.2s;}
+.breadcrumbs li.active {opacity:1; transform:scale(1); }

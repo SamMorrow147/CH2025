@@ -6,7 +6,7 @@ import Background from './Background'
 export default function Membership({paused}) {
 
     return (    
-        <div class="membership_section white_background">
+        <div className="membership_section white_background">
 
             <Background/>
 
@@ -39,7 +39,7 @@ export default function Membership({paused}) {
                     </Grid.Row>
                 </Grid>
 
-                <div class="membership_content">
+                <div className="membership_content">
                     <h2>OUR MEMBERSHIPS</h2>
 
                     { paused ? <p></p>  : <p><Typist avgTypingDelay='.1'>

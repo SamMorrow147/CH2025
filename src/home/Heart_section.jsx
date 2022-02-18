@@ -4,13 +4,13 @@ import Typist from 'react-typist'
 
 export default function Heart_section({paused}) {
     return (    
-        <div class="heart_section white_background">
+        <div className="heart_section white_background">
 
             <Background/>
 
             <div className="heart_wrapper container">
 
-                <div class="heart_content">
+                <div className="heart_content">
                     <h2>OUR HEARTS MEMBERSHIP INITIATIVE</h2>
                     { paused ? <p></p>  : <p><Typist avgTypingDelay='.1'>
                              We Uplift business &  partner with people who want To design a better future. Let’s talk about how we can help you help.

@@ -20,21 +20,26 @@ const anchors = ["first", "second", "third","fourth","fifth","sixth"];
 const currentPanel = 'Pause';
 
 export default function Fullpage({onClick}) {
+  var offset = '0';
+ 
+ 
 
     return (
-     
+      
   <ReactFullpage
     anchors={anchors}
     fixedElements='.breadcrumbs'
     onLeave={(origin, destination, direction) => {
     //   console.log("onLeave event", { origin, destination, direction });
     }}
-
+  
     render={({ state, fullpageApi, origin, currentPanel}) => {
 
 
-        currentPanel = 'Pause'
+      currentPanel = 'Pause'
+
         if (state.lastEvent === "onLeave") {
+          offset = state.destination.item.offsetTop
           var lines = document.querySelectorAll('.path'), i;
           var lines_bottom_right = document.querySelectorAll('.path-bottom-right'), i;
           var lines_top_left = document.querySelectorAll('.path-top-left'), i;
@@ -75,7 +80,6 @@ export default function Fullpage({onClick}) {
 
                 }
 
-                    console.log(state)
             }
           
         
@@ -94,7 +98,7 @@ export default function Fullpage({onClick}) {
             <About paused={currentPanel != 'second'} />
           </div>
           <div className="section">
-            <Services paused = {currentPanel != 'third'}/>
+            <Services paused = {currentPanel != 'third'} offset={offset}/>
           </div>
           <div className="section">
             <Heart_section paused={currentPanel != 'fourth'} />
@@ -111,7 +115,6 @@ export default function Fullpage({onClick}) {
 
 
     }}
-    
   />
     ) 
 }

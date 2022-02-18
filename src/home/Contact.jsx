@@ -5,7 +5,7 @@ const Contact = () => {
 
 
     return (    
-        <div class="Contact_section">
+        <div className="Contact_section">
 
           <Background/>
           <Contact_card/>

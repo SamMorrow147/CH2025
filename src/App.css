@@ -815,6 +815,25 @@ transform:rotate(30deg);
   }
 }
 
+.service_wrap {width:100%;}
+.service_modal {display:none;}
+
+.service_modal {
+  position:fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.service_modal .overlay {
+  position:absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background:black;
+}
 
 .service_content H2 {
   color:white;

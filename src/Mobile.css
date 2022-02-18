@@ -1,11 +1,11 @@
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 768px) {
 .breadcrumbs {
   display:none;
 }
 .service_section > div > .grid, .service_section > div > .column {height:100% !important;}
 
-
-
+.service_wrap {height:100%; width:100%; }
+.service_modal {display:block;}
   .service {
     padding: 10px;
     overflow: hidden;
@@ -13,6 +13,10 @@
     border: 2px solid #329ec7;;
     height:100%;
     width:100%;
+  }
+
+  .service_modal .overlay {
+    z-index:0;
   }
 
   .service_content {

@@ -1,10 +1,10 @@
 export default function Background() {
     return (
         <div className="animation-back">
-            <div class="glimmer"></div>
+            <div className="glimmer"></div>
             <div className="lines">
 
-                <svg   xmlns="http://www.w3.org/2000/svg"  class="center" height="100%" width="100%" viewBox="0 0 100 100"  preserveAspectRatio="none">
+                <svg   xmlns="http://www.w3.org/2000/svg"  className="center" height="100%" width="100%" viewBox="0 0 100 100"  preserveAspectRatio="none">
                      <polygon  pathLength="100" className="path" fill="transparent" stroke="black"    points="0 0,0 100,100 100,100 0"  />
                 </svg>
 

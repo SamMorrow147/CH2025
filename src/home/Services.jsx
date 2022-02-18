@@ -13,9 +13,9 @@ export default function Services({paused}) {
 
             <div className="membership_wrapper container_full_width">
 
-                <Grid columns='four' divided stackable>
-                    <Grid.Row>
-                        <Grid.Column >
+                <Grid columns='four' stackable className="membership_column">
+                    <Grid.Row className="membership_row">
+                        <Grid.Column>
 
                             <div className="service">
 
@@ -82,7 +82,7 @@ export default function Services({paused}) {
 
                             </div> 
                         </Grid.Column>
-                        <Grid.Column  >
+                        <Grid.Column >
                            <div className="service">
 
                                 <div>

@@ -1,10 +1,29 @@
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 900px) {
+
+  .services {
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .close {
+    width:20px;
+    height:20px;
+    background:red;
+    position:absolute;
+    top:20px; 
+    right:20px;
+    z-index:2;
+  }
+
 .breadcrumbs {
   display:none;
 }
 .service_section > div > .grid, .service_section > div > .column {height:100% !important;}
 
-.service_wrap {height:100%; width:100%; }
+.service_wrap {height:100%; width:100%; transition:.4s; position:relative;}
 .service_modal {display:block;}
   .service {
     padding: 10px;
@@ -14,6 +33,11 @@
     height:100%;
     width:100%;
   }
+
+  .service_wrap.active {
+    flex:13;
+  }
+
 
   .service_modal .overlay {
     z-index:0;

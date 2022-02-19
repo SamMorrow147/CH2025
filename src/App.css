@@ -815,7 +815,14 @@ transform:rotate(30deg);
   }
 }
 
-.service_wrap {width:100%;}
+.service_wrap {width:25%; max-width:325px; flex:1; padding:10px}
+.services {
+  height:100%;
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .service_modal {display:none;}
 
 .service_modal {
@@ -875,6 +882,9 @@ transform:rotate(30deg);
   flex-direction: column;
 }
 
+@media (hover: hover) and (pointer: fine) {
+
+
 .service:hover .service_content {height:300px;  }
 
 .service:hover .button { display:block; color:white; border-color:white; width:100%; text-align:center;}
@@ -884,6 +894,8 @@ transform:rotate(30deg);
   padding:10px; 
   color:white;
   font-size:16px
+}
+
 }
 
 .service_content .button {

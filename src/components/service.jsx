@@ -10,7 +10,7 @@ export default function Service(props) {
 
     <div className={ props.active ? 'service_wrap active' : 'service_wrap' } >
 
-    { props.active ? <div className="close" onClick={props.goBack}></div> : '' }
+    { props.active ? <div className="close" onClick={props.goBack}>X</div> : '' }
 
     <div className="service" onClick={props.onClick}>
             

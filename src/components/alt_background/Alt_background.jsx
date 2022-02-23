@@ -1,4 +1,5 @@
 import './alt_background.css';
+import DownArrow from '../DownArrow';
 
 export default function Alt_background() {
     return (
@@ -9,8 +10,8 @@ export default function Alt_background() {
            <div className="right anim_border"></div>
            <div className="bottom anim_border"></div>
 
-            <div className="center_section"></div>
-
+            <div className="center_section">  <DownArrow/></div>
+      
         </div>
 
 

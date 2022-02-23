@@ -15,7 +15,7 @@ import Membership from './home/Membership';
 import Services from './home/Services';
 import Breadcrumbs from './components/navigation/Breadcrumbs';
 
-const anchors = ["first", "second", "third","fourth","fifth","sixth"];
+const anchors = ["first", "second", "third","fourth"];
 
 const currentPanel = 'Pause';
 
@@ -103,12 +103,7 @@ export default function Fullpage({onClick}) {
           <div className="section">
             <Heart_section paused={currentPanel != 'fourth'} />
           </div>
-          <div className="section">
-          <Icons  paused={currentPanel != 'fifth'}  />
-          </div>
-          <div className="section">
-          <Membership  paused = {currentPanel != 'sixth'}/>
-          </div>
+    
         </ReactFullpage.Wrapper>
       </div>
       );

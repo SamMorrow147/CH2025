@@ -274,6 +274,11 @@ display:flex;
   filter: brightness(11)grayscale(1);
 }
 
+.top_content.even .wordmark {
+  filter:unset;
+}
+
+
 .second_content {
   align-self: center;
   width: 50%;
@@ -609,14 +614,23 @@ img.logo-bottom {
   width:100vw;
 }
 
+.mobile_icon {display:none;}
+
 .menu {
   position: fixed;
   height: 60px;
   width: 100%;
   background: white;
-  z-index: 1;
+  z-index: 0;
   top:-60px;
   transition:.5s;
+}
+.menu.even {
+  background: #2a3b8d;
+}
+
+.top-content.even .wordmark {
+  filter: brightness(11)grayscale(1);
 }
 
 .menu_active {
@@ -644,7 +658,7 @@ animation: shorten .5s forwards !important;
   animation:buttons_move 1s forwards !important;
   animation-delay:1.5s;
   position:relative;
-  padding-top:15px
+  padding-top:10px
 }
 
 .active-bar .button_wrapper a {
@@ -658,8 +672,8 @@ animation: shorten .5s forwards !important;
 }
 
 @keyframes shorten {
-  0% {width:600px;     filter: brightness(11)grayscale(1);}
-  100% {width:200px; filter:none;}
+  0% {width:600px;}
+  100% {width:200px; }
 }
 
 @keyframes logo_shorten {

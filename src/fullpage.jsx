@@ -18,7 +18,7 @@ import Breadcrumbs from './components/navigation/Breadcrumbs';
 const anchors = ["first", "second", "third","fourth"];
 
 const currentPanel = 'Pause';
-
+let currentIndex = 0;
 export default function Fullpage({onClick}) {
   var offset = '0';
  
@@ -28,17 +28,19 @@ export default function Fullpage({onClick}) {
       
   <ReactFullpage
     anchors={anchors}
-    fixedElements='.breadcrumbs'
+    fixedElements='.breadcrumbs, .menu'
     onLeave={(origin, destination, direction) => {
     //   console.log("onLeave event", { origin, destination, direction });
     }}
   
     render={({ state, fullpageApi, origin, currentPanel}) => {
 
-
       currentPanel = 'Pause'
 
-        if (state.lastEvent === "onLeave") {
+      if (state.lastEvent === "onLeave") {
+         currentIndex = state.destination.index
+        
+        console.log(currentIndex)
           offset = state.destination.item.offsetTop
           var lines = document.querySelectorAll('.path'), i;
           var lines_bottom_right = document.querySelectorAll('.path-bottom-right'), i;
@@ -88,11 +90,11 @@ export default function Fullpage({onClick}) {
 
       return (
         <div>
-        <Breadcrumbs items={anchors} anchor={currentPanel} />
-
+        {/* <Breadcrumbs items={anchors} anchor={currentPanel} /> */}
+        <Menu currentScroll={currentIndex}/>
         <ReactFullpage.Wrapper>
           <div className="section">
-            <Top onClick={onClick} />
+            <Top onClick={onClick} currentScroll={currentIndex} />
           </div>
           <div className="section ">
             <About paused={currentPanel != 'second'} />

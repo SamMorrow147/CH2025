@@ -20,8 +20,6 @@ const App = () => {
   return (
     <BrowserRouter>
   <div className="wrapper">
-    
-    <Menu/>
     <Fullpage onClick={showContact} /> 
     { showResults ? <Contact_fixed onClick={hideContact}/> : null }
   </div>

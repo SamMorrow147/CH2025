@@ -605,8 +605,7 @@ img.logo-bottom {
 
 .glimmer {
   background: rgb(255,255,255);
-  background: linear-gradient(131deg, rgba(255,255,255,1) 4%, rgba(255,255,255,0) 16%, rgba(255,255,255,1) 36%, rgba(255,255,255,1) 55%, rgba(255,255,255,0.23573179271708689) 79%, rgba(255,255,255,1) 94%);
-  height:100%;
+  background: linear-gradient(131deg, rgba(255,255,255,1) 4%, rgb(255 255 255 / 55%) 16%, rgba(255,255,255,1) 36%, rgba(255,255,255,1) 55%, rgb(255 255 255 / 66%) 79%, rgba(255,255,255,1) 94%);  height:100%;
   width:100vw;
 }
 

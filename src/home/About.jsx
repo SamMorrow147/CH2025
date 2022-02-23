@@ -10,7 +10,7 @@ export default function About({paused}) {
 
                 <div className="second_content">
                     <h2>WE ARE A<span> CREATIVE</span> POWERHOUSE</h2>
-                    <p>A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD <TextLoop children={["COOL $#!%", "PORTFOLIOS", "IDEAS", "FIVE"]} /></p>
+                    <p>A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD <TextLoop children={["COOL $#!%", "STORIES", "BRANDS", "CAMPAIGNS", "ADS", "START-UPS", "PACKAGE DESIGNS", "BUSINESSES", "LEGENDS"]} /></p>
                 </div>
                 <Table paused = {paused}/>
                 

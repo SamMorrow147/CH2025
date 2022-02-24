@@ -5,6 +5,19 @@
     display:none;
   }
 
+  .service_wrap  .service div:nth-child(3) img {
+    animation:fadeIn 1s forwards;
+  }
+
+  .service div img {
+    max-width:200px;
+  }
+
+  @keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1}
+  }
+
   .services {
     height:100%;
     display:flex;
@@ -34,21 +47,30 @@
   .service_wrap.active .service_text {color:white;}
 
   .service_wrap.active .service div:nth-child(1) img {
-    bottom:0px;
+    margin-bottom:0px;
+    top: 0;
+    max-height: 50%;
+    margin: auto;
+    left: 0;
+    right: 0;
   }
 
   .service_wrap.active .service_content {
-    position: relative;
-    height: 300px;
+    position: absolute;
+    height: auto;
     background: transparent;
-    border:unset;
-    top:50px;
+    border: unset;
+    bottom: 0px;
+    padding: 10px;
+    height: 50%;
   }
 
   .service_content h2 {
     text-align: left;
     margin-left: 20px;
   }
+
+  
 
   .close {
     width: 50px;

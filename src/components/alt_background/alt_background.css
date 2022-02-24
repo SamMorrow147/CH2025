@@ -53,7 +53,7 @@
     width:10vw;
     max-width:120px;
     height:100%;
-    top:10vh;
+    top:10%;
     right:0;
     animation: right-animation var(--animation_speed) infinite linear;
 
@@ -73,7 +73,7 @@
   
   .alt-animation-back .bottom {
     width:100vw;
-    height:10vh;
+    height:10%;
     bottom:0;
     right:0;
     animation: bottom-animation var(--animation_speed) infinite linear;

@@ -117,7 +117,10 @@ font-family: nobel, sans-serif;
 font-weight: 700;
 }
 
-.close {display:none;}
+.close {
+  display:none;
+}
+
 .path {
   animation: dash 3s  forwards ; 
 }
@@ -391,6 +394,7 @@ display:flex;
   width: 50%;
   transition:2s;
   opacity:0;
+  padding-left:10px;
 }
 
 .heart_content h2 {
@@ -763,7 +767,6 @@ animation: shorten .5s forwards !important;
 }
 
 .city_animation {
-  max-width: 786px;
   position: relative;
   margin-left: auto;
   z-index: 1;
@@ -929,7 +932,10 @@ transform:rotate(30deg);
   }
 }
 
-.service_wrap {width:25%; max-width:325px; flex:1; padding:10px}
+.service_wrap {
+  width:25%;
+   flex:1; 
+   padding:10px}
 .services {
   height:100%;
   display:flex;
@@ -996,7 +1002,10 @@ transform:rotate(30deg);
   flex-direction: column;
 }
 
-@media (hover: hover) and (pointer: fine) {
+
+
+
+@media only screen and (min-width:800px) {
 
 
 .service:hover .service_content {height:300px;  }
@@ -1010,7 +1019,12 @@ transform:rotate(30deg);
   font-size:16px
 }
 
+
 }
+
+
+
+
 
 .service_content .button {
   position: absolute;

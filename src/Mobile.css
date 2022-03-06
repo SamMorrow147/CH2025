@@ -1,4 +1,4 @@
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 800px) {
 
 
   .service_wrap.active .service div:nth-child(3) img {
@@ -370,5 +370,69 @@ align-self: flex-start;
       top:-30px;
       width: 100%;
   }
+
+
+}
+
+
+@media only screen and (max-width: 1200px) and (min-width:800px) {
+
+  .service_content H2 {
+    font-size:25px;
+  }
+
+  .service_content {
+    height:36px;
+  }
+  
+
+}
+
+@media only screen and (max-width: 800px) and (min-width:700px) {
+
+  .service_content h2 {
+    font-size:40px;
+    text-align:center;
+  }
+
+  .service_content {
+    height:40px;
+    bottom:40%;
+    border-bottom:unset;
+  }
+  
+  .service_wrap.active .service_text {
+    font-size:25px;
+  }
+
+}
+
+@media only screen and (max-width: 1025px) and (min-width:700px) {
+
+.heart_content h2, .second_content h2 {
+  font-size:40px;
+  margin-bottom:30px;
+}
+
+.heart_content, .second_content {
+  padding-left:10px;
+}
+
+.heart_content p, .second_content p {
+  font-size:30px;
+}
+
+.city_animation {
+  width:80%;
+  margin:auto;
+}
+
+.table_animation {
+  width:60%;
+}
+
+.service:hover .service_content {
+  height:350px;
+}
 
 }

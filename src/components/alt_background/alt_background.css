@@ -27,8 +27,7 @@
   
   .alt-animation-back .top {
     width:100vw;
-    height:10vh;
-    max-height:120px;
+    height:15%;
     top:0;
     animation: top-animation var(--animation_speed) infinite linear;
     animation-direction: reverse;
@@ -50,8 +49,7 @@
   
   
   .alt-animation-back .right {
-    width:10vw;
-    max-width:120px;
+    width:10%;
     height:100%;
     top:10%;
     right:0;
@@ -72,8 +70,8 @@
   
   
   .alt-animation-back .bottom {
-    width:100vw;
-    height:10%;
+    width:100%;
+    height:15%;
     bottom:0;
     right:0;
     animation: bottom-animation var(--animation_speed) infinite linear;
@@ -94,8 +92,7 @@
   }
 
   .alt-animation-back .left {
-    width:10vw;
-    max-width:120px;
+    width:15%;
     height:100%;
     top:10vh;
     left:0;
@@ -111,7 +108,6 @@
     width:calc(50vw - 10vw);
     height:calc(100% - 20vh);
     background: linear-gradient(90deg, rgba(37,38,80,1) 0%, rgba(14,8,30,1) 45%);
-
     top:50%;
     left:0;
     transform:translate(15%, -50%);

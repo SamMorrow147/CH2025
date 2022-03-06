@@ -28,17 +28,12 @@
   }
 
   .mobile_icon {
-    display:block;
-    height: 50px;
+    display: block !important;
     position: absolute;
     top: 6px;
-    right: 0;
-    z-index: 100;
+    right: 10px;
     width: 65px;
     padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
 

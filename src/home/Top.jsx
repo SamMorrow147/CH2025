@@ -14,8 +14,9 @@ export default function Top({onClick, currentScroll}) {
 
             <div className={`${isEven(currentScroll) && currentScroll != 0 ? 'top_content even' : 'top_content'} ${currentScroll != 0 ? 'active-bar' : ''}`}>
                 <img className="logo" src="./images/animated-logo.gif" />
-                <img className="wordmark" src="./images/animated-wordmark.gif" />
 
+                <img className="wordmark" src={isEven(currentScroll)  && currentScroll != 0 ? '../images/wordmark.png' : '../images/wordmark_white.png'} />  
+              
                 <div className="button_wrapper">
                     <a href="" className="button" >LOGIN</a>
                     <a href="#contact" className="button contact_us" onClick={onClick}>CONTACT US</a>

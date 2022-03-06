@@ -168,6 +168,7 @@ margin-bottom:0px;
 
 .table_animation {
   margin-top:0px;
+  max-width:600px;
 }
 
 .second_wrapper, .heart_wrapper {
@@ -395,6 +396,10 @@ align-self: flex-start;
     text-align:center;
   }
 
+.service {
+  min-height: 72px;
+}
+
   .service_content {
     height:40px;
     bottom:40%;
@@ -407,7 +412,8 @@ align-self: flex-start;
 
 }
 
-@media only screen and (max-width: 1025px) and (min-width:700px) {
+@media only screen and (max-width: 1024px) and (min-width:799px) {
+
 
   .service_wrap {
     width:50%;

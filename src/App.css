@@ -349,12 +349,9 @@ display:flex;
   height:auto;
   animation:fadeIn 1s;
   transition:1s;
-  filter: brightness(11)grayscale(1);
 }
 
-.top_content.even .wordmark {
-  filter:unset;
-}
+.active-bar .wordmark {margin-left:10px;}
 
 
 .second_content {

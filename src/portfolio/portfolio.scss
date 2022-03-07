@@ -1,0 +1,208 @@
+@keyframes fadeIn {
+    0% {opacity:0; display:none;}
+    100% {opacity:1; display:block;}
+}
+
+@keyframes slideInLeft {
+    0% {margin-left:-100%; }
+    100% {margin-left:0%;}
+}
+
+
+.example-enter {
+    opacity: 0.01;
+  }
+  
+  .example-enter.example-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+  
+  .example-leave {
+    opacity: 1;
+  }
+  
+  .example-leave.example-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }
+  
+.portfolio {
+    background:lightblue;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+
+    .container {
+        max-height: calc(100vh - 145px);
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+        ::-webkit-scrollbar {
+            background:transparent;
+        }
+        .leftSide {
+        width:30%;
+        max-height: calc(100vh - 50px);
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        .panel {
+            animation:slideInLeft 1s forwards;
+            background:black;
+            padding:20px;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            color:white;
+            height:100%;
+            max-width:100%;
+        }
+
+        }
+
+        .work {
+            max-height: calc(100vh - 145px);
+            overflow-y: scroll;
+            display: grid;
+            grid-template-columns: repeat(auto-fill,minmax(25%,1fr));
+            align-items: start;
+            justify-items: center;
+            grid-gap: 3rem 3rem;
+            width:60%;
+            padding:20px;
+            margin-left: 30%;
+
+            .info {
+                display:none;
+                position: absolute;
+                z-index: 5;
+                /* width: 100%; */
+                top: 0px;
+                background: white;
+                width: 100%;
+                padding: 0px;
+            }
+        }
+    
+    
+    }
+
+
+    > ul {
+    margin:10px; 
+    padding:0;
+    list-style:none;
+    display:flex;
+    width:70%;
+    margin-left:auto;
+    justify-content: space-evenly;
+
+         li {
+        transition:.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+             margin:10px;
+             padding:6px;
+             font-variant: all-petite-caps;
+            cursor:pointer;
+            font-size: 25px;
+
+             &.active {
+                background: #92c9db;
+                border-radius: 14px;
+                padding-right: 25px;
+                padding-left: 15px;
+
+                         }
+
+             img {height:30px; margin-right:10px;}
+         }
+    }
+
+
+ 
+
+    .item * {transition:.3s}
+    .item {
+        cursor:pointer;
+        width: 100%;
+        position: relative;
+        background: white;
+        margin: auto;
+        border-radius:10px;
+        animation:fadeIn 1s forwards;
+        transition:.2s;
+
+    
+
+        .title {
+            display:flex;
+            background:black;
+            color:white;
+            border-top-right-radius: 10px;
+
+            .icon {
+                width: 60px;
+                height: 60px;
+                margin-top: -7px;
+                margin-left: -19px;
+                border-radius: 100%;
+                background: black;
+                margin-bottom: -22px;    
+                display:flex;
+                justify-content:center;
+                align-items:center;
+
+                img {width:50px; background:white; border-radius:100%;}
+             }
+
+             
+        }
+
+        &.magento { .title, .icon {background:#e64818;}}
+        &.wordpress { .title, .icon {background:#007298;}}
+        &.shopify { .title, .icon {background:#69842f;}}
+
+
+        .info {
+            padding:10px;
+        }
+            .image {
+                width: 100%;
+                height: 145px;
+                background-size: cover;
+                background-position: center center;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            overflow: hidden;
+            }
+
+            h3 {
+                margin:auto;
+            }
+
+    }
+
+    .item:hover {
+        transform:scale(1.1);
+        transition: .3s;
+        
+        
+
+        .info {display:none;}
+        .icon {transform:rotate(-30deg)}
+        .title {
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+    }
+
+}
+

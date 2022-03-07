@@ -2,19 +2,18 @@
 import Top from './home/Top'
 import ReactFullpage from '@fullpage/react-fullpage';
 import About from './home/About'
-import Menu from './Menu';
+import MainMenu from './home/MainMenu';
 import HeartSection from './home/HeartSection'
 import Services from './home/Services';
+import React from 'react';
+import Portfolio from './portfolio/Portfolio'
 
-
-const anchors = ["first", "second", "third","fourth"];
+const anchors = ["first", "second", "third","fourth","fifth"];
 
 let currentIndex = 0;
-export default function Fullpage({onClick}) {
+export default function Fullpage({onClick, setIsOpen}) {
   var offset = '0';
  
- 
-
     return (
       
   <ReactFullpage
@@ -83,9 +82,11 @@ export default function Fullpage({onClick}) {
       return (
         <div>
         {/* <Breadcrumbs items={anchors} anchor={currentPanel} /> */}
-        <Menu currentScroll={currentIndex}/>
+        <MainMenu currentScroll={currentIndex} onClick={setIsOpen}/>
+
         <ReactFullpage.Wrapper>
-          <div className="section">
+
+          <div className="section"  >
             <Top onClick={onClick} currentScroll={currentIndex} />
           </div>
           <div className="section ">
@@ -96,6 +97,10 @@ export default function Fullpage({onClick}) {
           </div>
           <div className="section">
             <HeartSection paused={currentPanel !== 'fourth'} />
+          </div>
+
+          <div className="section">
+            <Portfolio paused={currentPanel !== 'fifth'} />
           </div>
     
         </ReactFullpage.Wrapper>

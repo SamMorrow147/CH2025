@@ -10,7 +10,7 @@ export default function Alt_background() {
            <div className="right anim_border"></div>
            <div className="bottom anim_border"></div>
 
-            <div className="center_section">  <DownArrow/></div>
+            <div className="center_section"><DownArrow/></div>
       
         </div>
 

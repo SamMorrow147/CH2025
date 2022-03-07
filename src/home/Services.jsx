@@ -48,7 +48,7 @@ export default function Services(props, {paused}) {
                     <div className="services">
 
 
-                    {values.map((val) => (
+                    {values.map((val,index) => (
                         <Service 
                         onClick={() => makeActive(val.id, val.title) }
                         paused={paused}
@@ -56,6 +56,7 @@ export default function Services(props, {paused}) {
                         title={val.title}
                         text={val.text}
                         image={val.image}
+                        key={index}
                         goBack={() => removeActive() }
                         />
 

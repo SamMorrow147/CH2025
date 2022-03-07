@@ -1017,6 +1017,8 @@ transform:rotate(30deg);
 }
 
 
+.table_animation, .city_animation {max-width:50%;}
+
 }
 
 

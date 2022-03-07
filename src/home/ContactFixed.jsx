@@ -1,6 +1,6 @@
 import Contact_card from "../components/Contact_card"
 
-export default function Contact_fixed({onClick}) {
+export default function ContactFixed({onClick}) {
     return (
 
         <div className="contact_fixed">

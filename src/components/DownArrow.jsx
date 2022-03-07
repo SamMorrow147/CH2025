@@ -2,10 +2,10 @@
 export default function DownArrow() {
 
     return (      
-        <div class="container_2">
-            <div class="chevron"></div>
-            <div class="chevron"></div>
-            <div class="chevron"></div>
+        <div className="container_2">
+            <div className="chevron"></div>
+            <div className="chevron"></div>
+            <div className="chevron"></div>
         </div>
     )
 }

@@ -2,22 +2,13 @@
 import Top from './home/Top'
 import ReactFullpage from '@fullpage/react-fullpage';
 import About from './home/About'
-import AnimateCC, { GetAnimationObjectParameter } from "react-adobe-animate";
 import Menu from './Menu';
-import Heart_section from './home/Heart_section'
-import Contact from './home/Contact';
-import Contact_fixed from './home/Contact_fixed';
-import React, { Component, useEffect, useState } from 'react';
-import Agency from './home/Agency'
-import Icons from './home/Icons'
-import New_top from './home/New_top'
-import Membership from './home/Membership';
+import HeartSection from './home/HeartSection'
 import Services from './home/Services';
-import Breadcrumbs from './components/navigation/Breadcrumbs';
+
 
 const anchors = ["first", "second", "third","fourth"];
 
-const currentPanel = 'Pause';
 let currentIndex = 0;
 export default function Fullpage({onClick}) {
   var offset = '0';
@@ -28,6 +19,7 @@ export default function Fullpage({onClick}) {
       
   <ReactFullpage
     anchors={anchors}
+    lockAnchors={true}
     fixedElements='.breadcrumbs, .menu'
     onLeave={(origin, destination, direction) => {
     //   console.log("onLeave event", { origin, destination, direction });
@@ -65,7 +57,7 @@ export default function Fullpage({onClick}) {
                 currentPanel = state.destination.anchor;
                 }
 
-                if (state.destination.anchor == 'second' &&  state.direction == 'down') {
+                if (state.destination.anchor === 'second' &&  state.direction === 'down') {
                     const wrapper = document.querySelector('.wrapper');
                     wrapper.appendChild(document.querySelector('.top_content'))
                     document.querySelector('.top_content').classList.add("active-bar");
@@ -73,7 +65,7 @@ export default function Fullpage({onClick}) {
                     document.querySelector('.menu').classList.add('menu_active')
                 }
 
-                if (state.destination.anchor == 'first') {
+                if (state.destination.anchor === 'first') {
                     const wrapper = document.querySelector('.top_section');
                     wrapper.appendChild(document.querySelector('.top_content'))
                     document.querySelector('.top_content').classList.remove("active-bar");
@@ -97,13 +89,13 @@ export default function Fullpage({onClick}) {
             <Top onClick={onClick} currentScroll={currentIndex} />
           </div>
           <div className="section ">
-            <About paused={currentPanel != 'second'} />
+            <About paused={currentPanel !== 'second'} />
           </div>
           <div className="section">
-            <Services paused = {currentPanel != 'third'} offset={offset}/>
+            <Services paused = {currentPanel !== 'third'} offset={offset}/>
           </div>
           <div className="section">
-            <Heart_section paused={currentPanel != 'fourth'} />
+            <HeartSection paused={currentPanel !== 'fourth'} />
           </div>
     
         </ReactFullpage.Wrapper>

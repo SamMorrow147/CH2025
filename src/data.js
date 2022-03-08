@@ -3,10 +3,10 @@ export const PortfolioData = [
         id:1,
         title:'All Stacked Up',
         category:['other'],
-        img:'/images/all-stacked-up-img.PNG',
+        img:'/images/portfolio/all-stacked-up-img.png',
         tags:['Construction', 'Front End'],
         link:'https://allstackedup.com/',
-        mobileImage:'/images/portfolio/mobile/blackfish.png',
+        mobileImage:'/images/portfolio/mobile/allstackedup.png',
         text:'',
         animation:''
     },
@@ -39,7 +39,7 @@ export const PortfolioData = [
         img:'./images/portfolio/blackfish.PNG',
         tags:['E-Commerce','front end','magento'],
         link:'https://www.blackfishgear.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/blackfishgear.png',
         text:'',
         animation:''
     },
@@ -72,7 +72,7 @@ export const PortfolioData = [
         img:'./images/portfolio/devils-lake-img.PNG',
         tags:['design','develop'],
         link:'https://devilslakend.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/devilslake.png',
         text:'',
         animation:''
     },
@@ -83,7 +83,7 @@ export const PortfolioData = [
         img:'./images/portfolio/fiocchi-img.PNG',
         tags:['data managment','front end','back end','multi-lingual'],
         link:'https://fiocchi.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/fiocchi.png',
         text:'',
         animation:''
     },
@@ -127,7 +127,7 @@ export const PortfolioData = [
         img:'./images/portfolio/gator-eyes.PNG',
         tags:['E-Commerce','design','animation'],
         link:'https://gatoreyeslights.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/gatoreyes.png',
         text:'',
         animation:''
     },
@@ -138,7 +138,7 @@ export const PortfolioData = [
         img:'./images/portfolio/gchockey-img.PNG',
         tags:['design','concrete 5'],
         link:'https://www.gchockey.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/gchockey.png',
         text:'',
         animation:''
     },
@@ -149,7 +149,7 @@ export const PortfolioData = [
         img:'./images/portfolio/howes-fishing-img.PNG',
         tags:['design','develop'],
         link:'https://www.howesfishing.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/howesfishing.png',
         text:'',
         animation:''
     },
@@ -160,7 +160,7 @@ export const PortfolioData = [
         img:'./images/portfolio/twincities-img.PNG',
         tags:['streaming service','design','AWS servers'],
         link:'https://www.twincitiesfilmfest.org/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/twincitiesfilmfest.png',
         text:'',
         animation:''
     },
@@ -171,7 +171,7 @@ export const PortfolioData = [
         img:'./images/portfolio/operator-coffee.PNG',
         tags:['shopify','design','product management'],
         link:'https://www.operatorcoffee.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/operatorcoffee.png',
         text:'',
         animation:''
     },
@@ -182,7 +182,7 @@ export const PortfolioData = [
         img:'./images/portfolio/mntable-img.PNG',
         tags:['E-Commerce','Animation','Delviery Service'],
         link:'https://www.themntable.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/themntable.png',
         text:'',
         animation:''
     },
@@ -193,7 +193,7 @@ export const PortfolioData = [
         img:'./images/portfolio/techwear-img.PNG',
         tags:['design'],
         link:'https://techwearusa.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/techwear.png',
         text:'',
         animation:''
     },
@@ -204,7 +204,7 @@ export const PortfolioData = [
         img:'./images/portfolio/i94west-chamber.PNG',
         tags:['design','develop'],
         link:'https://i94westchamber.org/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/i94westchamber.png',
         text:'',
         animation:''
     },
@@ -215,7 +215,7 @@ export const PortfolioData = [
         img:'./images/portfolio/ids-suits-img.PNG',
         tags:['other','design','develop'],
         link:'https://ids-executivesuites.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/ids.png',
         text:'',
         animation:''
     },
@@ -226,18 +226,7 @@ export const PortfolioData = [
         img:'./images/portfolio/lucys-burgers.PNG',
         tags:['Multi Location','Design','Develop'],
         link:'https://lucysburgers.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
-        text:'',
-        animation:''
-    },
-    {
-        id:22,
-        title:'National Recoveries',
-        category:['wordpress'],
-        img:'./images/portfolio/nri-image.PNG',
-        tags:['developer'],
-        link:'https://nationalrecoveries.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/lucysburger.png',
         text:'',
         animation:''
     },
@@ -248,7 +237,7 @@ export const PortfolioData = [
         img:'./images/portfolio/pinky-swear.PNG',
         tags:['Non-profit','develop','design'],
         link:'https:/pinkyswear.org/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/pinkyswear.png',
         text:'',
         animation:''
     },
@@ -259,7 +248,7 @@ export const PortfolioData = [
         img:'./images/portfolio/polar-img.PNG',
         tags:['E-Commerce','design','develop'],
         link:'https://polartrailer.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/polartrailer.png',
         text:'',
         animation:''
     },
@@ -267,10 +256,10 @@ export const PortfolioData = [
         id:25,
         title:'Roberts Fine Jewlery',
         category:['other'],
-        img:'./images/portfolio/robers-img.PNG',
+        img:'./images/portfolio/roberts-img.PNG',
         tags:['design','develop'],
         link:'https://robertsfinejewelry.net/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/roberts.png',
         text:'',
         animation:''
     },
@@ -281,7 +270,7 @@ export const PortfolioData = [
         img:'./images/portfolio/the-visor-guy-img.PNG',
         tags:['animation','develop','E-Commerce'],
         link:'https://thevisorguy.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/visorguy.png',
         text:'',
         animation:''
     },
@@ -292,7 +281,7 @@ export const PortfolioData = [
         img:'./images/portfolio/triggered-img.PNG',
         tags:['develop','design'],
         link:'https://triggerdexpo.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/triggered.png',
         text:'',
         animation:''
     },
@@ -303,7 +292,7 @@ export const PortfolioData = [
         img:'./images/portfolio/vexilar-img.PNG',
         tags:['E-Commerce','frontend','Data Managment'],
         link:'https://vexilar.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/vexilar.png',
         text:'',
         animation:''
     },
@@ -314,7 +303,7 @@ export const PortfolioData = [
         img:'./images/portfolio/wagner-img.PNG',
         tags:['construction'],
         link:'https://wagnerconstructionmn.com/',
-        mobileImage:'/images/portfolio/mobile/.png',
+        mobileImage:'/images/portfolio/mobile/wagner.png',
         text:'',
         animation:''
     },

@@ -70,6 +70,7 @@ setCurrentpanel(0);
                     link={item.link}
                     slug={slugify(item.title)}
                     id={item.id}
+                    mobileImage={item.mobileImage}
                     />
                 ))
             )

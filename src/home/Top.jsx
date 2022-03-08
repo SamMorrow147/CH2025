@@ -1,6 +1,7 @@
 import Background from './Background';
 import Alt_background from '../components/alt_background/Alt_background'
 
+
 export default function Top({onClick, currentScroll}) {
 
 
@@ -19,6 +20,7 @@ export default function Top({onClick, currentScroll}) {
               
                 <div className="button_wrapper">
                     <a href="" className="button" >LOGIN</a>
+                    
                     <a href="#contact" className="button contact_us" onClick={onClick}>CONTACT US</a>
                 </div>
 

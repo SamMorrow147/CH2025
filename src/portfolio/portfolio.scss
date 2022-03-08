@@ -8,6 +8,14 @@
     100% {margin-left:0%;}
 }
 
+@keyframes phoneScroll {
+0%  {background-position:top center;}
+50%  {background-position:bottom center;}
+60%  {background-position:bottom center;}
+90%  {background-position:top center;}
+100%  {background-position:top center;}
+}
+
 
 .example-enter {
     opacity: 0.01;
@@ -26,6 +34,10 @@
     opacity: 0.01;
     transition: opacity 300ms ease-in;
   }
+
+  #root, .portfolio {
+      height:100%;
+  }
   
 .portfolio {
     background:lightblue;
@@ -34,8 +46,9 @@
     align-items: center;
 
     .container {
-        max-height: calc(100vh - 145px);
-
+        max-height: 100%;
+        max-width:100% !important;
+        padding:0px !Important;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
@@ -46,7 +59,7 @@
         }
         .leftSide {
         width:30%;
-        max-height: calc(100vh - 50px);
+        max-height: 100%;
         height: 100%;
         position: absolute;
         top: 0;
@@ -54,28 +67,42 @@
 
         .panel {
             animation:slideInLeft 1s forwards;
-            background:black;
-            padding:20px;
+            background:white;
             display:flex;
             justify-content: center;
             align-items: center;
             color:white;
             height:100%;
             max-width:100%;
+            place-content:flex-start;
+            flex-direction:column;
+
+            .title h2 {
+                color:black;
+                font-size:70px !important;
+                margin:auto;
+            }
+
+            .topBanner {
+                width:100%;
+                height:30%;
+                background-size:cover;
+                background-position:center;
+            }
         }
 
         }
 
         .work {
-            max-height: calc(100vh - 145px);
+            max-height: 100%;
             overflow-y: scroll;
             display: grid;
             grid-template-columns: repeat(auto-fill,minmax(25%,1fr));
             align-items: start;
             justify-items: center;
             grid-gap: 3rem 3rem;
-            width:60%;
-            padding:20px;
+            width:70%;
+            padding: 30px;
             margin-left: 30%;
 
             .info {
@@ -206,3 +233,83 @@
 
 }
 
+
+
+
+.phone {
+    width: 250px;
+    height: 450px;
+    background:  linear-gradient(black, rgb(29, 29, 29), black);
+    padding:15px;
+    border-radius: 15px;
+    position: absolute;
+    top: 10px;
+    transform: rotate(2deg);
+    z-index: 1;
+    display:none;
+    right: -270px;
+}
+
+.phone::after {
+    content:'';
+    display:block;
+    position:absolute;
+    top:10px;
+    height:20px;
+    width:80px;
+    border-bottom-right-radius:20px;
+    border-bottom-left-radius:20px;
+    background:black;
+    left:0;
+    right:0;
+    margin:auto;
+    
+}
+
+.phoneBar {
+    height:12%;
+    width:100%;
+    background:#cbcbcb;
+    position:relative;
+    display: flex;
+    justify-content: center;
+    border-top-right-radius:8px;
+    border-top-left-radius:8px;
+}
+
+
+.searchBar {
+    background:#9799a0;
+   margin:auto;
+    border-radius:10px;
+    position:absolute;
+    bottom:5px;
+    width:100%;
+    display:block;
+    font-size:10px;
+    max-width: 80%;
+    text-align:center;
+    overflow:hidden;
+}
+
+.time {
+    position: ABSOLUTE;
+    left: 11PX;
+    color: black;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.phoneContent {
+    height: 88%; 
+    background-size:cover; 
+    background-position:top center;
+    animation: phoneScroll 20s infinite;
+    border-bottom-right-radius:8px;
+    border-bottom-left-radius:8px;
+}
+
+.panel:hover .phone {
+    animation:flyIn .8s forwards;
+    display:block;
+}

@@ -10,10 +10,12 @@ import {
 } from "react-router-dom";
 
 import Portfolio from './portfolio/Portfolio';
-import ContactFixed from './home/ContactFixed';
+
+import AnimatedCursor from 'react-animated-cursor'
 
 ReactDOM.render(
   <BrowserRouter>
+
     <Routes>
 
       {["/", "/STRATEGY", "/BRANDING", "/WEB", "/CONTENT","/contact"].map((path, index) => 

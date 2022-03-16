@@ -4,6 +4,7 @@ import Fullpage  from './Fullpage';
 import React from 'react';
 import ContactFixed from './home/ContactFixed'
 import MobileMenu from './MobileMenu';
+import Cursor from './components/Cursor'
 
 const App = () => {
     const [showResults, setShowResults] = React.useState(false)
@@ -17,9 +18,13 @@ const App = () => {
   return (
    
   <div className="wrapper">
+    <Cursor/>
+    
         <Fullpage onClick={showContact} setIsOpen={toggleOpen} /> 
     { window.location.href.indexOf('contact') > -1 ? <ContactFixed onClick={hideContact}/> : null }
     { isOpen ? <MobileMenu/> : null }
+    
+
 
   </div>
 

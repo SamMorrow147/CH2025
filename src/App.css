@@ -17,12 +17,61 @@
 @import url("https://use.typekit.net/alp7dft.css");
 
 
+@keyframes blinking {
+  0% {
+    opacity:1;
+  }
+  50% {opacity:0;}
+  100% {opacity:1;}
+}
+
+/* 
+
+.cursor {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #121212;
+  border-radius: 100%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  z-index:50;
+}
+
+html,body {
+  cursor: none
+}
+html *,body * {
+  cursor: none;
+}
+
+.c--hidden {
+   opacity: 0;
+}
+
+.c--click {
+  transform: translate(-50%, -50%) scale(0.5);
+  background-color: #121212;
+}
+.cursor {
+  pointer-events: none;
+  transition: all 100ms ease;
+  transition-property: opacity, background-color, transform;
+}  */
+
+.Typist .Cursor {
+  animation:blinking 1s infinite;
+}
+
+
 
 .fp-responsive .fp-auto-height-responsive .fp-slide, 
 .fp-responsive .fp-auto-height-responsive .fp-tableCell,
 .fp-responsive .fp-auto-height-responsive.fp-section {
     height: auto!important;
 }
+
+
+
 
 
 .container_2 {

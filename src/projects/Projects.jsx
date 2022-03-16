@@ -34,6 +34,7 @@ export default function Projects() {
                             slug={slugify(item.title)}
                             id={item.id}
                             theIndex={index}
+                            key={index}
                             />
                         ))
                     }

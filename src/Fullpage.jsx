@@ -6,7 +6,7 @@ import MainMenu from './home/MainMenu';
 import HeartSection from './home/HeartSection'
 import Services from './home/Services';
 import React from 'react';
-import Portfolio from './portfolio/Portfolio'
+import Projects from './projects/Projects';
 
 const anchors = ["first", "second", "third","fourth","fifth"];
 
@@ -93,14 +93,14 @@ export default function Fullpage({onClick, setIsOpen}) {
             <About paused={currentPanel !== 'second'} />
           </div>
           <div className="section">
-            <Services paused = {currentPanel !== 'third'} offset={offset}/>
+            <Services paused = {currentPanel !== 'third'} offset={offset} onClick={onClick} />
           </div>
           <div className="section">
             <HeartSection paused={currentPanel !== 'fourth'} />
           </div>
 
           <div className="section">
-            <Portfolio paused={currentPanel !== 'fifth'} />
+            <Projects paused={currentPanel !== 'fifth'} />
           </div>
     
         </ReactFullpage.Wrapper>

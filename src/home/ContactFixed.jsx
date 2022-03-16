@@ -1,10 +1,20 @@
 import Contact_card from "../components/Contact_card"
+import { useNavigate } from 'react-router-dom';
 
-export default function ContactFixed({onClick}) {
+export default function ContactFixed() {
+
+    const history = useNavigate();
+
+
+    const removeActive = () => {
+        history('/')
+      }
+
+
     return (
 
         <div className="contact_fixed">
-            <div className="contact_back" onClick={onClick}></div>
+            <div className="contact_back" onClick={removeActive}></div>
             <Contact_card/>
         </div>
         

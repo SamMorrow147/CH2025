@@ -9,13 +9,19 @@ import {
   Route,
 } from "react-router-dom";
 
-import Portfolio from './portfolio/Portfolio'
+import Portfolio from './portfolio/Portfolio';
+import ContactFixed from './home/ContactFixed';
 
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="sales" element={<Portfolio />} />
+
+      {["/", "/STRATEGY", "/BRANDING", "/WEB", "/CONTENT","/contact"].map((path, index) => 
+        <Route path={path} component={App} key={index} element={<App/>} />
+    )}
+
+    <Route path="sales" element={<Portfolio />} />
+
     </Routes>
   </BrowserRouter>,
   document.getElementById('root')

@@ -33,6 +33,9 @@
   margin: auto;
   left: 0;
   right: 0;
+  animation:fadeIn 2s forwards;
+  animation-delay:3s;
+  opacity:0;
 }
 
 .chevron {
@@ -499,8 +502,77 @@ z-index:2;}
   }
 }
 
+.project_wrapper {
+  height: calc(100% - 60px);
+    margin-top: 120px;
+}
 
-.icons_section, .agency_section, .services_section {
+.project_item .image {
+  width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position:center center;
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.project_content {
+  width:100%;
+  height: 100%;
+  display:flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+  justify-content: center;
+  height:100%;
+  padding:20px;
+}
+
+.project_item {
+  width:100%;
+  max-width:calc(50% - 20px);
+  min-height:300px;
+  border: 4px solid#3196c3;
+  border-radius:20px;
+  animation:fadeIn 1s forwards;
+  position:relative;
+  overflow:hidden;
+  margin:10px;
+}
+
+
+.project_title {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project_title h3 {
+  font-size:40px;
+  color:white;
+}
+
+.project_item .title h3 {
+  BACKGROUND: #3195c3;
+  font-family: 'nobel';
+  font-variant: all-petite-caps;
+  padding-bottom: 3px;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 0px;
+  font-size: 25px;
+}
+
+
+.project_text {
+  flex-grow: 1;
+    height: 100%;
+}
+
+.icons_section, .agency_section, .services_section, .project_section {
   height: 100%;
   width:100%;
   background-color:#293a8d;
@@ -635,7 +707,7 @@ z-index:2;}
 
 
 
-.second_section, .icons_section, .heart_section, .agency_section {
+.second_section, .icons_section, .projects_section, .agency_section {
   height:100%;
     display: block;
     width:100vw;
@@ -929,10 +1001,21 @@ transform:rotate(30deg);
   }
 }
 
+
 .service_wrap {
   width:25%;
    flex:1; 
    padding:10px}
+
+   .service_anchor {
+     position:absolute;
+     top:0;
+     left:0;
+     width:100%;
+     height:100%;
+     z-index:3;
+   }
+   
 .services {
   height:100%;
   display:flex;
@@ -979,6 +1062,7 @@ transform:rotate(30deg);
   z-index:2;
 }
 
+
 .service_content  img {
   display: block;
   z-index: 1;
@@ -1004,6 +1088,7 @@ transform:rotate(30deg);
 
 @media only screen and (min-width:800px) {
 
+  .service_anchor {display:none;}
 
 .service:hover .service_content {height:300px;  }
 
@@ -1022,7 +1107,10 @@ transform:rotate(30deg);
 
 
 
-
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
 
 .service_content .button {
   position: absolute;

@@ -18,7 +18,7 @@ const App = () => {
    
   <div className="wrapper">
         <Fullpage onClick={showContact} setIsOpen={toggleOpen} /> 
-    { showResults ? <ContactFixed onClick={hideContact}/> : null }
+    { window.location.href.indexOf('contact') > -1 ? <ContactFixed onClick={hideContact}/> : null }
     { isOpen ? <MobileMenu/> : null }
 
   </div>

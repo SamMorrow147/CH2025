@@ -11,9 +11,9 @@ export default function Service(props) {
     <div className={ props.active ? 'service_wrap active' : 'service_wrap' } >
 
     { props.active ? <div className="close" onClick={props.goBack}>X</div> : '' }
+    {props.active ? '' : <div className="service_anchor" onClick={props.onClick}></div>  }
 
-    <div className="service" onClick={props.onClick}>
-            
+    <div className="service">
         
         <div>
         { props.paused ? <Image src=''/> : <Image src={props.image} />  }
@@ -24,7 +24,7 @@ export default function Service(props) {
             <p className="service_text">
                 {props.text}
             </p>
-          <Button text="CONTACT US" />
+          <Button text="CONTACT US" className="contact_us" link={props.link}/>
         </div>
 
         <div>

@@ -4,7 +4,11 @@ import Button from '../components/button/button'
 import Service from '../components/service'
 import React, { Component, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 
 export default function Services(props, {paused}) {
@@ -30,7 +34,7 @@ export default function Services(props, {paused}) {
       const removeActive = () => {
 
         setActiveId(null);
-        history('/#third')
+        history('/')
 
       }
     
@@ -47,6 +51,7 @@ export default function Services(props, {paused}) {
                 
                     <div className="services">
 
+              
 
                     {values.map((val,index) => (
                         <Service 
@@ -57,10 +62,13 @@ export default function Services(props, {paused}) {
                         text={val.text}
                         image={val.image}
                         key={index}
+                        link='/contact'
                         goBack={() => removeActive() }
                         />
 
                         ))}
+                       
+
                    </div>
 
 

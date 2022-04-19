@@ -1,8 +1,10 @@
-import Background from '../home/Background'
-import emailjs from 'emailjs-com';
 import { Form, Input, TextArea, Button } from 'semantic-ui-react';
-import Swal from 'sweetalert2';
+import '../form.css';
 
+import React, { lazy } from 'react';
+
+const emailjs = lazy(() => import('emailjs-com'));
+const Swal = lazy(() => import('sweetalert2'));
 
 
 const SERVICE_ID = "service_e5qgb7l";

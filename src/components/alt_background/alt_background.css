@@ -31,6 +31,7 @@
     top:0;
     animation: top-animation var(--animation_speed) infinite linear;
     animation-direction: reverse;
+    animation-delay:.4s;
    
 
   }
@@ -54,6 +55,7 @@
     top:10%;
     right:0;
     animation: right-animation var(--animation_speed) infinite linear;
+    animation-delay:.4s;
 
   }
   
@@ -75,6 +77,8 @@
     bottom:0;
     right:0;
     animation: bottom-animation var(--animation_speed) infinite linear;
+    animation-delay:.4s;
+
   }
   
   
@@ -98,6 +102,8 @@
     left:0;
     animation: right-animation var(--animation_speed) infinite linear;
     animation-direction: reverse;
+    animation-delay:.4s;
+
    
 
   }

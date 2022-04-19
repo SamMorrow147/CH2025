@@ -14,9 +14,6 @@
   src: local('EuroStyle'), url(./fonts/EurostileLight.otf) format('opentype');
 }
 
-@import url("https://use.typekit.net/alp7dft.css");
-
-
 @keyframes blinking {
   0% {
     opacity:1;
@@ -387,17 +384,17 @@ display:flex;
   transform: translate(-50%, -50%);
   max-width:600px;
   padding:10px;
-  transition:2s;
 }
 
 .top_content .logo {
   width:220px;
   margin-bottom:20px;
   animation:fadeIn 2s;
+  aspect-ratio: attr(width) / attr(height);
 }
 
 .top_content .wordmark {
-  width:600px;
+  aspect-ratio: attr(width) / attr(height);
   height:auto;
   animation:fadeIn 1s;
   transition:1s;
@@ -497,7 +494,7 @@ z-index:2;}
   padding: 15px;
     border: 7px double #4f95c4;
     border-radius: 17px;
-    height:100%;
+    height: calc(100% - 45px);
 }
 
 .contact_card:before {
@@ -552,8 +549,7 @@ z-index:2;}
 }
 
 .project_wrapper {
-  height: calc(100% - 60px);
-    margin-top: 120px;
+  height: 100%;
 }
 
 .project_item .image {
@@ -579,9 +575,9 @@ z-index:2;}
 
 .project_item {
   width:100%;
-  max-width:calc(50% - 20px);
+  max-width:calc(50% - 40px);
   min-height:300px;
-  border: 4px solid#3196c3;
+  border: 4px solid #3196c3;
   border-radius:20px;
   animation:fadeIn 1s forwards;
   position:relative;
@@ -622,20 +618,22 @@ z-index:2;}
 }
 
 .icons_section, .agency_section, .services_section, .project_section {
-  height: 100%;
+  height: calc(100% - 60px);
   width:100%;
   background-color:#293a8d;
   background-image:url('../public/images/back-blue.png');
+  margin-top:60px;
 }
 
-.services_section {
-  padding-top:60px;
-}
 
 .services_section .column {
   display: flex !important;
   justify-content: center;
   align-items: center;
+}
+
+.ui.form textarea {
+  width:250px !important;
 }
 
 .icons_content, .agency_content {
@@ -827,7 +825,7 @@ img.logo-bottom {
 }
 
 .top-content.even .wordmark {
-  filter: brightness(11)grayscale(1);
+  filter: brightness(11) grayscale(1);
 }
 
 .menu_active {
@@ -836,6 +834,7 @@ img.logo-bottom {
 
 .active-bar {
   position:fixed !important;
+  margin-top:10px;
   animation: move_up .5s forwards
 }
 
@@ -875,7 +874,7 @@ animation: shorten .5s forwards !important;
 
 @keyframes logo_shorten {
   0% {width:230px; transform:rotate(0deg)}
-  100% {width:40px; margin-bottom:0px; transform:rotate(360deg); }
+  100% {width:40px; height:auto; margin-bottom:0px; transform:rotate(360deg); }
 }
 
 @keyframes buttons_move {
@@ -954,10 +953,10 @@ animation: shorten .5s forwards !important;
 
 @keyframes rotate3 {
   0% {
-    transform:translate(-50%,-50%)rotate(0deg)
+    transform:translate(-50%,-50%) rotate(0deg)
   }
   100% {
-    transform:translate(-50%,-50%)rotate(360deg)
+    transform:translate(-50%,-50%) rotate(360deg)
   }
 }
 
@@ -1093,6 +1092,7 @@ transform:rotate(30deg);
 
 .service_content H2 {
   color:white;
+  margin-top:5px;
   font-size:40px;
   letter-spacing: 5px;
   text-align: center;
@@ -1139,7 +1139,7 @@ transform:rotate(30deg);
 
   .service_anchor {display:none;}
 
-.service:hover .service_content {height:300px;  }
+.service:hover .service_content {height:350px;  }
 
 .service:hover .button { display:block; color:white; border-color:white; width:100%; text-align:center;}
 

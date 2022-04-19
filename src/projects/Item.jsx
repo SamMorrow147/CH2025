@@ -16,11 +16,13 @@ export default React.memo(function Item(props) {
          
         
         <a href={props.link}></a>
-
+        { props.paused ? <img src=''/> :   
+        
         <div className="image" style={{
             backgroundImage: `url(${props.img})`,
         }}>
-        </div>
+        </div>  }
+
 
 
         <div className="title">

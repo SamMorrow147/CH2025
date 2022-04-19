@@ -1051,7 +1051,7 @@ lib.properties = {
 	opacity: 1.00,
 	webfonts: {},
 	manifest: [
-		{src:"./images/animations/table.png", id:"Mrw_Table_anim_VER2_atlas_"}
+		{src:"./images/animations/table.webp", id:"Mrw_Table_anim_VER2_atlas_"}
 	],
 	preloads: []
 };

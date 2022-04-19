@@ -11,8 +11,6 @@ import {
 
 import Portfolio from './portfolio/Portfolio';
 
-import AnimatedCursor from 'react-animated-cursor'
-
 ReactDOM.render(
   <BrowserRouter>
 

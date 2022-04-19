@@ -1,11 +1,16 @@
-import Table from '../animations/Table'
+import Table from '../animations/Table.jsx'
 import Background from './Background'
 import TextLoop from "react-text-loop";
 
 export default function About({paused}) {
     return (    
+
+     
         <div className="second_section white_background">
-            <Background/>
+            
+            {paused === false ? <Background/> : '' } 
+            {paused === false ? 
+
             <div className="second_wrapper container">
 
                 <div className="second_content">
@@ -14,7 +19,8 @@ export default function About({paused}) {
                 </div>
                 <Table paused = {paused}/>
                 
-            </div>
+            </div> : ''}
+           
 
         </div>
         )

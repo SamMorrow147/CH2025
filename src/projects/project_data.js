@@ -5,7 +5,18 @@ export const ProjectData = [
         img:'/images/projects/blasted.png',
         link:'https://allstackedup.com/',
         text:'',
-        animation:''
+        animation:'',
+        sections:[
+            
+        {
+          title:'',
+          content:'',
+          image_1:'',
+          image_2:'',
+          image_3:''
+        },
+    
+    ]
     },
     {
         id:2,

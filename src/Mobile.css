@@ -18,6 +18,13 @@
     100% {opacity:1}
   }
 
+  .project_title h3 {font-size:20px; margin-top:10px;}
+  .project_item {    
+    max-width: 100%;
+    min-height: calc(25% - 35px);
+  }
+
+    .project_item .title h3 {font-size:18px;}
   .services {
     height:100%;
     display:flex;
@@ -28,7 +35,7 @@
   }
 
   .mobile_icon {
-    display: block !important;
+    display: none !important;
     position: absolute;
     top: 6px;
     right: 10px;
@@ -39,12 +46,12 @@
 
   .close {display:block;}
 
-  .service_wrap.active .service_text {color:white;}
+  .service_wrap.active .service_text {color:white; line-height:1.3}
 
   .service_wrap.active .service div:nth-child(1) img {
     margin-bottom:0px;
     top: 0;
-    max-height: 50%;
+    max-height: 45%;
     margin: auto;
     left: 0;
     right: 0;
@@ -57,7 +64,11 @@
     border: unset;
     bottom: 0px;
     padding: 10px;
-    height: 50%;
+    height: 55%;
+  }
+
+  .active-bar {
+    margin-top:0px;
   }
 
   .service_content h2 {
@@ -94,12 +105,11 @@
 .service_wrap {height:100%; width:100%; transition:.4s; position:relative;}
 .service_modal {display:block;}
   .service {
-    padding: 10px;
+ 
     overflow: hidden;
     position: relative;
     border: 2px solid #329ec7;;
     height:100%;
-    width:100%;
   }
 
   .service_wrap.active {
@@ -159,7 +169,7 @@ width:100%;
 margin-bottom:0px;
 }
 
-.city_animation {top:0px;}
+.city_animation {top:0px; margin:auto;}
 
 .table_animation {
   margin-top:0px;
@@ -226,8 +236,8 @@ align-self: flex-start;
     flex-direction: column-reverse;
 }
 @keyframes shorten {
-    0% {width:300px;  filter: brightness(11)grayscale(1);}
-    100% {width:100px; }
+    0% {width:300px;  filter: brightness(11) grayscale(1);}
+    100% {width:100px;}
   }
 
   @keyframes move_up {
@@ -236,8 +246,8 @@ align-self: flex-start;
   }
 
   @keyframes logo_shorten {
-    0% {width:120px; transform:rotate(0deg)}
-    100% {width:30px; margin-bottom:0px; transform:rotate(360deg)}
+    0% {width:120px; transform:rotate(0deg); height:auto;}
+    100% {width:30px; margin-bottom:0px; transform:rotate(360deg); height:auto;}
   }
 
   @keyframes buttons_move {
@@ -403,6 +413,7 @@ align-self: flex-start;
   
   .service_wrap.active .service_text {
     font-size:25px;
+    line-height:1.3 !Important;
   }
 
 }
@@ -411,7 +422,7 @@ align-self: flex-start;
 
 
   .service_wrap {
-    width:50%;
+    width:45%;
     flex:unset;
   }
 

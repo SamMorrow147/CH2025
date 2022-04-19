@@ -1,4 +1,3 @@
-
 import Top from './home/Top'
 import ReactFullpage from '@fullpage/react-fullpage';
 import About from './home/About'
@@ -6,14 +5,14 @@ import MainMenu from './home/MainMenu';
 import HeartSection from './home/HeartSection'
 import Services from './home/Services';
 import React from 'react';
-import Projects from './projects/Projects';
+import PortfolioSlider from './home/PortfolioSlider'
+
 
 const anchors = ["first", "second", "third","fourth","fifth"];
 
 let currentIndex = 0;
 export default function Fullpage({onClick, setIsOpen}) {
   var offset = '0';
- 
     return (
       
   <ReactFullpage
@@ -30,6 +29,9 @@ export default function Fullpage({onClick, setIsOpen}) {
 
       if (state.lastEvent === "onLeave") {
          currentIndex = state.destination.index
+
+      
+
         
         console.log(currentIndex)
           offset = state.destination.item.offsetTop
@@ -89,20 +91,23 @@ export default function Fullpage({onClick, setIsOpen}) {
           <div className="section"  >
             <Top onClick={onClick} currentScroll={currentIndex} />
           </div>
+         
           <div className="section ">
-            <About paused={currentPanel !== 'second'} />
-          </div>
+             <About paused={currentPanel !== 'second'} /> 
+          </div> 
+    
           <div className="section">
             <Services paused = {currentPanel !== 'third'} offset={offset} onClick={onClick} />
           </div>
+
           <div className="section">
             <HeartSection paused={currentPanel !== 'fourth'} />
           </div>
 
           <div className="section">
-            <Projects paused={currentPanel !== 'fifth'} />
+            <PortfolioSlider paused={currentPanel !== 'fifth'} />
           </div>
-    
+
         </ReactFullpage.Wrapper>
       </div>
       );

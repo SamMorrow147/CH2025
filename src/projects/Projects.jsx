@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import Item from '../projects/Item'
 import slugify from "react-slugify";
 
-export default function Projects() {
+export default function Projects(props) {
 
     const [data, setData] = useState([]);
 
@@ -34,6 +34,7 @@ export default function Projects() {
                             slug={slugify(item.title)}
                             id={item.id}
                             theIndex={index}
+                            paused={props.paused}
                             key={index}
                             />
                         ))

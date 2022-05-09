@@ -5,9 +5,8 @@ const Contact = () => {
 
 
     return (    
-        <div className="Contact_section">
+      <div className="services_section">
 
-          <Background/>
           <Contact_card/>
 
         </div>

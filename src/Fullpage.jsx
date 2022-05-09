@@ -5,7 +5,7 @@ import MainMenu from './home/MainMenu';
 import HeartSection from './home/HeartSection'
 import Services from './home/Services';
 import React from 'react';
-import PortfolioSlider from './home/PortfolioSlider'
+import Contact from './home/Contact'
 
 
 const anchors = ["first", "second", "third","fourth","fifth"];
@@ -105,7 +105,7 @@ export default function Fullpage({onClick, setIsOpen}) {
           </div>
 
           <div className="section">
-            <PortfolioSlider paused={currentPanel !== 'fifth'} />
+            <Contact paused={currentPanel !== 'fifth'} />
           </div>
 
         </ReactFullpage.Wrapper>

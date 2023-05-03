@@ -22,12 +22,14 @@ export default function Projects(props) {
         <div className="project_wrapper container">
             <div className="project_content">
             <div className="project_title"><h3>RECENT PROJECTS</h3></div>
-
+            <div class="project-slider">
                     {              
                     data.map( (item,index)  => (
                             <Item
                             title={item.title}
                             tags={item.tags}
+                            logo={item.logo}
+                            sub={item.sub}
                             img={item.img}
                             categories={item.category}
                             link={item.link}
@@ -39,6 +41,7 @@ export default function Projects(props) {
                             />
                         ))
                     }
+            </div>
             </div>
 
             <div className="project_text">

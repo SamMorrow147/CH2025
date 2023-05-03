@@ -12,24 +12,23 @@ export default React.memo(function Item(props) {
      }}
      className="project_item"
      >
-
-         
-        
         <a href={props.link}></a>
-        { props.paused ? <img src=''/> :   
-        
-        <div className="image" style={{
-            backgroundImage: `url(${props.img})`,
-        }}>
-        </div>  }
+        <div class="project-card">
+            
+            <div className="image" style={{backgroundImage: `url(${props.img})`}}>
+            </div>
 
+            <div className="card-inner">
+                <img src={props.logo} />
+            </div>
 
+        </div>       
 
         <div className="title">
-
             <h3>{props.title}</h3>
-        </div>
-
+            <span>{props.sub}</span>
+        </div> 
+    
       
         
     </div>

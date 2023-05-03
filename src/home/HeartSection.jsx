@@ -27,7 +27,7 @@ export default function HeartSection({paused}) {
                    <Suspense fallback={<div>Loading...</div>}>
 
                        <Typist avgTypingDelay={.1}>
-                             We Uplift business &  partner with people who want To design a better future. Let’s talk about how we can help you help.
+                       We partner with businesses who make an <b>art</b> out of philanthropy & are on mission to design <b>a better future</b>.
                         </Typist>
                     </Suspense>
 

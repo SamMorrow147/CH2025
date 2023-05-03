@@ -1,15 +1,15 @@
 import { Form, Input, TextArea, Button } from 'semantic-ui-react';
 import '../form.css';
-
+import emailjs from 'emailjs-com'
+import Swal from 'sweetalert2'
 import React, { lazy } from 'react';
 
-const emailjs = lazy(() => import('emailjs-com'));
-const Swal = lazy(() => import('sweetalert2'));
 
 
-const SERVICE_ID = "service_e5qgb7l";
-const TEMPLATE_ID = 'template_4a6lxqp';
-const USER_ID = "user_Rex24rfGYiDYhMl2wGvPB"
+const SERVICE_ID = "service_2yj20kv";
+const TEMPLATE_ID = 'template_qrup6gm';
+const USER_ID = "ZRU2U_UuG_DkM0FLP"
+
 
 const Contact_card = () => {
     const handleOnSubmit = (e) => {
@@ -69,6 +69,10 @@ const Contact_card = () => {
           required
         />
         <Button type='submit' color='green'>Submit</Button>
+        <div className="social-icons">
+          <a  target="_blank" href="https://www.facebook.com/ClubHaus-Agency-101800182526646"><img src="./images/icons/facebook.png"/></a>
+          <a target="_blank" href="https://www.linkedin.com/company/clubhaus-agency/"><img src="./images/icons/linkdin.png"/></a>
+        </div>
       </Form>
     </div>
 

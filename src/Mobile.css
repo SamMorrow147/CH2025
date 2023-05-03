@@ -1,6 +1,12 @@
 @media only screen and (max-width: 800px) {
 
 
+  .contact_card {
+    width: calc(100% - 32px);
+      height: auto;
+  }
+
+
   .service_wrap.active .service div:nth-child(3) img {
     display:none;
   }
@@ -54,6 +60,7 @@
     max-height: 45%;
     margin: auto;
     left: 0;
+    height:auto;
     right: 0;
   }
 
@@ -64,7 +71,8 @@
     border: unset;
     bottom: 0px;
     padding: 10px;
-    height: 55%;
+    background: rgb(41,58,141);
+  background: linear-gradient(0deg, rgba(41,58,141,1) 63%, rgba(41,58,141,0.8379726890756303) 78%, rgba(41,58,141,0.4990371148459384) 89%, rgba(41,58,141,0.08167016806722693) 96%, rgba(41,58,141,0) 100%);
   }
 
   .active-bar {
@@ -147,7 +155,6 @@
   
   .container {
     padding:10px;
-    flex-wrap:wrap;
     height:calc(100% - 60px);
   margin-top: 60px;
   }
@@ -161,6 +168,9 @@
 
 .button_wrapper {
     max-width:275px;
+    display: flex;
+justify-content: center;
+align-items: center;
 }
 
 
@@ -227,7 +237,11 @@ align-self: flex-start;
 
 
 .button_wrapper a {
-    padding: 3px;
+  padding: 3px;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .third_section {
@@ -459,6 +473,29 @@ align-self: flex-start;
 
 .service div:nth-child(3) img {
   display:none;
+}
+
+
+}
+
+@media only screen and (max-width: 400px) {
+
+  .second_content h2, .icons_content h2, .heart_content h2 {
+    font-size:23px;
+  }
+
+  .second_content p, .heart_content p {
+    font-size:18px;
+  }
+
+  .table_animation, .city_animation {
+    max-width:75vw;
+  }
+
+  .contact_card {
+    width: calc(100% - 78px);
+    height: calc(100% - 115px);
+    margin-top: 30px;
 }
 
 }

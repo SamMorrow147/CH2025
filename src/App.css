@@ -22,6 +22,9 @@
   100% {opacity:1;}
 }
 
+
+.social-icons {display:flex;}
+.social-icons img {width:100%; max-width:40px; padding:10px;}
 /* 
 
 .cursor {
@@ -257,7 +260,7 @@ display:flex;
   height: calc(100% - 60px);
 
 }
-
+.fp-watermark {display:none;}
 
 .second_wrapper, .icons_wrapper, .heart_wrapper, .agency_wrapper {
   height: calc(100% - 60px);
@@ -633,7 +636,7 @@ z-index:2;}
 }
 
 .ui.form textarea {
-  width:250px !important;
+  width:80% !important;
 }
 
 .icons_content, .agency_content {

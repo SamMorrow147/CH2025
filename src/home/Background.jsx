@@ -17,8 +17,8 @@ export default function Background() {
                      <polygon  pathLength="100" className="path-bottom-right" fill="transparent" stroke="black"    points="0 100,100 100, 100 0, 0 0"  />
                 </svg>
                
-                <img src="../images/logo.webp" className="logo-top"/>
-                <img src="../images/logo.webp" className="logo-bottom"/>
+                <img src="../images/logo.png" className="logo-top"/>
+                <img src="../images/logo.png" className="logo-bottom"/>
 
             </div>
 

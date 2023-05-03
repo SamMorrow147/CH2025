@@ -2094,7 +2094,7 @@ lib.properties = {
 	opacity: 1.00,
 	webfonts: {},
 	manifest: [
-		{src:"/images/animations/city.webp", id:"heart_city_1_atlas_P_"}
+		{src:"/images/animations/city.png", id:"heart_city_1_atlas_P_"}
 	],
 	preloads: []
 };

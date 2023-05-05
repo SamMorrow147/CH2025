@@ -2,10 +2,10 @@
 import Service from '../components/service'
 import React, {useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import DownArrow from '../components/DownArrow';
 
 
-
-export default function Services(props, {paused}) {
+export default function Services(props) {
 
 
 
@@ -70,6 +70,7 @@ export default function Services(props, {paused}) {
 
             </div> : <div></div> }
         
+            <DownArrow handleClick={props.arrowClick}/>
 
 
         </div>

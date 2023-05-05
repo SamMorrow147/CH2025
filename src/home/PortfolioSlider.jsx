@@ -1,6 +1,6 @@
 import Slider from '../components/NetflixSlider'
-
-export default function PortfolioSlider() {
+import DownArrow from '../components/DownArrow';
+export default function PortfolioSlider(props) {
 
     const movies = [
         {
@@ -50,6 +50,8 @@ export default function PortfolioSlider() {
                 ))
             }
         </Slider>
+        <DownArrow handleClick={props.arrowClick}/>
+
         </div>
         
     )

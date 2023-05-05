@@ -1,26 +1,27 @@
 import Table from '../animations/Table.jsx'
 import Background from './Background'
 import TextLoop from "react-text-loop";
-
-export default function About({paused}) {
+import DownArrow from '../components/DownArrow.jsx';
+export default function About(props) {
     return (    
 
      
         <div className="second_section white_background">
             
-            {paused === false ? <Background/> : '' } 
-            {paused === false ? 
+            {props.paused === false ? <Background/> : '' } 
+            {props.paused === false ? 
 
             <div className="second_wrapper container">
 
                 <div className="second_content">
                     <h2>WE ARE A<span> CREATIVE</span> POWERHOUSE</h2>
-                    <p>A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD {paused ? 'COOL S#!%' : <TextLoop children={["COOL $#!%", "STORIES", "BRANDS", "CAMPAIGNS", "ADS", "START-UPS", "PACKAGE DESIGNS", "BUSINESSES", "LEGENDS"]} />}</p>
+                    <p>A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD {props.paused ? 'COOL S#!%' : <TextLoop children={["COOL $#!%", "STORIES", "BRANDS", "CAMPAIGNS", "ADS", "START-UPS", "PACKAGE DESIGNS", "BUSINESSES", "LEGENDS"]} />}</p>
                 </div>
-                <Table paused = {paused}/>
+                <Table paused = {props.paused}/>
                 
             </div> : ''}
-           
+            <DownArrow handleClick={props.arrowClick}/>
+
 
         </div>
         )

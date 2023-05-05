@@ -55,7 +55,13 @@ var config = {
     onSwipedUp: (eventData) => swipeFunction('up'),
     ...config,
   });
-  
+
+  var handleArrowClick = (fullpageApi) => {
+    fullpageApi.moveSectionDown();
+    console.log('llalal')
+  };
+
+
   return (
     <ReactFullpage
       anchors={anchors}
@@ -68,7 +74,6 @@ var config = {
         } else if (fullpageApi) {
           fullpageApi.setAllowScrolling(true);
         }
-  
         currentPanel = 'Pause';
   
         if (state.lastEvent === "onLeave") {
@@ -78,20 +83,7 @@ var config = {
           var lines_bottom_right = document.querySelectorAll('.path-bottom-right');
           var lines_top_left = document.querySelectorAll('.path-top-left');
   
-          for (var i = 0; i < lines.length; ++i) {
-            lines[i].style.animation = 'none';
-            lines_bottom_right[i].style.animation = 'none';
-            lines_top_left[i].style.animation = 'none';
-          }
-  
-          setTimeout(() => {
-            for (var i = 0; i < lines.length; ++i) {
-              lines[i].style.animation = 'dash 3s  forwards';
-              lines_bottom_right[i].style.animation = ' dash2 3s  forwards';
-              lines_top_left[i].style.animation = ' dash2 3s  forwards';
-            }
-          }, 200);
-  
+     
           if (state.destination.anchor) {
             currentPanel = state.destination.anchor;
           }
@@ -116,29 +108,35 @@ var config = {
             {/* <Breadcrumbs items={anchors} anchor={currentPanel} /> */}
             <MainMenu currentScroll={currentIndex} onClick={setIsOpen}/>
             <ReactFullpage.Wrapper>
+              
               <div className="section">
-                <Top onClick={onClick} currentScroll={currentIndex} />
+                <Top onClick={onClick} currentScroll={currentIndex} arrowClick={() => fullpageApi.moveSectionDown()} />
               </div>
+
               <div className="section">
-                <About paused={currentPanel !== 'second'} /> 
+                <About paused={currentPanel !== 'second'} arrowClick={() => fullpageApi.moveSectionDown()} /> 
               </div> 
+
               <div className="section" {...handlers} currentactive={activeId}  >
-                <Services paused={currentPanel !== 'third'} offset={offset} onClick={onClick} setActiveId={() => setActiveId()} activeId={activeId} onNameChange={onChange} />
+                <Services paused={currentPanel !== 'third'} offset={offset} arrowClick={() => fullpageApi.moveSectionDown()} onClick={onClick} setActiveId={() => setActiveId()} activeId={activeId} onNameChange={onChange}  />
               </div>
 
               <div className="section">
-                <AboutTwo paused={currentPanel !== 'fourth'}  /> 
+                <AboutTwo paused={currentPanel !== 'fourth' } arrowClick={() => fullpageApi.moveSectionDown()}  /> 
               </div> 
 
               <div className="section">
-              <Projects paused={currentPanel !== 'fifth'}  />
+                <Projects paused={currentPanel !== 'fifth' }  arrowClick={() => fullpageApi.moveSectionDown()}  />
               </div>
+
               <div className="section">
-              {<HeartSection paused={currentPanel !== 'sixth'} />}
+                <HeartSection paused={currentPanel !== 'sixth'} arrowClick={() => fullpageApi.moveSectionDown()} />
               </div>
+
               <div className="section">
-              <Contact paused={currentPanel !== 'seventh'} />
+                <Contact paused={currentPanel !== 'seventh'} arrowClick={() => fullpageApi.moveSectionDown()} />
               </div>
+
             </ReactFullpage.Wrapper>
           </div>
         );

@@ -1,10 +1,10 @@
 import City from '../animations/City.jsx'
 import Background from './Background'
 import React, {Suspense, lazy } from 'react';
-
+import DownArrow from '../components/DownArrow.jsx';
 const Typist = lazy(() => import('react-typist'));
 
-export default function HeartSection({paused}) {
+export default function HeartSection(props) {
 
   
 
@@ -15,9 +15,9 @@ export default function HeartSection({paused}) {
         
         <div className="heart_section white_background">
 
-            { paused === false ? <Background/> : '' }
+            { props.paused === false ? <Background/> : '' }
 
-            { paused === false ? 
+            { props.paused === false ? 
             <div className="heart_wrapper container">
 
                 <div className="heart_content">
@@ -36,9 +36,10 @@ export default function HeartSection({paused}) {
                   
                 </div>
     
-                <City paused = {paused}/>
+                <City paused = {props.paused}/>
 
             </div> : <div></div> }
+            <DownArrow handleClick={props.arrowClick}/>
 
         </div>
         )

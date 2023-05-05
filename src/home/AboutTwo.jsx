@@ -1,10 +1,10 @@
 import City from '../animations/City.jsx'
 import Background from './Background'
 import React, {Suspense, lazy } from 'react';
-
+import DownArrow from '../components/DownArrow.jsx';
 const Typist = lazy(() => import('react-typist'));
 
-export default function AboutTwo({paused}) {
+export default function AboutTwo(props) {
 
   
 
@@ -15,14 +15,14 @@ export default function AboutTwo({paused}) {
         
         <div className="heart_section white_background">
 
-            { paused === false ? <Background/> : '' }
+            { props.paused === false ? <Background white={true}/> : '' }
 
-            { paused === false ? 
-            <div className="heart_wrapper container">
+            { props.paused === false ? 
+            <div className="content_wrapper container">
                 <div className="video">
                 <video src="/videos/Clubhaus.mp4" loop autoPlay muted ></video>          
                 </div>  
-                <div className="heart_content">
+                <div className="about2_content">
                     <h2>Here to help you play your cards right.</h2>
                    <p>
 
@@ -39,6 +39,9 @@ export default function AboutTwo({paused}) {
     
 
             </div> : <div></div> }
+
+            <DownArrow handleClick={props.arrowClick}/>
+
 
         </div>
         )

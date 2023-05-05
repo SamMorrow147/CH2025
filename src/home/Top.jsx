@@ -2,7 +2,7 @@ import Alt_background from '../components/alt_background/Alt_background'
 import { Link } from 'react-router-dom';
 
 
-export default function Top({currentScroll}) {
+export default function Top({currentScroll,arrowClick}) {
 
 
     function isEven(n) {
@@ -10,7 +10,7 @@ export default function Top({currentScroll}) {
      }
     return (
         <div className="top_section">
-        <Alt_background/>
+        <Alt_background arrowClick={arrowClick}/>
         {/* <Background/> */}
 
             <div className={`${isEven(currentScroll) && currentScroll != 0 ? 'top_content even' : 'top_content'} ${currentScroll != 0 ? 'active-bar' : ''}`}>
@@ -21,10 +21,7 @@ export default function Top({currentScroll}) {
                 <img className="wordmark" height="200" width="600" src={isEven(currentScroll)  && currentScroll != 0 ? '../images/wordmark.png' : '../images/wordmark_white.png'} />  
               
                 <div className="button_wrapper">
-                    <a href="" className="button" >LOGIN</a>
-                    <Link className="button" to='/contact'>
-                                           CONTACT US
-                    </Link>
+                    <p>YOU'RE IN GOOD HANDS</p>
                 </div>
 
             </div>

@@ -1,6 +1,6 @@
-export default function Background() {
+export default function Background(props) {
     return (
-        <div className="animation-back">
+        <div className={props.white == true ? 'animation-back white':'animation-back' } >
             <div className="glimmer"></div>
             <div className="lines">
 

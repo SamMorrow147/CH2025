@@ -1,4 +1,4 @@
-import Table from '../animations/Table.jsx'
+import Table from '../animations/Table.js'
 import Background from './Background'
 import TextLoop from "react-text-loop";
 import DownArrow from '../components/DownArrow.jsx';

@@ -8,6 +8,8 @@ export default function Top({currentScroll,arrowClick}) {
     function isEven(n) {
         return n % 2 == 0;
      }
+      // loads the script for the city animation at the bottom, this helps with load time.
+
     return (
         <div className="top_section">
         <Alt_background arrowClick={arrowClick}/>

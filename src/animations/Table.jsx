@@ -1,12 +1,6 @@
 import AnimateCC, { GetAnimationObjectParameter } from "react-adobe-animate";
-import useScript from '../animations.js'
-import {useEffect} from 'react'
 
 export default function Table({paused}) {
-
-    // loads the script for the city animation at the bottom, this helps with load time.
-    useScript('https://clubhausagency.com/city.js', 'city_animation');
-
     
     return (
 

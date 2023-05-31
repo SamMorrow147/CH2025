@@ -58,7 +58,6 @@ var config = {
 
   var handleArrowClick = (fullpageApi) => {
     fullpageApi.moveSectionDown();
-    console.log('llalal')
   };
 
 
@@ -126,7 +125,7 @@ var config = {
               </div> 
 
               <div className="section">
-                <Projects paused={currentPanel !== 'fifth' }  arrowClick={() => fullpageApi.moveSectionDown()}  />
+                <Projects paused={currentPanel !== 'fifth' }  arrowClick={() => fullpageApi.moveSectionDown()} projectClick= {() => {fullpageApi.silentMoveTo('sixth'); console.log('clicker')}} />
               </div>
 
               <div className="section">

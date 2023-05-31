@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.css';
+
 import './index.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -13,7 +15,9 @@ import {
   Route,
 } from "react-router-dom";
 
+
 import Portfolio from './portfolio/Portfolio';
+import ProjectDetails from './projects/ProjectDetails';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -25,6 +29,8 @@ ReactDOM.render(
     )}
 
     <Route path="sales" element={<Portfolio />} />
+    <Route path="sales" element={<Portfolio />} />
+    <Route path="/projects/:id" element={<ProjectDetails />} />
 
     </Routes>
   </BrowserRouter>,

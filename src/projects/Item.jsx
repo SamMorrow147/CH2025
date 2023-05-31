@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom/dist';
 
 export default React.memo(function Item(props) {
 
@@ -11,8 +12,9 @@ export default React.memo(function Item(props) {
          opacity:'0'
      }}
      className="project_item"
+     onClick={props.projectClick}
      >
-        <a href={props.link}></a>
+        <Link to={`projects/${props.id}`}></Link>
         <div class="project-card">
             
             <div className="image" style={{backgroundImage: `url(${props.img})`}}>

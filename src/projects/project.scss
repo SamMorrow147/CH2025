@@ -1,0 +1,26 @@
+.project-details .row {
+justify-content: center;
+align-items: center;
+}
+.project-details .row:nth-child(odd) {
+flex-direction: row-reverse;
+}
+
+.project-details img {
+    display: block;
+    width: 100%;
+}
+
+
+.multiple-images {
+    display:flex !important;
+    gap:20px;
+}
+
+@media (max-width: 768px) {
+    /* CSS rules to apply for screens up to 768 pixels wide */
+    .multiple-images {
+    flex-wrap:wrap;
+    }
+  }
+  

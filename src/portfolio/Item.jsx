@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-export default React.memo(function Item({theIndex,title,tags,img,categories,link,id,currentpanel,fadeIt}) {
+export default React.memo(function Item(props,{theIndex,title,tags,img,categories,link,id,currentpanel,fadeIt}) {
 
  
     if(categories.includes('wordpress')) {

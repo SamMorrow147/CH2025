@@ -8,8 +8,10 @@ export default React.memo(function Item(props) {
     return (
 
      <div id={props.id} style={{
-         animationDelay:`.${props.theIndex}s`,
-         opacity:'0'
+         animationDelay:`${props.theIndex * .2}s`,
+        
+         zIndex:props.totalIndex - props.theIndex,
+         display:'block'
      }}
      className="project_item"
      onClick={props.projectClick}

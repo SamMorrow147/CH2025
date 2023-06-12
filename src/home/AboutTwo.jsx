@@ -28,8 +28,11 @@ export default function AboutTwo(props) {
 
                    <Suspense fallback={<div>Loading...</div>}>
 
-                       <Typist avgTypingDelay={.1}>
-                       At ClubHaus, we're not afraid to raise the bar. Our commitment to pushing the boundaries of what's possible has earned us a spot as a leader in the creative sector. Let us help you achieve a straight path of success with your brand, website, and social strategies.                        </Typist>
+                    
+
+                       At ClubHaus, we're not afraid to raise the bar. Our commitment to pushing the boundaries of what's possible has earned us a spot as a leader in the creative sector. Let us help you achieve a straight path of success with your brand, website, and social strategies.   
+
+                    
                     </Suspense>
 
                         </p> 

@@ -63,6 +63,51 @@ html *,body * {
   transition-property: opacity, background-color, transform;
 }  */
 
+@keyframes SlideIn {
+  0% {
+  
+    opacity:1;
+  }
+
+
+
+  100% {
+    translate: 0;
+    opacity: 1;
+    rotate:0deg;
+    animation-timing-function: ease-in-out;
+    position: relative;
+  }
+}
+
+
+@keyframes slideBack {
+  0% {
+    translate:0;
+    opacity:1;
+  }
+
+
+
+  100% {
+    translate: -50%;
+    opacity: 1;
+    rotate:0deg;
+    animation-timing-function: ease-in-out;
+    position: relative;
+  }
+}
+
+
+
+.swiper-initialized {
+width:100%;
+}
+
+.swiper-slide, .swiper-slide {
+  transition:0s;
+}
+
 .Typist .Cursor {
   animation:blinking 1s infinite;
 }
@@ -478,14 +523,14 @@ display:flex;
   color:#293a8d;
   font-size:65px;
   line-height:1;
-  margin-bottom:0px;
+  margin-bottom:20px;
 }
 
 .heart_content h2 {
   color:#293a8d;
   font-size:70px;
   line-height:1;
-  margin-bottom:0px;
+  margin-bottom:20px;
 }
 
 .heart_content p {
@@ -619,11 +664,19 @@ z-index:2;}
 .project_item {
   width:100%;
   max-width:320px;
-  animation:fadeIn 1s forwards;
   position:relative;
   margin:auto;
   margin-top:0px;
 }
+.active.section .swiper-slide {
+  animation:SlideIn .6s forwards;
+}
+
+.section:not(.active) .swiper-slide:nth-child(n + 2)  {
+  animation:slideBack .3s;
+  animation-delay:0s !important;
+}
+
 .project_item .project-card {
   border: 10px solid white;
   border-radius:20px;
@@ -636,7 +689,13 @@ z-index:2;}
     align-items: flex-end;
     box-shadow: black 8px 8px 21px;
     width: calc(100% - 20px);
-}
+transition:.2s;
+margin:auto;
+  }
+
+  .project_item:hover .project-card {
+    scale:1.05;
+  }
 
 .project-slider {
   display: flex;
@@ -672,6 +731,17 @@ margin-bottom: 0px;
 .project_item .title {
   text-align: center;
   color:white;
+
+}
+
+.heart_section {
+height:100%
+}
+
+.section.active .project_item .title {
+  animation:fadeIn 1s forwards;
+  opacity:0;
+  animation-delay:.8s;
 }
 
 .project_item .title h3 {
@@ -909,6 +979,7 @@ img.logo-bottom {
 
 .menu_active {
   top:0px;
+  z-index:1;
 }
 
 .active-bar {
@@ -1310,3 +1381,4 @@ video {max-width:100%;}
   height:100%;
   z-index:1;
 }
+

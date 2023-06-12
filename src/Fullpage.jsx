@@ -19,7 +19,9 @@ export default function Fullpage({onClick, setIsOpen}) {
   
   var offset = '0';
   const [activeId, setActiveId] = useState(0);
-  
+  const [currentSection, setCurrentSection] = useState(0);
+  const [currentSlider, setCurrentSlider] = useState(0);
+
   function onChange(newState) {   setActiveId(newState);}
 
   const swipeFunction = (direction) => {
@@ -62,10 +64,13 @@ var config = {
 
 
   return (
+    <>
+    <MainMenu currentScroll={currentSlider} onClick={setIsOpen}/>
+
     <ReactFullpage
       anchors={anchors}
       lockAnchors={true}
-      fixedElements='.breadcrumbs, .menu'
+      fixedElements='.breadcrumbs'
       onLeave={(origin, destination, direction, currentPanel, fullpageApi) => {}}
       render={({ state, fullpageApi, origin, currentPanel}) => {
         if (state.lastEvent === "onLeave" && state.destination.anchor === "third" && activeId != 0 ) {
@@ -78,10 +83,9 @@ var config = {
         if (state.lastEvent === "onLeave") {
           currentIndex = state.destination.index;
           offset = state.destination.item.offsetTop;
-          var lines = document.querySelectorAll('.path');
-          var lines_bottom_right = document.querySelectorAll('.path-bottom-right');
-          var lines_top_left = document.querySelectorAll('.path-top-left');
-  
+
+          setCurrentSlider(state.destination.index ?? 0);
+
      
           if (state.destination.anchor) {
             currentPanel = state.destination.anchor;
@@ -91,21 +95,23 @@ var config = {
             const wrapper = document.querySelector('.wrapper');
             wrapper.appendChild(document.querySelector('.top_content'))
             document.querySelector('.top_content').classList.add("active-bar");
-            document.querySelector('.menu').classList.add('menu_active')
+          
           }
   
           if (state.destination.anchor === 'first') {
             const wrapper = document.querySelector('.top_section');
             wrapper.appendChild(document.querySelector('.top_content'))
             document.querySelector('.top_content').classList.remove("active-bar");
-            document.querySelector('.menu').classList.remove('menu_active')
+        
           }
-        }
+          console.log(fullpageApi)
+        } 
+
   
         return (
+          
           <div style={{'height':'100%'}}>
             {/* <Breadcrumbs items={anchors} anchor={currentPanel} /> */}
-            <MainMenu currentScroll={currentIndex} onClick={setIsOpen}/>
             <ReactFullpage.Wrapper>
               
               <div className="section">
@@ -138,8 +144,10 @@ var config = {
 
             </ReactFullpage.Wrapper>
           </div>
+         
         );
       }}
     />
+     </>
   );
 }

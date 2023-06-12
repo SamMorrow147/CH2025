@@ -24,7 +24,7 @@
     100% {opacity:1}
   }
 
-  .project_title h3 {font-size:20px; margin-top:10px;}
+  .project_title h3 {font-size:30px; margin-top:10px;}
   .project_item {    
     max-width: 275px;
     min-height: calc(25% - 35px);
@@ -179,7 +179,6 @@ width:100%;
 margin-bottom:0px;
 }
 
-.city_animation {top:0px; margin:auto;}
 
 .table_animation {
   margin-top:0px;

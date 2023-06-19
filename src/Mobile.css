@@ -30,7 +30,7 @@
     min-height: calc(25% - 35px);
   }
 
-    .project_item .title h3 {font-size:18px;}
+    .project_item .title h3 {font-size:30px;}
   .services {
     height:100%;
     display:flex;
@@ -344,6 +344,19 @@ align-self: flex-start;
     bottom: 10px;
   }
 
+  .static-bar {
+    padding: 15px;
+    padding-left: 11px;
+  }
+
+  .static-bar .logo {
+    width:30px;
+  }
+
+  .static-bar .wordmark {
+    width:100px;
+  }
+
   .active .fifth_content {
     bottom: unset;
     top: 20vh;
@@ -399,6 +412,7 @@ align-self: flex-start;
       top:-30px;
       width: 100%;
   }
+
 
 
 }
@@ -506,5 +520,7 @@ align-self: flex-start;
     height: calc(100% - 115px);
     margin-top: 30px;
 }
+
+
 
 }

@@ -7,7 +7,7 @@ import React, {useState} from 'react';
 import Contact from './home/Contact'
 import ReactFullpage from '@fullpage/react-fullpage';
 import { useSwipeable } from "react-swipeable";
-import Projects from './projects/Projects'
+import Projects from './projects/ProjectSlider'
 import AboutTwo from './home/AboutTwo';
 
 const anchors = ["first", "second", "third","fourth","fifth", "sixth","seventh"];
@@ -62,6 +62,9 @@ var config = {
     fullpageApi.moveSectionDown();
   };
 
+  function isEven(n) {
+    return n % 2 == 0;
+ }
 
   return (
     <>
@@ -71,8 +74,12 @@ var config = {
       anchors={anchors}
       lockAnchors={true}
       fixedElements='.breadcrumbs'
-      onLeave={(origin, destination, direction, currentPanel, fullpageApi) => {}}
+      onLeave={(origin, destination, direction, currentPanel, fullpageApi,state) => {}}
       render={({ state, fullpageApi, origin, currentPanel}) => {
+
+        console.log(state.destination ?? 0);
+
+
         if (state.lastEvent === "onLeave" && state.destination.anchor === "third" && activeId != 0 ) {
           fullpageApi.setAllowScrolling(false);
         } else if (fullpageApi) {

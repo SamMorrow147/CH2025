@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Item from '../projects/Item';
+import Item from './Item';
 import slugify from "react-slugify";
 import DownArrow from "../components/DownArrow";
 import { createClient } from 'contentful';

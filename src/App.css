@@ -1,22 +1,29 @@
 @font-face {
-  font-family: 'EuroStyle';
-  src: local('EuroStyle'), url(./fonts/EuroStyle.ttf) format('ttf');
+  font-family: 'eurostile';
+  src:  local('eurostile'), url(./fonts/Eurostile.ttf) format('truetype');
 }
 
 @font-face {
-  font-family: 'EuroStyle';
+  font-family: 'eurostile';
+  font-weight:bold;
+  src:   url(./fonts/EurostileBold.ttf) format('truetype');
+}
+
+
+@font-face {
+  font-family: 'eurostile';
   font-weight: 900;
-  src: local('EuroStyle'), url(./fonts/EurostileBlack.ttf) format('ttf');
+  src: url(./fonts/EurostileBlack.ttf) format('truetype');
 }
 @font-face {
-  font-family: 'EuroStyle';
+  font-family: 'eurostile';
   font-weight: 200;
-  src: local('EuroStyle'), url(./fonts/EurostileLight.otf) format('opentype');
+  src:  url(./fonts/EurostileLight.otf) format('opentype');
 }
 @font-face {
-  font-family: 'EuroStyle-condensed';
+  font-family: 'eurostile-condensed';
   font-weight: 200;
-  src: local('EuroStyle'), url(./fonts/EurostileCondensed.otf) format('opentype');
+  src:  url(./fonts/EurostileCondensed.otf) format('opentype');
 }
 
 @keyframes blinking {
@@ -27,6 +34,10 @@
   100% {opacity:1;}
 }
 
+:root {
+  --blue: #329ec7;
+  --blue-two: #293a8d;
+}
 
 .social-icons {display:flex;}
 .social-icons img {width:100%; max-width:40px; padding:10px;}
@@ -217,8 +228,8 @@ p, a  {
   line-height: 1.5;
 }
 
-h1, h2  {
-font-family: nobel, sans-serif;
+h1, h2, h3, h4  {
+font-family: eurostile, sans-serif;
 font-weight: 700;
 }
 
@@ -275,6 +286,7 @@ font-weight: 700;
   width: auto;
   height: 100%;
   right: 0px;
+ 
 }
 
 .service div:nth-child(3) img {
@@ -364,7 +376,7 @@ display:flex;
 .button_wrapper p  {
   font-size:44px;
   margin:0px;
-  font-family:'EuroStyle-condensed',sans-serif;
+  font-family:'eurostile-condensed',sans-serif;
   font-weight:800;
   letter-spacing:10px;
   color:#6B9ED0;
@@ -451,6 +463,23 @@ display:flex;
   transform: translate(-50%, -50%);
   max-width:600px;
   padding:10px;
+}
+
+.static-bar {
+  top: 30px;
+    left: 140px; 
+    padding:10px;
+}
+
+.static-bar .logo {
+width:40px;
+height:auto;
+margin-right: 10px;
+margin-left:-1px;
+}
+.static-bar .wordmark {
+width:200px;
+height: auto;
 }
 
 .top_content .logo {
@@ -747,12 +776,13 @@ height:100%
 .project_item .title h3 {
  margin:0px;
  margin-top:30px;
-  font-family: 'EuroStyle', sans-serif;
+  font-family: 'eurostile-condensed', sans-serif;
+  font-weight:200;
+  letter-spacing:2px;
   padding-bottom: 3px;
- 
-
+  font-variant: all-petite-caps;
   bottom: 0px;
-  font-size: 30px;
+  font-size: 35px;
 }
 
 
@@ -762,11 +792,17 @@ height:100%
 }
 
 .icons_section, .agency_section, .services_section, .project_section {
-  height: calc(100% - 60px);
+  height: calc(100%);
   width:100%;
   background-color:#293a8d;
   background-image:url('../public/images/back-blue.png');
-  margin-top:60px;
+  padding-top:60px;
+}
+
+.fp-viewing-second .static-bar {
+  opacity:0;
+  animation:fadeIn 1s forwards;
+  animation-delay:1s;
 }
 
 
@@ -1007,7 +1043,7 @@ animation: shorten .5s forwards !important;
 
 @keyframes move_up {
   0% {top:50%; left:50%;}
-  100% {top:30px; left:140px; height:60px}
+  100% {top:30px; left:134px; height:60px}
 }
 
 @keyframes shorten {
@@ -1382,3 +1418,26 @@ video {max-width:100%;}
   z-index:1;
 }
 
+.project-nav {
+    display: flex;
+    height:100%;
+    width:100%;
+}
+
+.project-nav > a:first-child {
+  margin-left:0px;
+  margin-right:auto;
+}
+.project-nav > a:second-child {
+  margin-right:0px;
+  margin-left:auto;
+}
+
+.project-nav > a {
+  color:white;
+  background:var(--blue);
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  padding:10px;
+}

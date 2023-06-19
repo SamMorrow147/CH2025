@@ -80,7 +80,7 @@ console.log(id)
                 return <img key={mediaItem.id} src={url} />;
               } else if (contentType.startsWith('video/')) {
                 return (
-                  <video key={mediaItem.id} src={url} autoplay="true">
+                  <video key={mediaItem.id} src={url} autoplay="true" loop>
                     Your browser does not support the video tag.
                   </video>
                 );

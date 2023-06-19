@@ -25,7 +25,7 @@ flex-direction: row-reverse;
   }
   
   .proj-header {
-    min-height: 50dvh;
+    min-height: 60dvh;
     background-size: cover;
     background-position: center;
     display:flex;
@@ -83,6 +83,7 @@ line-height:1.5;
   left: 50%;
   top: 50%;
   translate: -50% -50%;
+  width:100%;
 }
 
   // mobile beings

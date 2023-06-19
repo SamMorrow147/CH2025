@@ -33,6 +33,7 @@ flex-direction: row-reverse;
     align-items: center;
     position:relative;
     overflow:hidden;
+    background:black;
   }
 
   .proj-header:before {
@@ -80,10 +81,9 @@ line-height:1.5;
 
 .proj-header video {
   position: absolute;
-  left: 50%;
+  left: 0%;
   top: 50%;
-  translate: -50% -50%;
-  width:100%;
+  translate: 0% -50%;
 }
 
   // mobile beings

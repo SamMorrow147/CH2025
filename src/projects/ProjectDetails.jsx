@@ -40,9 +40,9 @@ console.log(id)
 
       <div class="project-details mt-5">
 
-      <div className="proj-header" style={{backgroundImage: `url(${project?.image.fields.file.url})`}}>
+      <div className="proj-header" style={{background:'b'}}>
 {project?.video &&
-        <video  autoplay="true">
+        <video autoplay="true">
           <source src={project.video.fields.file.url} type="video/mp4"/>
           Your browser does not support the video tag.
       </video>
@@ -50,7 +50,8 @@ console.log(id)
         <h1>{project?.title}</h1>
       </div>
 
-        <div className="container-sm">
+        <div className="container-md">
+          
         <div className="row align-items-center">
         </div>
         {project?.text}
@@ -79,7 +80,7 @@ console.log(id)
                 return <img key={mediaItem.id} src={url} />;
               } else if (contentType.startsWith('video/')) {
                 return (
-                  <video key={mediaItem.id} src={url} controls>
+                  <video key={mediaItem.id} src={url} autoplay="true">
                     Your browser does not support the video tag.
                   </video>
                 );

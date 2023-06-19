@@ -138,7 +138,7 @@ var config = {
               </div> 
 
               <div className="section">
-                <ProjectSlider paused={currentPanel !== 'fifth' }  arrowClick={() => fullpageApi.moveSectionDown()} projectClick= {() => {fullpageApi.silentMoveTo('sixth'); console.log('clicker')}} />
+                <ProjectSlider  arrowClick={() => fullpageApi.moveSectionDown()} projectClick= {() => {fullpageApi.silentMoveTo('sixth'); console.log('clicker')}} />
               </div>
 
               <div className="section">

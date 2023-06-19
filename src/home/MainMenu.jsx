@@ -24,7 +24,7 @@ export default function MainMenu({currentScroll, onClick}) {
                 {showProjectNav && (
                     <div className="project-nav">
                         {/* Project navigation content */}
-                        <Link to="/">BACK HOME</Link>
+                        <Link to="/#fifth">BACK HOME</Link>
                         <a href="">VIEW ALL PROJECTS</a>
                     </div>
                 )}

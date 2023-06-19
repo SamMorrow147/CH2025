@@ -50,11 +50,13 @@ console.log(id)
         <h1>{project?.title}</h1>
       </div>
 
-        <div className="container-md">
+        <div className="container-lg project-content">
           
         <div className="row align-items-center">
         </div>
         {project?.text}
+
+       
 
         {
   sections &&

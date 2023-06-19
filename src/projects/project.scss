@@ -109,3 +109,18 @@ line-height:1.5;
 
     
   }
+
+
+  .project-details .row {
+    padding-top:20px;
+  }
+
+  .multiple-images img {
+    flex: 0 0 auto; 
+    width: auto;
+    height: 100%; 
+    object-fit: contain;
+  }
+  .project-content {
+    overflow:hidden;
+  }

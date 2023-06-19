@@ -18,6 +18,7 @@ import {
 
 import Portfolio from './portfolio/Portfolio';
 import ProjectDetails from './projects/ProjectDetails';
+import Projects from './projects/Projects';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -31,6 +32,7 @@ ReactDOM.render(
     <Route path="sales" element={<Portfolio />} />
     <Route path="sales" element={<Portfolio />} />
     <Route path="/projects/:id" element={<ProjectDetails />} />
+    <Route path="/projects" element={<Projects />} />
 
     </Routes>
   </BrowserRouter>,

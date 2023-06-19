@@ -86,8 +86,11 @@ export default function ProjectSlider(props) {
                         })
                         }
                     </Swiper> 
+                    <a href="/projects" className="btn2 center">View All Projects</a>
+
                 </div>
                 <div className="project_text"></div>
+
             </div> 
             <DownArrow handleClick={props.arrowClick}/>
         </div>

@@ -16,7 +16,7 @@ export default React.memo(function Item(props) {
      className="project_item"
      onClick={props.projectClick}
      >
-        <Link to={`projects/${props.id}`}></Link>
+        <Link to={`/projects/${props.id}`}></Link>
         <div class="project-card">
             
             <div className="image" style={{backgroundImage: `url(${props.img})`}}>

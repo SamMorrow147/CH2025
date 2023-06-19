@@ -1441,3 +1441,7 @@ video {max-width:100%;}
   align-items: center;
   padding:10px;
 }
+
+.chevron, .container_2 {
+  z-index:3;
+}

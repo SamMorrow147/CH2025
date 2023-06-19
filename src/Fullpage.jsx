@@ -7,7 +7,7 @@ import React, {useState} from 'react';
 import Contact from './home/Contact'
 import ReactFullpage from '@fullpage/react-fullpage';
 import { useSwipeable } from "react-swipeable";
-import Projects from './projects/ProjectSlider'
+import ProjectSlider from './projects/ProjectSlider'
 import AboutTwo from './home/AboutTwo';
 
 const anchors = ["first", "second", "third","fourth","fifth", "sixth","seventh"];
@@ -138,7 +138,7 @@ var config = {
               </div> 
 
               <div className="section">
-                <Projects paused={currentPanel !== 'fifth' }  arrowClick={() => fullpageApi.moveSectionDown()} projectClick= {() => {fullpageApi.silentMoveTo('sixth'); console.log('clicker')}} />
+                <ProjectSlider paused={currentPanel !== 'fifth' }  arrowClick={() => fullpageApi.moveSectionDown()} projectClick= {() => {fullpageApi.silentMoveTo('sixth'); console.log('clicker')}} />
               </div>
 
               <div className="section">

@@ -25,13 +25,14 @@ flex-direction: row-reverse;
   }
   
   .proj-header {
-    min-height: 40dvh;
+    min-height: 50dvh;
     background-size: cover;
     background-position: center;
     display:flex;
     justify-content: center;
     align-items: center;
     position:relative;
+    overflow:hidden;
   }
 
   .proj-header:before {
@@ -51,11 +52,14 @@ flex-direction: row-reverse;
     position:relative;
     color:white;
     font-size:80px;
+    display:none;
   }
 .max-it {
   max-width:800px;
   margin:auto;
 }
+
+
 
 .project-details .section h3 {
   font-size:70px;
@@ -72,6 +76,13 @@ font-family: eurostile, sans-serif;
 letter-spacing: 1.5px;
 font-weight:400;
 line-height:1.5;
+}
+
+.proj-header video {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
 }
 
   // mobile beings

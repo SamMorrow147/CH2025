@@ -1445,3 +1445,7 @@ video {max-width:100%;}
 .chevron, .container_2 {
   z-index:3;
 }
+
+.btn {
+  border:none;
+}

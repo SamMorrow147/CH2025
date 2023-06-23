@@ -18,6 +18,11 @@ export default React.memo(function Item(props) {
      >
         <Link to={`/projects/${props.id}`}></Link>
         <div class="project-card">
+
+            <div class="card-stack">
+                <div></div>
+                <div></div>
+            </div>
             
             <div className="image" style={{backgroundImage: `url(${props.img})`}}>
             </div>

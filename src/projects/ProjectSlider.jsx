@@ -40,13 +40,13 @@ export default function ProjectSlider(props) {
                 <div className="project_content">
                     <div className="project_title"><h3>RECENT PROJECTS</h3></div>
                      <Swiper modules={[Navigation]} spaceBetween={20}  navigation slidesPerView={1.3}  centeredSlides={false}  initialSlide={0} breakpoints={{  
-                            826: {slidesPerView: 4},
+                            980: {slidesPerView: 4},
                             825: {slidesPerView: 3}, 
                             768: {slidesPerView: 2},
 
                         }
                         } 
-                        style={{paddingTop:'40px'}}>
+                        style={{paddingTop:'65px'}}>
 
 
 

@@ -37,9 +37,15 @@ console.log(id)
   return (
     <>
     <MainMenu/>
+    {project?.url &&
+        <div className="project-url">
+            <a href={`${project.url}`}>
+              VISIT <img src={`${project.logo.fields.file.url}`}/> WEBSITE!
+            </a>
+        </div>
+}
 
       <div class="project-details mt-5">
-
       <div className="proj-header" style={{background:'b'}}>
 {project?.video &&
         <video autoplay="true">

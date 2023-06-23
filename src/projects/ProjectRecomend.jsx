@@ -17,7 +17,9 @@ const client = createClient({
     accessToken: 'Qo-cqV0zm7ZQzXFN8BuuWmwLo4yvW23cctCiBDLnYgU'
 });
 
-export default function Projects(props) {
+export default function ProjectRecomend(props) {
+
+
     const [projectData, setProjectData] = useState([]);
 
     useEffect(() => {

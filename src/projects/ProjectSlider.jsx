@@ -58,10 +58,11 @@ export default function ProjectSlider(props) {
                             <SwiperSlide
                                 key={`${index}_${fields.title}`}
                                 style={{
+                                width:'320px !important',
                                 zIndex: projectData.length - index < 0 ? projectData.length - index : 0,
                                 animationDelay: `${delay}s`,
                                 rotate: `${getRandomRotation()}deg`,
-                                translate:`-${leftValue * index}px`,
+                                translate:`-${320 * index}px`,
                                 position:'relative'
                                 }}
                             >
@@ -92,7 +93,6 @@ export default function ProjectSlider(props) {
                 <div className="project_text"></div>
 
             </div> 
-            <DownArrow handleClick={props.arrowClick}/>
         </div>
     )
 }

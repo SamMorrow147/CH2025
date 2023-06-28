@@ -46,10 +46,12 @@ console.log(id)
 }
 
       <div class="project-details mt-5">
-      <div className="proj-header" style={{background:'b'}}>
+      <div className="proj-header" style={{backgroundImage:`url(${project?.headerImage?.fields.file.url})`}}>
 {project?.video &&
-        <video autoplay="true">
-          <source src={project.video.fields.file.url} type="video/mp4"/>
+        <video preload="auto" autoPlay={true} muted>
+          
+         { project.video.fields.file.url && <source src={project.video.fields.file.url} type="video/mp4"/>}
+
           Your browser does not support the video tag.
       </video>
 }

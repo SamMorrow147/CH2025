@@ -1,6 +1,15 @@
 @media only screen and (max-width: 800px) {
 
 
+
+.project-content {
+  padding-bottom:200px;
+}
+
+  .project_grid .project_content {
+justify-content:center;
+  }
+
   .contact_card {
     width: calc(100% - 32px);
       height: auto;
@@ -156,7 +165,7 @@
   .container {
     padding:10px;
     height:calc(100% - 60px);
-  margin-top: 60px;
+    padding-bottom:60px;
   }
 
   .top_content .wordmark {
@@ -523,4 +532,10 @@ align-self: flex-start;
 
 
 
+}
+
+@media only screen and (max-width: 1024px) {
+  .project_wrapper {
+    padding:0px;
+  }
 }

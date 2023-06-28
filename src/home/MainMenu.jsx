@@ -9,7 +9,6 @@ export default function MainMenu({currentScroll, onClick}) {
 
      const location = useLocation();
      const showProjectNav = location.pathname.startsWith('/projects/');
-     const showStaticBar = location.pathname === '/';
 
 
     return (
@@ -24,12 +23,12 @@ export default function MainMenu({currentScroll, onClick}) {
                 {showProjectNav && (
                     <div className="project-nav">
                         {/* Project navigation content */}
-                        <Link to="/#fifth">BACK HOME</Link>
-                        <a href="/projects">VIEW ALL PROJECTS</a>
+                        <Link to="/#fifth"> <img src="/images/arrowhead-left.svg" className="card-icon"/> <span>HOME</span></Link>
+                        <a href="/projects"><img src="/images/card-icon.svg" className="card-icon"/> <span>VIEW ALL</span></a>
                     </div>
                 )}
 
-        {showStaticBar && (
+        {!showProjectNav && (
           <div className="static-bar">
             <img className="logo" width="220" height="220" src="/images/animated-logo.gif" />
             <img

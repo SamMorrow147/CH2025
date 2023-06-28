@@ -35,13 +35,10 @@ export default function Projects(props) {
 <>
         <MainMenu/>
         <div className="project_section project_grid">
+        <div className="project_title"><h3> PROJECTS</h3></div>
             <div className="project_wrapper container">
                 <div className="project_content ">
-                    <div className="project_title"><h3> PROJECTS</h3></div>
                      
-
-
-
                         {              
                         projectData?.map(({ sys, fields }, index) => {
                             const delay = (projectData.length - index) * baseDelay;

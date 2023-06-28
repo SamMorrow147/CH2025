@@ -27,25 +27,25 @@ flex-direction: row-reverse;
   .proj-header {
     min-height: 60dvh;
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     display:flex;
     justify-content: center;
     align-items: center;
     position:relative;
     overflow:hidden;
-    background:black;
+    background-color:black;
   }
 
-  .proj-header:before {
-    content:'';
-    position: absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0, 0, 0, 0.685);
-    z-index:0;
-  }
+  // .proj-header:before {
+  //   content:'';
+  //   position: absolute;
+  //   top:0;
+  //   left:0;
+  //   width:100%;
+  //   height:100%;
+  //   background:rgba(0, 0, 0, 0.685);
+  //   z-index:0;
+  // }
 
     
   .proj-header h1 {
@@ -78,6 +78,8 @@ letter-spacing: 1.5px;
 font-weight:400;
 line-height:1.5;
 }
+
+
 
 .proj-header video {
   position: absolute;
@@ -120,6 +122,7 @@ line-height:1.5;
     width: auto;
     height: 100%; 
     object-fit: contain;
+    max-width:50%;
   }
   .project-content {
     overflow:hidden;

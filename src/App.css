@@ -756,6 +756,8 @@ border-radius: 0px 0px 20px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top:40px;
+  margin-bottom:20px;
 }
 
 .project_title h3 {
@@ -1075,9 +1077,8 @@ animation: shorten .5s forwards !important;
 
 .city_animation {
   position: relative;
-  margin-left: auto;
+  margin: auto;
   z-index: 1;
-  z-index:0;
 }
 
 .second_section {
@@ -1446,11 +1447,13 @@ video {max-width:100%;}
 
 .project-nav > a {
   color:white;
-  background:var(--blue);
   display:flex;
   justify-content: center;
   align-items: center;
   padding:10px;
+  font-size:15px;
+  margin-right:20px;
+  white-space: nowrap;
 }
 
 .chevron, .container_2 {
@@ -1469,11 +1472,29 @@ video {max-width:100%;}
 .project_grid {
   min-height:100dvh;
 }
+
 .project_grid .project_content {
-flex-direction: row;
-justify-content: flex-start;
-gap:73px;
+ display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Four columns in a row */
+  grid-gap: 10px; /* Adjust the gap between items as needed */
 }
+
+@media screen and (max-width: 1149px) {
+  .project_grid .project_content {
+     grid-template-columns: repeat(3, 1fr); /* Four columns in a row */
+   }
+}
+@media screen and (max-width: 800px) {
+  .project_grid .project_content {
+     grid-template-columns: repeat(1, 1fr); /* Four columns in a row */
+   }
+
+   .project_grid .grid_item {
+    margin-left:auto;
+    margin-right:auto;
+   }
+}
+
 
 .btn2 {
   border: 1px solid white;
@@ -1501,4 +1522,11 @@ gap:73px;
 
 .project_item > a{
   z-index:1;
+}
+
+.card-icon {
+  width:auto;
+  max-height:30px;
+  position:relative;
+  margin-right:10px;
 }

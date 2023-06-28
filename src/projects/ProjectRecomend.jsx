@@ -30,26 +30,34 @@ export default function ProjectRecomend(props) {
         .catch(console.error);
     }, []);
 
+
+
+      
     const maxDelay = 1; // Maximum delay in seconds
     const baseDelay = maxDelay / projectData.length;
+    
+console.log(projectData);
 
     return (
 <>
         <MainMenu/>
-        <div className="project_section project_grid">
+        <div className="project_section project_grid project_related">
+        <div className="project_title"><h3> SIMILAR PROJECTS</h3></div>
+
             <div className="project_wrapper container">
                 <div className="project_content ">
-                    <div className="project_title"><h3> PROJECTS</h3></div>
                      
 
 
 
                         {              
-                        projectData?.map(({ sys, fields }, index) => {
+                        projectData?.slice(0,4).map(({ sys, fields }, index) => {
                             const delay = (projectData.length - index) * baseDelay;
                             
                             return (
-                                <div className="grid_item"
+                             props.skip != sys.id &&   
+                             <div 
+                                    className="grid_item"
                                     key={`${index}_${fields.title}`}
                                     style={{
                                     zIndex: projectData.length - index < 0 ? projectData.length - index : 0,
@@ -59,7 +67,7 @@ export default function ProjectRecomend(props) {
                                     position:'relative'
                         
                                 }}>
-
+                                    
                                     <Item
                                         title={fields.title}
                                         tags={fields.tags}
@@ -76,7 +84,9 @@ export default function ProjectRecomend(props) {
                                         projectClick={props.projectClick}
                                         totalIndex={projectData.length}
                                     />
+
                                 </div>
+                        
                             );
                         })
                         }

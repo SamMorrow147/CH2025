@@ -5,7 +5,6 @@ import { createClient } from 'contentful';
 import MainMenu from '../home/MainMenu';
 
 
-
 function getRandomRotation() {
     return Math.random() * 15 - 5; // Generates a random number between -5 and 5
   }
@@ -34,7 +33,7 @@ export default function Projects(props) {
     return (
 <>
         <MainMenu/>
-        <div className="project_section project_grid">
+        <div className="project_section project_grid project_all">
         <div className="project_title"><h3> PROJECTS</h3></div>
             <div className="project_wrapper container">
                 <div className="project_content ">

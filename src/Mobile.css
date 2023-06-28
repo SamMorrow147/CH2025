@@ -424,6 +424,10 @@ align-self: flex-start;
 
 
 
+.swiper-button-next, .swiper-button-prev {
+display:none;
+}
+
 }
 
 
@@ -539,3 +543,4 @@ align-self: flex-start;
     padding:0px;
   }
 }
+

@@ -1,10 +1,11 @@
 import { createClient } from 'contentful'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import { Link, useParams } from 'react-router-dom/dist';
 import ReactFullpage from '@fullpage/react-fullpage';
 import MainMenu from '../home/MainMenu';
 import "./project.scss"
 import Item from './Item';
+import ProjectRecomend from './ProjectRecomend';
 
 
 const client = createClient({
@@ -17,9 +18,8 @@ const client = createClient({
 const ProjectDetails = () => {
 
 const {id} = useParams();
-console.log(id)
-
     const [singleprojectData, setSingleProjectData] = useState({});
+    const contentRef = useRef(null);
 
     useEffect(() => {
       client.getEntries({
@@ -34,18 +34,29 @@ console.log(id)
   console.log(project);
   console.log(sections);
 
+  const modifiedURL = project?.url ? (/^https?:\/\//i.test(project.url) ? project.url : `https://${project.url}`) : null;
+
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setTimeout(() => {contentRef.current.scrollIntoView({ behavior: 'instant', block: 'start' }) }, 100)
+    }
+  }, [singleprojectData?.items]);
+
+
   return (
     <>
     <MainMenu/>
+    
     {project?.url &&
         <div className="project-url">
-            <a href={`${project.url}`}>
-              VISIT <img src={`${project.logo.fields.file.url}`}/> WEBSITE!
-            </a>
+           <a href={modifiedURL} target="_BLANK">
+          VISIT <img src={`${project.logo.fields.file.url}`} alt="Project Logo"/> WEBSITE!
+        </a>
         </div>
 }
 
-      <div class="project-details mt-5">
+      <div class="project-details mt-5" ref={contentRef}>
       <div className="proj-header" style={{backgroundImage:`url(${project?.headerImage?.fields.file.url})`}}>
 {project?.video &&
         <video preload="auto" autoPlay={true} muted>
@@ -120,7 +131,8 @@ console.log(id)
 
         </div>
       </div>
-
+      
+{project && <ProjectRecomend skip={id}/>}
       </>
   )
 }

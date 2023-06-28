@@ -30,20 +30,22 @@ export default function MainMenu({currentScroll, onClick}) {
 
         {!showProjectNav && (
           <div className="static-bar">
-            <img className="logo" width="220" height="220" src="/images/animated-logo.gif" />
-            <img
-              className="wordmark"
-              height="200"
-              width="600"
-              src={
-                isEven(currentScroll) && currentScroll !== 0
-                  ? '../images/wordmark.png'
-                  : '../images/wordmark_white.png'
-              }
-            />
+              <a href="/">
+                  <img className="logo" width="220" height="220" src="/images/animated-logo.gif" />
+                <img
+                  className="wordmark"
+                  height="200"
+                  width="600"
+                  src={
+                    isEven(currentScroll) && currentScroll !== 0
+                      ? '../images/wordmark.png'
+                      : '../images/wordmark_white.png'
+                  }
+                />
+              </a>
           </div>
         )}
-
+  
         </div>
         
         </>

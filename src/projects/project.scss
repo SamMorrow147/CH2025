@@ -145,9 +145,6 @@ line-height:1.5;
 
 
 
-.project_item:hover .card-stack > div {
-  filter: drop-shadow(2px 4px 6px black);
-}
 
 .card-stack > div {
   width:100%;
@@ -171,16 +168,11 @@ line-height:1.5;
 
 
 
-.project_item:hover:after {
- top:30px;
- rotate:5deg;
-}
-
-
 .project_item .title {
 margin-top:0px;
 transition:.2s;
 }
+
 .project_item:hover .title {
   margin-top:-80px;
 }
@@ -196,6 +188,22 @@ transition:.2s;
 }
 
 
+@media screen and (min-width:801px)
+{
+  
+
+
+.project_item:hover .card-stack > div {
+  filter: drop-shadow(2px 4px 6px black);
+}
+
+.project_item:hover:after {
+  top:30px;
+  rotate:5deg;
+ }
+ 
+ 
+
 
 .project_item:hover .card-stack > div:first-child {
   top:-30px;
@@ -207,7 +215,7 @@ transition:.2s;
   rotate:12deg;
  }
 
-
+}
 
 
   // mobile beings

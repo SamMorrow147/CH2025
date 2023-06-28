@@ -74,6 +74,9 @@ var config = {
       anchors={anchors}
       lockAnchors={true}
       fixedElements='.breadcrumbs'
+      dragAndMove={true}
+      touchSensitivity={10}
+
       onLeave={(origin, destination, direction, currentPanel, fullpageApi,state) => {}}
       render={({ state, fullpageApi, origin, currentPanel}) => {
 

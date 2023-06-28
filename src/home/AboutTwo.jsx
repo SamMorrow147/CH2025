@@ -20,7 +20,13 @@ export default function AboutTwo(props) {
             { props.paused === false ? 
             <div className="content_wrapper container">
                 <div className="video">
-                <video src="/videos/Clubhaus.mp4" loop autoPlay muted ></video>          
+
+                <video preload="auto" autoPlay={true} muted >
+                <source src="/videos/Clubhaus.mp4" type="video/mp4"/>
+                    Your browser does not support the video tag.
+                </video>
+
+              
                 </div>  
                 <div className="about2_content">
                     <h2>Here to help you play your cards right.</h2>

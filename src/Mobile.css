@@ -544,3 +544,12 @@ display:none;
   }
 }
 
+@media only screen and (max-height: 760px) {
+  .project_item .project-card {
+    padding-top:5dvh;
+    min-height:40dvh;
+  }
+  .swiper-initialized {
+    padding-top:10px !Important;
+  }
+}

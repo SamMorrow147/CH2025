@@ -662,6 +662,7 @@ z-index:2;}
 
 .project_wrapper {
   overflow:hidden;
+  height:90%;
 }
 
 
@@ -726,9 +727,6 @@ transition:.2s;
 margin:auto;
   }
 
-  .project_item:hover .project-card {
-    scale:1.05;
-  }
 
 .project-slider {
   display: flex;

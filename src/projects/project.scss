@@ -173,9 +173,6 @@ margin-top:0px;
 transition:.2s;
 }
 
-.project_item:hover .title {
-  margin-top:-80px;
-}
 
 .card-stack {
   position: absolute;
@@ -191,7 +188,10 @@ transition:.2s;
 @media screen and (min-width:801px)
 {
   
-
+  .project_item:hover .title {
+    margin-top:-80px;
+  }
+  
 
 .project_item:hover .card-stack > div {
   filter: drop-shadow(2px 4px 6px black);
@@ -202,7 +202,10 @@ transition:.2s;
   rotate:5deg;
  }
  
- 
+ .project_item:hover .project-card {
+  scale:1.05;
+}
+
 
 
 .project_item:hover .card-stack > div:first-child {

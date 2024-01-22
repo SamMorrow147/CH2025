@@ -59,7 +59,7 @@ const {id} = useParams();
       <div class="project-details mt-5" ref={contentRef}>
       <div className="proj-header" style={{backgroundImage:`url(${project?.headerImage?.fields.file.url})`}}>
 {project?.video &&
-        <video preload="auto" autoPlay={true} muted>
+        <video preload="auto" key={project.video.fields.title} autoPlay={true} muted>
           
          { project.video.fields.file.url && <source src={project.video.fields.file.url} type="video/mp4"/>}
 
@@ -101,7 +101,7 @@ const {id} = useParams();
                 return <img key={mediaItem.id} src={url} />;
               } else if (contentType.startsWith('video/')) {
                 return (
-                  <video key={mediaItem.id} src={url} autoplay="true" loop>
+                  <video key={mediaItem.id} src={url} autoplay="false" >
                     Your browser does not support the video tag.
                   </video>
                 );

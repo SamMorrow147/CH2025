@@ -6,7 +6,6 @@ export default React.memo(function Item(props) {
 
   
     return (
-
      <div id={props.id} style={{
          animationDelay:`${props.theIndex * .2}s`,
         
@@ -24,7 +23,7 @@ export default React.memo(function Item(props) {
                 <div></div>
             </div>
             
-            <div className="image" style={{backgroundImage: `url(${props.img})`}}>
+            <div className="image"  style={{backgroundImage: `url(${props.img})`}}>
             </div>
 
             <div className="card-inner">
@@ -35,13 +34,24 @@ export default React.memo(function Item(props) {
 
         <div className="title">
             <h3>{props.title}</h3>
-            <span>{props.sub}</span>
-        </div> 
-    
-      
-        
+            {props.tag && props.tag.length > 0 ? (
+                <span>
+                {props.tag.map((item, index) => (
+                    <React.Fragment key={index}>
+                    {item.sys.id}
+                    {index !== props.tag.length - 1 && ', '}
+                    </React.Fragment>
+                ))}
+                </span>
+            ) : (
+                <span>{props.subtitle}</span>
+            )}
+            </div>
+
     </div>
     
+      
+ 
     )
 }
 )

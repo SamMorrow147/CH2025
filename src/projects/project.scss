@@ -67,8 +67,9 @@ flex-direction: row-reverse;
   font-weight:600;
   font-variant: all-petite-caps;
   color:var(--blue-two);
-  margin-bottom:10px;
-  line-height:1;
+  margin-bottom:20px;
+  line-height:.7;
+
 }
 
 .project-details .section p {
@@ -92,7 +93,8 @@ line-height:1.5;
 
 
 .project-details .row {
-  padding-top:20px;
+  padding-top:50px;
+  padding-bottom:50px;
 }
 
 .multiple-images img {
@@ -120,6 +122,10 @@ line-height:1.5;
 
 .project_grid .project_wrapper {
   padding-top:60px;
+}
+
+.project_grid .project_wrapper .grid_item {
+padding-top:50px;
 }
 
 .project_related {padding-bottom:120px;
@@ -185,13 +191,16 @@ transition:.2s;
 }
 
 
+.title span {
+  margin-top:-8px;
+  display:block;
+  font-size:13px;
+}
+
 @media screen and (min-width:801px)
 {
   
-  .project_item:hover .title {
-    margin-top:-80px;
-  }
-  
+
 
 .project_item:hover .card-stack > div {
   filter: drop-shadow(2px 4px 6px black);
@@ -235,7 +244,7 @@ transition:.2s;
       line-height:1;
     }
     .proj-header {
-      min-height:auto;
+      min-height:350px;
     }
 
     .proj-header video {

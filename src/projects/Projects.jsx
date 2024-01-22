@@ -39,9 +39,8 @@ export default function Projects(props) {
                 <div className="project_content ">
                      
                         {              
-                        projectData?.map(({ sys, fields }, index) => {
+                        projectData?.map(({ sys, fields, metadata }, index) => {
                             const delay = (projectData.length - index) * baseDelay;
-                            
                             return (
                                 <div className="grid_item"
                                     key={`${index}_${fields.title}`}
@@ -69,6 +68,7 @@ export default function Projects(props) {
                                         key={index}
                                         projectClick={props.projectClick}
                                         totalIndex={projectData.length}
+                                        tag={metadata.tags}
                                     />
                                 </div>
                             );

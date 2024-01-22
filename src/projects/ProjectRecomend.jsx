@@ -51,7 +51,7 @@ console.log(projectData);
 
 
                         {              
-                        projectData?.slice(0,4).map(({ sys, fields }, index) => {
+                        projectData?.slice(0,5).map(({ sys, fields, metadata }, index) => {
                             const delay = (projectData.length - index) * baseDelay;
                             
                             return (
@@ -83,6 +83,7 @@ console.log(projectData);
                                         key={index}
                                         projectClick={props.projectClick}
                                         totalIndex={projectData.length}
+                                        tag={metadata.tags}
                                     />
 
                                 </div>

@@ -27,7 +27,7 @@ export default function HeartSection(props) {
                    <Suspense fallback={<div>Loading...</div>}>
 
                        <Typist avgTypingDelay={.1}>
-                       We partner with businesses who make an <b>art</b> out of philanthropy & are on mission to design <b>a better future</b>.
+                       We partner with businesses who make an <b>art</b> out of philanthropy & are on a mission to design <b>a better future</b>.
                         </Typist>
                     </Suspense>
 

@@ -137,7 +137,7 @@ var config = {
         
         {/* Social Media Icons */}
         <div className="social-icons">
-          <a href="https://www.linkedin.com/company/clubhaus" target="_blank" rel="noopener noreferrer" className="social-icon">
+          <a href="https://www.linkedin.com/in/mrwcreations" target="_blank" rel="noopener noreferrer" className="social-icon">
             <img src="/images/linkedin.svg" alt="LinkedIn" />
           </a>
           <a href="https://www.facebook.com/clubhausagency" target="_blank" rel="noopener noreferrer" className="social-icon">
@@ -228,9 +228,66 @@ var config = {
             position: absolute;
           }
           
-          /* Turn all dots black on Contact page */
-          .fp-viewing-seventh #fp-nav ul li a:before {
-            background-color: #000;
+          /* Hover effect to show SVG icons - base styling */
+          #fp-nav ul li a:not(.active):hover:before {
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent !important; /* Ensure no background color appears */
+            border-radius: 0;
+            transform: scale(1.2);
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s ease; /* Only transition the transform property */
+          }
+          
+          /* Remove these section-specific hover styles as they apply all the same icon */
+          /* 
+          .fp-viewing-second #fp-nav ul li a:not(.active):hover:before {...}
+          .fp-viewing-third #fp-nav ul li a:not(.active):hover:before {...}
+          etc...
+          */
+          
+          /* Apply the correct icon based on which dot/section is being hovered */
+          /* Home dot - hidden now */
+          
+          /* Who We Are dot - use Clubs (now first visible dot) */
+          #fp-nav ul li:nth-child(2) a:not(.active):hover:before {
+            background-image: url('/images/SVG/Clubs@8x.svg');
+            filter: invert(48%) sepia(85%) saturate(442%) hue-rotate(163deg) brightness(92%) contrast(92%);
+          }
+          
+          /* Services dot - use Chip (now second visible dot) */
+          #fp-nav ul li:nth-child(3) a:not(.active):hover:before {
+            background-image: url('/Chip.svg');
+            filter: invert(48%) sepia(85%) saturate(442%) hue-rotate(163deg) brightness(92%) contrast(92%);
+          }
+          
+          /* Why ClubHaus dot - use white Spade (now third visible dot) */
+          #fp-nav ul li:nth-child(4) a:not(.active):hover:before {
+            background-image: url('/images/SVG/Spade@8x.svg');
+            filter: brightness(100) saturate(0%);
+            background-color: transparent !important;
+          }
+          
+          /* Our Work dot - use Diamond (now fourth visible dot) */
+          #fp-nav ul li:nth-child(5) a:not(.active):hover:before {
+            background-image: url('/images/SVG/Diamond@8x.svg');
+          }
+          
+          /* Modus Operandi dot - use Heart (now fifth visible dot) */
+          #fp-nav ul li:nth-child(6) a:not(.active):hover:before {
+            background-image: url('/images/SVG/Heart@8x.svg');
+            background-color: transparent !important;
+            filter: invert(9%) sepia(98%) saturate(7106%) hue-rotate(1deg) brightness(104%) contrast(113%) !important;
+            transition: none !important; /* Disable transition to prevent blue flash */
+          }
+          
+          /* Contact dot - use black Spade (now sixth visible dot) */
+          #fp-nav ul li:nth-child(7) a:not(.active):hover:before {
+            background-image: url('/images/SVG/Spade@8x.svg');
+            filter: brightness(0) saturate(100%);
+            background-color: transparent !important;
           }
           
           /* Turn all dots white on Why ClubHaus page */
@@ -243,45 +300,37 @@ var config = {
             background-color: #ff0000;
           }
           
+          /* Make sure heart is always properly colored on Modus Operandi section */
+          .fp-viewing-sixth #fp-nav ul li:nth-child(6) a:not(.active):hover:before {
+            background-image: url('/images/SVG/Heart@8x.svg') !important;
+            background-color: transparent !important;
+            filter: invert(9%) sepia(98%) saturate(7106%) hue-rotate(1deg) brightness(104%) contrast(113%) !important;
+            transition: none !important;
+          }
+          
           /* SVG color filter for the chip */
           #fp-nav ul li a.active:before,
           .mobile-nav-item.active:before {
             filter: none;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
-            animation: flipAnimation 0.75s ease-out;
+            /* Remove animations and transitions for immediate display */
+            transform: scale(1.5) !important;
+            animation: none !important;
+            transition: none !important;
           }
           
-          /* Flip animation */
+          /* Flip animation - keeping for reference but not using it */
           @keyframes flipAnimation {
             0% {
-              transform: rotateY(0) scale(0.8) translateZ(0px);
-              box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-              opacity: 0.5;
-            }
-            25% {
-              transform: rotateY(90deg) scale(1.2) translateZ(20px);
-              box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-              opacity: 0.7;
-            }
-            50% {
-              transform: rotateY(180deg) scale(1.5) translateZ(30px);
-              box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
-              opacity: 0.9;
-            }
-            75% {
-              transform: rotateY(270deg) scale(1.2) translateZ(20px);
-              box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-              opacity: 0.7;
+              transform: scale(1.5);
+              opacity: 1;
             }
             100% {
-              transform: rotateY(360deg) scale(1.5) translateZ(0px);
-              box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+              transform: scale(1.5);
               opacity: 1;
             }
           }
           
-          /* Add additional shine effect during flip */
+          /* Add additional shine effect during flip - removed animation */
           #fp-nav ul li a.active:before {
             position: relative;
             backface-visibility: hidden;
@@ -294,33 +343,34 @@ var config = {
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 51%, rgba(255,255,255,0) 100%);
+            background: none;
             opacity: 0;
-            transform: rotate(45deg);
-            animation: shineEffect 0.75s ease-in-out;
+            transform: none;
+            animation: none;
             pointer-events: none;
           }
           
+          /* Remove shine effect animation */
           @keyframes shineEffect {
             0%, 100% { opacity: 0; }
-            25%, 75% { opacity: 0.7; }
           }
           
-          /* Add perspective to container for 3D effect */
+          /* Simplify perspective and container for immediate display */
           #fp-nav ul li {
-            perspective: 1000px;
-            transform-style: preserve-3d;
-            transition: all 0.3s ease;
+            perspective: none;
+            transform-style: flat;
+            transition: none;
           }
           
-          /* Add hover animation to inactive dots */
+          /* Remove hover animation - replaced with SVG hover effect */
           #fp-nav ul li a:not(.active):before {
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
           }
           
-          #fp-nav ul li a:not(.active):hover:before {
-            transform: rotateY(180deg) scale(1.2);
-          }
+          /* Remove this to avoid conflict with our new hover style */
+          /* #fp-nav ul li a:not(.active):hover:before {
+            transform: none;
+          } */
           
           /* Blue color for Clubs and Services */
           .fp-viewing-second #fp-nav ul li a.active:before,
@@ -340,6 +390,7 @@ var config = {
             background-color: transparent;
             transform: scale(1.5);
             border-radius: 0;
+            transition: all 0.3s ease;
           }
           
           /* Use Clubs for Who We Are section */
@@ -442,6 +493,11 @@ var config = {
           
           /* Show hamburger on all sections for mobile devices */
           @media (max-width: 768px) {
+            #fp-nav {
+              display: none !important;
+            }
+            
+            /* Always show hamburger on mobile */
             .mobile-hamburger {
               display: block !important;
               position: fixed;
@@ -517,6 +573,7 @@ var config = {
             border-left: 3px solid transparent;
             transition: all 0.3s ease;
             position: relative;
+            height: 40px; /* Fixed height for consistency */
           }
           
           .mobile-nav-item.active {
@@ -529,14 +586,24 @@ var config = {
             content: "";
             position: absolute;
             left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
+            top: calc(50% - 4px); /* Lift icon up by 4px from center */
+            transform: translateY(-50%); /* Center vertically */
             width: 20px;
             height: 20px;
             background-image: url('/Chip.svg');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
+          }
+          
+          /* Mobile nav text alignment */
+          .mobile-nav-text {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 20px; /* Match line height with icon size */
+            display: flex;
+            align-items: center;
+            height: 100%;
           }
           
           /* Use appropriate suit SVG for each mobile navigation item */
@@ -600,12 +667,17 @@ var config = {
             background-color: rgba(50, 158, 199, 0.1);
           }
           
+          /* Modified mobile-nav-text with vertical alignment improvements */
           .mobile-nav-text {
             font-size: 18px;
             font-weight: bold;
+            line-height: 20px; /* Match line height with icon height */
+            display: flex;
+            align-items: center;
+            height: 100%;
           }
           
-          /* Social media icons styling */
+          /* Social media icons styling - for contact page only */
           .social-icons {
             display: flex;
             justify-content: center;
@@ -637,6 +709,8 @@ var config = {
             filter: brightness(0) invert(1); /* Make icons white */
           }
           
+          /* Remove mobile navigation menu specific overrides */
+          
           /* Media query for mobile */
           @media (max-width: 768px) {
             #fp-nav {
@@ -655,6 +729,31 @@ var config = {
             /* Center align Heart at Play title on mobile */
             .fp-viewing-sixth .heart_content h2 {
               text-align: center;
+            }
+            
+            /* Mobile vertical alignment fixes */
+            .mobile-nav-item {
+              align-items: center;
+              min-height: 40px; /* Consistent height */
+              height: 40px; /* Fixed height for better alignment */
+              padding-left: 20px; /* Add padding since we're hiding icons */
+            }
+            
+            /* Hide the icons completely on mobile */
+            .mobile-nav-item.active:before {
+              display: none !important;
+            }
+            
+            /* Adjust styling for active items since icons are hidden */
+            .mobile-nav-item.active {
+              border-left: 3px solid #329ec7;
+              background-color: rgba(50, 158, 199, 0.2);
+              padding-left: 20px; /* Reduce padding since we're hiding icons */
+            }
+            
+            .mobile-nav-item .mobile-nav-text {
+              display: flex;
+              align-items: center;
             }
           }
           
@@ -759,6 +858,11 @@ var config = {
           }
           
           /* End of custom styles */
+          
+          /* Hide the first navigation dot (Home section) */
+          #fp-nav ul li:first-child {
+            display: none !important;
+          }
         `;
         document.head.appendChild(style);
       }}
@@ -768,13 +872,12 @@ var config = {
         if (destination && destination.index !== undefined) {
           setCurrentSectionName(sectionNames[destination.index]);
           
-          // Trigger animation restart by removing and re-adding the class
+          // Remove animation restart - just set the style directly
           const activeNavDot = document.querySelector('#fp-nav ul li a.active:before');
           if (activeNavDot) {
             activeNavDot.style.animation = 'none';
-            setTimeout(() => {
-              activeNavDot.style.animation = 'flipAnimation 0.75s ease-out';
-            }, 10);
+            activeNavDot.style.transform = 'scale(1.5)';
+            activeNavDot.style.opacity = '1';
           }
         }
       }}

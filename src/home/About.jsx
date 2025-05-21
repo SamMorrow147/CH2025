@@ -41,7 +41,29 @@ export default function About(props) {
                         // Mobile layout with absolute positioning
                         <div style={{position: 'relative'}}>
                             <p style={{marginBottom: '70px', paddingBottom: 0}}>
-                                A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD {props.paused ? 'COOL S#!%' : <TextLoop children={["COOL $#!%", "STORIES", "BRANDS", "CAMPAIGNS", "ADS", "START-UPS", "PACKAGE DESIGNS", "BUSINESSES", "LEGENDS"]} />}
+                                A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD {props.paused ? <strong>COOL $#!%</strong> : (
+                                <span className="text-loop-wrapper" style={{display: 'inline-block', transform: 'translateY(-4px)'}}>
+                                    <TextLoop 
+                                        delay={3000} 
+                                        interval={1500} 
+                                        children={[
+                                            <strong>COOL $#!%</strong>, 
+                                            <strong>STORIES</strong>, 
+                                            <strong>BRANDS</strong>, 
+                                            <strong>CAMPAIGNS</strong>, 
+                                            <strong>ADS</strong>, 
+                                            <strong>START-UPS</strong>, 
+                                            <strong>PACKAGES</strong>, 
+                                            <strong>BUSINESS</strong>, 
+                                            <strong>LEGENDS</strong>, 
+                                            <strong>ICONS</strong>, 
+                                            <strong>EMPIRES</strong>, 
+                                            <strong>MOVEMENTS</strong>, 
+                                            <strong>BUZZ</strong>
+                                        ]}
+                                    />
+                                </span>
+                                )}
                             </p>
                             <div style={{
                                 position: 'absolute',
@@ -60,7 +82,29 @@ export default function About(props) {
                         // Desktop layout with normal flow
                         <>
                             <p>
-                                A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD {props.paused ? 'COOL S#!%' : <TextLoop children={["COOL $#!%", "STORIES", "BRANDS", "CAMPAIGNS", "ADS", "START-UPS", "PACKAGE DESIGNS", "BUSINESSES", "LEGENDS"]} />}
+                                A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD {props.paused ? <strong>COOL $#!%</strong> : (
+                                <span className="text-loop-wrapper" style={{display: 'inline-block', transform: 'translateY(-4px)'}}>
+                                    <TextLoop 
+                                        delay={3000} 
+                                        interval={1500} 
+                                        children={[
+                                            <strong>COOL $#!%</strong>, 
+                                            <strong>STORIES</strong>, 
+                                            <strong>BRANDS</strong>, 
+                                            <strong>CAMPAIGNS</strong>, 
+                                            <strong>ADS</strong>, 
+                                            <strong>START-UPS</strong>, 
+                                            <strong>PACKAGES</strong>, 
+                                            <strong>BUSINESS</strong>, 
+                                            <strong>LEGENDS</strong>, 
+                                            <strong>ICONS</strong>, 
+                                            <strong>EMPIRES</strong>, 
+                                            <strong>MOVEMENTS</strong>, 
+                                            <strong>BUZZ</strong>
+                                        ]}
+                                    />
+                                </span>
+                                )}
                             </p>
                             <div className="button-container" style={{
                                 display: 'flex',

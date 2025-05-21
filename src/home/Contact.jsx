@@ -9,7 +9,7 @@ const Contact = () => {
           
           {/* Social Media Icons - repositioned to bottom right */}
           <div className="contact-social-icons">
-            <a href="https://www.linkedin.com/company/clubhaus" target="_blank" rel="noopener noreferrer" className="contact-social-icon">
+            <a href="https://www.linkedin.com/in/mrwcreations" target="_blank" rel="noopener noreferrer" className="contact-social-icon">
               <img src="/images/linkedin.svg" alt="LinkedIn" />
             </a>
             <a href="https://www.facebook.com/clubhausagency" target="_blank" rel="noopener noreferrer" className="contact-social-icon">

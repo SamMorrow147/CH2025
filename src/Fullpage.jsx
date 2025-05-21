@@ -11,7 +11,47 @@ import ProjectSlider from './projects/ProjectSlider'
 import AboutTwo from './home/AboutTwo';
 
 const anchors = ["first", "second", "third","fourth","fifth", "sixth","seventh"];
-const sectionNames = ['Home', 'Who We Are', 'Services', 'Why ClubHaus', 'Our Work', 'Modus Operandi', 'Contact'];
+const sectionNames = ['Home', 'Who We Are', 'Services', 'Why ClubHaus', 'Our Work', 'Modus Operandi', 'Reach Out'];
+
+// Section theme colors mapping
+const sectionThemeColors = {
+  first: '#293a8d', // Home - default blue
+  second: '#329ec7', // Who We Are - light blue
+  third: '#293a8d', // Services - dark blue
+  fourth: '#000000', // Why ClubHaus - dark section with white text
+  fifth: '#293a8d', // Our Work - dark blue
+  sixth: '#ff0000', // Modus Operandi - dark section with red heart icon
+  seventh: '#000000', // Reach Out - black
+};
+
+// Function to get the appropriate theme color based on section
+const getThemeColorForSection = (sectionIndex) => {
+  if (sectionIndex === undefined || sectionIndex < 0 || sectionIndex >= anchors.length) {
+    return '#293a8d'; // Default color
+  }
+  
+  const sectionAnchor = anchors[sectionIndex];
+  
+  // Special handling for sections with unique styling
+  switch(sectionAnchor) {
+    case 'first': // Home
+      return '#293a8d'; // Dark blue for home
+    case 'second': // Who We Are
+      return '#329ec7'; // Light blue
+    case 'third': // Services
+      return '#293a8d'; // Dark blue
+    case 'fourth': // Why ClubHaus - dark section
+      return '#000000'; // Black background
+    case 'fifth': // Our Work
+      return '#293a8d'; // Dark blue
+    case 'sixth': // Modus Operandi - dark section
+      return '#ff0000'; // Red for heart icon
+    case 'seventh': // Reach Out
+      return '#000000'; // Black
+    default:
+      return '#293a8d'; // Default dark blue
+  }
+};
 
 // Removed the simple navigation dots style definitions
 
@@ -228,93 +268,66 @@ var config = {
           /* Add custom dots - all light blue */
           #fp-nav ul li a:before {
             content: "";
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #329ec7;
-            transition: all 0.3s ease;
-            display: block;
-            position: absolute;
-          }
-          
-          /* Hover effect to show SVG icons - base styling */
-          #fp-nav ul li a:not(.active):hover:before {
+            width: 15px;
+            height: 15px;
+            background-image: url('/Chip.svg');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            background-color: transparent !important; /* Ensure no background color appears */
-            border-radius: 0;
-            transform: scale(1.2);
-            width: 18px;
-            height: 18px;
-            transition: transform 0.3s ease; /* Only transition the transform property */
-          }
-          
-          /* Remove these section-specific hover styles as they apply all the same icon */
-          /* 
-          .fp-viewing-second #fp-nav ul li a:not(.active):hover:before {...}
-          .fp-viewing-third #fp-nav ul li a:not(.active):hover:before {...}
-          etc...
-          */
-          
-          /* Apply the correct icon based on which dot/section is being hovered */
-          /* Home dot - hidden now */
-          
-          /* Who We Are dot - use Clubs (now first visible dot) */
-          #fp-nav ul li:nth-child(2) a:not(.active):hover:before {
-            background-image: url('/images/SVG/Clubs@8x.svg');
+            background-color: transparent;
+            transition: all 0.3s ease;
+            display: block;
+            position: absolute;
             filter: invert(48%) sepia(85%) saturate(442%) hue-rotate(163deg) brightness(92%) contrast(92%);
           }
           
-          /* Services dot - use Chip (now second visible dot) */
-          #fp-nav ul li:nth-child(3) a:not(.active):hover:before {
+          /* Define coin spin animation */
+          @keyframes coinSpin {
+            0% {
+              transform: scale(1.3) rotateY(0deg);
+            }
+            100% {
+              transform: scale(1.3) rotateY(180deg);
+            }
+          }
+          
+          /* Hover effect with coin spin animation */
+          #fp-nav ul li a:not(.active):hover:before {
+            animation: coinSpin 0.6s ease-in-out;
+            transform: scale(1.3);
+            transform-style: preserve-3d;
+            backface-visibility: visible;
+          }
+          
+          /* Remove all the icon-specific hover styling */
+          /* Who We Are dot */
+          #fp-nav ul li:nth-child(2) a:not(.active):hover:before,
+          /* Services dot */
+          #fp-nav ul li:nth-child(3) a:not(.active):hover:before,
+          /* Why ClubHaus dot */
+          #fp-nav ul li:nth-child(4) a:not(.active):hover:before,
+          /* Our Work dot */
+          #fp-nav ul li:nth-child(5) a:not(.active):hover:before,
+          /* Modus Operandi dot */
+          #fp-nav ul li:nth-child(6) a:not(.active):hover:before,
+          /* Contact dot */
+          #fp-nav ul li:nth-child(7) a:not(.active):hover:before {
             background-image: url('/Chip.svg');
-            filter: invert(48%) sepia(85%) saturate(442%) hue-rotate(163deg) brightness(92%) contrast(92%);
           }
           
-          /* Why ClubHaus dot - use white Spade (now third visible dot) */
-          #fp-nav ul li:nth-child(4) a:not(.active):hover:before {
-            background-image: url('/images/SVG/Spade@8x.svg');
-            filter: brightness(100) saturate(0%);
-            background-color: transparent !important;
+          /* Turn all dots white on Why ClubHaus page and Modus Operandi page */
+          .fp-viewing-fourth #fp-nav ul li a:before,
+          .fp-viewing-sixth #fp-nav ul li a:before {
+            filter: brightness(100) saturate(0%) invert(100%);
+            opacity: 0.9;
           }
           
-          /* Our Work dot - use Diamond (now fourth visible dot) */
-          #fp-nav ul li:nth-child(5) a:not(.active):hover:before {
-            background-image: url('/images/SVG/Diamond@8x.svg');
-          }
-          
-          /* Modus Operandi dot - use Heart (now fifth visible dot) */
-          #fp-nav ul li:nth-child(6) a:not(.active):hover:before {
+          /* Make heart red on Modus Operandi section */
+          .fp-viewing-sixth #fp-nav ul li a.active:before {
             background-image: url('/images/SVG/Heart@8x.svg');
             background-color: transparent !important;
             filter: invert(9%) sepia(98%) saturate(7106%) hue-rotate(1deg) brightness(104%) contrast(113%) !important;
-            transition: none !important; /* Disable transition to prevent blue flash */
-          }
-          
-          /* Contact dot - use black Spade (now sixth visible dot) */
-          #fp-nav ul li:nth-child(7) a:not(.active):hover:before {
-            background-image: url('/images/SVG/Spade@8x.svg');
-            filter: brightness(0) saturate(100%);
-            background-color: transparent !important;
-          }
-          
-          /* Turn all dots white on Why ClubHaus page */
-          .fp-viewing-fourth #fp-nav ul li a:before {
-            background-color: #fff;
-          }
-          
-          /* Turn all dots red on Our Heart page */
-          .fp-viewing-sixth #fp-nav ul li a:before {
-            background-color: #ff0000;
-          }
-          
-          /* Make sure heart is always properly colored on Modus Operandi section */
-          .fp-viewing-sixth #fp-nav ul li:nth-child(6) a:not(.active):hover:before {
-            background-image: url('/images/SVG/Heart@8x.svg') !important;
-            background-color: transparent !important;
-            filter: invert(9%) sepia(98%) saturate(7106%) hue-rotate(1deg) brightness(104%) contrast(113%) !important;
-            transition: none !important;
+            opacity: 1;
           }
           
           /* SVG color filter for the chip */
@@ -366,8 +379,8 @@ var config = {
           
           /* Simplify perspective and container for immediate display */
           #fp-nav ul li {
-            perspective: none;
-            transform-style: flat;
+            perspective: 800px;
+            transform-style: preserve-3d;
             transition: none;
           }
           
@@ -412,24 +425,18 @@ var config = {
             background-image: url('/Chip.svg');
           }
           
-          /* Use red Heart SVG for Our Heart section */
+          /* Use RED Heart SVG for Modus Operandi section */
           .fp-viewing-sixth #fp-nav ul li a.active:before {
             background-image: url('/images/SVG/Heart@8x.svg');
             background-color: transparent !important;
-            filter: invert(9%) sepia(98%) saturate(7106%) hue-rotate(1deg) brightness(104%) contrast(113%);
+            filter: invert(9%) sepia(98%) saturate(7106%) hue-rotate(1deg) brightness(104%) contrast(113%) !important;
+            opacity: 1;
           }
           
           /* Use Spades for Contact section */
           .fp-viewing-seventh #fp-nav ul li a.active:before {
             background-image: url('/images/SVG/Spade@8x.svg');
             filter: brightness(0) saturate(100%);
-            background-color: transparent !important;
-          }
-          
-          /* Use white Spades for Why ClubHaus section */
-          .fp-viewing-fourth #fp-nav ul li a.active:before {
-            background-image: url('/images/SVG/Spade@8x.svg');
-            filter: brightness(100) saturate(0%);
             background-color: transparent !important;
           }
           
@@ -659,7 +666,7 @@ var config = {
           .mobile-nav-item:nth-child(6).active:before {
             background-image: url('/images/SVG/Heart@8x.svg');
             background-color: transparent !important;
-            filter: invert(9%) sepia(98%) saturate(7106%) hue-rotate(1deg) brightness(104%) contrast(113%);
+            filter: invert(9%) sepia(98%) saturate(7106%) hue-rotate(1deg) brightness(104%) contrast(113%) !important;
           }
           
           /* Make mobile spade black too */
@@ -674,12 +681,17 @@ var config = {
             color: #000;
           }
           
+          /* Ensure mobile menu text is white when the menu is open, overriding section-specific colors */
+          .mobile-nav-menu.open .mobile-nav-item {
+            color: white !important;
+          }
+          
           /* Turn all mobile menu items red on Our Heart page */
           .fp-viewing-sixth .mobile-nav-item {
             color: white;
           }
           
-          /* Only make the Modus Operandi nav item red when on that section */
+          /* Make the Modus Operandi nav items red when on that section */
           .fp-viewing-sixth .mobile-nav-item:nth-child(6) {
             color: #ff0000;
           }
@@ -884,6 +896,29 @@ var config = {
           #fp-nav ul li:first-child {
             display: none !important;
           }
+          
+          /* Define coin spin animation */
+          @keyframes coinSpin {
+            0% {
+              transform: scale(1.3) rotateY(0deg);
+            }
+            100% {
+              transform: scale(1.3) rotateY(180deg);
+            }
+          }
+
+          /* Hover effect with coin spin animation */
+          #fp-nav ul li a:not(.active):hover:before {
+            animation: coinSpin 0.6s ease-in-out;
+            transform: scale(1.3);
+            transform-style: preserve-3d;
+            backface-visibility: visible;
+          }
+          
+          /* Add perspective for better 3D effect */
+          #fp-nav ul li {
+            perspective: 800px;
+          }
         `;
         document.head.appendChild(style);
       }}
@@ -899,6 +934,15 @@ var config = {
             activeNavDot.style.animation = 'none';
             activeNavDot.style.transform = 'scale(1.5)';
             activeNavDot.style.opacity = '1';
+          }
+          
+          // Update theme color based on the current section
+          const themeColor = getThemeColorForSection(destination.index);
+          
+          // Update the theme-color meta tag
+          const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+          if (themeColorMeta) {
+            themeColorMeta.setAttribute('content', themeColor);
           }
         }
       }}

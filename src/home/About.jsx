@@ -38,9 +38,9 @@ export default function About(props) {
                     <h2>WE ARE A<span> CREATIVE</span> <strong>POWERHOUSE</strong></h2>
                     
                     {isMobile ? (
-                        // Mobile layout with absolute positioning
+                        // Mobile layout with reduced spacing
                         <div style={{position: 'relative'}}>
-                            <p style={{marginBottom: '130px', paddingBottom: 0}}>
+                            <p style={{marginBottom: '80px', paddingBottom: 0}}>
                                 A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD {props.paused ? <strong>COOL $#!%</strong> : (
                                 <span className="text-loop-wrapper" style={{display: 'inline-block', transform: 'translateY(-4px)'}}>
                                     <TextLoop 
@@ -67,7 +67,7 @@ export default function About(props) {
                             </p>
                             <div style={{
                                 position: 'absolute',
-                                top: '90px',
+                                top: '60px',
                                 left: 0,
                                 right: 0,
                                 display: 'flex',

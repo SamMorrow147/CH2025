@@ -1411,11 +1411,11 @@ video {max-width:100%;}
 
 @media  (max-width:768px) {
   .button_wrapper p  {
-    font-size:20px;
-  letter-spacing:5px;}
-
+    font-size:10px;
+  }
+  
   .container_2 {
-    bottom:1vh;
+    bottom:10vh;
   }
   .services_section .container_2 {
     display: none;

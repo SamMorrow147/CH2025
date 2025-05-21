@@ -21,9 +21,7 @@ export default function Service(props) {
 
         <div className="service_content">
             <h2>{props.title}</h2>
-            <p className="service_text">
-                {props.text}
-            </p>
+            <p className="service_text" dangerouslySetInnerHTML={{ __html: props.text }}></p>
           <Button text="CONTACT US" className="contact_us" link={props.link}/>
         </div>
 

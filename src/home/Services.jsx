@@ -1,4 +1,3 @@
-
 import Service from '../components/service'
 import React, {useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,10 +13,10 @@ export default function Services(props) {
     const history = useNavigate();  
 
     const values = [        
-      { id: 1, title:'STRATEGY', image:'./images/animations/drawing-guy.gif', text: "Our strategy is simple; the path to connection is solely through authenticity, which, in some cases, lies where it began in the early fundamentals of design before it was called design it was called art. We operate on parallel perspectives of artistry, design, and development." },
-        { id: 2, title:'CONTENT', image:'./images/animations/social-media-girl.gif', text: "With the pencil, keyboard, or camera in hand, we battle the epidemic of uninspired content regurgitating mediocrity through our world’s digital landscape. Our Club members retain on-demand access to the industry’s best photographers, screenwriters, media teams, and content creators." },
-        { id: 3, title:'WEB', image:'./images/animations/computer-guy.gif', text: "We are at home speaking in code, and our signature homepages speak for themselves. We keep mediocrity out of our house and only admit members to purchase websites from our Club. Capitalize on the authenticity of your brand through a unique web experience unlike any." },
-        { id: 4, title:'BRANDING', image:'./images/animations/painting-guy.gif', text: "Unlike many “one-size-fits-all” corporate agencies, we imbed artistry at the very foundation of our creative initiatives. Our kaleidoscopic mix of award-winning typographers, illustrators, designers, and brand identity consultants enables brands to be concrete in their authenticity." }
+      { id: 1, title:'STRATEGY', image:'./images/animations/drawing-guy.gif', text: "We think before we build. Our strategy work combines real-world insight with design intelligence to help brands grow with purpose. From user experience frameworks to scalable eCommerce architecture, <strong>we develop systems that connect, convert, and evolve.</strong>" },
+        { id: 2, title:'CONTENT', image:'./images/animations/social-media-girl.gif', text: "Forget content for content's sake. We create with intent. From campaign concepts and photography to branded video and social storytelling, we help brands show up with consistency and character. <strong>The result? Content that earns attention and keeps it.</strong>" },
+        { id: 3, title:'WEB', image:'./images/animations/computer-guy.gif', text: "We create digital experiences tailored to your brand and your audience. From custom WordPress sites to app interfaces, we design immersive platforms with animation, smooth navigation, and visual flow. <strong>Each site is a functional work of art made to captivate and connect.</strong>" },
+        { id: 4, title:'BRANDING', image:'./images/animations/painting-guy.gif', text: "We build brands that stand apart and stay there. While others chase trends, we dig deeper. We craft identities that cut through noise and challenge the norm. <strong>Our ideas might sit outside the lines, but they're built to last and made to lead.</strong>" }
       ];
 
       

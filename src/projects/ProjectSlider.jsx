@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Item from './Item';
 import slugify from "react-slugify";
 import DownArrow from "../components/DownArrow";
 import { createClient } from 'contentful';
 import { FreeMode, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import React, { Suspense, lazy } from 'react';
+const Typist = lazy(() => import('react-typist'));
 
 function getRandomRotation() {
     return Math.random() * 15 - 5; // Generates a random number between -5 and 5
@@ -22,6 +23,9 @@ let client = createClient({
 
 export default function ProjectSlider(props) {
     const [projectData, setProjectData] = useState([]);
+    const [isVisible, setIsVisible] = useState(false);
+    const [key, setKey] = useState(0); // Key to force re-mount of Typist component
+    const titleRef = useRef(null);
 
     useEffect(() => {
         client.getEntries({
@@ -31,6 +35,34 @@ export default function ProjectSlider(props) {
         .catch(console.error);
     }, []);
 
+    // Set up intersection observer to detect when section enters and exits view
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    // Section is entering the viewport
+                    setIsVisible(true);
+                    // Increment key to force Typist component remount
+                    setKey(prevKey => prevKey + 1);
+                } else {
+                    // Section is leaving the viewport
+                    setIsVisible(false);
+                }
+            },
+            { threshold: 0.2 } // Trigger when at least 20% of the element is visible
+        );
+        
+        if (titleRef.current) {
+            observer.observe(titleRef.current);
+        }
+        
+        return () => {
+            if (titleRef.current) {
+                observer.unobserve(titleRef.current);
+            }
+        };
+    }, []); // No dependencies to ensure observer is only set up once
+
     const maxDelay = 1; // Maximum delay in seconds
     const baseDelay = maxDelay / projectData.length;
 
@@ -38,7 +70,23 @@ export default function ProjectSlider(props) {
         <div className="project_section">
             <div className="project_wrapper container">
                 <div className="project_content">
-                    <div className="project_title"><h3>RECENT PROJECTS</h3></div>
+                    <div className="project_title" ref={titleRef}>
+                        <h3>
+                            {isVisible ? (
+                                <Suspense fallback={"RECENT PROJECTS"}>
+                                    <Typist 
+                                        key={key} 
+                                        avgTypingDelay={100}
+                                        cursor={{show: false}}
+                                    >
+                                        RECENT PROJECTS
+                                    </Typist>
+                                </Suspense>
+                            ) : (
+                                "RECENT PROJECTS"
+                            )}
+                        </h3>
+                    </div>
                      <Swiper modules={[Navigation, FreeMode]} 
                      spaceBetween={20}  
                      navigation 

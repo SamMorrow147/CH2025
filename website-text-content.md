@@ -21,8 +21,9 @@
 "Unlike many "one-size-fits-all" corporate agencies, we imbed artistry at the very foundation of our creative initiatives. Our kaleidoscopic mix of award-winning typographers, illustrators, designers, and brand identity consultants enables brands to be concrete in their authenticity."
 
 ## Why ClubHaus Section
-- "Here to help you play your cards right."
-- "At ClubHaus, we're not afraid to raise the bar. Our commitment to pushing the boundaries of what's possible has earned us a spot as a leader in the creative sector. Let us help you achieve a straight path of success with your brand, website, and social strategies."
+- "No Luck Needed"
+- "We don't roll the dice on design, and neither should you."
+- "Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas."
 
 ## Our Work Section
 - "RECENT PROJECTS"

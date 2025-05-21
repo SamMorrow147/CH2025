@@ -19,7 +19,7 @@ export default function MainMenu({currentScroll, onClick, fullpageApi}) {
         { id: 'fourth', name: 'Why ClubHaus' },
         { id: 'fifth', name: 'Portfolio' },
         { id: 'sixth', name: 'Our Heart' },
-        { id: 'seventh', name: 'Contact' }
+        { id: 'seventh', name: 'Reach Out' }
     ];
 
     const toggleMenu = () => {

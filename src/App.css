@@ -141,7 +141,7 @@ width:100%;
   width: 60px;
   height: 66px;
   position: absolute;
-  bottom: 120px;
+  bottom: 40px;
   margin: auto;
   left: 0;
   right: 0;
@@ -389,11 +389,11 @@ display:flex;
   position: absolute;
   background: transparent;
   width: 60px;
-  margin:auto;
-  left:0;
-  right:0;
-  bottom:20px;
-  animation:bounce 1s infinite
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  animation: bounce 1s infinite;
 }
 
 @keyframes bounce {
@@ -1415,8 +1415,13 @@ video {max-width:100%;}
   }
   
   .container_2 {
-    bottom:10vh;
+    bottom: 30px;
   }
+  
+  .downArrow {
+    bottom: 30px;
+  }
+  
   .services_section .container_2 {
     display: none;
   }

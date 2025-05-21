@@ -1,10 +1,14 @@
 @media only screen and (max-width: 800px) {
 
+  /* Center-align text in About section on mobile */
+  .second_content h2,
+  .second_content p {
+    text-align: center !important;
+  }
 
-
-.project-content {
-  padding-bottom:200px;
-}
+  .project-content {
+    padding-bottom:200px;
+  }
 
   .project_grid .project_content {
 justify-content:center;
@@ -56,8 +60,10 @@ justify-content:center;
     right: 10px;
     width: 65px;
     padding: 10px;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
   }
-
 
   .close {display:block;}
 
@@ -552,4 +558,12 @@ display:none;
   .swiper-initialized {
     padding-top:10px !Important;
   }
+}
+
+/* Also add this rule to target the specific element that user copied */
+div.mobile_icon {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
 }

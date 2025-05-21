@@ -21,13 +21,13 @@ export default function HeartSection(props) {
             <div className="heart_wrapper container">
 
                 <div className="heart_content">
-                    <h2>OUR HEARTS MEMBERSHIP INITIATIVE</h2>
+                    <h2><strong style={{fontWeight: 900, letterSpacing: '1px'}}>HEARTS AT PLAY</strong></h2>
                    <p>
 
                    <Suspense fallback={<div>Loading...</div>}>
 
                        <Typist avgTypingDelay={.1}>
-                       We partner with businesses who make an <b>art</b> out of philanthropy & are on a mission to design <b>a better future</b>.
+                       <b>We're fueled by projects with <strong style={{fontWeight: 900, letterSpacing: '0.5px'}}>meaning</strong> and people with <strong style={{fontWeight: 900, letterSpacing: '0.5px'}}>mission</strong>.</b> If you're building something that matters, we'd love to be part of it.
                         </Typist>
                     </Suspense>
 

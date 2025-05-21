@@ -15,7 +15,7 @@ export default function Service(props) {
 
     <div className="service">
         
-        <div>
+        <div style={{ paddingTop: '25px' }}>
         { props.paused ? <Image src=''/> : <Image src={props.image} />  }
        </div>
 

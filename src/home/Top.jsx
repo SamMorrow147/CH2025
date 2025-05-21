@@ -7,10 +7,11 @@ export default function Top({currentScroll,arrowClick}) {
     // Reference to the top_content container for accessing its children
     const contentRef = useRef(null);
     const prevScrollRef = useRef(currentScroll);
-
-    // Watch for changes in currentScroll to detect returning to the top section
+    
+    // Watch for changes in currentScroll to detect returning to the top section 
     useEffect(() => {
-        // If we're coming back to the first section from another section
+        // If we're coming back to the first section from another section, 
+        // reload the logo animation
         if (currentScroll === 0 && prevScrollRef.current !== 0) {
             // Get the container
             const container = contentRef.current;
@@ -45,7 +46,7 @@ export default function Top({currentScroll,arrowClick}) {
             
             <div 
                 ref={contentRef}
-                className={`${isEven(currentScroll) && currentScroll != 0 ? 'top_content even' : 'top_content'} ${currentScroll != 0 ? 'active-bar' : ''}`}
+                className={`${isEven(currentScroll) && currentScroll != 0 ? 'top_content even' : 'top_content'}`}
             >
                 {/* Keep the original structure with direct img children */}
                 <img 

@@ -567,3 +567,21 @@ div.mobile_icon {
   pointer-events: none !important;
   visibility: hidden !important;
 }
+
+/* Improve section name positioning on mobile */
+@media only screen and (max-width: 500px) {
+  .section-name-display {
+    left: 65% !important; /* Move more to the right on smaller screens */
+    white-space: nowrap !important; /* Prevent text wrapping */
+    font-size: 16px !important; /* Slightly smaller font size for better fit */
+    text-overflow: ellipsis; /* Add ellipsis if text gets cut off */
+    overflow: hidden; /* Hide any overflow */
+    max-width: 150px; /* Limit width to prevent overlap with hamburger */
+    padding-right: 10px; /* Add padding on the right side */
+  }
+  
+  /* Also adjust static bar positioning if needed */
+  .static-bar {
+    padding-right: 20px;
+  }
+}

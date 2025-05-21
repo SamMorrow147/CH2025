@@ -93,6 +93,15 @@ var config = {
 
   // Toggle mobile menu
   const toggleMobileMenu = () => {
+    // When opening the mobile menu, remove any animation classes
+    if (!mobileMenuOpen) {
+      const topContent = document.querySelector('.top_content');
+      if (topContent) {
+        topContent.classList.remove('active-bar');
+      }
+    }
+    
+    // Toggle mobile menu state
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
@@ -447,6 +456,18 @@ var config = {
             font-family: eurostile, sans-serif;
             letter-spacing: 1px;
             text-align: center;
+            white-space: nowrap; /* Prevent text wrapping */
+            min-width: 120px; /* Ensure minimum width for text */
+          }
+          
+          /* Move section name more to the right on mobile to avoid logo collision */
+          @media (max-width: 768px) {
+            .section-name-display {
+              left: 63%;
+              transform: translateX(-50%);
+              width: auto; /* Allow container to expand as needed */
+              padding-left: 10px; /* Add more spacing */
+            }
           }
           
           /* Color changes for light sections */
@@ -913,21 +934,47 @@ var config = {
           if (state.destination.anchor) {
             currentPanel = state.destination.anchor;
           }
-  
-          if (state.destination.anchor === 'second' && state.direction === 'down') {
-            const wrapper = document.querySelector('.wrapper');
-            wrapper.appendChild(document.querySelector('.top_content'))
-            document.querySelector('.top_content').classList.add("active-bar");
           
+          // Get top content element
+          const topContent = document.querySelector('.top_content');
+          
+          // Only handle the first-to-second section transition
+          if (state.destination.anchor === 'second' && state.origin.anchor === 'first' && state.direction === 'down') {
+            // Only move logo when moving down from first (home) to second (about) section
+            const wrapper = document.querySelector('.wrapper');
+            if (topContent && wrapper) {
+              wrapper.appendChild(topContent);
+              topContent.classList.add('active-bar');
+            }
           }
-  
-          if (state.destination.anchor === 'first') {
+          // When navigating to section 2 from any other section (except first)
+          else if (state.destination.anchor === 'second' && state.origin.anchor !== 'first') {
+            // Ensure the logo is in the top left when going from section 3 back to section 2
+            const wrapper = document.querySelector('.wrapper');
+            if (topContent && wrapper) {
+              // Check if it's already a child of wrapper
+              if (topContent.parentElement !== wrapper) {
+                wrapper.appendChild(topContent);
+              }
+              topContent.classList.add('active-bar');
+            }
+          }
+          // Reset logo when returning to home section
+          else if (state.destination.anchor === 'first') {
             const wrapper = document.querySelector('.top_section');
-            wrapper.appendChild(document.querySelector('.top_content'))
-            document.querySelector('.top_content').classList.remove("active-bar");
-        
+            if (topContent && wrapper) {
+              wrapper.appendChild(topContent);
+              topContent.classList.remove('active-bar');
+            }
           }
-          console.log(fullpageApi)
+          // For any other navigation, remove the active-bar class
+          else if (state.destination.anchor !== 'second' || state.origin.anchor !== 'first') {
+            if (topContent) {
+              topContent.classList.remove('active-bar');
+            }
+          }
+          
+          console.log(fullpageApi);
         } 
 
   

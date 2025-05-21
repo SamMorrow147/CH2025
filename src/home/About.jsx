@@ -40,7 +40,7 @@ export default function About(props) {
                     {isMobile ? (
                         // Mobile layout with absolute positioning
                         <div style={{position: 'relative'}}>
-                            <p style={{marginBottom: '70px', paddingBottom: 0}}>
+                            <p style={{marginBottom: '130px', paddingBottom: 0}}>
                                 A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD {props.paused ? <strong>COOL $#!%</strong> : (
                                 <span className="text-loop-wrapper" style={{display: 'inline-block', transform: 'translateY(-4px)'}}>
                                     <TextLoop 
@@ -67,7 +67,7 @@ export default function About(props) {
                             </p>
                             <div style={{
                                 position: 'absolute',
-                                top: '50px',
+                                top: '90px',
                                 left: 0,
                                 right: 0,
                                 display: 'flex',
@@ -79,7 +79,7 @@ export default function About(props) {
                             </div>
                         </div>
                     ) : (
-                        // Desktop layout with normal flow
+                        // Desktop layout with left-aligned buttons
                         <>
                             <p>
                                 A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD {props.paused ? <strong>COOL $#!%</strong> : (
@@ -108,9 +108,10 @@ export default function About(props) {
                             </p>
                             <div className="button-container" style={{
                                 display: 'flex',
-                                justifyContent: 'center',
+                                justifyContent: 'flex-start',
                                 gap: '20px',
-                                marginTop: '30px'
+                                marginTop: '30px',
+                                paddingLeft: '0'
                             }}>
                                 <button onClick={() => navigateToSection('sixth')} className="btn2">Purpose</button>
                                 <a href="/projects" className="btn2">Projects</a>

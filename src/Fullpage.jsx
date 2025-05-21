@@ -15,42 +15,25 @@ const sectionNames = ['Home', 'Who We Are', 'Services', 'Why ClubHaus', 'Our Wor
 
 // Section theme colors mapping
 const sectionThemeColors = {
-  first: '#293a8d', // Home - default blue
-  second: '#329ec7', // Who We Are - light blue
-  third: '#293a8d', // Services - dark blue
-  fourth: '#000000', // Why ClubHaus - dark section with white text
-  fifth: '#293a8d', // Our Work - dark blue
-  sixth: '#ff0000', // Modus Operandi - dark section with red heart icon
-  seventh: '#000000', // Reach Out - black
+  first: '#293a8d', // Home - dark blue (same as navigation)
+  second: '#293a8d', // Who We Are - dark blue
+  third: '#ffffff', // Services - white
+  fourth: '#293a8d', // Why ClubHaus - dark blue
+  fifth: '#ffffff', // Our Work - white
+  sixth: '#293a8d', // Modus Operandi - dark blue (same as navigation)
+  seventh: '#ffffff', // Reach Out - white
 };
 
 // Function to get the appropriate theme color based on section
 const getThemeColorForSection = (sectionIndex) => {
   if (sectionIndex === undefined || sectionIndex < 0 || sectionIndex >= anchors.length) {
-    return '#293a8d'; // Default color
+    return '#293a8d'; // Default dark blue color
   }
   
   const sectionAnchor = anchors[sectionIndex];
   
-  // Special handling for sections with unique styling
-  switch(sectionAnchor) {
-    case 'first': // Home
-      return '#293a8d'; // Dark blue for home
-    case 'second': // Who We Are
-      return '#329ec7'; // Light blue
-    case 'third': // Services
-      return '#293a8d'; // Dark blue
-    case 'fourth': // Why ClubHaus - dark section
-      return '#000000'; // Black background
-    case 'fifth': // Our Work
-      return '#293a8d'; // Dark blue
-    case 'sixth': // Modus Operandi - dark section
-      return '#ff0000'; // Red for heart icon
-    case 'seventh': // Reach Out
-      return '#000000'; // Black
-    default:
-      return '#293a8d'; // Default dark blue
-  }
+  // Return the color from our mapping
+  return sectionThemeColors[sectionAnchor] || '#293a8d';
 };
 
 // Removed the simple navigation dots style definitions
@@ -415,14 +398,22 @@ var config = {
             transition: all 0.3s ease;
           }
           
-          /* Use Clubs for Who We Are section */
+          /* Use Chip for Who We Are section */
           .fp-viewing-second #fp-nav ul li a.active:before {
+            background-image: url('/Chip.svg');
+          }
+          
+          /* Use blue Clubs for Services section (same as Who We Are) */
+          .fp-viewing-third #fp-nav ul li a.active:before {
             background-image: url('/images/SVG/Clubs@8x.svg');
           }
           
-          /* Use blue Chip for Services section */
-          .fp-viewing-third #fp-nav ul li a.active:before {
-            background-image: url('/Chip.svg');
+          /* Use White Spade for Why ClubHaus section */
+          .fp-viewing-fourth #fp-nav ul li a.active:before {
+            background-image: url('/images/SVG/Spade@8x.svg');
+            background-color: transparent !important;
+            filter: brightness(100) saturate(0%) invert(100%) !important;
+            opacity: 1;
           }
           
           /* Use RED Heart SVG for Modus Operandi section */
@@ -445,9 +436,63 @@ var config = {
             background-image: url('/images/SVG/Diamond@8x.svg');
           }
           
-          /* Hide tooltips completely */
+          /* Style tooltips to show on hover */
           #fp-nav ul li .fp-tooltip {
-            display: none !important;
+            display: block;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(10px);
+            color: #293a8d; /* Dark blue brand color */
+            font-weight: bold;
+            font-family: eurostile, sans-serif;
+            top: 40px;
+            right: auto;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 6px 12px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 4px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: auto;
+            white-space: nowrap;
+            pointer-events: none;
+          }
+          
+          /* Show tooltip on hover for non-active dots */
+          #fp-nav ul li:hover .fp-tooltip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            transition-delay: 0.1s;
+          }
+          
+          /* Hide tooltip for active dot */
+          #fp-nav ul li a.active + .fp-tooltip {
+            display: none;
+          }
+          
+          /* Special styling for dark sections */
+          .fp-viewing-fourth #fp-nav ul li .fp-tooltip,
+          .fp-viewing-sixth #fp-nav ul li .fp-tooltip {
+            color: white;
+            background-color: rgba(41, 58, 141, 0.95);
+            font-weight: 700;
+          }
+          
+          /* Special styling for Modus Operandi section */
+          .fp-viewing-sixth #fp-nav ul li:nth-child(6) .fp-tooltip {
+            color: #ff0000;
+            background-color: rgba(0, 0, 0, 0.8);
+            font-weight: 800;
+          }
+          
+          /* Special styling for Contact section */
+          .fp-viewing-seventh #fp-nav ul li .fp-tooltip {
+            color: #000;
+            font-weight: 700;
           }
           
           /* Section name display */
@@ -636,19 +681,19 @@ var config = {
           
           /* Use appropriate suit SVG for each mobile navigation item */
           .mobile-nav-item:nth-child(2).active:before {
-            background-image: url('/images/SVG/Clubs@8x.svg');
-            filter: invert(48%) sepia(85%) saturate(442%) hue-rotate(163deg) brightness(92%) contrast(92%);
-          }
-          
-          .mobile-nav-item:nth-child(3).active:before {
             background-image: url('/Chip.svg');
             filter: invert(48%) sepia(85%) saturate(442%) hue-rotate(163deg) brightness(92%) contrast(92%);
           }
           
-          /* Why ClubHaus uses Spade */
+          .mobile-nav-item:nth-child(3).active:before {
+            background-image: url('/images/SVG/Clubs@8x.svg');
+            filter: invert(48%) sepia(85%) saturate(442%) hue-rotate(163deg) brightness(92%) contrast(92%);
+          }
+          
+          /* Why ClubHaus uses White Spade */
           .mobile-nav-item:nth-child(4).active:before {
             background-image: url('/images/SVG/Spade@8x.svg');
-            filter: brightness(100) saturate(0%);
+            filter: brightness(100) saturate(0%) invert(100%);
             background-color: transparent !important;
           }
           

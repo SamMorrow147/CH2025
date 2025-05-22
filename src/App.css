@@ -141,10 +141,9 @@ width:100%;
   width: 60px;
   height: 66px;
   position: absolute;
-  bottom: 40px;
-  margin: auto;
-  left: 0;
-  right: 0;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   animation: fadeIn 2s forwards;
   animation-delay: 3s;
   opacity: 0;
@@ -160,6 +159,8 @@ width:100%;
   opacity: 0;
   transform: scale3d(0.5, 0.5, 0.5);
   animation: move 3s ease-out infinite;
+  left: 50%;
+  margin-left: -14px;
 }
 
 .chevron:first-child {
@@ -194,19 +195,18 @@ width:100%;
 @keyframes move {
   25% {
     opacity: 1;
-
   }
   33% {
     opacity: 1;
-    transform: translateY(30px);
+    transform: translateY(18px) scale3d(0.5, 0.5, 0.5);
   }
   67% {
     opacity: 1;
-    transform: translateY(40px);
+    transform: translateY(25px) scale3d(0.5, 0.5, 0.5);
   }
   100% {
     opacity: 0;
-    transform: translateY(55px) scale3d(0.5, 0.5, 0.5);
+    transform: translateY(34px) scale3d(0.5, 0.5, 0.5);
   }
 }
 
@@ -339,9 +339,27 @@ display:flex;
 }
 
 
-.lines { position:absolute; left:20px; bottom:20px; height:calc(100% - 40px); width:calc(100vw - 40px)}
-.lines .top-left {left:20px; top:20px; height:calc(50vh - 40px); width:calc(50vw - 40px); stroke-dashoffset: 100;}
-.lines .bottom-right {bottom:20px; right:20px; height:calc(50vh - 40px); width:calc(50vw - 40px); stroke-dashoffset: 100;}
+.lines { 
+  position: absolute; 
+  left: 20px; 
+  bottom: 20px; 
+  height: calc(100% - 40px); 
+  width: calc(100vw - 40px);
+}
+.lines .top-left {
+  left: 20px; 
+  top: 20px; 
+  height: calc(50vh - 40px); 
+  width: calc(50vw - 40px); 
+  stroke-dashoffset: 100;
+}
+.lines .bottom-right {
+  bottom: 20px; 
+  right: 20px; 
+  height: calc(50vh - 40px); 
+  width: calc(50vw - 40px); 
+  stroke-dashoffset: 100;
+}
 
 .lines polygon {
   stroke: #4d94c3;
@@ -389,10 +407,9 @@ display:flex;
   position: absolute;
   background: transparent;
   width: 60px;
-  margin: auto;
-  left: 0;
-  right: 0;
-  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px;
   animation: bounce 1s infinite;
 }
 
@@ -1409,17 +1426,19 @@ transform:rotate(30deg);
 video {max-width:100%;}
 
 
-@media  (max-width:768px) {
-  .button_wrapper p  {
-    font-size:10px;
+@media (max-width:768px) {
+  .button_wrapper p {
+    font-size: 20px;
+    letter-spacing: 4px;
+    font-weight: 900;
   }
   
   .container_2 {
-    bottom: 30px;
+    bottom: 15px;
   }
   
   .downArrow {
-    bottom: 30px;
+    bottom: 15px;
   }
   
   .services_section .container_2 {

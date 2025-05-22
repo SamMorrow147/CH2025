@@ -114,7 +114,7 @@ export default function AboutTwo(props) {
             )}
           </div>
           <div className="about2_content">
-            <h2>
+            <h2 style={isMobile ? { textAlign: 'center', marginBottom: '5px' } : { marginBottom: '5px' }}>
               {props.paused === false ? (
                 <Suspense fallback={"No Luck Needed"}>
                   <Typist key={typingKey} avgTypingDelay={100} cursor={{show: false}}>
@@ -125,28 +125,31 @@ export default function AboutTwo(props) {
                 "No Luck Needed"
               )}
             </h2>
-            <h3 style={{ color: '#293a8d', marginBottom: '15px' }}>We don't roll the dice on design, and neither should you.</h3>
             
             {isMobile ? (
               // Mobile layout with absolute positioning
               <div style={{ position: 'relative' }}>
-                <p style={{ marginBottom: '90px' }}>
+                <p style={{ 
+                  marginBottom: '240px',
+                  lineHeight: '1.3',
+                  fontSize: '19px'
+                }}>
                   <Suspense fallback={<div>Loading...</div>}>
-                    Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
+                    <strong style={{ fontFamily: "'eurostile', sans-serif" }}>We don't roll the dice on design, and neither should you.</strong> <span style={{ fontFamily: "'eurostile-condensed', sans-serif" }}>Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.</span>
                   </Suspense>
                 </p>
                 <div style={{
                   position: 'absolute',
-                  top: '90px',
+                  top: '210px',
                   left: 0,
                   right: 0,
                   display: 'flex',
                   justifyContent: 'center',
-                  marginTop: '15px'
+                  marginTop: '12px'
                 }}>
                   <p style={{ 
                     fontSize: '18px', 
-                    marginBottom: '15px', 
+                    marginBottom: '12px', 
                     color: '#293a8d', 
                     fontWeight: 'bold',
                     textAlign: 'center'
@@ -156,7 +159,7 @@ export default function AboutTwo(props) {
                 </div>
                 <div style={{
                   position: 'absolute',
-                  top: '130px',
+                  top: '250px',
                   left: 0,
                   right: 0,
                   display: 'flex',
@@ -176,13 +179,13 @@ export default function AboutTwo(props) {
               <>
                 <p>
                   <Suspense fallback={<div>Loading...</div>}>
-                    Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
+                    <strong style={{ fontFamily: "'eurostile', sans-serif" }}>We don't roll the dice on design, and neither should you.</strong> <span style={{ fontFamily: "'eurostile-condensed', sans-serif" }}>Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.</span>
                   </Suspense>
                 </p>
-                <div style={{ marginTop: '30px' }}>
+                <div style={{ marginTop: '24px' }}>
                   <p style={{ 
                     fontSize: '18px', 
-                    marginBottom: '15px', 
+                    marginBottom: '12px', 
                     color: '#293a8d', 
                     fontWeight: 'bold' 
                   }}>

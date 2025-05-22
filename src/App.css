@@ -1708,7 +1708,8 @@ min-height: 100dvh;
 .text-loop-wrapper {
   position: relative;
   display: inline-block;
-  transform: translateY(-5px);
+  padding-left: 6px;
+  padding-top: 6px;
 }
 
 /* Make sure the TextLoop content is properly aligned */
@@ -1716,7 +1717,15 @@ min-height: 100dvh;
   position: relative;
   display: inline-block;
   vertical-align: middle;
-  transform: translateY(-5px);
+  transform: translateY(-3px);
+  font-size: 3.4rem;
+}
+
+/* Make TextLoop text larger on mobile */
+@media (max-width: 768px) {
+  .text-loop-inner {
+    font-size: 3rem;
+  }
 }
 
 .project_section .swiper-button-prev {
@@ -1729,16 +1738,16 @@ min-height: 100dvh;
   font-weight: 400;
   font-style: normal;
   font-stretch: condensed;
-  letter-spacing: 1px;
-  font-size: 1.5rem;
+  letter-spacing: 0.2px;
+  font-size: 2rem;
   margin-bottom: 36px;
-  line-height: 1.2;
+  line-height: 1;
   text-align: left;
 }
 
 @media (max-width: 768px) {
   .about-main-statement {
-    font-size: 1.1rem;
+    font-size: 2rem;
     margin-bottom: 28px;
     text-align: left;
   }
@@ -1756,4 +1765,15 @@ min-height: 100dvh;
   justify-content: flex-start;
   margin-top: 60px !important;
   padding-left: 0;
+}
+
+.about-main-statement strong {
+  font-family: 'eurostile-condensed', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#fullpage > div > div.section.fp-section.fp-table.active.fp-completely > div > div.second_wrapper.container > div.second_content > div > p > span {
+  padding-top: 12px !important;
+  display: inline-block;
 }

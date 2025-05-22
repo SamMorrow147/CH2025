@@ -41,81 +41,79 @@ export default function About(props) {
                         // Mobile layout with reduced spacing
                         <div style={{position: 'relative'}}>
                             <p className="about-main-statement">
-                                A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD<br />
-                                {props.paused ? <strong>COOL $#!%</strong> : (
+                                A full deck of marketing aces who design, create and build 
+                                {props.paused ? <strong>cool $#!%</strong> : (
                                 <span className="text-loop-wrapper" style={{display: 'inline-block', transform: 'translateY(-4px)'}}>
                                     <TextLoop 
                                         delay={3000} 
                                         interval={1500} 
                                         children={[
-                                            <strong>COOL $#!%</strong>, 
-                                            <strong>STORIES</strong>, 
-                                            <strong>BRANDS</strong>, 
-                                            <strong>CAMPAIGNS</strong>, 
-                                            <strong>ADS</strong>, 
-                                            <strong>START-UPS</strong>, 
-                                            <strong>PACKAGES</strong>, 
-                                            <strong>BUSINESS</strong>, 
-                                            <strong>LEGENDS</strong>, 
-                                            <strong>ICONS</strong>, 
-                                            <strong>EMPIRES</strong>, 
-                                            <strong>MOVEMENTS</strong>, 
-                                            <strong>BUZZ</strong>
+                                            <strong>cool $#!%.</strong>, 
+                                            <strong>stories.</strong>, 
+                                            <strong>brands.</strong>, 
+                                            <strong>campaigns.</strong>, 
+                                            <strong>ads.</strong>, 
+                                            <strong>start-ups.</strong>, 
+                                            <strong>packages.</strong>, 
+                                            <strong>business.</strong>, 
+                                            <strong>legends.</strong>, 
+                                            <strong>icons.</strong>, 
+                                            <strong>empires.</strong>, 
+                                            <strong>movements.</strong>, 
+                                            <strong>buzz.</strong>
                                         ]}
                                     />
                                 </span>
                                 )}
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    gap: '20px',
+                                    marginTop: '15px'
+                                }}>
+                                    <button onClick={() => navigateToSection('sixth')} className="btn2">Purpose</button>
+                                    <a href="/projects" className="btn2">Projects</a>
+                                </div>
                             </p>
-                            <div style={{
-                                left: 0,
-                                right: 0,
-                                display: 'flex',
-                                justifyContent: 'center',
-                                gap: '20px',
-                                marginTop: '15px'
-                            }}>
-                                <button onClick={() => navigateToSection('sixth')} className="btn2">Purpose</button>
-                                <a href="/projects" className="btn2">Projects</a>
-                            </div>
                         </div>
                     ) : (
                         // Desktop layout with left-aligned buttons
                         <>
                             <p className="about-main-statement">
-                                A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD<br />
-                                {props.paused ? <strong>COOL $#!%</strong> : (
+                                A full deck of marketing aces who design, create and build 
+                                {props.paused ? <strong>cool $#!%</strong> : (
                                 <span className="text-loop-wrapper" style={{display: 'inline-block', transform: 'translateY(-4px)'}}>
                                     <TextLoop 
                                         delay={3000} 
                                         interval={1500} 
                                         children={[
-                                            <strong>COOL $#!%</strong>, 
-                                            <strong>STORIES</strong>, 
-                                            <strong>BRANDS</strong>, 
-                                            <strong>CAMPAIGNS</strong>, 
-                                            <strong>ADS</strong>, 
-                                            <strong>START-UPS</strong>, 
-                                            <strong>PACKAGES</strong>, 
-                                            <strong>BUSINESS</strong>, 
-                                            <strong>LEGENDS</strong>, 
-                                            <strong>ICONS</strong>, 
-                                            <strong>EMPIRES</strong>, 
-                                            <strong>MOVEMENTS</strong>, 
-                                            <strong>BUZZ</strong>
+                                            <strong>cool $#!%.</strong>, 
+                                            <strong>stories.</strong>, 
+                                            <strong>brands.</strong>, 
+                                            <strong>campaigns.</strong>, 
+                                            <strong>ads.</strong>, 
+                                            <strong>start-ups.</strong>, 
+                                            <strong>packages.</strong>, 
+                                            <strong>business.</strong>, 
+                                            <strong>legends.</strong>, 
+                                            <strong>icons.</strong>, 
+                                            <strong>empires.</strong>, 
+                                            <strong>movements.</strong>, 
+                                            <strong>buzz.</strong>
                                         ]}
                                     />
                                 </span>
                                 )}
+                                <div style={{
+                                    display: 'flex',
+                                    gap: '20px',
+                                    justifyContent: 'flex-start',
+                                    marginTop: '15px'
+                                }}>
+                                    <button onClick={() => navigateToSection('sixth')} className="btn2">Purpose</button>
+                                    <a href="/projects" className="btn2">Projects</a>
+                                </div>
                             </p>
-                            <div className="button-container" style={{
-                                display: 'flex',
-                                justifyContent: 'flex-start',
-                                gap: '20px',
-                                paddingLeft: '0'
-                            }}>
-                                <button onClick={() => navigateToSection('sixth')} className="btn2">Purpose</button>
-                                <a href="/projects" className="btn2">Projects</a>
-                            </div>
                         </>
                     )}
                 </div>

@@ -79,6 +79,13 @@ export default function Fullpage({onClick, setIsOpen}) {
       }
     }, 150);
     
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+  
+  // Analytics tracking effect - separate from initialization
+  useEffect(() => {
     // Add beforeunload event to track final metrics
     const handleBeforeUnload = () => {
       // Calculate final metrics for current section
@@ -99,7 +106,6 @@ export default function Fullpage({onClick, setIsOpen}) {
     window.addEventListener('beforeunload', handleBeforeUnload);
     
     return () => {
-      clearTimeout(timer);
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [currentSlider, sectionEntryTime, sectionMetrics]);
@@ -1010,46 +1016,58 @@ var config = {
       onLeave={(origin, destination, direction, currentPanel, fullpageApi,state) => {
         // Update section name when changing sections
         if (destination && destination.index !== undefined) {
-          const prevSectionName = sectionNames[origin.index];
-          const nextSectionName = sectionNames[destination.index];
-          setCurrentSectionName(nextSectionName);
-          
-          // Analytics: Track exit from previous section
-          const timeSpent = Date.now() - sectionEntryTime;
-          trackSectionExit(prevSectionName, sectionEntryTime);
-          
-          // Update metrics for the section being left
-          setSectionMetrics(prev => {
-            const updatedMetrics = {...prev};
-            if (updatedMetrics[prevSectionName]) {
-              updatedMetrics[prevSectionName].totalTime += Math.round(timeSpent / 1000); // in seconds
-              updatedMetrics[prevSectionName].visits += 1;
+          try {
+            // Navigation updates
+            const prevSectionName = sectionNames[origin.index];
+            const nextSectionName = sectionNames[destination.index];
+            setCurrentSectionName(nextSectionName);
+            
+            // Analytics tracking - don't allow this to block navigation
+            setTimeout(() => {
+              try {
+                // Track exit from previous section
+                const timeSpent = Date.now() - sectionEntryTime;
+                trackSectionExit(prevSectionName, sectionEntryTime);
+                
+                // Update metrics in a non-blocking way
+                setSectionMetrics(prev => {
+                  const updatedMetrics = {...prev};
+                  if (updatedMetrics[prevSectionName]) {
+                    updatedMetrics[prevSectionName].totalTime += Math.round(timeSpent / 1000);
+                    updatedMetrics[prevSectionName].visits += 1;
+                  }
+                  return updatedMetrics;
+                });
+                
+                // Set entry time for new section
+                setSectionEntryTime(Date.now());
+                
+                // Track view of new section
+                trackSectionView(nextSectionName);
+              } catch (e) {
+                console.error("Analytics tracking error:", e);
+              }
+            }, 0);
+            
+            // Remove animation restart - just set the style directly
+            const activeNavDot = document.querySelector('#fp-nav ul li a.active:before');
+            if (activeNavDot) {
+              activeNavDot.style.animation = 'none';
+              activeNavDot.style.transform = 'scale(1.5)';
+              activeNavDot.style.opacity = '1';
             }
-            return updatedMetrics;
-          });
-          
-          // Set entry time for new section
-          const newEntryTime = Date.now();
-          setSectionEntryTime(newEntryTime);
-          
-          // Track view of new section
-          trackSectionView(nextSectionName);
-          
-          // Remove animation restart - just set the style directly
-          const activeNavDot = document.querySelector('#fp-nav ul li a.active:before');
-          if (activeNavDot) {
-            activeNavDot.style.animation = 'none';
-            activeNavDot.style.transform = 'scale(1.5)';
-            activeNavDot.style.opacity = '1';
-          }
-          
-          // Update theme color based on the current section
-          const themeColor = getThemeColorForSection(destination.index);
-          
-          // Update the theme-color meta tag
-          const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-          if (themeColorMeta) {
-            themeColorMeta.setAttribute('content', themeColor);
+            
+            // Update theme color based on the current section
+            const themeColor = getThemeColorForSection(destination.index);
+            
+            // Update the theme-color meta tag
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            if (themeColorMeta) {
+              themeColorMeta.setAttribute('content', themeColor);
+            }
+          } catch (error) {
+            console.error("Error in onLeave:", error);
+            // Don't block navigation even if there's an error
           }
         }
       }}

@@ -40,8 +40,9 @@ export default function About(props) {
                     {isMobile ? (
                         // Mobile layout with reduced spacing
                         <div style={{position: 'relative'}}>
-                            <p style={{marginBottom: '0px', paddingBottom: 0}}>
-                                A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD {props.paused ? <strong>COOL $#!%</strong> : (
+                            <p className="about-main-statement">
+                                A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD<br />
+                                {props.paused ? <strong>COOL $#!%</strong> : (
                                 <span className="text-loop-wrapper" style={{display: 'inline-block', transform: 'translateY(-4px)'}}>
                                     <TextLoop 
                                         delay={3000} 
@@ -66,8 +67,6 @@ export default function About(props) {
                                 )}
                             </p>
                             <div style={{
-                                position: 'absolute',
-                                top: '0px',
                                 left: 0,
                                 right: 0,
                                 display: 'flex',
@@ -82,8 +81,9 @@ export default function About(props) {
                     ) : (
                         // Desktop layout with left-aligned buttons
                         <>
-                            <p>
-                                A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD {props.paused ? <strong>COOL $#!%</strong> : (
+                            <p className="about-main-statement">
+                                A FULL DECK OF MARKETING ACES WHO DESIGN, CREATE AND BUILD<br />
+                                {props.paused ? <strong>COOL $#!%</strong> : (
                                 <span className="text-loop-wrapper" style={{display: 'inline-block', transform: 'translateY(-4px)'}}>
                                     <TextLoop 
                                         delay={3000} 
@@ -111,7 +111,6 @@ export default function About(props) {
                                 display: 'flex',
                                 justifyContent: 'flex-start',
                                 gap: '20px',
-                                marginTop: '30px',
                                 paddingLeft: '0'
                             }}>
                                 <button onClick={() => navigateToSection('sixth')} className="btn2">Purpose</button>

@@ -1,6 +1,6 @@
 import City from '../animations/City.jsx'
 import Background from './Background'
-import React, { Suspense, lazy, useState, useEffect } from 'react';
+import React, { Suspense, lazy, useState, useEffect, useRef } from 'react';
 import DownArrow from '../components/DownArrow.jsx';
 const Typist = lazy(() => import('react-typist'));
 
@@ -9,6 +9,8 @@ export default function AboutTwo(props) {
   // Track window width for responsive design
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [typingKey, setTypingKey] = useState(0);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const videoRef = useRef(null);
   
   // Track previous paused state to detect changes
   const prevPausedRef = React.useRef(true);
@@ -27,11 +29,35 @@ export default function AboutTwo(props) {
       if (prevPausedRef.current === true && props.paused === false) {
           // Section just became visible, restart the typing animation
           setTypingKey(k => k + 1);
+          
+          // Load and play video when section becomes visible
+          if (videoRef.current && !isIOS) {
+              // Set to high quality and start loading the full video
+              videoRef.current.load();
+              
+              // Small timeout to ensure DOM updates before playing
+              setTimeout(() => {
+                  if (videoRef.current) {
+                      videoRef.current.play()
+                        .then(() => {
+                            setVideoLoaded(true);
+                        })
+                        .catch(err => {
+                            console.error("Error playing video:", err);
+                        });
+                  }
+              }, 100);
+          }
       }
       // Update the ref with current paused state
       prevPausedRef.current = props.paused;
-  }, [props.paused]);
-  
+  }, [props.paused, isIOS]);
+
+  // Handle video loaded event
+  const handleVideoLoaded = () => {
+      setVideoLoaded(true);
+  };
+
   const navigateToSection = (section) => {
       // Navigate to the contact section
       if (window.fullpage_api) {
@@ -107,17 +133,48 @@ export default function AboutTwo(props) {
             width: 150%;
             opacity: 1;
           }
+          
+          /* Video placeholder styling */
+          .video-placeholder {
+            width: 100%;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+          }
+          
+          .video-container {
+            position: relative;
+            width: 100%;
+          }
+          
+          .video-container video {
+            width: 100%;
+            display: block;
+          }
         `}
       </style>
       
       {props.paused === false ? <Background white={true} /> : ''}
       {props.paused === false ? (
         <div className="content_wrapper container">
-          <div className="video" style={{ width: '100%' }}>
+          <div className="video-container" style={{ width: '100%' }}>
             {isIOS ? (
-              <img src="images/Rotate.gif" style={{ width: '100%' }} />
+              <img src="images/Rotate.gif" style={{ width: '100%' }} alt="Animation" />
             ) : (
-              <video preload="auto" autoPlay={true} muted>
+              <video 
+                ref={videoRef}
+                muted
+                playsInline
+                preload="metadata"
+                onLoadedData={handleVideoLoaded}
+                style={{ 
+                  width: '100%',
+                  opacity: videoLoaded ? 1 : 0,
+                  transition: 'opacity 0.5s ease'
+                }}
+              >
                 <source src="/videos/Clubhaus.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>

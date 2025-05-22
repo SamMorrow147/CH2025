@@ -73,17 +73,17 @@ export default function ProjectSlider(props) {
                     <div className="project_title" ref={titleRef}>
                         <h3>
                             {isVisible ? (
-                                <Suspense fallback={"RECENT PROJECTS"}>
+                                <Suspense fallback={"Recent Projects"}>
                                     <Typist 
                                         key={key} 
                                         avgTypingDelay={100}
                                         cursor={{show: false}}
                                     >
-                                        RECENT PROJECTS
+                                        Recent Projects
                                     </Typist>
                                 </Suspense>
                             ) : (
-                                "RECENT PROJECTS"
+                                "Recent Projects"
                             )}
                         </h3>
                     </div>

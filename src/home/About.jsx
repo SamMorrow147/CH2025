@@ -43,7 +43,7 @@ export default function About(props) {
                             <p className="about-main-statement">
                                 A full deck of marketing aces who design, create and build 
                                 {props.paused ? <strong>cool $#!%</strong> : (
-                                <span className="text-loop-wrapper" style={{display: 'inline-block', transform: 'translateY(-4px)'}}>
+                                <span className="text-loop-wrapper" style={{display: 'inline-block', transform: 'translateY(1px)'}}>
                                     <TextLoop 
                                         delay={3000} 
                                         interval={1500} 
@@ -82,7 +82,7 @@ export default function About(props) {
                             <p className="about-main-statement">
                                 A full deck of marketing aces who design, create and build 
                                 {props.paused ? <strong>cool $#!%</strong> : (
-                                <span className="text-loop-wrapper" style={{display: 'inline-block', transform: 'translateY(-4px)'}}>
+                                <span className="text-loop-wrapper" style={{display: 'inline-block', transform: 'translateY(1px)'}}>
                                     <TextLoop 
                                         delay={3000} 
                                         interval={1500} 

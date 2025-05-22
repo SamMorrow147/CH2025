@@ -9,16 +9,17 @@ import ReactFullpage from '@fullpage/react-fullpage';
 import { useSwipeable } from "react-swipeable";
 import ProjectSlider from './projects/ProjectSlider'
 import AboutTwo from './home/AboutTwo';
+import { trackSectionView, trackSectionExit, trackSectionMetrics } from './utils/analytics';
 
 const anchors = ["first", "second", "third","fourth","fifth", "sixth","seventh"];
-const sectionNames = ['Home', 'Who We Are', 'Services', 'Why ClubHaus', 'Our Work', 'Modus Operandi', 'Reach Out'];
+const sectionNames = ['Home', 'Who We Are', 'Services', 'Why ClubHaus', 'Latest Work', 'Modus Operandi', 'Reach Out'];
 
 // Section theme colors mapping
 const sectionThemeColors = {
   first: '#293a8d', // Home - dark blue (same as navigation)
   second: '#293a8d', // Who We Are - dark blue
   third: '#ffffff', // Services - white
-  fourth: '#293a8d', // Why ClubHaus - dark blue
+  fourth: '#293a8d', // Why ClubHaus - dark blue 
   fifth: '#ffffff', // Our Work - white
   sixth: '#293a8d', // Modus Operandi - dark blue (same as navigation)
   seventh: '#ffffff', // Reach Out - white
@@ -49,6 +50,17 @@ export default function Fullpage({onClick, setIsOpen}) {
   const fullpageApiRef = useRef(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Analytics tracking state
+  const [sectionEntryTime, setSectionEntryTime] = useState(Date.now());
+  const [sectionMetrics, setSectionMetrics] = useState(() => {
+    // Initialize metrics object for each section
+    const metrics = {};
+    sectionNames.forEach(section => {
+      metrics[section] = { totalTime: 0, visits: 0 };
+    });
+    return metrics;
+  });
+
   // Force scroll to top on mount
   useEffect(() => {
     // Immediately scroll to top
@@ -67,8 +79,30 @@ export default function Fullpage({onClick, setIsOpen}) {
       }
     }, 150);
     
-    return () => clearTimeout(timer);
-  }, []);
+    // Add beforeunload event to track final metrics
+    const handleBeforeUnload = () => {
+      // Calculate final metrics for current section
+      const timeSpent = Date.now() - sectionEntryTime;
+      const currentSectionIndex = currentSlider >= 0 && currentSlider < sectionNames.length ? currentSlider : 0;
+      const currentSectionName = sectionNames[currentSectionIndex];
+      
+      // Send final tracking data for current section
+      trackSectionExit(currentSectionName, sectionEntryTime);
+      
+      // Update and send final metrics
+      const updatedMetrics = {...sectionMetrics};
+      updatedMetrics[currentSectionName].totalTime += Math.round(timeSpent / 1000);
+      updatedMetrics[currentSectionName].visits += 1;
+      trackSectionMetrics(updatedMetrics);
+    };
+    
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [currentSlider, sectionEntryTime, sectionMetrics]);
 
   function onChange(newState) {   setActiveId(newState);}
 
@@ -203,6 +237,10 @@ var config = {
             window.scrollTo(0, 0);
             if (window.fullpage_api) {
               window.fullpage_api.moveTo(1);
+              
+              // Start tracking the first section
+              setSectionEntryTime(Date.now());
+              trackSectionView(sectionNames[0]);
             }
           }, 150);
         }
@@ -527,7 +565,7 @@ var config = {
             color: #329ec7;
           }
           
-          /* Dark blue for Portfolio, Services sections */
+          /* Dark blue for Third (Services) and Fifth (Our Work) sections */
           .fp-viewing-third .section-name-display,
           .fp-viewing-fifth .section-name-display {
             color: #293a8d;
@@ -538,7 +576,7 @@ var config = {
             color: #000;
           }
           
-          /* White for Why ClubHaus section and Modus Operandi section */
+          /* White for Why ClubHaus section (fourth) and Modus Operandi section (sixth) */
           .fp-viewing-fourth .section-name-display,
           .fp-viewing-sixth .section-name-display {
             color: #fff;
@@ -897,6 +935,7 @@ var config = {
             border-color: #329ec7;
             box-shadow: 0 5px 15px rgba(50, 158, 199, 0.4);
             transform: translateY(-3px);
+            font-weight: 700;
           }
           
           .project_content .btn2:hover:before,
@@ -925,14 +964,14 @@ var config = {
             color: #329ec7;
             border: 2px solid #329ec7;
             border-radius: 4px;
-            font-weight: bold;
+            font-weight: 400;
             text-decoration: none;
             text-align: center;
             min-width: 150px;
             background: none;
             cursor: pointer;
-            font-size: 16px;
-            font-family: inherit;
+            font-size: 24px;
+            font-family: 'eurostile-condensed', sans-serif;
           }
           
           /* End of custom styles */
@@ -971,7 +1010,30 @@ var config = {
       onLeave={(origin, destination, direction, currentPanel, fullpageApi,state) => {
         // Update section name when changing sections
         if (destination && destination.index !== undefined) {
-          setCurrentSectionName(sectionNames[destination.index]);
+          const prevSectionName = sectionNames[origin.index];
+          const nextSectionName = sectionNames[destination.index];
+          setCurrentSectionName(nextSectionName);
+          
+          // Analytics: Track exit from previous section
+          const timeSpent = Date.now() - sectionEntryTime;
+          trackSectionExit(prevSectionName, sectionEntryTime);
+          
+          // Update metrics for the section being left
+          setSectionMetrics(prev => {
+            const updatedMetrics = {...prev};
+            if (updatedMetrics[prevSectionName]) {
+              updatedMetrics[prevSectionName].totalTime += Math.round(timeSpent / 1000); // in seconds
+              updatedMetrics[prevSectionName].visits += 1;
+            }
+            return updatedMetrics;
+          });
+          
+          // Set entry time for new section
+          const newEntryTime = Date.now();
+          setSectionEntryTime(newEntryTime);
+          
+          // Track view of new section
+          trackSectionView(nextSectionName);
           
           // Remove animation restart - just set the style directly
           const activeNavDot = document.querySelector('#fp-nav ul li a.active:before');
@@ -991,6 +1053,7 @@ var config = {
           }
         }
       }}
+
       render={({ state, fullpageApi, origin, currentPanel}) => {
 
         console.log(state.destination ?? 0);

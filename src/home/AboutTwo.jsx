@@ -61,6 +61,16 @@ export default function AboutTwo(props) {
     transition: 'all 0.3s ease'
   };
 
+  // Text styles from About section
+  const mainTextStyle = {
+    fontFamily: "'eurostile-condensed', sans-serif",
+    fontWeight: 400,
+    fontSize: '25px',
+    letterSpacing: '0.2px',
+    lineHeight: 1.3,
+    textAlign: 'left'
+  };
+
   return (
     <div className="heart_section white_background">
       {/* Add the same hover effect CSS */}
@@ -117,12 +127,12 @@ export default function AboutTwo(props) {
             <h2 style={isMobile ? { textAlign: 'center', marginBottom: '5px' } : { marginBottom: '5px' }}>
               {props.paused === false ? (
                 <Suspense fallback={"No Luck Needed"}>
-                  <Typist key={typingKey} avgTypingDelay={100} cursor={{show: false}}>
+                  <Typist key={typingKey} avgTypingDelay={100} cursor={{show: false}} style={{ marginBottom: '10px' }}>
                     No Luck Needed
                   </Typist>
                 </Suspense>
               ) : (
-                "No Luck Needed"
+                <div style={{ marginBottom: '10px' }}>No Luck Needed</div>
               )}
             </h2>
             
@@ -130,12 +140,12 @@ export default function AboutTwo(props) {
               // Mobile layout with absolute positioning
               <div style={{ position: 'relative' }}>
                 <p style={{ 
-                  marginBottom: '240px',
-                  lineHeight: '1.3',
-                  fontSize: '19px'
+                  marginBottom: '100px',
+                  ...mainTextStyle,
+                  fontSize: isMobile ? '22px' : '25px' 
                 }}>
                   <Suspense fallback={<div>Loading...</div>}>
-                    <strong style={{ fontFamily: "'eurostile', sans-serif" }}>We don't roll the dice on design, and neither should you.</strong> <span style={{ fontFamily: "'eurostile-condensed', sans-serif" }}>Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.</span>
+                    <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
                   </Suspense>
                 </p>
                 <div style={{
@@ -177,9 +187,9 @@ export default function AboutTwo(props) {
             ) : (
               // Desktop layout with left-aligned button
               <>
-                <p>
+                <p style={mainTextStyle}>
                   <Suspense fallback={<div>Loading...</div>}>
-                    <strong style={{ fontFamily: "'eurostile', sans-serif" }}>We don't roll the dice on design, and neither should you.</strong> <span style={{ fontFamily: "'eurostile-condensed', sans-serif" }}>Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.</span>
+                    <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
                   </Suspense>
                 </p>
                 <div style={{ marginTop: '24px' }}>

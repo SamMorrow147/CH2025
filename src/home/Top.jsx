@@ -1,35 +1,29 @@
 import Alt_background from '../components/alt_background/Alt_background'
 import { Link } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 
 export default function Top({currentScroll,arrowClick}) {
     // Reference to the top_content container for accessing its children
     const contentRef = useRef(null);
     const prevScrollRef = useRef(currentScroll);
+    const [logoKey, setLogoKey] = useState(Date.now()); // Add key to force reload
+    
+    // Initial load animation effect
+    useEffect(() => {
+        // On initial component mount, force the GIF to reload
+        setTimeout(() => {
+            setLogoKey(Date.now());
+        }, 100);
+    }, []);
     
     // Watch for changes in currentScroll to detect returning to the top section 
     useEffect(() => {
         // If we're coming back to the first section from another section, 
         // reload the logo animation
         if (currentScroll === 0 && prevScrollRef.current !== 0) {
-            // Get the container
-            const container = contentRef.current;
-            if (container) {
-                // Find the logo image (first img element)
-                const logoImg = container.querySelector('img.logo');
-                if (logoImg) {
-                    // Create a brand new image element with identical properties
-                    const newImage = document.createElement('img');
-                    newImage.className = 'logo';
-                    newImage.width = 220;
-                    newImage.height = 220;
-                    newImage.src = './images/animated-logo.gif?reload=' + new Date().getTime();
-                    
-                    // Replace the old image with the new one
-                    container.replaceChild(newImage, logoImg);
-                }
-            }
+            // Force reload by changing the key
+            setLogoKey(Date.now());
         }
         
         // Update the previous scroll position
@@ -48,12 +42,13 @@ export default function Top({currentScroll,arrowClick}) {
                 ref={contentRef}
                 className={`${isEven(currentScroll) && currentScroll != 0 ? 'top_content even' : 'top_content'}`}
             >
-                {/* Keep the original structure with direct img children */}
+                {/* Use key to force reload of GIF and ensure Safari displays animation */}
                 <img 
+                    key={logoKey}
                     className="logo" 
                     width="220" 
                     height="220" 
-                    src="./images/animated-logo.gif" 
+                    src={`./images/animated-logo.gif?v=${logoKey}`} 
                 />
                     
                 <img 

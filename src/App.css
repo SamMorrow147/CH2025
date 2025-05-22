@@ -394,12 +394,12 @@ display:flex;
 }
 
 .button_wrapper p  {
-  font-size:44px;
-  margin:0px;
-  font-family:'eurostile-condensed',sans-serif;
-  font-weight:800;
-  letter-spacing:10px;
-  color:#6B9ED0;
+  font-size: 44px;
+  margin: 0px;
+  font-family: 'eurostile-condensed', sans-serif;
+  font-weight: 200;
+  letter-spacing: 10px;
+  color: #6B9ED0;
   white-space: nowrap;
 }
 
@@ -506,6 +506,12 @@ height: auto;
   margin-bottom:20px;
   animation:fadeIn 2s;
   aspect-ratio: attr(width) / attr(height);
+  /* Fix for Safari GIF animation */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  will-change: auto;
 }
 
 .top_content .wordmark {
@@ -1430,7 +1436,7 @@ video {max-width:100%;}
   .button_wrapper p {
     font-size: 20px;
     letter-spacing: 4px;
-    font-weight: 900;
+    font-weight: 200;
   }
   
   .container_2 {
@@ -1776,4 +1782,15 @@ min-height: 100dvh;
 #fullpage > div > div.section.fp-section.fp-table.active.fp-completely > div > div.second_wrapper.container > div.second_content > div > p > span {
   padding-top: 12px !important;
   display: inline-block;
+}
+
+/* Safari-specific fix for animated GIF */
+@media not all and (min-resolution:.001dpcm) { 
+  @supports (-webkit-appearance:none) {
+    .top_content .logo {
+      image-rendering: -webkit-optimize-contrast;
+      -webkit-transform: translate3d(0,0,0);
+      transform: translate3d(0,0,0);
+    }
+  }
 }

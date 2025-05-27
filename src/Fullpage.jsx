@@ -156,16 +156,11 @@ var config = {
 
   // Toggle mobile menu
   const toggleMobileMenu = () => {
-    // When opening the mobile menu, remove any animation classes
-    if (!mobileMenuOpen) {
-      const topContent = document.querySelector('.top_content');
-      if (topContent) {
-        topContent.classList.remove('active-bar');
-      }
-    }
-    
-    // Toggle mobile menu state
+    // Toggle mobile menu state without affecting any animation
     setMobileMenuOpen(!mobileMenuOpen);
+    
+    // IMPORTANT: Don't manipulate the top_content or logo elements at all
+    // Simply toggling the state value will control the menu through CSS
   };
 
   // Handle navigation click from mobile menu

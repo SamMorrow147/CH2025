@@ -7,9 +7,9 @@ export default function Top({currentScroll,arrowClick}) {
     // Reference to the top_content container for accessing its children
     const contentRef = useRef(null);
     const prevScrollRef = useRef(currentScroll);
-    const [logoKey, setLogoKey] = useState(Date.now()); // Add key to force reload
+    const [logoKey, setLogoKey] = useState(Date.now()); // Key for logo animation control
     
-    // Initial load animation effect
+    // Initial load animation effect - only runs once on component mount
     useEffect(() => {
         // On initial component mount, force the GIF to reload
         setTimeout(() => {
@@ -17,13 +17,15 @@ export default function Top({currentScroll,arrowClick}) {
         }, 100);
     }, []);
     
-    // Watch for changes in currentScroll to detect returning to the top section 
+    // Only reload the logo animation when actually changing sections
     useEffect(() => {
-        // If we're coming back to the first section from another section, 
-        // reload the logo animation
+        // Only reload animation when moving between actual sections,
+        // not when toggling menu or other UI interactions
         if (currentScroll === 0 && prevScrollRef.current !== 0) {
-            // Force reload by changing the key
-            setLogoKey(Date.now());
+            // Coming back to the home section (section 0) from another section
+            setTimeout(() => {
+                setLogoKey(Date.now());
+            }, 50);
         }
         
         // Update the previous scroll position
@@ -48,7 +50,7 @@ export default function Top({currentScroll,arrowClick}) {
                     className="logo" 
                     width="220" 
                     height="220" 
-                    src={`./images/animated-logo.gif?v=${logoKey}`} 
+                    src="./images/animated-logo.gif"  // Remove the dynamic query parameter
                 />
                     
                 <img 

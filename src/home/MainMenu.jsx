@@ -72,7 +72,13 @@ export default function MainMenu({currentScroll, onClick, fullpageApi}) {
             {!showProjectNav && (
                 <div className="static-bar">
                     <a href="/">
-                        <img className="logo" width="220" height="220" src="/images/animated-logo.gif" />
+                        <img 
+                            className="logo" 
+                            width="220" 
+                            height="220" 
+                            src="/images/animated-logo.gif" 
+                            key="static-menu-logo"
+                        />
                         <img
                         className="wordmark"
                         height="200"

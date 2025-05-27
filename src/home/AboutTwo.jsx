@@ -6,11 +6,17 @@ const Typist = lazy(() => import('react-typist'));
 
 export default function AboutTwo(props) {
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   // Track window width for responsive design
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [typingKey, setTypingKey] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const [showPoster, setShowPoster] = useState(true);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [posterLoaded, setPosterLoaded] = useState(false);
   const videoRef = useRef(null);
+  const posterRef = useRef(null);
   
   // Track previous paused state to detect changes
   const prevPausedRef = React.useRef(true);
@@ -30,32 +36,91 @@ export default function AboutTwo(props) {
           // Section just became visible, restart the typing animation
           setTypingKey(k => k + 1);
           
-          // Load and play video when section becomes visible
-          if (videoRef.current && !isIOS) {
-              // Set to high quality and start loading the full video
-              videoRef.current.load();
-              
-              // Small timeout to ensure DOM updates before playing
-              setTimeout(() => {
-                  if (videoRef.current) {
-                      videoRef.current.play()
-                        .then(() => {
-                            setVideoLoaded(true);
-                        })
-                        .catch(err => {
-                            console.error("Error playing video:", err);
-                        });
-                  }
-              }, 100);
-          }
+          // Signal that video should be loaded
+          setShouldLoadVideo(true);
       }
       // Update the ref with current paused state
       prevPausedRef.current = props.paused;
-  }, [props.paused, isIOS]);
+  }, [props.paused]);
+  
+  // Handle delayed video loading for better performance
+  useEffect(() => {
+      if (!shouldLoadVideo || isIOS) return;
+      
+      // Load and play video with a slight delay for better Safari performance
+      const loadTimer = setTimeout(() => {
+          if (videoRef.current) {
+              // For Safari, use explicit load() call
+              if (isSafari) {
+                  videoRef.current.load();
+              }
+              
+              // Add a delay before playing to allow for resource loading
+              const playTimer = setTimeout(() => {
+                  if (videoRef.current) {
+                      const playPromise = videoRef.current.play();
+                      
+                      if (playPromise !== undefined) {
+                          playPromise
+                            .then(() => {
+                                setVideoPlaying(true);
+                                // Hide poster after video starts playing
+                                setTimeout(() => {
+                                    setShowPoster(false);
+                                }, 300);
+                            })
+                            .catch(err => {
+                                console.error("Error playing video:", err);
+                                
+                                // Safari sometimes needs a second attempt
+                                if (isSafari) {
+                                    setTimeout(() => {
+                                        if (videoRef.current) {
+                                            videoRef.current.play()
+                                                .then(() => {
+                                                    setVideoPlaying(true);
+                                                    setTimeout(() => setShowPoster(false), 300);
+                                                })
+                                                .catch(e => {
+                                                    console.error("Second play attempt failed:", e);
+                                                    
+                                                    // If Safari still fails, use a different approach
+                                                    setTimeout(() => {
+                                                        if (videoRef.current) {
+                                                            // Force reload and immediate play attempt
+                                                            videoRef.current.load();
+                                                            videoRef.current.play();
+                                                            // Just hide the poster anyway
+                                                            setVideoPlaying(true);
+                                                            setShowPoster(false);
+                                                        }
+                                                    }, 800);
+                                                });
+                                        }
+                                    }, 500);
+                                }
+                            });
+                      } else {
+                          // Fallback for browsers where play() doesn't return a promise
+                          setVideoPlaying(true);
+                          setTimeout(() => {
+                              setShowPoster(false);
+                          }, 500);
+                      }
+                  }
+              }, isSafari ? 300 : 100);
+              
+              return () => clearTimeout(playTimer);
+          }
+      }, 100);
+      
+      return () => clearTimeout(loadTimer);
+  }, [shouldLoadVideo, isSafari, isIOS]);
 
   // Handle video loaded event
   const handleVideoLoaded = () => {
       setVideoLoaded(true);
+      // Don't hide poster yet - wait for play to succeed
   };
 
   const navigateToSection = (section) => {
@@ -147,11 +212,65 @@ export default function AboutTwo(props) {
           .video-container {
             position: relative;
             width: 100%;
+            background-color: transparent;
           }
           
           .video-container video {
             width: 100%;
             display: block;
+          }
+          
+          .video-poster {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 2;
+            transition: opacity 0.4s ease;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          /* Add fade-in animation */
+          @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+          }
+          
+          .content_wrapper {
+            animation: fadeIn 0.5s ease-in-out;
+          }
+          
+          /* Video loading animation */
+          @keyframes videoLoading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+          }
+          
+          .video-loading-indicator {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            z-index: 3;
+          }
+          
+          .video-loading-indicator::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background-color: rgba(50, 158, 199, 0.6);
+            animation: videoLoading 1.5s infinite linear;
           }
         `}
       </style>
@@ -163,21 +282,47 @@ export default function AboutTwo(props) {
             {isIOS ? (
               <img src="images/Rotate.gif" style={{ width: '100%' }} alt="Animation" />
             ) : (
-              <video 
-                ref={videoRef}
-                muted
-                playsInline
-                preload="metadata"
-                onLoadedData={handleVideoLoaded}
-                style={{ 
-                  width: '100%',
-                  opacity: videoLoaded ? 1 : 0,
-                  transition: 'opacity 0.5s ease'
-                }}
-              >
-                <source src="/videos/Clubhaus.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              <>
+                {/* Video poster that stays visible until video plays */}
+                {showPoster && (
+                  <div className="video-poster" style={{ opacity: showPoster ? 1 : 0 }}>
+                    <img 
+                      ref={posterRef}
+                      src="/images/ClubhausFirstFrame.jpg" 
+                      alt="Video thumbnail" 
+                      style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        objectFit: 'cover',
+                        opacity: posterLoaded ? 1 : 0,
+                        transition: 'opacity 0.3s ease'
+                      }}
+                      onLoad={() => setPosterLoaded(true)}
+                    />
+                    {!videoPlaying && <div className="video-loading-indicator"></div>}
+                  </div>
+                )}
+                
+                {shouldLoadVideo && (
+                  <video 
+                    ref={videoRef}
+                    muted
+                    playsInline
+                    autoPlay
+                    preload={isSafari ? "auto" : "metadata"}
+                    onLoadedData={handleVideoLoaded}
+                    style={{ 
+                      width: '100%',
+                      opacity: videoLoaded ? 1 : 0,
+                      transition: 'opacity 0.8s ease',
+                      zIndex: 1
+                    }}
+                  >
+                    <source src="/videos/Clubhaus.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                )}
+              </>
             )}
           </div>
           <div className="about2_content">

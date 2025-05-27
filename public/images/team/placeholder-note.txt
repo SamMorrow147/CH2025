@@ -1,0 +1,18 @@
+Team Member Images
+
+For each team member, you'll need two types of images:
+
+1. Background Photo (Main image):
+   - Dimensions: Around 280px width × 380px height
+   - This is the main photo for each card
+
+2. Silhouette/Character Image:
+   - A transparent PNG of the person (like a cutout or silhouette)
+   - This image appears when hovering over the card
+   - Should be a clean silhouette/cutout with transparent background
+
+Name your files consistently:
+- placeholderX.jpg - for background photos
+- silhouetteX.png - for silhouette images
+
+Replace the sample data in src/home/TeamSection.jsx with actual team member information. 

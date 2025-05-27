@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import './index.css';
+import './App.css';
+import './Mobile.css';
+import './form.css';
+import './styles/TeamMemberCard.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';

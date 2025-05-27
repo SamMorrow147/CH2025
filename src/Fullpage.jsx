@@ -71,13 +71,32 @@ export default function Fullpage({onClick, setIsOpen}) {
       window.history.replaceState(null, null, ' ');
     }
     
+    // Special handling for production environment (Vercel)
+    // This ensures fullpage.js initializes correctly
+    const isProduction = process.env.NODE_ENV === 'production';
+    
     // Wait for component to fully mount then scroll to top again
     const timer = setTimeout(() => {
       window.scrollTo(0, 0);
       if (fullpageApiRef.current) {
         fullpageApiRef.current.moveTo(1);
+        
+        // Additional initialization for production environment
+        if (isProduction) {
+          // Force a resize event to help fullpage.js recalculate heights
+          window.dispatchEvent(new Event('resize'));
+          
+          // Additional timeout to ensure fullpage has fully initialized
+          setTimeout(() => {
+            if (fullpageApiRef.current) {
+              // Rebuild fullpage to ensure correct initialization
+              fullpageApiRef.current.reBuild();
+              fullpageApiRef.current.setAllowScrolling(true);
+            }
+          }, 300);
+        }
       }
-    }, 150);
+    }, isProduction ? 500 : 150);
     
     return () => {
       clearTimeout(timer);
@@ -227,6 +246,16 @@ var config = {
       navigationPosition={'top'}
       showActiveTooltip={false}
       navigationTooltips={sectionNames}
+      scrollingSpeed={700}
+      normalScrollElements='.video-container'
+      bigSectionsDestination='top'
+      scrollOverflow={true}
+      scrollOverflowReset={true}
+      keyboardScrolling={true}
+      continuousVertical={false}
+      resetSliders={true}
+      animateAnchor={true}
+      licenseKey={'YOUR_KEY_HERE'} // This is often needed for production builds
       
       // Add custom style for navigation dots on dark sections
       afterRender={() => {
@@ -242,6 +271,25 @@ var config = {
               // Start tracking the first section
               setSectionEntryTime(Date.now());
               trackSectionView(sectionNames[0]);
+              
+              // Ensure scroll is enabled
+              window.fullpage_api.setAllowScrolling(true);
+              
+              // Add additional event listeners for scroll troubleshooting
+              document.addEventListener('wheel', function(event) {
+                // On wheel event, make sure scrolling is enabled
+                if (window.fullpage_api) {
+                  window.fullpage_api.setAllowScrolling(true);
+                }
+              });
+              
+              // Touch events for mobile
+              document.addEventListener('touchmove', function(event) {
+                // On touch move, make sure scrolling is enabled
+                if (window.fullpage_api) {
+                  window.fullpage_api.setAllowScrolling(true);
+                }
+              });
             }
           }, 150);
         }

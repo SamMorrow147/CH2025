@@ -241,13 +241,13 @@ var config = {
       lockAnchors={true}
       fixedElements='.breadcrumbs'
       dragAndMove={true}
-      touchSensitivity={20}
+      touchSensitivity={40}
       navigation={true}
       navigationPosition={'top'}
       showActiveTooltip={false}
       navigationTooltips={sectionNames}
-      scrollingSpeed={700}
-      normalScrollElements='.video-container'
+      scrollingSpeed={600}
+      normalScrollElements=''
       bigSectionsDestination='top'
       scrollOverflow={true}
       scrollOverflowReset={true}
@@ -259,7 +259,7 @@ var config = {
       
       // Add these to control scroll behavior better
       fitToSection={true}
-      fitToSectionDelay={600}
+      fitToSectionDelay={400}
       scrollBar={false}
       easingcss3={'ease-in-out'}
       easing={'easeInOutCubic'}
@@ -268,9 +268,67 @@ var config = {
       
       // Modified onLeave function with section skipping prevention
       onLeave={(origin, destination, direction, currentPanel, fullpageApi, state) => {
-        // If trying to skip sections, prevent it
-        if (Math.abs(destination.index - origin.index) > 1) {
-          // Only allow moving one section at a time
+        // Only prevent section skipping for mouse wheel or touch events
+        // Always allow navigation clicks to work
+        
+        // Get the distance between sections
+        const sectionDistance = Math.abs(destination.index - origin.index);
+        
+        // Check if this is a navigation click by looking at the event type and target
+        const isNavigationClick = 
+          (typeof window.event !== 'undefined' && 
+           window.event && 
+           (window.event.type === 'click' || 
+            (window.event.target && window.event.target.closest('#fp-nav'))));
+        
+        // Detect Chrome browser
+        const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+        
+        // Special handling for Chrome when scrolling from first to second section
+        if (isChrome && 
+            direction === 'down' && 
+            origin.index === 0 && 
+            destination.index > 1) {
+          
+          // Force navigation to section 2 instead of skipping
+          if (fullpageApi) {
+            // Completely disable scrolling temporarily
+            fullpageApi.setAllowScrolling(false);
+            
+            // Force navigation to section 2
+            fullpageApi.moveTo(2);
+            
+            // Re-enable scrolling after transition completes
+            setTimeout(() => {
+              fullpageApi.setAllowScrolling(true);
+            }, 700);
+          }
+          return false;
+        }
+        
+        // Chrome-specific handling for any scrolling from home
+        if (isChrome && origin.index === 0 && direction === 'down') {
+          // Always force navigation to section 2 from home on Chrome
+          if (fullpageApi) {
+            // Disable scrolling to prevent additional scrolls
+            fullpageApi.setAllowScrolling(false);
+            
+            // Force section 2
+            fullpageApi.moveTo(2);
+            
+            // Re-enable scrolling after transition
+            setTimeout(() => {
+              fullpageApi.setAllowScrolling(true);
+            }, 700);
+            
+            // Don't proceed with normal navigation
+            return false;
+          }
+        }
+        
+        // Only prevent scroll-based section skipping (not navigation clicks)
+        if (direction && sectionDistance > 1 && !isNavigationClick) {
+          // Only prevent wheel/touch skipping, not navigation clicks
           return false;
         }
         
@@ -368,6 +426,74 @@ var config = {
                   window.fullpage_api.setAllowScrolling(true);
                 }
               });
+              
+              // Add Chrome-specific scroll handling
+              // Detect Chrome browser
+              const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+              
+              if (isChrome) {
+                console.log("Chrome detected, adding special scroll handling");
+                
+                // Track scroll state
+                let isScrolling = false;
+                let lastScrollTime = 0;
+                const scrollDebounceTime = 800; // ms to wait between scroll events - shorter time
+                
+                // Use capture phase to intercept all wheel events before they reach fullpage
+                document.addEventListener('wheel', function(event) {
+                  const now = Date.now();
+                  
+                  // If we're already in a scrolling transition or it's too soon, block all scrolls
+                  if (isScrolling || (now - lastScrollTime < scrollDebounceTime)) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return false;
+                  }
+                  
+                  // We're specifically targeting first section scroll down issue
+                  if (window.fullpage_api && window.fullpage_api.getActiveSection().index === 0 && event.deltaY > 0) {
+                    // Prevent default scrolling behavior
+                    event.preventDefault();
+                    event.stopPropagation();
+                    
+                    // Manually navigate to section 2
+                    isScrolling = true;
+                    window.fullpage_api.setAllowScrolling(false);
+                    window.fullpage_api.moveTo(2);
+                    
+                    // Update scroll timestamp
+                    lastScrollTime = now;
+                    
+                    // Reset state after transition
+                    setTimeout(() => {
+                      isScrolling = false;
+                      window.fullpage_api.setAllowScrolling(true);
+                    }, 700);
+                    
+                    return false;
+                  }
+                }, { passive: false, capture: true }); // Use capture phase to get events first
+              }
+              
+              // Add specific handler for the video container to ensure scrolling works
+              const videoContainers = document.querySelectorAll('.video-container');
+              videoContainers.forEach(container => {
+                container.addEventListener('wheel', function(event) {
+                  // Prevent default to avoid any native scrolling
+                  event.preventDefault();
+                  
+                  // Determine scroll direction
+                  const delta = event.deltaY || -event.wheelDelta || event.detail;
+                  const direction = delta > 0 ? 'down' : 'up';
+                  
+                  // Manually trigger fullpage scrolling based on direction
+                  if (direction === 'down' && window.fullpage_api) {
+                    window.fullpage_api.moveSectionDown();
+                  } else if (direction === 'up' && window.fullpage_api) {
+                    window.fullpage_api.moveSectionUp();
+                  }
+                }, { passive: false }); // passive: false is needed to allow preventDefault()
+              });
             }
           }, 150);
         }
@@ -382,6 +508,7 @@ var config = {
             right: 20px !important;
             transform: none;
             width: auto !important;
+            z-index: 1000 !important; /* Ensure high z-index */
           }
           
           /* Right-align the navigation horizontally */
@@ -406,6 +533,14 @@ var config = {
             align-items: center;
             justify-content: center;
             position: relative;
+            cursor: pointer; /* Ensure cursor indicates clickable */
+            padding: 5px; /* Add padding to increase hit area */
+          }
+          
+          /* Emphasize the clickable nature on hover */
+          #fp-nav ul li:hover {
+            transform: scale(1.1);
+            transition: transform 0.2s ease;
           }
           
           /* Hide the original dots */

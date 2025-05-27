@@ -241,7 +241,7 @@ var config = {
       lockAnchors={true}
       fixedElements='.breadcrumbs'
       dragAndMove={true}
-      touchSensitivity={10}
+      touchSensitivity={20}
       navigation={true}
       navigationPosition={'top'}
       showActiveTooltip={false}
@@ -256,6 +256,84 @@ var config = {
       resetSliders={true}
       animateAnchor={true}
       licenseKey={'YOUR_KEY_HERE'} // This is often needed for production builds
+      
+      // Add these to control scroll behavior better
+      fitToSection={true}
+      fitToSectionDelay={600}
+      scrollBar={false}
+      easingcss3={'ease-in-out'}
+      easing={'easeInOutCubic'}
+      css3={true}
+      loopHorizontal={false}
+      
+      // Modified onLeave function with section skipping prevention
+      onLeave={(origin, destination, direction, currentPanel, fullpageApi, state) => {
+        // If trying to skip sections, prevent it
+        if (Math.abs(destination.index - origin.index) > 1) {
+          // Only allow moving one section at a time
+          return false;
+        }
+        
+        // Update section name when changing sections
+        if (destination && destination.index !== undefined) {
+          try {
+            // Navigation updates
+            const prevSectionName = sectionNames[origin.index];
+            const nextSectionName = sectionNames[destination.index];
+            setCurrentSectionName(nextSectionName);
+            
+            // Analytics tracking - don't allow this to block navigation
+            setTimeout(() => {
+              try {
+                // Track exit from previous section
+                const timeSpent = Date.now() - sectionEntryTime;
+                trackSectionExit(prevSectionName, sectionEntryTime);
+                
+                // Update metrics in a non-blocking way
+                setSectionMetrics(prev => {
+                  const updatedMetrics = {...prev};
+                  if (updatedMetrics[prevSectionName]) {
+                    updatedMetrics[prevSectionName].totalTime += Math.round(timeSpent / 1000);
+                    updatedMetrics[prevSectionName].visits += 1;
+                  }
+                  return updatedMetrics;
+                });
+                
+                // Set entry time for new section
+                setSectionEntryTime(Date.now());
+                
+                // Track view of new section
+                trackSectionView(nextSectionName);
+              } catch (e) {
+                console.error("Analytics tracking error:", e);
+              }
+            }, 0);
+            
+            // Remove animation restart - just set the style directly
+            const activeNavDot = document.querySelector('#fp-nav ul li a.active:before');
+            if (activeNavDot) {
+              activeNavDot.style.animation = 'none';
+              activeNavDot.style.transform = 'scale(1.5)';
+              activeNavDot.style.opacity = '1';
+            }
+            
+            // Update theme color based on the current section
+            const themeColor = getThemeColorForSection(destination.index);
+            
+            // Update the theme-color meta tag
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            if (themeColorMeta) {
+              themeColorMeta.setAttribute('content', themeColor);
+            }
+          } catch (error) {
+            console.error("Error in onLeave:", error);
+            // Don't block navigation even if there's an error
+          }
+        }
+        
+        // Allow navigation to proceed
+        return true;
+      }}
       
       // Add custom style for navigation dots on dark sections
       afterRender={() => {
@@ -1054,65 +1132,6 @@ var config = {
           }
         `;
         document.head.appendChild(style);
-      }}
-
-      onLeave={(origin, destination, direction, currentPanel, fullpageApi,state) => {
-        // Update section name when changing sections
-        if (destination && destination.index !== undefined) {
-          try {
-            // Navigation updates
-            const prevSectionName = sectionNames[origin.index];
-            const nextSectionName = sectionNames[destination.index];
-            setCurrentSectionName(nextSectionName);
-            
-            // Analytics tracking - don't allow this to block navigation
-            setTimeout(() => {
-              try {
-                // Track exit from previous section
-                const timeSpent = Date.now() - sectionEntryTime;
-                trackSectionExit(prevSectionName, sectionEntryTime);
-                
-                // Update metrics in a non-blocking way
-                setSectionMetrics(prev => {
-                  const updatedMetrics = {...prev};
-                  if (updatedMetrics[prevSectionName]) {
-                    updatedMetrics[prevSectionName].totalTime += Math.round(timeSpent / 1000);
-                    updatedMetrics[prevSectionName].visits += 1;
-                  }
-                  return updatedMetrics;
-                });
-                
-                // Set entry time for new section
-                setSectionEntryTime(Date.now());
-                
-                // Track view of new section
-                trackSectionView(nextSectionName);
-              } catch (e) {
-                console.error("Analytics tracking error:", e);
-              }
-            }, 0);
-            
-            // Remove animation restart - just set the style directly
-            const activeNavDot = document.querySelector('#fp-nav ul li a.active:before');
-            if (activeNavDot) {
-              activeNavDot.style.animation = 'none';
-              activeNavDot.style.transform = 'scale(1.5)';
-              activeNavDot.style.opacity = '1';
-            }
-            
-            // Update theme color based on the current section
-            const themeColor = getThemeColorForSection(destination.index);
-            
-            // Update the theme-color meta tag
-            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-            if (themeColorMeta) {
-              themeColorMeta.setAttribute('content', themeColor);
-            }
-          } catch (error) {
-            console.error("Error in onLeave:", error);
-            // Don't block navigation even if there's an error
-          }
-        }
       }}
 
       render={({ state, fullpageApi, origin, currentPanel}) => {

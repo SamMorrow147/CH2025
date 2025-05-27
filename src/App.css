@@ -1434,17 +1434,49 @@ video {max-width:100%;}
 
 @media (max-width:768px) {
   .button_wrapper p {
-    font-size: 20px;
-    letter-spacing: 4px;
-    font-weight: 200;
+     font-size:20px;
   }
   
   .container_2 {
     bottom: 15px;
+    width: 100px;  /* Increased from 60px */
+    height: 90px;  /* Increased from 66px */
   }
   
   .downArrow {
     bottom: 15px;
+  }
+  
+  /* Make chevrons bigger on mobile */
+  .chevron {
+    width: 38px;  /* Increased from 28px */
+    height: 12px; /* Increased from 8px */
+  }
+  
+  /* Adjust chevron positioning */
+  .chevron:before,
+  .chevron:after {
+    height: 100%;
+    width: 51%;
+  }
+  
+  /* Adjust animation for bigger chevrons */
+  @keyframes move {
+    25% {
+      opacity: 1;
+    }
+    33% {
+      opacity: 1;
+      transform: translateY(22px) scale3d(0.6, 0.6, 0.6);
+    }
+    67% {
+      opacity: 1;
+      transform: translateY(30px) scale3d(0.6, 0.6, 0.6);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(40px) scale3d(0.6, 0.6, 0.6);
+    }
   }
   
   .services_section .container_2 {

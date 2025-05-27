@@ -1,4 +1,3 @@
-
 :root {
 
     --animation_speed:900s;
@@ -26,14 +25,12 @@
   }
   
   .alt-animation-back .top {
-    width:100vw;
-    height:15%;
-    top:0;
+    width: 100vw;
+    height: 15%;
+    top: 0;
     animation: top-animation var(--animation_speed) infinite linear;
     animation-direction: reverse;
-    animation-delay:.4s;
-   
-
+    animation-delay: .4s;
   }
   
   
@@ -50,13 +47,13 @@
   
   
   .alt-animation-back .right {
-    width:10%;
-    height:100%;
-    top:10%;
-    right:0;
+    width: 10%;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
     animation: right-animation var(--animation_speed) infinite linear;
-    animation-delay:.4s;
-
+    animation-delay: .4s;
   }
   
   
@@ -72,13 +69,14 @@
   
   
   .alt-animation-back .bottom {
-    width:100%;
-    height:15%;
-    bottom:0;
-    right:0;
+    width: 100%;
+    height: 15%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    clip-path: polygon(0 100%, 100% 100%, 92% 0, 8% 0);
     animation: bottom-animation var(--animation_speed) infinite linear;
-    animation-delay:.4s;
-
+    animation-delay: .4s;
   }
   
   
@@ -96,16 +94,14 @@
   }
 
   .alt-animation-back .left {
-    width:15%;
-    height:100%;
-    top:10vh;
-    left:0;
+    width: 15%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    clip-path: polygon(0 0, 100% 25%, 100% 100%, 0 100%);
     animation: right-animation var(--animation_speed) infinite linear;
     animation-direction: reverse;
-    animation-delay:.4s;
-
-   
-
+    animation-delay: .4s;
   }
   
   

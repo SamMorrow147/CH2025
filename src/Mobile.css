@@ -15,8 +15,9 @@ justify-content:center;
   }
 
   .contact_card {
-    width: calc(100% - 32px);
-      height: auto;
+    width: 90%;
+    max-width: 320px;
+    height: auto;
   }
 
 
@@ -536,10 +537,11 @@ display:none;
   }
 
   .contact_card {
-    width: calc(100% - 78px);
-    height: calc(100% - 115px);
+    width: 85%;
+    max-width: 280px;
+    height: auto;
     margin-top: 30px;
-}
+  }
 
 
 

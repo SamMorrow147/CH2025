@@ -2,6 +2,7 @@ import Top from './home/Top'
 import About from './home/About'
 import MainMenu from './home/MainMenu';
 import HeartSection from './home/HeartSection'
+import TeamSection from './home/TeamSection'
 import Services from './home/Services';
 import React, {useState, useEffect, useRef} from 'react';
 import Contact from './home/Contact'
@@ -11,8 +12,8 @@ import ProjectSlider from './projects/ProjectSlider'
 import AboutTwo from './home/AboutTwo';
 import { trackSectionView, trackSectionExit, trackSectionMetrics } from './utils/analytics';
 
-const anchors = ["first", "second", "third","fourth","fifth", "sixth","seventh"];
-const sectionNames = ['Home', 'Who We Are', 'Services', 'Why ClubHaus', 'Latest Work', 'Modus Operandi', 'Reach Out'];
+const anchors = ["first", "second", "third","fourth","fifth", "sixth", "seventh", "eighth"];
+const sectionNames = ['Home', 'Who We Are', 'Services', 'Why ClubHaus', 'Latest Work', 'Modus Operandi', 'Our Team', 'Reach Out'];
 
 // Section theme colors mapping
 const sectionThemeColors = {
@@ -22,7 +23,8 @@ const sectionThemeColors = {
   fourth: '#293a8d', // Why ClubHaus - dark blue 
   fifth: '#ffffff', // Our Work - white
   sixth: '#293a8d', // Modus Operandi - dark blue (same as navigation)
-  seventh: '#ffffff', // Reach Out - white
+  seventh: '#ffffff', // Our Team - white
+  eighth: '#ffffff', // Reach Out - white
 };
 
 // Function to get the appropriate theme color based on section
@@ -724,14 +726,20 @@ var config = {
             opacity: 1;
           }
           
-          /* Use Spades for Contact section */
+          /* Use Clubs for Team section */
           .fp-viewing-seventh #fp-nav ul li a.active:before {
+            background-image: url('/images/SVG/Clubs@8x.svg');
+            filter: invert(48%) sepia(85%) saturate(442%) hue-rotate(163deg) brightness(92%) contrast(92%);
+          }
+          
+          /* Use Spades for Contact section */
+          .fp-viewing-eighth #fp-nav ul li a.active:before {
             background-image: url('/images/SVG/Spade@8x.svg');
             filter: brightness(0) saturate(100%);
             background-color: transparent !important;
           }
           
-          /* Use Diamonds for remaining sections */
+          /* Use Diamonds for Portfolio section */
           .fp-viewing-fifth #fp-nav ul li a.active:before {
             background-image: url('/images/SVG/Diamond@8x.svg');
           }
@@ -1014,15 +1022,21 @@ var config = {
             filter: invert(9%) sepia(98%) saturate(7106%) hue-rotate(1deg) brightness(104%) contrast(113%) !important;
           }
           
-          /* Make mobile spade black too */
+          /* Our Team uses Clubs */
           .mobile-nav-item:nth-child(7).active:before {
+            background-image: url('/images/SVG/Clubs@8x.svg');
+            filter: invert(48%) sepia(85%) saturate(442%) hue-rotate(163deg) brightness(92%) contrast(92%);
+          }
+          
+          /* Make mobile spade black for Contact */
+          .mobile-nav-item:nth-child(8).active:before {
             background-image: url('/images/SVG/Spade@8x.svg');
             filter: brightness(0) saturate(100%);
             background-color: transparent !important;
           }
           
           /* Turn all mobile menu items black on Contact page */
-          .fp-viewing-seventh .mobile-nav-item {
+          .fp-viewing-eighth .mobile-nav-item {
             color: #000;
           }
           
@@ -1378,7 +1392,11 @@ var config = {
               </div>
 
               <div className="section" data-anchor="seventh">
-                <Contact paused={currentPanel !== 'seventh'} arrowClick={() => fullpageApi.moveSectionDown()} />
+                <TeamSection paused={currentPanel !== 'seventh'} arrowClick={() => fullpageApi.moveSectionDown()} />
+              </div>
+
+              <div className="section" data-anchor="eighth">
+                <Contact paused={currentPanel !== 'eighth'} arrowClick={() => fullpageApi.moveSectionDown()} />
               </div>
 
             </ReactFullpage.Wrapper>

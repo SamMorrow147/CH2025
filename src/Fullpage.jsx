@@ -13,7 +13,7 @@ import AboutTwo from './home/AboutTwo';
 import { trackSectionView, trackSectionExit, trackSectionMetrics } from './utils/analytics';
 
 const anchors = ["first", "second", "third","fourth","fifth", "sixth", "seventh", "eighth"];
-const sectionNames = ['Home', 'Who We Are', 'Services', 'Why ClubHaus', 'Latest Work', 'Modus Operandi', 'Our Team', 'Reach Out'];
+const sectionNames = ['Home', 'Who We Are', 'Our Services', 'Feeling Lucky?', 'Recent Projects', 'Modus Operandi', 'Face Cards', 'Reach Out'];
 
 // Section theme colors mapping
 const sectionThemeColors = {
@@ -23,7 +23,7 @@ const sectionThemeColors = {
   fourth: '#293a8d', // Why ClubHaus - dark blue 
   fifth: '#ffffff', // Our Work - white
   sixth: '#293a8d', // Modus Operandi - dark blue (same as navigation)
-  seventh: '#ffffff', // Our Team - white
+  seventh: '#ffffff', // Face Cards - white
   eighth: '#ffffff', // Reach Out - white
 };
 
@@ -152,7 +152,7 @@ export default function Fullpage({onClick, setIsOpen}) {
   }
 
 var config = {
-  delta: 10,                             // min distance(px) before a swipe starts. *See Notes*
+  delta: 5,                             // min distance(px) before a swipe starts. *See Notes*
   preventScrollOnSwipe: false,           // prevents scroll during swipe (*See Details*)
   trackTouch: true,                      // track touch input
   trackMouse: false,                     // track mouse input
@@ -243,12 +243,12 @@ var config = {
       lockAnchors={true}
       fixedElements='.breadcrumbs'
       dragAndMove={true}
-      touchSensitivity={40}
+      touchSensitivity={20}
       navigation={true}
       navigationPosition={'top'}
       showActiveTooltip={false}
       navigationTooltips={sectionNames}
-      scrollingSpeed={600}
+      scrollingSpeed={300}
       normalScrollElements=''
       bigSectionsDestination='top'
       scrollOverflow={true}
@@ -261,10 +261,10 @@ var config = {
       
       // Add these to control scroll behavior better
       fitToSection={true}
-      fitToSectionDelay={400}
+      fitToSectionDelay={150}
       scrollBar={false}
-      easingcss3={'ease-in-out'}
-      easing={'easeInOutCubic'}
+      easingcss3={'ease-out'}
+      easing={'easeOutQuart'}
       css3={true}
       loopHorizontal={false}
       
@@ -303,7 +303,7 @@ var config = {
             // Re-enable scrolling after transition completes
             setTimeout(() => {
               fullpageApi.setAllowScrolling(true);
-            }, 700);
+            }, 350);
           }
           return false;
         }
@@ -321,7 +321,7 @@ var config = {
             // Re-enable scrolling after transition
             setTimeout(() => {
               fullpageApi.setAllowScrolling(true);
-            }, 700);
+            }, 350);
             
             // Don't proceed with normal navigation
             return false;
@@ -439,7 +439,7 @@ var config = {
                 // Track scroll state
                 let isScrolling = false;
                 let lastScrollTime = 0;
-                const scrollDebounceTime = 800; // ms to wait between scroll events - shorter time
+                const scrollDebounceTime = 400; // ms to wait between scroll events - shorter time
                 
                 // Use capture phase to intercept all wheel events before they reach fullpage
                 document.addEventListener('wheel', function(event) {
@@ -470,7 +470,7 @@ var config = {
                     setTimeout(() => {
                       isScrolling = false;
                       window.fullpage_api.setAllowScrolling(true);
-                    }, 700);
+                    }, 350);
                     
                     return false;
                   }

@@ -15,6 +15,7 @@ export default function AboutTwo(props) {
   const [showPoster, setShowPoster] = useState(true);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [posterLoaded, setPosterLoaded] = useState(false);
+  const [typingComplete, setTypingComplete] = useState(false); // Track typing completion
   const videoRef = useRef(null);
   const posterRef = useRef(null);
   
@@ -35,6 +36,7 @@ export default function AboutTwo(props) {
       if (prevPausedRef.current === true && props.paused === false) {
           // Section just became visible, restart the typing animation
           setTypingKey(k => k + 1);
+          setTypingComplete(false); // Reset typing completion state
           
           // Signal that video should be loaded
           setShouldLoadVideo(true);
@@ -42,6 +44,11 @@ export default function AboutTwo(props) {
       // Update the ref with current paused state
       prevPausedRef.current = props.paused;
   }, [props.paused]);
+  
+  // Handle typing completion
+  const handleTypingComplete = () => {
+    setTypingComplete(true);
+  };
   
   // Handle delayed video loading for better performance
   useEffect(() => {
@@ -329,7 +336,7 @@ export default function AboutTwo(props) {
             <h2 style={isMobile ? { textAlign: 'center', marginBottom: '5px' } : { marginBottom: '5px' }}>
               {props.paused === false ? (
                 <Suspense fallback={"No Luck Needed"}>
-                  <Typist key={typingKey} avgTypingDelay={100} cursor={{show: false}} style={{ marginBottom: '10px' }}>
+                  <Typist key={typingKey} avgTypingDelay={100} cursor={{show: false}} style={{ marginBottom: '10px' }} onTypingDone={handleTypingComplete}>
                     No Luck Needed
                   </Typist>
                 </Suspense>
@@ -338,76 +345,50 @@ export default function AboutTwo(props) {
               )}
             </h2>
             
-            {isMobile ? (
-              // Mobile layout with absolute positioning
-              <div style={{ position: 'relative' }}>
-                <p style={{ 
-                  marginBottom: '100px',
-                  ...mainTextStyle,
-                  fontSize: isMobile ? '22px' : '25px' 
-                }}>
-                  <Suspense fallback={<div>Loading...</div>}>
-                    <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
-                  </Suspense>
-                </p>
-                <div style={{
-                  position: 'absolute',
-                  top: '210px',
-                  left: 0,
-                  right: 0,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  marginTop: '12px'
-                }}>
+            {/* Content with fade-in effect after typing completes */}
+            <div style={{
+              opacity: typingComplete ? 1 : 0,
+              transition: 'opacity 0.8s ease-in-out',
+              transitionDelay: typingComplete ? '0.2s' : '0s'
+            }}>
+              {isMobile ? (
+                // Mobile layout with absolute positioning
+                <div style={{ position: 'relative' }}>
                   <p style={{ 
-                    fontSize: '18px', 
-                    marginBottom: '12px', 
-                    color: '#293a8d', 
-                    fontWeight: 'bold',
-                    textAlign: 'center'
+                    marginBottom: '100px',
+                    ...mainTextStyle,
+                    fontSize: isMobile ? '22px' : '25px' 
                   }}>
-                    Ready to build something real?
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
+                    </Suspense>
                   </p>
-                </div>
-                <div style={{
-                  position: 'absolute',
-                  top: '250px',
-                  left: 0,
-                  right: 0,
-                  display: 'flex',
-                  justifyContent: 'center'
-                }}>
-                  <button 
-                    onClick={() => navigateToSection('contact')} 
-                    className="btn2" 
-                    style={buttonStyle}
-                  >
-                    Let's talk.
-                  </button>
-                </div>
-              </div>
-            ) : (
-              // Desktop layout with left-aligned button
-              <>
-                <p style={mainTextStyle}>
-                  <Suspense fallback={<div>Loading...</div>}>
-                    <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
-                  </Suspense>
-                </p>
-                <div style={{ marginTop: '24px' }}>
-                  <p style={{ 
-                    fontSize: '18px', 
-                    marginBottom: '12px', 
-                    color: '#293a8d', 
-                    fontWeight: 'bold' 
-                  }}>
-                    Ready to build something real?
-                  </p>
-                  <div className="button-container" style={{
+                  <div style={{
+                    position: 'absolute',
+                    top: '210px',
+                    left: 0,
+                    right: 0,
                     display: 'flex',
-                    justifyContent: 'flex-start',
-                    marginTop: '10px',
-                    paddingLeft: '0'
+                    justifyContent: 'center',
+                    marginTop: '12px'
+                  }}>
+                    <p style={{ 
+                      fontSize: '18px', 
+                      marginBottom: '12px', 
+                      color: '#293a8d', 
+                      fontWeight: 'bold',
+                      textAlign: 'center'
+                    }}>
+                      Ready to build something real?
+                    </p>
+                  </div>
+                  <div style={{
+                    position: 'absolute',
+                    top: '250px',
+                    left: 0,
+                    right: 0,
+                    display: 'flex',
+                    justifyContent: 'center'
                   }}>
                     <button 
                       onClick={() => navigateToSection('contact')} 
@@ -418,8 +399,41 @@ export default function AboutTwo(props) {
                     </button>
                   </div>
                 </div>
-              </>
-            )}
+              ) : (
+                // Desktop layout with left-aligned button
+                <>
+                  <p style={mainTextStyle}>
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
+                    </Suspense>
+                  </p>
+                  <div style={{ marginTop: '24px' }}>
+                    <p style={{ 
+                      fontSize: '18px', 
+                      marginBottom: '12px', 
+                      color: '#293a8d', 
+                      fontWeight: 'bold' 
+                    }}>
+                      Ready to build something real?
+                    </p>
+                    <div className="button-container" style={{
+                      display: 'flex',
+                      justifyContent: 'flex-start',
+                      marginTop: '10px',
+                      paddingLeft: '0'
+                    }}>
+                      <button 
+                        onClick={() => navigateToSection('contact')} 
+                        className="btn2" 
+                        style={buttonStyle}
+                      >
+                        Let's talk.
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
       ) : (

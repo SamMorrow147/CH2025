@@ -19,16 +19,17 @@ export default function TeamSection({ paused, arrowClick }) {
           fontSize: '70px', 
           marginBottom: '20px',
           textAlign: 'center'
-        }}>OUR TEAM</h2>
+        }}>FACE CARDS</h2>
         
         <p style={{ 
           color: '#293a8d', 
           fontSize: '30px', 
           marginBottom: '60px', 
           maxWidth: '800px', 
-          textAlign: 'center'
+          textAlign: 'center',
+          fontWeight: 'bold'
         }}>
-          Meet the talented individuals behind ClubHaus' success.
+          The Creative Leaders You'll Be Dealing With.
         </p>
         
         <div style={{ 

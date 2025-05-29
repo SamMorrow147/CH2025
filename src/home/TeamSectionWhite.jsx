@@ -158,11 +158,16 @@ const flipCardStyles = `
   }
   
   .mobile-card.mobile-card-0 {
-    touch-action: pan-x; /* Top card allows horizontal panning only */
+    touch-action: manipulation; /* Allow clicks and horizontal panning for top card */
   }
   
   .mobile-card:active {
     cursor: grabbing;
+  }
+  
+  .mobile-card.mobile-card-0:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s ease;
   }
   
   .mobile-card .flip-card-inner {
@@ -171,7 +176,7 @@ const flipCardStyles = `
     border-radius: 16px;
     overflow: hidden;
     position: relative;
-    transition: transform 0.6s ease;
+    transition: transform 0.4s ease;
     transform-style: preserve-3d;
   }
   
@@ -212,6 +217,7 @@ const flipCardStyles = `
       font-size: 24px !important;
       margin-bottom: 5px !important;
       line-height: 1.1 !important;
+      font-weight: 900 !important;
     }
     
     .mobile-info-panel h4 {
@@ -394,6 +400,7 @@ const flipCardStyles = `
     color: #293a8d;
     font-size: 32px;
     line-height: 1.2;
+    font-weight: 900;
   }
   
   .stack-info-panel h4 {
@@ -541,25 +548,25 @@ const flipCardStyles = `
 // Team member data with character animations and photos
 const teamMembers = [
   {
-    name: "Sam",
+    name: "Sam Morrow",
     title: "Creative Director",
     photo: "/images/PortfolioSlider/slide1.jpg",
     character: "/images/team/Sam-Front.png"
   },
   {
-    name: "Noah",
+    name: "Noah Morrow",
     title: "Art Director",
     photo: "/images/PortfolioSlider/slide2.jpg",
     character: "/images/team/Noah-Front.png"
   },
   {
-    name: "Darby",
+    name: "Darby Shaw",
     title: "Lead Developer",
     photo: "/images/PortfolioSlider/slide3.jpg",
     character: "/images/team/Darby-Front.png"
   },
   {
-    name: "Liam",
+    name: "Liam Ellis",
     title: "Account Manager",
     photo: "/images/PortfolioSlider/slide4.jpg",
     character: "/images/team/Liam-Front"
@@ -577,6 +584,8 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
   const [mobileCardOrder, setMobileCardOrder] = useState([...teamMembers]);
   const [draggedCardIndex, setDraggedCardIndex] = useState(null);
   const [animatingDirection, setAnimatingDirection] = useState(null); // 'forward' or 'backward'
+  const [flippedCards, setFlippedCards] = useState(new Set()); // Track which cards are flipped
+  const [isDragging, setIsDragging] = useState(false); // Track if currently dragging
   
   // Card stack positions and rotations for organic look
   const getCardTransform = (index) => {
@@ -649,9 +658,20 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
   };
   
   // Handle card tap to flip
-  const handleMobileCardTap = (index) => {
-    // On mobile, tapping doesn't do anything - just let drag handle everything
-    // The info panel will always show the top card's info
+  const handleMobileCardTap = (memberName) => {
+    console.log('Card tap detected for:', memberName);
+    // Toggle flip state for the tapped card
+    setFlippedCards(prev => {
+      const newFlippedCards = new Set(prev);
+      if (newFlippedCards.has(memberName)) {
+        newFlippedCards.delete(memberName);
+        console.log('Flipping card back to front:', memberName);
+      } else {
+        newFlippedCards.add(memberName);
+        console.log('Flipping card to back:', memberName);
+      }
+      return newFlippedCards;
+    });
   };
   
   // Handle card click to expand view
@@ -741,8 +761,9 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
             marginBottom: '40px',
             maxWidth: '800px',
             textAlign: 'center',
-            margin: '0 auto 40px'
-          }}>Meet the talented individuals behind ClubHaus' success.</p>
+            margin: '0 auto 40px',
+            fontWeight: 'bold'
+          }}>The Creative Leaders You'll Be Dealing With.</p>
           
           {/* New Mobile Playing Card Stack with Framer Motion - Moved up */}
           <div className="mobile-card-stack">
@@ -777,7 +798,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                 return (
                   <motion.div
                     key={`mobile-${member.name}`}
-                    className={`mobile-card mobile-card-${index}`}
+                    className={`mobile-card mobile-card-${index} ${flippedCards.has(member.name) ? 'flipped' : ''}`}
                     drag={index === 0 ? "x" : false} // Only allow top card to be dragged
                     dragMomentum={false}
                     dragElastic={0.1}
@@ -792,7 +813,10 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       stiffness: 200,
                       damping: 20
                     }}
-                    onDragStart={() => setDraggedCardIndex(index)}
+                    onDragStart={() => {
+                      setDraggedCardIndex(index);
+                      setIsDragging(true);
+                    }}
                     onDragEnd={(event, info) => {
                       // Only check horizontal drag distance for card cycling
                       const horizontalDragDistance = Math.abs(info.offset.x);
@@ -800,7 +824,17 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       if (horizontalDragDistance > 50) {
                         handleDragEnd(index);
                       }
-                      // No tap handling needed - info panel always shows top card
+                      
+                      // Reset dragging state after a short delay
+                      setTimeout(() => {
+                        setIsDragging(false);
+                      }, 100);
+                    }}
+                    onClick={() => {
+                      // Only handle clicks on the top card and when not dragging
+                      if (index === 0 && !isDragging) {
+                        handleMobileCardTap(member.name);
+                      }
                     }}
                     whileDrag={{
                       scale: 1.05,
@@ -810,7 +844,6 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                     }}
                     style={{
                       zIndex: transform.zIndex,
-                      opacity: (isAnimatingOut || index === 0) ? 1 : (index < 8 ? 1 - (index * 0.1) : 0.2),
                       pointerEvents: index === 0 ? 'auto' : 'none' // Only top card receives touch events
                     }}
                   >
@@ -852,7 +885,8 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                           <h3 style={{ 
                             margin: '0 0 10px 0', 
                             color: '#293a8d', 
-                            fontSize: '24px' 
+                            fontSize: '24px',
+                            fontWeight: '900'
                           }}>
                             {member.name}
                           </h3>
@@ -931,7 +965,8 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                         <h3 style={{ 
                           margin: '0 0 5px 0', 
                           color: '#293a8d', 
-                          fontSize: '20px' 
+                          fontSize: '20px',
+                          fontWeight: '900'
                         }}>
                           {member.name}
                         </h3>
@@ -1040,7 +1075,8 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                           <h3 style={{ 
                             margin: '0 0 5px 0', 
                             color: '#293a8d', 
-                            fontSize: '20px' 
+                            fontSize: '20px',
+                            fontWeight: '900'
                           }}>
                             {member.name}
                           </h3>

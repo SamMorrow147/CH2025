@@ -6,7 +6,7 @@ const Contact = () => {
     return (    
       <div className="services_section">
           <Contact_card/>
-          
+
           {/* Social Media Icons - repositioned to bottom right */}
           <div className="contact-social-icons">
             <a href="https://www.linkedin.com/in/mrwcreations" target="_blank" rel="noopener noreferrer" className="contact-social-icon">
@@ -21,6 +21,6 @@ const Contact = () => {
           </div>
         </div>
     );
-}
+    }
 
-export default Contact;
+    export default Contact;

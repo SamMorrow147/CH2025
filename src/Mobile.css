@@ -6,9 +6,9 @@
     text-align: center !important;
   }
 
-  .project-content {
-    padding-bottom:200px;
-  }
+.project-content {
+  padding-bottom:200px;
+}
 
   .project_grid .project_content {
 justify-content:center;
@@ -17,7 +17,7 @@ justify-content:center;
   .contact_card {
     width: 90%;
     max-width: 320px;
-    height: auto;
+      height: auto;
   }
 
 
@@ -541,7 +541,7 @@ display:none;
     max-width: 280px;
     height: auto;
     margin-top: 30px;
-  }
+}
 
 
 

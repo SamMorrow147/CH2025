@@ -2,7 +2,7 @@ import Top from './home/Top'
 import About from './home/About'
 import MainMenu from './home/MainMenu';
 import HeartSection from './home/HeartSection'
-import TeamSection from './home/TeamSection'
+import TeamSectionWhite from './home/TeamSectionWhite'
 import Services from './home/Services';
 import React, {useState, useEffect, useRef} from 'react';
 import Contact from './home/Contact'
@@ -43,7 +43,7 @@ const getThemeColorForSection = (sectionIndex) => {
 
 let currentIndex = 0;
 export default function Fullpage({onClick, setIsOpen}) {
-
+  
   var offset = '0';
   const [activeId, setActiveId] = useState(0);
   const [currentSection, setCurrentSection] = useState(0);
@@ -1306,7 +1306,7 @@ var config = {
           offset = state.destination.item.offsetTop;
 
           setCurrentSlider(state.destination.index ?? 0);
-          
+
           // Update section name
           if (state.destination.index !== undefined) {
             setCurrentSectionName(sectionNames[state.destination.index]);
@@ -1315,7 +1315,7 @@ var config = {
           if (state.destination.anchor) {
             currentPanel = state.destination.anchor;
           }
-          
+  
           // Get top content element
           const topContent = document.querySelector('.top_content');
           
@@ -1392,7 +1392,7 @@ var config = {
               </div>
 
               <div className="section" data-anchor="seventh">
-                <TeamSection paused={currentPanel !== 'seventh'} arrowClick={() => fullpageApi.moveSectionDown()} />
+                <TeamSectionWhite paused={currentPanel !== 'seventh'} arrowClick={() => fullpageApi.moveSectionDown()} />
               </div>
 
               <div className="section" data-anchor="eighth">

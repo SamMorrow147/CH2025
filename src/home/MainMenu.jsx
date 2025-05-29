@@ -8,8 +8,8 @@ export default function MainMenu({currentScroll, onClick, fullpageApi}) {
      }
      
     const [menuOpen, setMenuOpen] = useState(false);
-    const location = useLocation();
-    const showProjectNav = location.pathname.startsWith('/projects/');
+     const location = useLocation();
+     const showProjectNav = location.pathname.startsWith('/projects/');
 
     // Navigation menu items
     const navItems = [
@@ -69,9 +69,9 @@ export default function MainMenu({currentScroll, onClick, fullpageApi}) {
                     </div>
                 )}
 
-            {!showProjectNav && (
-                <div className="static-bar">
-                    <a href="/">
+        {!showProjectNav && (
+          <div className="static-bar">
+              <a href="/">
                         <img 
                             className="logo" 
                             width="220" 
@@ -79,19 +79,19 @@ export default function MainMenu({currentScroll, onClick, fullpageApi}) {
                             src="/images/animated-logo.gif" 
                             key="static-menu-logo"
                         />
-                        <img
-                        className="wordmark"
-                        height="200"
-                        width="600"
-                        src={
-                            isEven(currentScroll) && currentScroll !== 0
-                            ? '../images/wordmark.png'
-                            : '../images/wordmark_white.png'
-                        }
-                        />
-                    </a>
-                </div>
-            )}
+                <img
+                  className="wordmark"
+                  height="200"
+                  width="600"
+                  src={
+                    isEven(currentScroll) && currentScroll !== 0
+                      ? '../images/wordmark.png'
+                      : '../images/wordmark_white.png'
+                  }
+                />
+              </a>
+          </div>
+        )}
   
             {/* Navigation overlay */}
             <div 

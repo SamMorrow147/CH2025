@@ -95,6 +95,7 @@ const flipCardStyles = `
     height: 400px;
     margin: 0 auto;
     display: none;
+    touch-action: pan-y; /* Allow vertical scrolling through the stack */
   }
   
   /* Mobile swipe indicators */
@@ -153,6 +154,11 @@ const flipCardStyles = `
     user-select: none;
     -webkit-user-select: none;
     -webkit-touch-callout: none;
+    touch-action: pan-y; /* Allow vertical scrolling by default */
+  }
+  
+  .mobile-card.mobile-card-0 {
+    touch-action: pan-x; /* Top card allows horizontal panning only */
   }
   
   .mobile-card:active {
@@ -772,14 +778,12 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                   <motion.div
                     key={`mobile-${member.name}`}
                     className={`mobile-card mobile-card-${index}`}
-                    drag
+                    drag={index === 0 ? "x" : false} // Only allow top card to be dragged
                     dragMomentum={false}
                     dragElastic={0.1}
                     dragConstraints={{ 
                       left: -150, 
-                      right: 150, 
-                      top: -100, 
-                      bottom: 100 
+                      right: 150 
                     }}
                     initial={animateTransform}
                     animate={isDragged ? {} : animateTransform}
@@ -790,25 +794,24 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                     }}
                     onDragStart={() => setDraggedCardIndex(index)}
                     onDragEnd={(event, info) => {
-                      // If dragged more than 50px in any direction, move to back
-                      const dragDistance = Math.sqrt(
-                        Math.pow(info.offset.x, 2) + Math.pow(info.offset.y, 2)
-                      );
+                      // Only check horizontal drag distance for card cycling
+                      const horizontalDragDistance = Math.abs(info.offset.x);
                       
-                      if (dragDistance > 50) {
+                      if (horizontalDragDistance > 50) {
                         handleDragEnd(index);
                       }
                       // No tap handling needed - info panel always shows top card
                     }}
                     whileDrag={{
                       scale: 1.05,
-                      rotate: 5,
+                      rotate: 5, // Simple rotation during drag
                       zIndex: 200,
                       boxShadow: "0 25px 50px rgba(0, 0, 0, 0.3)"
                     }}
                     style={{
                       zIndex: transform.zIndex,
-                      opacity: (isAnimatingOut || index === 0) ? 1 : (index < 8 ? 1 - (index * 0.1) : 0.2)
+                      opacity: (isAnimatingOut || index === 0) ? 1 : (index < 8 ? 1 - (index * 0.1) : 0.2),
+                      pointerEvents: index === 0 ? 'auto' : 'none' // Only top card receives touch events
                     }}
                   >
                     <div className="flip-card-inner">

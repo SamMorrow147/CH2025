@@ -5,6 +5,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 // Add global CSS for flip cards
 const flipCardStyles = `
+  /* Hide scrollbars on Face Cards section */
+  .team_section {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+  }
+  
+  .team_wrapper {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    height: 100% !important;
+    max-height: 100vh !important;
+  }
+  
+  .team_content {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    height: 100% !important;
+    max-height: 100vh !important;
+  }
+  
   /* Container for all cards */
   .team-cards-container {
     position: relative;
@@ -12,6 +34,7 @@ const flipCardStyles = `
     height: 550px;
     max-width: 1100px;
     margin: 0 auto;
+    overflow: visible !important; /* Allow cards to extend outside during animations */
   }
 
   /* Team content responsive height */
@@ -94,8 +117,10 @@ const flipCardStyles = `
     width: 280px;
     height: 400px;
     margin: 0 auto;
+    margin-left: calc(50% - 140px + 10px); /* Move 10px to the right */
     display: none;
     touch-action: pan-y; /* Allow vertical scrolling through the stack */
+    overflow: visible !important; /* Allow cards to extend outside during drag */
   }
   
   /* Mobile swipe indicators */
@@ -127,7 +152,7 @@ const flipCardStyles = `
   }
   
   .mobile-swipe-indicator.right {
-    right: -40px;
+    right: -25px;
     border-left: 12px solid #329ec7;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
@@ -171,11 +196,11 @@ const flipCardStyles = `
   }
   
   .mobile-card .flip-card-inner {
+    position: absolute;
     width: 100%;
     height: 100%;
     border-radius: 16px;
     overflow: hidden;
-    position: relative;
     transition: transform 0.4s ease;
     transform-style: preserve-3d;
   }
@@ -187,6 +212,7 @@ const flipCardStyles = `
   @media (max-width: 768px) {
     .mobile-card-stack {
       display: block;
+      overflow: visible !important; /* Allow drag animations to extend outside */
     }
     
     /* Hide Swiper on mobile */
@@ -211,6 +237,8 @@ const flipCardStyles = `
       text-align: center !important;
       opacity: 1 !important;
       visibility: visible !important;
+      min-height: 120px !important;
+      overflow: visible !important; /* Allow content to be visible */
     }
     
     .mobile-info-panel h3 {
@@ -218,12 +246,14 @@ const flipCardStyles = `
       margin-bottom: 5px !important;
       line-height: 1.1 !important;
       font-weight: 900 !important;
+      color: #293a8d !important;
     }
     
     .mobile-info-panel h4 {
       font-size: 16px !important;
       margin-bottom: 25px !important;
       line-height: 1.1 !important;
+      color: #293a8d !important;
     }
     
     .mobile-info-panel p {
@@ -271,10 +301,12 @@ const flipCardStyles = `
     /* Make the entire section more compact on mobile */
     .team_section {
       min-height: auto !important;
-      height: 100vh !important;
-      overflow: hidden !important;
-      padding-bottom: 0 !important;
+      height: auto !important;
+      overflow-x: hidden !important; /* Prevent horizontal scrolling */
+      overflow-y: hidden !important; /* Prevent vertical scrolling */
+      padding-bottom: 20px !important;
       margin-bottom: 0 !important;
+      max-height: 100vh !important;
     }
     
     /* Adjust spacing for mobile */
@@ -282,8 +314,9 @@ const flipCardStyles = `
       padding: 25px 5px 8px !important;
       justify-content: flex-start !important;
       minHeight: auto !important;
-      height: 100% !important;
-      overflow: hidden !important;
+      height: auto !important;
+      overflow: visible !important; /* Allow card animations to be visible */
+      max-height: 100vh !important;
     }
     
     /* Reduce title margins on mobile */
@@ -301,10 +334,20 @@ const flipCardStyles = `
     .team_section > div:last-child {
       display: none !important;
     }
+    
+    /* Show mobile line break only on mobile */
+    .mobile-break {
+      display: inline !important;
+    }
   }
   
   /* Ensure desktop styles are preserved */
   @media (min-width: 769px) {
+    /* Hide mobile line break on desktop */
+    .mobile-break {
+      display: none;
+    }
+    
     .team_section {
       min-height: 100vh;
     }
@@ -405,7 +448,7 @@ const flipCardStyles = `
   
   .stack-info-panel h4 {
     margin: 0 0 20px 0;
-    color: #329ec7;
+    color: #293a8d;
     font-size: 20px;
     font-weight: normal;
   }
@@ -436,33 +479,24 @@ const flipCardStyles = `
     font-size: 14px;
   }
   
-  /* Card inner structure */
+  /* Simple opacity-based flip for both desktop and mobile */
   .flip-card-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    text-align: center;
-    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-    transform-style: preserve-3d;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-    overflow: hidden;
   }
   
-  /* Normal flip behavior for grid mode */
-  .team-cards-container:not(.stack-mode) .flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
-  }
-  
-  .flip-card-front, .flip-card-back {
+  /* Card faces - positioned on top of each other */
+  .flip-card-front, 
+  .flip-card-back {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
     border-radius: 10px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
   
+  /* Front side - visible by default */
   .flip-card-front {
     background-color: #f8f8f8;
     display: flex;
@@ -471,6 +505,8 @@ const flipCardStyles = `
     align-items: center;
     padding: 0;
     overflow: hidden;
+    opacity: 1;
+    z-index: 2;
   }
   
   .flip-card-front .card-image {
@@ -482,66 +518,128 @@ const flipCardStyles = `
     z-index: 1;
   }
   
-  .flip-card-front .card-info {
-    position: relative;
-    z-index: 2;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.9);
-    width: 100%;
-  }
-  
+  /* Back side - hidden by default */
   .flip-card-back {
     background-color: white;
-    transform: rotateY(180deg);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    z-index: 1;
   }
   
-  /* Back button */
-  .back-to-grid {
-    background: #329ec7;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+  /* Desktop hover - opacity change with flip animation simulation */
+  @media (min-width: 769px) {
+    .flip-card {
+      perspective: 1000px;
+    }
+    
+    .flip-card-inner {
+      transition: transform 0.4s ease;
+    }
+    
+    .flip-card-front, 
+    .flip-card-back {
+      transition: opacity 0.2s ease;
+    }
+    
+    /* Only apply hover effects to cards that are NOT selected or stacked */
+    .flip-card:not(.selected):not([class*="stacked-"]):hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .flip-card:not(.selected):not([class*="stacked-"]):hover .flip-card-front {
+      opacity: 0;
+    }
+    
+    .flip-card:not(.selected):not([class*="stacked-"]):hover .flip-card-back {
+      opacity: 1;
+    }
+    
+    /* Selected and stacked cards should stay flipped to show photos */
+    .flip-card.selected .flip-card-front,
+    .flip-card[class*="stacked-"] .flip-card-front {
+      opacity: 0;
+    }
+    
+    .flip-card.selected .flip-card-back,
+    .flip-card[class*="stacked-"] .flip-card-back {
+      opacity: 1;
+    }
+    
+    .flip-card.selected .flip-card-inner,
+    .flip-card[class*="stacked-"] .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+  }
+  
+  /* Mobile tap - simple opacity change */
+  .mobile-card.flipped .flip-card-front {
+    opacity: 0;
+  }
+  
+  .mobile-card.flipped .flip-card-back {
+    opacity: 1;
+  }
+  
+  .flip-card-back .photo-container {
+    flex: 1;
+    overflow: hidden;
+    width: 100%;
+    height: 100%; /* Ensure it takes full height */
+  }
+  
+  .flip-card-back .photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  /* Card info overlay for names and titles on hover */
+  .card-info-overlay {
     position: absolute;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 20;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
+    color: white;
+    padding: 20px 15px 15px;
+    text-align: center;
+    transform: rotateY(180deg); /* Counter-rotate to fix flipped text */
   }
   
-  .back-to-grid.visible {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  
-  /* Hide navigation arrows on desktop */
-  @media (min-width: 1024px) {
-    .team_carousel_container .swiper-button-next,
-    .team_carousel_container .swiper-button-prev {
-      display: none !important;
-    }
-    
-    /* Hide Swiper on desktop */
-    .mobile-only-swiper {
-      display: none !important;
-    }
-  }
-  
-  /* Hide desktop grid on mobile */
+  /* Hide card overlay on mobile - names/titles should only be in info panel */
   @media (max-width: 768px) {
-    .team-cards-container {
+    .card-info-overlay {
       display: none !important;
     }
-    
-    .back-to-grid {
+  }
+  
+  /* Hide card overlay for selected and stacked cards on desktop */
+  @media (min-width: 769px) {
+    .flip-card.selected .card-info-overlay,
+    .flip-card[class*="stacked-"] .card-info-overlay {
       display: none !important;
     }
+  }
+  
+  .card-info-overlay h3 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+  
+  .card-info-overlay h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: normal;
+    opacity: 0.9;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
   }
 `;
 
@@ -550,26 +648,30 @@ const teamMembers = [
   {
     name: "Sam Morrow",
     title: "Creative Director",
-    photo: "/images/PortfolioSlider/slide1.jpg",
-    character: "/images/team/Sam-Front.png"
+    photo: "/images/team/Sam-Back .png", // Note: filename has space before extension
+    character: "/images/team/Sam-Front.png",
+    characterBack: "/images/team/Sam-Back .png"
   },
   {
     name: "Noah Morrow",
     title: "Art Director",
-    photo: "/images/PortfolioSlider/slide2.jpg",
-    character: "/images/team/Noah-Front.png"
+    photo: "/images/team/Noah-Back.png",
+    character: "/images/team/Noah-Front.png",
+    characterBack: "/images/team/Noah-Back.png"
   },
   {
     name: "Darby Shaw",
     title: "Lead Developer",
-    photo: "/images/PortfolioSlider/slide3.jpg",
-    character: "/images/team/Darby-Front.png"
+    photo: "/images/team/Darby-Back.png", // Back photo is available
+    character: "/images/team/Darby-Front.png",
+    characterBack: "/images/team/Darby-Back.png"
   },
   {
     name: "Liam Ellis",
     title: "Account Manager",
-    photo: "/images/PortfolioSlider/slide4.jpg",
-    character: "/images/team/Liam-Front"
+    photo: "/images/team/Laim-Back.png", // Note: typo in filename
+    character: "/images/team/Liam-Front.png",
+    characterBack: "/images/team/Laim-Back.png"
   }
 ];
 
@@ -586,6 +688,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
   const [animatingDirection, setAnimatingDirection] = useState(null); // 'forward' or 'backward'
   const [flippedCards, setFlippedCards] = useState(new Set()); // Track which cards are flipped
   const [isDragging, setIsDragging] = useState(false); // Track if currently dragging
+  const [selectedMobileCard, setSelectedMobileCard] = useState(null); // Track selected card for info display
   
   // Card stack positions and rotations for organic look
   const getCardTransform = (index) => {
@@ -628,6 +731,14 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
     newOrder.push(draggedCard); // Move to back
     setMobileCardOrder(newOrder);
     setDraggedCardIndex(null);
+    
+    // Check if the new top card should be selected (if it's flipped)
+    const newTopCard = newOrder[0];
+    if (flippedCards.has(newTopCard.name)) {
+      setSelectedMobileCard(newTopCard.name);
+    } else {
+      setSelectedMobileCard(null);
+    }
   };
   
   // Handle arrow click to cycle cards
@@ -654,12 +765,28 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
       
       setMobileCardOrder(newOrder);
       setAnimatingDirection(null);
+      
+      // Check if the new top card should be selected (if it's flipped)
+      const newTopCard = newOrder[0];
+      if (flippedCards.has(newTopCard.name)) {
+        setSelectedMobileCard(newTopCard.name);
+      } else {
+        setSelectedMobileCard(null);
+      }
     }, 400); // Match animation duration
   };
   
   // Handle card tap to flip
   const handleMobileCardTap = (memberName) => {
     console.log('Card tap detected for:', memberName);
+    
+    // Toggle selected state for info display
+    if (selectedMobileCard === memberName) {
+      setSelectedMobileCard(null); // Hide info if same card clicked
+    } else {
+      setSelectedMobileCard(memberName); // Show info for clicked card
+    }
+    
     // Toggle flip state for the tapped card
     setFlippedCards(prev => {
       const newFlippedCards = new Set(prev);
@@ -738,15 +865,36 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
   };
   
   return (
-    <div className="team_section" style={{ 
+    <div className="team_section white_background" style={{ 
       backgroundColor: '#ffffff',
       minHeight: '100vh',
-      position: 'relative'
+      position: 'relative',
+      overflow: 'hidden',
+      height: '100vh',
+      maxHeight: '100vh'
     }}>
       {/* Include the flip card styles */}
       <style dangerouslySetInnerHTML={{ __html: flipCardStyles }} />
       
-      <div className="team_wrapper container" style={{ maxWidth: '1100px', width: '100%', margin: '0 auto' }}>
+      {/* Animation background with glimmer and lines - same as modus operandi */}
+      <div className="animation-back">
+        <div className="glimmer"></div>
+        <div className="lines">
+          <svg xmlns="http://www.w3.org/2000/svg" className="center" height="100%" width="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <polygon pathLength="100" className="path" fill="transparent" stroke="black" points="0 0,0 100,100 100,100 0"></polygon>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" className="top-left" height="50%" width="50%" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <polygon pathLength="100" className="path-top-left" fill="transparent" stroke="black" points="100 0, 0 0,0 100,100 100"></polygon>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" className="bottom-right" height="50%" width="50%" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <polygon pathLength="100" className="path-bottom-right" fill="transparent" stroke="black" points="0 100,100 100, 100 0, 0 0"></polygon>
+          </svg>
+          <img src="../images/logo.png" className="logo-top" />
+          <img src="../images/logo.png" className="logo-bottom" />
+        </div>
+      </div>
+      
+      <div className="team_wrapper container" style={{ maxWidth: '1100px', width: '100%', margin: '0 auto', overflow: 'hidden', height: '100%' }}>
         <div className="team_content" style={{ 
           display: 'flex', 
           flexDirection: 'column', 
@@ -755,15 +903,15 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
           padding: '40px 5px',
           position: 'relative'
         }}>
-          <p style={{
-            color: '#293a8d',
-            fontSize: 'clamp(18px, 3vw, 30px)',
-            marginBottom: '40px',
-            maxWidth: '800px',
-            textAlign: 'center',
-            margin: '0 auto 40px',
-            fontWeight: 'bold'
-          }}>The Creative Leaders You'll Be Dealing With.</p>
+          <h2 style={{ 
+            color: '#293a8d', 
+            fontSize: '36px', 
+            marginBottom: '60px', 
+            maxWidth: '800px', 
+            textAlign: 'center'
+          }}>
+            <span style={{ fontWeight: 'bold' }}>The Creative Leaders</span><br className="mobile-break" /> <span style={{ fontWeight: 'normal', fontStretch: 'condensed' }}>You're Dealing With.</span>
+          </h2>
           
           {/* New Mobile Playing Card Stack with Framer Motion - Moved up */}
           <div className="mobile-card-stack">
@@ -857,8 +1005,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                             style={{ 
                               width: '100%', 
                               height: '100%',
-                              objectFit: 'cover',
-                              pointerEvents: 'none' // Prevent image drag interference
+                              objectFit: 'cover' 
                             }} 
                           />
                         </div>
@@ -866,37 +1013,15 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       
                       {/* Back - Team Member Photo */}
                       <div className="flip-card-back">
-                        <div style={{ height: '320px', overflow: 'hidden' }}>
+                        <div className="photo-container">
                           <img 
                             src={member.photo} 
                             alt={member.name} 
-                            style={{ 
-                              width: '100%', 
-                              height: '100%', 
-                              objectFit: 'cover',
-                              pointerEvents: 'none' // Prevent image drag interference
-                            }} 
                           />
                         </div>
-                        <div style={{ 
-                          padding: '20px', 
-                          textAlign: 'center' 
-                        }}>
-                          <h3 style={{ 
-                            margin: '0 0 10px 0', 
-                            color: '#293a8d', 
-                            fontSize: '24px',
-                            fontWeight: '900'
-                          }}>
-                            {member.name}
-                          </h3>
-                          <p style={{ 
-                            margin: '0', 
-                            color: '#329ec7', 
-                            fontSize: '16px' 
-                          }}>
-                            {member.title}
-                          </p>
+                        <div className="card-info-overlay">
+                          <h3>{member.name}</h3>
+                          <h4>{member.title}</h4>
                         </div>
                       </div>
                     </div>
@@ -911,13 +1036,41 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
             <h3>{mobileCardOrder[0].name}</h3>
             <h4>{mobileCardOrder[0].title}</h4>
             
-            <div className="bio-text">
-              <p>
-                {mobileCardOrder[0].name} brings exceptional talent to our team at ClubHaus. 
-                With years of experience as a {mobileCardOrder[0].title.toLowerCase()}, 
-                {mobileCardOrder[0].name} consistently delivers outstanding results for our clients.
-              </p>
-            </div>
+            {/* Only show bio text when a card is selected */}
+            {selectedMobileCard === mobileCardOrder[0].name && (
+              <div className="bio-text">
+                <p>
+                  {mobileCardOrder[0].name} brings exceptional talent to our team at ClubHaus. 
+                  With years of experience as a {mobileCardOrder[0].title.toLowerCase()}, 
+                  {mobileCardOrder[0].name} consistently delivers outstanding results for our clients.
+                </p>
+              </div>
+            )}
+            
+            {/* LinkedIn Icon - Bottom of Mobile Panel - Only show when card is selected */}
+            {selectedMobileCard === mobileCardOrder[0].name && (
+              <div className="mobile-linkedin-icon" style={{ 
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '25px',
+                paddingTop: '15px'
+              }}>
+                <svg 
+                  width="24" 
+                  height="24" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => window.open('#', '_blank')} // Replace # with actual LinkedIn URL
+                >
+                  <path 
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" 
+                    fill="#293a8d"
+                  />
+                </svg>
+              </div>
+            )}
           </div>
           
           {/* Desktop version - all cards with absolute positioning */}
@@ -947,36 +1100,15 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                     
                     {/* Back - Team Member Photo */}
                     <div className="flip-card-back">
-                      <div style={{ height: '290px', overflow: 'hidden' }}>
+                      <div className="photo-container">
                         <img 
                           src={member.photo} 
                           alt={member.name} 
-                          style={{ 
-                            width: '100%', 
-                            height: '100%', 
-                            objectFit: 'cover' 
-                          }} 
                         />
                       </div>
-                      <div style={{ 
-                        padding: '10px', 
-                        textAlign: 'center' 
-                      }}>
-                        <h3 style={{ 
-                          margin: '0 0 5px 0', 
-                          color: '#293a8d', 
-                          fontSize: '20px',
-                          fontWeight: '900'
-                        }}>
-                          {member.name}
-                        </h3>
-                        <p style={{ 
-                          margin: '0', 
-                          color: '#329ec7', 
-                          fontSize: '14px' 
-                        }}>
-                          {member.title}
-                        </p>
+                      <div className="card-info-overlay">
+                        <h3>{member.name}</h3>
+                        <h4>{member.title}</h4>
                       </div>
                     </div>
                   </div>
@@ -987,6 +1119,33 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
             {/* Info panel that appears when card is selected */}
             {selectedMemberData && (
               <div className={`stack-info-panel ${showInfo ? 'visible' : ''}`}>
+                {/* Close X Icon - Top Right Corner */}
+                <div className="close-icon-container" style={{ 
+                  position: 'absolute',
+                  top: '20px',
+                  right: '20px',
+                  zIndex: 10,
+                  cursor: 'pointer'
+                }}
+                onClick={handleCloseSelected}
+                >
+                  <svg 
+                    width="24" 
+                    height="24" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path 
+                      d="M18 6L6 18M6 6L18 18" 
+                      stroke="#293a8d" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+                
                 <h3>{selectedMemberData.name}</h3>
                 <h4>{selectedMemberData.title}</h4>
                 
@@ -998,23 +1157,38 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                   </p>
                 </div>
                 
-                <p>Core skills:</p>
+                <p style={{ textAlign: 'right' }}>Core skills:</p>
                 <div className="skills-list">
                   <span className="skill-tag">Strategic Thinking</span>
                   <span className="skill-tag">Problem Solving</span>
                   <span className="skill-tag">Client Relations</span>
                   <span className="skill-tag">Team Leadership</span>
                 </div>
+                
+                {/* LinkedIn Icon - Bottom Right Corner */}
+                <div className="linkedin-icon-container" style={{ 
+                  position: 'absolute',
+                  bottom: '20px',
+                  right: '20px',
+                  zIndex: 10
+                }}>
+                  <svg 
+                    width="24" 
+                    height="24" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => window.open('#', '_blank')} // Replace # with actual LinkedIn URL
+                  >
+                    <path 
+                      d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" 
+                      fill="#293a8d"
+                    />
+                  </svg>
+                </div>
               </div>
             )}
-            
-            {/* Back button */}
-            <button 
-              className={`back-to-grid ${showButton ? 'visible' : ''}`}
-              onClick={handleCloseSelected}
-            >
-              View All Team Members
-            </button>
           </div>
           
           {/* Mobile version with swiper */}
@@ -1057,36 +1231,15 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       
                       {/* Back - Team Member Photo */}
                       <div className="flip-card-back">
-                        <div style={{ height: '290px', overflow: 'hidden' }}>
+                        <div className="photo-container">
                           <img 
                             src={member.photo} 
                             alt={member.name} 
-                            style={{ 
-                              width: '100%', 
-                              height: '100%', 
-                              objectFit: 'cover' 
-                            }} 
                           />
                         </div>
-                        <div style={{ 
-                          padding: '10px', 
-                          textAlign: 'center' 
-                        }}>
-                          <h3 style={{ 
-                            margin: '0 0 5px 0', 
-                            color: '#293a8d', 
-                            fontSize: '20px',
-                            fontWeight: '900'
-                          }}>
-                            {member.name}
-                          </h3>
-                          <p style={{ 
-                            margin: '0', 
-                            color: '#329ec7', 
-                            fontSize: '14px' 
-                          }}>
-                            {member.title}
-                          </p>
+                        <div className="card-info-overlay">
+                          <h3>{member.name}</h3>
+                          <h4>{member.title}</h4>
                         </div>
                       </div>
                     </div>

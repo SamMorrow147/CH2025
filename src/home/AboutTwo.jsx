@@ -16,6 +16,7 @@ export default function AboutTwo(props) {
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [posterLoaded, setPosterLoaded] = useState(false);
   const [typingComplete, setTypingComplete] = useState(false); // Track typing completion
+  const [hasVisited, setHasVisited] = useState(false); // Track if section has been visited before
   const videoRef = useRef(null);
   const posterRef = useRef(null);
   
@@ -31,19 +32,23 @@ export default function AboutTwo(props) {
       return () => window.removeEventListener('resize', handleResize);
   }, []);
   
-  // Reset typing animation when section becomes visible
+  // Reset typing animation only on first visit to section
   useEffect(() => {
       if (prevPausedRef.current === true && props.paused === false) {
-          // Section just became visible, restart the typing animation
-          setTypingKey(k => k + 1);
-          setTypingComplete(false); // Reset typing completion state
+          // Section just became visible
+          if (!hasVisited) {
+              // Only restart the typing animation on first visit
+              setTypingKey(k => k + 1);
+              setTypingComplete(false); // Reset typing completion state
+              setHasVisited(true); // Mark as visited
+          }
           
-          // Signal that video should be loaded
+          // Always signal that video should be loaded when section becomes visible
           setShouldLoadVideo(true);
       }
       // Update the ref with current paused state
       prevPausedRef.current = props.paused;
-  }, [props.paused]);
+  }, [props.paused, hasVisited]);
   
   // Handle typing completion
   const handleTypingComplete = () => {

@@ -71,7 +71,7 @@ export default function ProjectSlider(props) {
             <div className="project_wrapper container">
                 <div className="project_content">
                     <div className="project_title" ref={titleRef}>
-                        <h3>
+                        <h3 style={{ fontSize: '36px' }}>
                             {isVisible ? (
                                 <Suspense fallback={"Recent Projects"}>
                                     <Typist 

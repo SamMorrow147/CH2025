@@ -1048,6 +1048,28 @@ img.logo-bottom {
   background: #2a3b8d;
 }
 
+/* Ensure Face Cards section gets blue navigation */
+.fp-viewing-seventh .menu {
+  background: #2a3b8d !important;
+}
+
+/* Ensure Face Cards section has white wordmark and text */
+.fp-viewing-seventh .static-bar .wordmark,
+.fp-viewing-seventh .wordmark {
+  filter: brightness(11) grayscale(1) !important;
+}
+
+/* Ensure any navigation text is white on Face Cards section */
+.fp-viewing-seventh .static-bar,
+.fp-viewing-seventh .menu {
+  color: white !important;
+}
+
+/* Ensure section name display is white on Face Cards section */
+.fp-viewing-seventh .section-name-display {
+  color: white !important;
+}
+
 .top-content.even .wordmark {
   filter: brightness(11) grayscale(1);
 }
@@ -1894,4 +1916,58 @@ min-height: 100dvh;
     grid-template-columns: 1fr;
     gap: 30px;
   }
+}
+
+/* Back to Portfolio Button Styling - Global */
+.back-to-portfolio {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.back-btn {
+  background: #329ec7;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-family: 'eurostile', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(50, 158, 199, 0.3);
+  text-decoration: none;
+}
+
+.back-btn:hover {
+  background: #2a8db8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(50, 158, 199, 0.4);
+  color: white;
+}
+
+.back-btn:active {
+  transform: translateY(0);
+}
+
+/* Mobile responsiveness for back button */
+@media (max-width: 768px) {
+  .back-to-portfolio {
+    top: 15px;
+    left: 15px;
+  }
+  
+  .back-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+.icons_section, .agency_section, .services_section, .project_section {
 }

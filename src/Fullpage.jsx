@@ -51,6 +51,7 @@ export default function Fullpage({onClick, setIsOpen}) {
   const [currentSectionName, setCurrentSectionName] = useState(sectionNames[0]);
   const fullpageApiRef = useRef(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isOnTeamSection, setIsOnTeamSection] = useState(false); // Track if we're on team section
 
   // Analytics tracking state
   const [sectionEntryTime, setSectionEntryTime] = useState(Date.now());
@@ -243,12 +244,12 @@ var config = {
       lockAnchors={true}
       fixedElements='.breadcrumbs'
       dragAndMove={true}
-      touchSensitivity={20}
+      touchSensitivity={25}
       navigation={true}
       navigationPosition={'top'}
       showActiveTooltip={false}
       navigationTooltips={sectionNames}
-      scrollingSpeed={300}
+      scrollingSpeed={350}
       normalScrollElements=''
       bigSectionsDestination='top'
       scrollOverflow={true}
@@ -261,12 +262,17 @@ var config = {
       
       // Add these to control scroll behavior better
       fitToSection={true}
-      fitToSectionDelay={150}
+      fitToSectionDelay={200}
       scrollBar={false}
       easingcss3={'ease-out'}
       easing={'easeOutQuart'}
       css3={true}
       loopHorizontal={false}
+      
+      // Enable URL history management for proper back button functionality
+      recordHistory={true}
+      autoScrolling={true}
+      scrollHorizontally={false}
       
       // Modified onLeave function with section skipping prevention
       onLeave={(origin, destination, direction, currentPanel, fullpageApi, state) => {
@@ -283,51 +289,6 @@ var config = {
            (window.event.type === 'click' || 
             (window.event.target && window.event.target.closest('#fp-nav'))));
         
-        // Detect Chrome browser
-        const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
-        
-        // Special handling for Chrome when scrolling from first to second section
-        if (isChrome && 
-            direction === 'down' && 
-            origin.index === 0 && 
-            destination.index > 1) {
-          
-          // Force navigation to section 2 instead of skipping
-          if (fullpageApi) {
-            // Completely disable scrolling temporarily
-            fullpageApi.setAllowScrolling(false);
-            
-            // Force navigation to section 2
-            fullpageApi.moveTo(2);
-            
-            // Re-enable scrolling after transition completes
-            setTimeout(() => {
-              fullpageApi.setAllowScrolling(true);
-            }, 350);
-          }
-          return false;
-        }
-        
-        // Chrome-specific handling for any scrolling from home
-        if (isChrome && origin.index === 0 && direction === 'down') {
-          // Always force navigation to section 2 from home on Chrome
-          if (fullpageApi) {
-            // Disable scrolling to prevent additional scrolls
-            fullpageApi.setAllowScrolling(false);
-            
-            // Force section 2
-            fullpageApi.moveTo(2);
-            
-            // Re-enable scrolling after transition
-            setTimeout(() => {
-              fullpageApi.setAllowScrolling(true);
-            }, 350);
-            
-            // Don't proceed with normal navigation
-            return false;
-          }
-        }
-        
         // Only prevent scroll-based section skipping (not navigation clicks)
         if (direction && sectionDistance > 1 && !isNavigationClick) {
           // Only prevent wheel/touch skipping, not navigation clicks
@@ -341,6 +302,13 @@ var config = {
             const prevSectionName = sectionNames[origin.index];
             const nextSectionName = sectionNames[destination.index];
             setCurrentSectionName(nextSectionName);
+            
+            // Track if we're entering or leaving the team section
+            if (destination.anchor === 'seventh') {
+              setIsOnTeamSection(true);
+            } else if (origin.anchor === 'seventh') {
+              setIsOnTeamSection(false);
+            }
             
             // Analytics tracking - don't allow this to block navigation
             setTimeout(() => {
@@ -439,11 +407,36 @@ var config = {
                 // Track scroll state
                 let isScrolling = false;
                 let lastScrollTime = 0;
-                const scrollDebounceTime = 400; // ms to wait between scroll events - shorter time
+                const scrollDebounceTime = 600; // Increased to 600ms to prevent rapid scrolling
+                
+                // Team section scroll tracking
+                let teamSectionScrollAccumulator = 0;
+                const teamSectionScrollThreshold = 100; // Reduced threshold for team section
                 
                 // Use capture phase to intercept all wheel events before they reach fullpage
                 document.addEventListener('wheel', function(event) {
                   const now = Date.now();
+                  const currentSection = window.fullpage_api ? window.fullpage_api.getActiveSection() : null;
+                  const isOnTeamSectionCurrent = currentSection && currentSection.anchor === 'seventh';
+                  
+                  // Special handling for team section - require more scroll to change sections
+                  if (isOnTeamSectionCurrent) {
+                    // Accumulate scroll delta for team section
+                    teamSectionScrollAccumulator += Math.abs(event.deltaY);
+                    
+                    // If we haven't reached the threshold, prevent the scroll
+                    if (teamSectionScrollAccumulator < teamSectionScrollThreshold) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      return false;
+                    }
+                    
+                    // Reset accumulator when threshold is reached
+                    teamSectionScrollAccumulator = 0;
+                  } else {
+                    // Reset accumulator when not on team section
+                    teamSectionScrollAccumulator = 0;
+                  }
                   
                   // If we're already in a scrolling transition or it's too soon, block all scrolls
                   if (isScrolling || (now - lastScrollTime < scrollDebounceTime)) {
@@ -452,28 +445,12 @@ var config = {
                     return false;
                   }
                   
-                  // We're specifically targeting first section scroll down issue
-                  if (window.fullpage_api && window.fullpage_api.getActiveSection().index === 0 && event.deltaY > 0) {
-                    // Prevent default scrolling behavior
-                    event.preventDefault();
-                    event.stopPropagation();
-                    
-                    // Manually navigate to section 2
-                    isScrolling = true;
-                    window.fullpage_api.setAllowScrolling(false);
-                    window.fullpage_api.moveTo(2);
-                    
-                    // Update scroll timestamp
-                    lastScrollTime = now;
-                    
-                    // Reset state after transition
-                    setTimeout(() => {
-                      isScrolling = false;
-                      window.fullpage_api.setAllowScrolling(true);
-                    }, 350);
-                    
-                    return false;
-                  }
+                  // Simplified Chrome handling - only prevent multiple rapid scrolls
+                  // Remove the aggressive section 1 to 2 forcing logic
+                  
+                  // Update scroll timestamp for any scroll
+                  lastScrollTime = now;
+                  
                 }, { passive: false, capture: true }); // Use capture phase to get events first
               }
               

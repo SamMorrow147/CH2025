@@ -23,7 +23,7 @@ export default function TeamSection({ paused, arrowClick }) {
         
         <p style={{ 
           color: '#293a8d', 
-          fontSize: '30px', 
+          fontSize: '36px', 
           marginBottom: '60px', 
           maxWidth: '800px', 
           textAlign: 'center',

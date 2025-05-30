@@ -35,7 +35,7 @@ export default function About(props) {
             <div className="second_wrapper container">
 
                 <div className="second_content">
-                    <h2>WE ARE A<span> CREATIVE</span> <strong>POWERHOUSE</strong></h2>
+                    <h2 style={{ fontSize: '36px' }}>WE ARE A<span> CREATIVE</span> <strong>POWERHOUSE</strong></h2>
                     
                     {isMobile ? (
                         // Mobile layout with reduced spacing

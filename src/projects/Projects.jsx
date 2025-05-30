@@ -3,6 +3,7 @@ import Item from './Item';
 import slugify from "react-slugify";
 import { createClient } from 'contentful';
 import MainMenu from '../home/MainMenu';
+import { useNavigate } from 'react-router-dom/dist';
 
 
 function getRandomRotation() {
@@ -18,6 +19,7 @@ const client = createClient({
 
 export default function Projects(props) {
     const [projectData, setProjectData] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         client.getEntries({
@@ -30,9 +32,22 @@ export default function Projects(props) {
     const maxDelay = 1; // Maximum delay in seconds
     const baseDelay = maxDelay / projectData.length;
 
+    // Handle back navigation to portfolio section
+    const handleBackToPortfolio = () => {
+        navigate('/#fifth'); // Navigate to home page with portfolio section anchor
+    };
+
     return (
 <>
         <MainMenu/>
+        
+        {/* Back to Portfolio Button */}
+        <div className="back-to-portfolio">
+            <button onClick={handleBackToPortfolio} className="back-btn">
+                ← Back to Portfolio
+            </button>
+        </div>
+        
         <div className="project_section project_grid project_all">
         <div className="project_title"><h3> PROJECTS</h3></div>
             <div className="project_wrapper container">

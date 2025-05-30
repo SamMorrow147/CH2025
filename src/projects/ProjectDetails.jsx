@@ -1,6 +1,6 @@
 import { createClient } from 'contentful'
 import React, { useState, useEffect, useRef} from 'react';
-import { Link, useParams } from 'react-router-dom/dist';
+import { Link, useParams, useNavigate } from 'react-router-dom/dist';
 import ReactFullpage from '@fullpage/react-fullpage';
 import MainMenu from '../home/MainMenu';
 import "./project.scss"
@@ -18,6 +18,7 @@ const client = createClient({
 const ProjectDetails = () => {
 
 const {id} = useParams();
+    const navigate = useNavigate();
     const [singleprojectData, setSingleProjectData] = useState({});
     const contentRef = useRef(null);
 
@@ -36,6 +37,10 @@ const {id} = useParams();
 
   const modifiedURL = project?.url ? (/^https?:\/\//i.test(project.url) ? project.url : `https://${project.url}`) : null;
 
+  // Handle back navigation to portfolio section
+  const handleBackToPortfolio = () => {
+    navigate('/#fifth'); // Navigate to home page with portfolio section anchor
+  };
 
   useEffect(() => {
     if (contentRef.current) {
@@ -47,6 +52,13 @@ const {id} = useParams();
   return (
     <>
     <MainMenu/>
+    
+    {/* Back to Portfolio Button */}
+    <div className="back-to-portfolio">
+      <button onClick={handleBackToPortfolio} className="back-btn">
+        ← Back to Portfolio
+      </button>
+    </div>
     
     {project?.url &&
         <div className="project-url">

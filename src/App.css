@@ -586,7 +586,7 @@ height: auto;
   width: 50%;
   padding-left: 10px;
   position: relative;
-  top: -100px;
+  top: -50px;
   animation: none !important;
   transition: none !important;
 }
@@ -2190,33 +2190,22 @@ min-height: 100dvh;
   }
   
   .heart_content {
-    position: relative;
-    top: -40px;
+    width: 90%;
+    padding-left: 0;
+    top: 0;
+    margin-top: 20px;
   }
   
   .heart_title {
-    text-align: left;
-    margin-bottom: 20px;
+    font-size: clamp(36px, 90vw, 50px) !important;
+    text-align: center;
+    margin-bottom: 15px;
   }
   
-  .heart_title strong {
-    font-size: 70px;
-    line-height: 1;
-    display: block;
-  }
-  
-  .heart_paragraph p {
-    color: #293a8d;
-    font-size: 40px;
-    max-width: 700px;
-    min-height: 246px;
-    line-height: 1.2 !important;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .heart_paragraph p b {
-    display: block;
-    margin-bottom: 20px;
+  .heart_paragraph {
+    font-size: 24px;
+    text-align: center;
+    min-height: auto;
+    margin-top: 20px;
   }
 }

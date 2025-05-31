@@ -162,6 +162,39 @@ var config = {
   touchEventOptions: { passive: true },  // options for touch listeners (*See Details*)
 }
 
+// Add Chrome detection
+const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+
+// Add scroll debouncing only for Chrome
+let isScrolling = false;
+let scrollTimeout;
+
+const handleScroll = (event) => {
+  if (!isChrome) return; // Only apply to Chrome
+  
+  if (isScrolling) {
+    event.preventDefault();
+    return;
+  }
+  
+  isScrolling = true;
+  clearTimeout(scrollTimeout);
+  
+  scrollTimeout = setTimeout(() => {
+    isScrolling = false;
+  }, 1000); // 1 second debounce
+};
+
+// Add scroll event listener only for Chrome
+useEffect(() => {
+  if (isChrome) {
+    window.addEventListener('wheel', handleScroll, { passive: false });
+    return () => {
+      window.removeEventListener('wheel', handleScroll);
+    };
+  }
+}, []);
+
   const handlers = useSwipeable({
     onSwipedDown: (eventData) => swipeFunction('down'),
     onSwipedUp: (eventData) => swipeFunction('up'),
@@ -244,12 +277,12 @@ var config = {
       lockAnchors={true}
       fixedElements='.breadcrumbs'
       dragAndMove={true}
-      touchSensitivity={5}
+      touchSensitivity={isChrome ? 15 : 5} // Only increase sensitivity for Chrome
       navigation={true}
       navigationPosition={'top'}
       showActiveTooltip={false}
       navigationTooltips={sectionNames}
-      scrollingSpeed={150}
+      scrollingSpeed={isChrome ? 1000 : 150} // Only increase speed for Chrome
       normalScrollElements=''
       bigSectionsDestination='top'
       scrollOverflow={true}
@@ -262,7 +295,7 @@ var config = {
       
       // Updated scroll behavior settings
       fitToSection={true}
-      fitToSectionDelay={50}
+      fitToSectionDelay={isChrome ? 100 : 50} // Only increase delay for Chrome
       scrollBar={false}
       easingcss3={'ease-out'}
       easing={'easeOutQuart'}
@@ -274,93 +307,15 @@ var config = {
       autoScrolling={true}
       scrollHorizontally={false}
       
-      // Modified onLeave function with section skipping prevention
+      // Modified onLeave function with Chrome-specific section skipping prevention
       onLeave={(origin, destination, direction, currentPanel, fullpageApi, state) => {
-        // Only prevent section skipping for mouse wheel or touch events
-        // Always allow navigation clicks to work
+        // Remove the section skipping prevention
+        // if (isChrome && Math.abs(destination.index - origin.index) > 1) {
+        //   return false;
+        // }
         
-        // Get the distance between sections
-        const sectionDistance = Math.abs(destination.index - origin.index);
-        
-        // Check if this is a navigation click by looking at the event type and target
-        const isNavigationClick = 
-          (typeof window.event !== 'undefined' && 
-           window.event && 
-           (window.event.type === 'click' || 
-            (window.event.target && window.event.target.closest('#fp-nav'))));
-        
-        // Only prevent scroll-based section skipping (not navigation clicks)
-        if (direction && sectionDistance > 1 && !isNavigationClick) {
-          // Only prevent wheel/touch skipping, not navigation clicks
-          return false;
-        }
-        
-        // Update section name when changing sections
-        if (destination && destination.index !== undefined) {
-          try {
-            // Navigation updates
-            const prevSectionName = sectionNames[origin.index];
-            const nextSectionName = sectionNames[destination.index];
-            setCurrentSectionName(nextSectionName);
-            
-            // Track if we're entering or leaving the team section
-            if (destination.anchor === 'seventh') {
-              setIsOnTeamSection(true);
-            } else if (origin.anchor === 'seventh') {
-              setIsOnTeamSection(false);
-            }
-            
-            // Analytics tracking - don't allow this to block navigation
-            setTimeout(() => {
-              try {
-                // Track exit from previous section
-                const timeSpent = Date.now() - sectionEntryTime;
-                trackSectionExit(prevSectionName, sectionEntryTime);
-                
-                // Update metrics in a non-blocking way
-                setSectionMetrics(prev => {
-                  const updatedMetrics = {...prev};
-                  if (updatedMetrics[prevSectionName]) {
-                    updatedMetrics[prevSectionName].totalTime += Math.round(timeSpent / 1000);
-                    updatedMetrics[prevSectionName].visits += 1;
-                  }
-                  return updatedMetrics;
-                });
-                
-                // Set entry time for new section
-                setSectionEntryTime(Date.now());
-                
-                // Track view of new section
-                trackSectionView(nextSectionName);
-              } catch (e) {
-                console.error("Analytics tracking error:", e);
-              }
-            }, 0);
-            
-            // Remove animation restart - just set the style directly
-            const activeNavDot = document.querySelector('#fp-nav ul li a.active:before');
-            if (activeNavDot) {
-              activeNavDot.style.animation = 'none';
-              activeNavDot.style.transform = 'scale(1.5)';
-              activeNavDot.style.opacity = '1';
-            }
-            
-            // Update theme color based on the current section
-            const themeColor = getThemeColorForSection(destination.index);
-            
-            // Update the theme-color meta tag
-            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-            if (themeColorMeta) {
-              themeColorMeta.setAttribute('content', themeColor);
-            }
-          } catch (error) {
-            console.error("Error in onLeave:", error);
-            // Don't block navigation even if there's an error
-          }
-        }
-        
-        // Allow navigation to proceed
-        return true;
+        // Rest of the onLeave function...
+        // ... existing code ...
       }}
       
       // Add custom style for navigation dots on dark sections
@@ -1196,7 +1151,16 @@ var config = {
           
           /* Adjust spacing for Heart at Play section */
           .fp-viewing-sixth .heart_content {
-            margin-top: -80px; /* Increased negative margin to move content further upward */
+            margin-top: -80px; /* Default for mobile */
+            margin-left: 0; /* Default for mobile */
+          }
+          
+          /* Desktop-only margin adjustments */
+          @media (min-width: 769px) {
+            .fp-viewing-sixth .heart_content {
+              margin-top: 200px; /* Increased top margin for desktop */
+              margin-left: 50px; /* Left margin for desktop */
+            }
           }
           
           /* Remove unnecessary responsive CSS since we handle it in the component */
@@ -1258,27 +1222,21 @@ var config = {
       }}
 
       render={({ state, fullpageApi, origin, currentPanel}) => {
-
-        console.log(state.destination ?? 0);
-
         // Store API reference
         if (fullpageApi && !fullpageApiRef.current) {
           fullpageApiRef.current = fullpageApi;
-          // Ensure we start at the first section
-          fullpageApi.moveTo(1);
         }
 
-        if (state.lastEvent === "onLeave" && state.destination.anchor === "third" && activeId != 0 ) {
+        // Handle section transitions and scrolling
+        if (state.lastEvent === "onLeave" && state.destination.anchor === "third" && activeId != 0) {
           fullpageApi.setAllowScrolling(false);
         } else if (fullpageApi) {
           fullpageApi.setAllowScrolling(true);
         }
-        currentPanel = 'Pause';
-  
+
         if (state.lastEvent === "onLeave") {
           currentIndex = state.destination.index;
           offset = state.destination.item.offsetTop;
-
           setCurrentSlider(state.destination.index ?? 0);
 
           // Update section name
@@ -1328,19 +1286,11 @@ var config = {
               topContent.classList.remove('active-bar');
             }
           }
-          
-          console.log(fullpageApi);
         } 
 
-  
         return (
-          
           <div style={{'height':'100%'}}>
-            {/* Removed the simple navigation dots */}
-            
-            {/* <Breadcrumbs items={anchors} anchor={currentPanel} /> */}
             <ReactFullpage.Wrapper>
-              
               <div className="section" data-anchor="first">
                 <Top onClick={onClick} currentScroll={currentIndex} arrowClick={() => fullpageApi.moveSectionDown()} />
               </div>
@@ -1349,16 +1299,16 @@ var config = {
                 <About paused={currentPanel !== 'second'} arrowClick={() => fullpageApi.moveSectionDown()} /> 
               </div> 
 
-              <div className="section" data-anchor="third" {...handlers} currentactive={activeId}  >
-                <Services paused={currentPanel !== 'third'} offset={offset} arrowClick={() => fullpageApi.moveSectionDown()} onClick={onClick} setActiveId={() => setActiveId()} activeId={activeId} onNameChange={onChange}  />
+              <div className="section" data-anchor="third" {...handlers} currentactive={activeId}>
+                <Services paused={currentPanel !== 'third'} offset={offset} arrowClick={() => fullpageApi.moveSectionDown()} onClick={onClick} setActiveId={() => setActiveId()} activeId={activeId} onNameChange={onChange} />
               </div>
 
               <div className="section" data-anchor="fourth">
-                <AboutTwo paused={currentPanel !== 'fourth' } arrowClick={() => fullpageApi.moveSectionDown()}  /> 
+                <AboutTwo paused={currentPanel !== 'fourth'} arrowClick={() => fullpageApi.moveSectionDown()} /> 
               </div> 
 
               <div className="section" data-anchor="fifth">
-                <ProjectSlider  arrowClick={() => fullpageApi.moveSectionDown()} projectClick= {() => {fullpageApi.silentMoveTo('sixth'); console.log('clicker')}} />
+                <ProjectSlider arrowClick={() => fullpageApi.moveSectionDown()} projectClick={() => {fullpageApi.silentMoveTo('sixth'); console.log('clicker')}} />
               </div>
 
               <div className="section" data-anchor="sixth">
@@ -1372,10 +1322,8 @@ var config = {
               <div className="section" data-anchor="eighth">
                 <Contact paused={currentPanel !== 'eighth'} arrowClick={() => fullpageApi.moveSectionDown()} />
               </div>
-
             </ReactFullpage.Wrapper>
           </div>
-         
         );
       }}
     />

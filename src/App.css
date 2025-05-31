@@ -296,13 +296,19 @@ font-weight: 700;
   width: auto;
   height: 100%;
   right: 0px;
- 
+  margin-bottom: -50px;
+  position: relative;
+  top: -50px;
 }
 
 .service div:nth-child(3) img {
   width: auto;
   height: 100%;
   left: 20px;
+  margin-top: -50px;
+  transform: rotate(180deg);
+  position: relative;
+  top: -50px;
 }
 
 
@@ -1431,12 +1437,12 @@ transform:rotate(30deg);
    padding:10px}
 
    .service_anchor {
-     position:absolute;
-     top:0;
-     left:0;
-     width:100%;
-     height:100%;
-     z-index:3;
+     position: absolute;
+     top: -50px;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     z-index: 3;
    }
    
 .services {
@@ -1495,11 +1501,15 @@ transform:rotate(30deg);
 
 .service div:nth-child(1) img {
  margin-bottom: -50px;
+ position: relative;
+ top: -50px;
 }
 
 .service div:nth-child(3) img {
   margin-top: -50px;
-  transform:rotate(180deg)
+  transform: rotate(180deg);
+  position: relative;
+  top: -50px;
 }
 
 .service {
@@ -1644,7 +1654,7 @@ video {max-width:100%;}
   
   .fp-viewing-sixth .container {
     padding: 20px;
-    padding-bottom: 140px;
+    padding-bottom: 10px;
   }
 
   /* Restore original service styles */
@@ -1724,7 +1734,7 @@ video {max-width:100%;}
   .heart_wrapper {
     margin-top: 0;
     padding-top: 50vh;
-    padding-bottom: 0;
+    padding-bottom: 10px;
   }
   
   .heart_content {

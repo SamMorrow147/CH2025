@@ -15,8 +15,10 @@ export default function AboutTwo(props) {
   const [showPoster, setShowPoster] = useState(true);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [posterLoaded, setPosterLoaded] = useState(false);
-  const [typingComplete, setTypingComplete] = useState(false); // Track typing completion
-  const [hasVisited, setHasVisited] = useState(false); // Track if section has been visited before
+  const [typingComplete, setTypingComplete] = useState(false);
+  const [hasVisited, setHasVisited] = useState(false);
+  const [showContent, setShowContent] = useState(false);
+  const [showParagraph, setShowParagraph] = useState(false);
   const videoRef = useRef(null);
   const posterRef = useRef(null);
   
@@ -32,19 +34,20 @@ export default function AboutTwo(props) {
       return () => window.removeEventListener('resize', handleResize);
   }, []);
   
-  // Reset typing animation only on first visit to section
+  // Reset animations only on first visit to section
   useEffect(() => {
       if (prevPausedRef.current === true && props.paused === false) {
           // Section just became visible
           if (!hasVisited) {
-              // Only restart the typing animation on first visit
+              // Reset all states
               setTypingKey(k => k + 1);
-              setTypingComplete(false); // Reset typing completion state
-              setHasVisited(true); // Mark as visited
+              setTypingComplete(false);
+              setShowContent(false);
+              setHasVisited(true);
+              
+              // Start the sequence
+              setShouldLoadVideo(true);
           }
-          
-          // Always signal that video should be loaded when section becomes visible
-          setShouldLoadVideo(true);
       }
       // Update the ref with current paused state
       prevPausedRef.current = props.paused;
@@ -53,6 +56,10 @@ export default function AboutTwo(props) {
   // Handle typing completion
   const handleTypingComplete = () => {
     setTypingComplete(true);
+    // Add delay before showing paragraph
+    setTimeout(() => {
+      setShowParagraph(true);
+    }, 800);
   };
   
   // Handle delayed video loading for better performance
@@ -76,6 +83,7 @@ export default function AboutTwo(props) {
                           playPromise
                             .then(() => {
                                 setVideoPlaying(true);
+                                setShowContent(true); // Show content as soon as video starts playing
                                 // Hide poster after video starts playing
                                 setTimeout(() => {
                                     setShowPoster(false);
@@ -91,6 +99,7 @@ export default function AboutTwo(props) {
                                             videoRef.current.play()
                                                 .then(() => {
                                                     setVideoPlaying(true);
+                                                    setShowContent(true); // Show content on second attempt too
                                                     setTimeout(() => setShowPoster(false), 300);
                                                 })
                                                 .catch(e => {
@@ -104,6 +113,7 @@ export default function AboutTwo(props) {
                                                             videoRef.current.play();
                                                             // Just hide the poster anyway
                                                             setVideoPlaying(true);
+                                                            setShowContent(true); // Show content even if video fails
                                                             setShowPoster(false);
                                                         }
                                                     }, 800);
@@ -115,6 +125,7 @@ export default function AboutTwo(props) {
                       } else {
                           // Fallback for browsers where play() doesn't return a promise
                           setVideoPlaying(true);
+                          setShowContent(true); // Show content in fallback case
                           setTimeout(() => {
                               setShowPoster(false);
                           }, 500);
@@ -171,7 +182,9 @@ export default function AboutTwo(props) {
     fontSize: '25px',
     letterSpacing: '0.2px',
     lineHeight: 1.3,
-    textAlign: 'left'
+    textAlign: 'left',
+    color: showParagraph ? '#293a8d' : 'white',
+    transition: 'color 0.8s ease'
   };
 
   return (
@@ -225,6 +238,8 @@ export default function AboutTwo(props) {
             position: relative;
             width: 100%;
             background-color: transparent;
+            opacity: ${videoLoaded ? 1 : 0};
+            transition: opacity 0.8s ease;
           }
           
           .video-container video {
@@ -245,6 +260,7 @@ export default function AboutTwo(props) {
             display: flex;
             align-items: center;
             justify-content: center;
+            opacity: ${showPoster ? 1 : 0};
           }
           
           /* Add fade-in animation */
@@ -284,20 +300,72 @@ export default function AboutTwo(props) {
             background-color: rgba(50, 158, 199, 0.6);
             animation: videoLoading 1.5s infinite linear;
           }
+          
+          .content-wrapper {
+            opacity: ${showContent ? 1 : 0};
+            transform: translateY(${showContent ? '0' : '20px'});
+            transition: opacity 0.8s ease, transform 0.8s ease;
+          }
+          
+          .typing-container {
+            opacity: ${showContent ? 1 : 0};
+            transition: opacity 0.5s ease;
+          }
+          
+          .paragraph-content {
+            opacity: 1;
+            transition: opacity 0.5s ease;
+          }
+
+          .paragraph-content p {
+            opacity: 1;
+            transition: color 0.8s ease;
+          }
+
+          .paragraph-content .button-container {
+            opacity: ${showParagraph ? 1 : 0};
+            transform: translateY(${showParagraph ? '0' : '20px'});
+            transition: opacity 1.2s ease, transform 1.2s ease;
+            transition-delay: ${showParagraph ? '0.6s' : '0s'};
+          }
+
+          .about2_content h2 {
+            color: #293a8d;
+            font-size: clamp(60px, 15vw, 120px) !important;
+            line-height: 1;
+            margin-bottom: 20px;
+            white-space: nowrap;
+            font-family: 'eurostile-condensed', sans-serif !important;
+            font-weight: bold !important;
+          }
+
+          .about2_content h2 strong {
+            font-weight: bold !important;
+            letter-spacing: 1px;
+            font-family: 'eurostile-condensed', sans-serif !important;
+            font-size: inherit !important;
+          }
+
+          @media (max-width: 768px) {
+            .about2_content h2 {
+              text-align: center;
+              font-size: clamp(42px, 12vw, 80px) !important;
+            }
+          }
         `}
       </style>
       
       {props.paused === false ? <Background white={true} /> : ''}
       {props.paused === false ? (
         <div className="content_wrapper container">
-          <div className="video-container" style={{ width: '100%' }}>
+          <div className="video-container">
             {isIOS ? (
               <img src="images/Rotate.gif" style={{ width: '100%' }} alt="Animation" />
             ) : (
               <>
                 {/* Video poster that stays visible until video plays */}
                 {showPoster && (
-                  <div className="video-poster" style={{ opacity: showPoster ? 1 : 0 }}>
+                  <div className="video-poster">
                     <img 
                       ref={posterRef}
                       src="/images/ClubhausFirstFrame.jpg" 
@@ -325,8 +393,6 @@ export default function AboutTwo(props) {
                     onLoadedData={handleVideoLoaded}
                     style={{ 
                       width: '100%',
-                      opacity: videoLoaded ? 1 : 0,
-                      transition: 'opacity 0.8s ease',
                       zIndex: 1
                     }}
                   >
@@ -337,32 +403,30 @@ export default function AboutTwo(props) {
               </>
             )}
           </div>
-          <div className="about2_content">
-            <h2 style={isMobile ? { textAlign: 'center', marginBottom: '5px' } : { marginBottom: '5px' }}>
-              {props.paused === false ? (
-                <Suspense fallback={"No Luck Needed"}>
-                  <Typist key={typingKey} avgTypingDelay={100} cursor={{show: false}} style={{ marginBottom: '10px' }} onTypingDone={handleTypingComplete}>
-                    No Luck Needed
-                  </Typist>
-                </Suspense>
-              ) : (
-                <div style={{ marginBottom: '10px' }}>No Luck Needed</div>
-              )}
-            </h2>
+          <div className="about2_content content-wrapper">
+            <div className="typing-container">
+              <h2 style={isMobile ? { textAlign: 'center', marginBottom: '5px' } : { marginBottom: '5px' }}>
+                {props.paused === false ? (
+                  <Suspense fallback={"No Luck Needed"}>
+                    <Typist key={typingKey} avgTypingDelay={100} cursor={{show: false}} style={{ marginBottom: '10px' }} onTypingDone={handleTypingComplete}>
+                      <strong style={{ fontWeight: 900, letterSpacing: '0.5px' }}>No Luck Needed</strong>
+                    </Typist>
+                  </Suspense>
+                ) : (
+                  <div style={{ marginBottom: '10px' }}><strong style={{ fontWeight: 900, letterSpacing: '0.5px' }}>No Luck Needed</strong></div>
+                )}
+              </h2>
+            </div>
             
-            {/* Content with fade-in effect after typing completes */}
-            <div style={{
-              opacity: typingComplete ? 1 : 0,
-              transition: 'opacity 0.8s ease-in-out',
-              transitionDelay: typingComplete ? '0.2s' : '0s'
-            }}>
+            <div className="paragraph-content">
               {isMobile ? (
-                // Mobile layout with absolute positioning
                 <div style={{ position: 'relative' }}>
                   <p style={{ 
                     marginBottom: '100px',
                     ...mainTextStyle,
-                    fontSize: isMobile ? '22px' : '25px' 
+                    fontSize: isMobile ? '22px' : '25px',
+                    paddingLeft: isMobile ? '20px' : '0',
+                    paddingRight: isMobile ? '20px' : '0'
                   }}>
                     <Suspense fallback={<div>Loading...</div>}>
                       <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
@@ -405,7 +469,6 @@ export default function AboutTwo(props) {
                   </div>
                 </div>
               ) : (
-                // Desktop layout with left-aligned button
                 <>
                   <p style={mainTextStyle}>
                     <Suspense fallback={<div>Loading...</div>}>

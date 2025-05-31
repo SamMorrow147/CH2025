@@ -292,6 +292,10 @@ font-weight: 700;
   height:100% !important
 }
 
+.service div:first-child {
+  padding-top: 0 !important;
+}
+
 .service div:nth-child(1) img {
   width: auto;
   height: 100%;
@@ -1502,12 +1506,18 @@ transform:rotate(30deg);
 }
 
 .service div:nth-child(1) img {
- margin-bottom: -50px;
- position: relative;
- top: 0px;
+  width: auto;
+  height: 100%;
+  right: 0px;
+  margin-bottom: -50px;
+  position: relative;
+  top: 0px;
 }
 
 .service div:nth-child(3) img {
+  width: auto;
+  height: 100%;
+  left: 20px;
   margin-top: -50px;
   transform: rotate(180deg);
   position: relative;
@@ -1517,6 +1527,10 @@ transform:rotate(30deg);
 .service {
   display: flex;
   flex-direction: column;
+}
+
+.service div:nth-child(2) {
+  margin-top: -30px;
 }
 
 
@@ -1728,9 +1742,13 @@ video {max-width:100%;}
     position: absolute !important;
   }
 
-  .service div:nth-child(1) img,
+  .service div:nth-child(1) img {
+    margin: 0px 0;
+  }
+  
   .service div:nth-child(3) img {
-    margin: 20px 0;
+    margin: -40px 0;
+    transform: rotate(180deg);
   }
 
   .heart_wrapper {

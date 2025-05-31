@@ -244,12 +244,12 @@ var config = {
       lockAnchors={true}
       fixedElements='.breadcrumbs'
       dragAndMove={true}
-      touchSensitivity={25}
+      touchSensitivity={15}
       navigation={true}
       navigationPosition={'top'}
       showActiveTooltip={false}
       navigationTooltips={sectionNames}
-      scrollingSpeed={350}
+      scrollingSpeed={250}
       normalScrollElements=''
       bigSectionsDestination='top'
       scrollOverflow={true}
@@ -258,18 +258,18 @@ var config = {
       continuousVertical={false}
       resetSliders={true}
       animateAnchor={true}
-      licenseKey={'YOUR_KEY_HERE'} // This is often needed for production builds
+      licenseKey={'YOUR_KEY_HERE'}
       
-      // Add these to control scroll behavior better
+      // Updated scroll behavior settings
       fitToSection={true}
-      fitToSectionDelay={200}
+      fitToSectionDelay={100}
       scrollBar={false}
       easingcss3={'ease-out'}
       easing={'easeOutQuart'}
       css3={true}
       loopHorizontal={false}
       
-      // Enable URL history management for proper back button functionality
+      // Enable URL history management
       recordHistory={true}
       autoScrolling={true}
       scrollHorizontally={false}
@@ -407,11 +407,11 @@ var config = {
                 // Track scroll state
                 let isScrolling = false;
                 let lastScrollTime = 0;
-                const scrollDebounceTime = 600; // Increased to 600ms to prevent rapid scrolling
+                const scrollDebounceTime = 300; // Reduced from 600ms to 300ms
                 
                 // Team section scroll tracking
                 let teamSectionScrollAccumulator = 0;
-                const teamSectionScrollThreshold = 100; // Reduced threshold for team section
+                const teamSectionScrollThreshold = 50; // Reduced from 100
                 
                 // Use capture phase to intercept all wheel events before they reach fullpage
                 document.addEventListener('wheel', function(event) {
@@ -445,13 +445,10 @@ var config = {
                     return false;
                   }
                   
-                  // Simplified Chrome handling - only prevent multiple rapid scrolls
-                  // Remove the aggressive section 1 to 2 forcing logic
-                  
                   // Update scroll timestamp for any scroll
                   lastScrollTime = now;
                   
-                }, { passive: false, capture: true }); // Use capture phase to get events first
+                }, { passive: false, capture: true });
               }
               
               // Add specific handler for the video container to ensure scrolling works

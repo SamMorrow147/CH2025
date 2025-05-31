@@ -28,10 +28,12 @@ const App = () => {
       // Add a class to html to prevent scrolling until fullpage takes over
       document.documentElement.style.overflow = 'hidden';
       
-      // Reset after fullpage initializes
+      // Reset after fullpage initializes - reduced timeout for better responsiveness
       setTimeout(() => {
         document.documentElement.style.overflow = '';
-      }, 1000);
+        // Force a resize event to help fullpage.js recalculate heights
+        window.dispatchEvent(new Event('resize'));
+      }, 500); // Reduced from 1000ms to 500ms
       
     }, []);
 

@@ -663,32 +663,24 @@ const flipCardStyles = `
 // Team member data with character animations and photos
 const teamMembers = [
   {
-    name: "Sam Morrow",
-    title: "Creative Director",
-    photo: "/images/team/Sam-Back .png", // Note: filename has space before extension
-    character: "/images/team/Sam-Front.png",
-    characterBack: "/images/team/Sam-Back .png"
+    name: "Sam",
+    title: "CCO, CD",
+    image: "/images/PortfolioSlider/slide1.jpg"
   },
   {
-    name: "Noah Morrow",
-    title: "Art Director",
-    photo: "/images/team/Noah-Back.png",
-    character: "/images/team/Noah-Front.png",
-    characterBack: "/images/team/Noah-Back.png"
+    name: "Darby",
+    title: "AD, BFA",
+    image: "/images/PortfolioSlider/slide3.jpg"
   },
   {
-    name: "Darby Shaw",
-    title: "Lead Developer",
-    photo: "/images/team/Darby-Back.png", // Back photo is available
-    character: "/images/team/Darby-Front.png",
-    characterBack: "/images/team/Darby-Back.png"
+    name: "Noah",
+    title: "CTO, DEV",
+    image: "/images/PortfolioSlider/slide2.jpg"
   },
   {
-    name: "Liam Ellis",
-    title: "Account Manager",
-    photo: "/images/team/Laim-Back.png", // Note: typo in filename
-    character: "/images/team/Liam-Front.png",
-    characterBack: "/images/team/Laim-Back.png"
+    name: "Liam",
+    title: "AI, ML, UX",
+    image: "/images/PortfolioSlider/slide4.jpg"
   }
 ];
 
@@ -1017,7 +1009,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       <div className="flip-card-front">
                         <div className="card-image">
                           <img 
-                            src={member.character} 
+                            src={member.image} 
                             alt={`${member.name}`} 
                             style={{ 
                               width: '100%', 
@@ -1032,7 +1024,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       <div className="flip-card-back">
                         <div className="photo-container">
                           <img 
-                            src={member.photo} 
+                            src={member.image} 
                             alt={member.name} 
                           />
                         </div>
@@ -1104,7 +1096,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                     <div className="flip-card-front">
                       <div className="card-image">
                         <img 
-                          src={member.character} 
+                          src={member.image} 
                           alt={`${member.name}`} 
                           style={{ 
                             width: '100%', 
@@ -1119,7 +1111,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                     <div className="flip-card-back">
                       <div className="photo-container">
                         <img 
-                          src={member.photo} 
+                          src={member.image} 
                           alt={member.name} 
                         />
                       </div>
@@ -1235,7 +1227,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       <div className="flip-card-front">
                         <div className="card-image">
                           <img 
-                            src={member.character} 
+                            src={member.image} 
                             alt={`${member.name}`} 
                             style={{ 
                               width: '100%', 
@@ -1250,7 +1242,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       <div className="flip-card-back">
                         <div className="photo-container">
                           <img 
-                            src={member.photo} 
+                            src={member.image} 
                             alt={member.name} 
                           />
                         </div>

@@ -2218,3 +2218,56 @@ min-height: 100dvh;
     position: relative;
   }
 }
+
+/* Restore service section animations */
+.service_content {
+  overflow: hidden;
+  height: 55px;
+  transition: 1s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.service:hover .service_content {
+  height: 350px;
+}
+
+.service:hover .button {
+  display: block;
+  color: white;
+  border-color: white;
+  width: 100%;
+  text-align: center;
+}
+
+.service:hover h2 {
+  padding-top: 20px;
+}
+
+.service_content .button {
+  position: absolute;
+  bottom: 20px;
+  display: none;
+  animation: fadeIn 2s forwards;
+}
+
+/* Mobile service styles */
+@media (max-width: 768px) {
+  .service_wrap.active .service_content {
+    position: absolute;
+    height: auto;
+    background: transparent;
+    border: unset;
+    bottom: 0px;
+    padding: 10px;
+    background: rgb(41,58,141);
+    background: linear-gradient(0deg, rgba(41,58,141,1) 63%, rgba(41,58,141,0.8379726890756303) 78%, rgba(41,58,141,0.4990371148459384) 89%, rgba(41,58,141,0.08167016806722693) 96%, rgba(41,58,141,0) 100%);
+  }
+  
+  .service_wrap.active .service_text {
+    color: white;
+    line-height: 1.3;
+  }
+}

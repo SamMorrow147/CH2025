@@ -2187,6 +2187,7 @@ min-height: 100dvh;
 @media (max-width: 768px) {
   .heart_wrapper {
     margin-top: 0;
+    padding-top: 50vh; /* Add significant top padding to move content down */
   }
   
   .heart_content {
@@ -2194,6 +2195,7 @@ min-height: 100dvh;
     padding-left: 0;
     top: 0;
     margin-top: 20px;
+    position: relative;
   }
   
   .heart_title {
@@ -2207,5 +2209,12 @@ min-height: 100dvh;
     text-align: center;
     min-height: auto;
     margin-top: 20px;
+  }
+
+  /* Adjust video positioning */
+  .heart_wrapper .video {
+    width: 50%;
+    margin-top: 20px;
+    position: relative;
   }
 }

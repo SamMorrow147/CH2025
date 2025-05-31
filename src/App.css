@@ -298,7 +298,7 @@ font-weight: 700;
   right: 0px;
   margin-bottom: -50px;
   position: relative;
-  top: -50px;
+  top: -100px;
 }
 
 .service div:nth-child(3) img {
@@ -308,7 +308,7 @@ font-weight: 700;
   margin-top: -50px;
   transform: rotate(180deg);
   position: relative;
-  top: -50px;
+  top: -100px;
 }
 
 
@@ -901,7 +901,7 @@ border-radius: 0px 0px 20px 20px;
   font-size: 40px;
   color: white;
   -webkit-font-smoothing: antialiased;
-  font-weight: bold;
+  font-weight: normal;
 }
 .project_item .title {
   text-align: center;
@@ -1502,14 +1502,14 @@ transform:rotate(30deg);
 .service div:nth-child(1) img {
  margin-bottom: -50px;
  position: relative;
- top: -50px;
+ top: -100px;
 }
 
 .service div:nth-child(3) img {
   margin-top: -50px;
   transform: rotate(180deg);
   position: relative;
-  top: -50px;
+  top: -100px;
 }
 
 .service {

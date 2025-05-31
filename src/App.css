@@ -543,7 +543,7 @@ height: auto;
 .top_content .logo {
   width:220px;
   margin-bottom:20px;
-  animation:fadeIn 2s;
+  animation:fadeIn 2s forwards;
   aspect-ratio: attr(width) / attr(height);
   /* Fix for Safari GIF animation */
   transform: translateZ(0);
@@ -551,13 +551,15 @@ height: auto;
   -webkit-backface-visibility: hidden;
   -webkit-perspective: 1000;
   will-change: auto;
+  opacity: 0;
 }
 
 .top_content .wordmark {
   aspect-ratio: attr(width) / attr(height);
   height:auto;
-  animation:fadeIn 1s;
+  animation:fadeIn 1s forwards;
   transition:1s;
+  opacity: 0;
 }
 
 .active-bar .wordmark {margin-left:10px;}
@@ -897,11 +899,11 @@ border-radius: 0px 0px 20px 20px;
 }
 
 .project_title h3 {
-  font-family: eurostile-extended, sans-serif;
+  font-family: eurostile, sans-serif;
   font-size: 40px;
   color: white;
   -webkit-font-smoothing: antialiased;
-  font-weight: normal;
+  font-weight: 600;
 }
 .project_item .title {
   text-align: center;

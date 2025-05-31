@@ -41,23 +41,18 @@ export default function TeamSection({ paused, arrowClick }) {
         }}>
           <TeamCard 
             name="Sam" 
-            title="CCO, CD" 
+            title="Creative Director" 
             image="/images/PortfolioSlider/slide1.jpg" 
           />
           <TeamCard 
-            name="Darby" 
-            title="AD, BFA" 
-            image="/images/PortfolioSlider/slide3.jpg" 
-          />
-          <TeamCard 
             name="Noah" 
-            title="CTO, DEV" 
+            title="Art Director" 
             image="/images/PortfolioSlider/slide2.jpg" 
           />
           <TeamCard 
-            name="Liam" 
-            title="AI, ML, UX" 
-            image="/images/PortfolioSlider/slide4.jpg" 
+            name="Darby" 
+            title="Lead Developer" 
+            image="/images/PortfolioSlider/slide3.jpg" 
           />
         </div>
       </div>

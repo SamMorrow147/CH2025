@@ -8,27 +8,21 @@ export default function Top({currentScroll,arrowClick}) {
     const contentRef = useRef(null);
     const prevScrollRef = useRef(currentScroll);
     const [logoKey, setLogoKey] = useState(Date.now()); // Key for logo animation control
+    const [gifSrc, setGifSrc] = useState('/images/animated-logo.gif');
     
-    // Initial load animation effect - only runs once on component mount
+    // Force GIF reload on mount and section changes
+    const reloadGif = () => {
+        setGifSrc('/images/animated-logo.gif?' + Date.now());
+    };
+    
     useEffect(() => {
-        // On initial component mount, force the GIF to reload
-        setTimeout(() => {
-            setLogoKey(Date.now());
-        }, 100);
+        reloadGif();
     }, []);
     
-    // Only reload the logo animation when actually changing sections
     useEffect(() => {
-        // Only reload animation when moving between actual sections,
-        // not when toggling menu or other UI interactions
         if (currentScroll === 0 && prevScrollRef.current !== 0) {
-            // Coming back to the home section (section 0) from another section
-            setTimeout(() => {
-                setLogoKey(Date.now());
-            }, 50);
+            reloadGif();
         }
-        
-        // Update the previous scroll position
         prevScrollRef.current = currentScroll;
     }, [currentScroll]);
 
@@ -44,13 +38,13 @@ export default function Top({currentScroll,arrowClick}) {
                 ref={contentRef}
                 className={`${isEven(currentScroll) && currentScroll != 0 ? 'top_content even' : 'top_content'}`}
             >
-                {/* Use key to force reload of GIF and ensure Safari displays animation */}
                 <img 
                     key={logoKey}
                     className="logo" 
                     width="220" 
                     height="220" 
-                    src="./images/animated-logo.gif"  // Remove the dynamic query parameter
+                    src={gifSrc}
+                    alt="ClubHaus Logo"
                 />
                     
                 <img 
@@ -58,6 +52,7 @@ export default function Top({currentScroll,arrowClick}) {
                     height="200" 
                     width="600" 
                     src={isEven(currentScroll) && currentScroll != 0 ? '../images/wordmark.png' : '../images/wordmark_white.png'} 
+                    alt="ClubHaus Wordmark"
                 />  
               
                 <div className="button_wrapper">

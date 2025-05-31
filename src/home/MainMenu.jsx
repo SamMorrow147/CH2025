@@ -43,7 +43,7 @@ export default function MainMenu({currentScroll, onClick, fullpageApi}) {
             // Use direct section index for navigation (1-based indexing)
             try {
                 console.log(`Menu navigating to section ${index + 1}`);
-                fullpageApi.silentMoveTo(index + 1);
+                fullpageApi.moveTo(index + 1);
             } catch (error) {
                 console.error('Menu navigation error:', error);
                 // Fallback to hash navigation

@@ -663,24 +663,32 @@ const flipCardStyles = `
 // Team member data with character animations and photos
 const teamMembers = [
   {
-    name: "Sam",
-    title: "CCO, CD",
-    image: "/images/PortfolioSlider/slide1.jpg"
+    name: "Sam Morrow",
+    title: "CCO",
+    photo: "/images/team/Sam-Back .png", // Note: filename has space before extension
+    character: "/images/team/Sam-Front.png",
+    characterBack: "/images/team/Sam-Back .png"
   },
   {
-    name: "Darby",
-    title: "AD, BFA",
-    image: "/images/PortfolioSlider/slide3.jpg"
-  },
-  {
-    name: "Noah",
+    name: "Noah Morrow",
     title: "CTO, DEV",
-    image: "/images/PortfolioSlider/slide2.jpg"
+    photo: "/images/team/Noah-Back.png",
+    character: "/images/team/Noah-Front.png",
+    characterBack: "/images/team/Noah-Back.png"
   },
   {
-    name: "Liam",
+    name: "Darby Shaw",
+    title: "AD, BFA",
+    photo: "/images/team/Darby-Back.png", // Back photo is available
+    character: "/images/team/Darby-Front.png",
+    characterBack: "/images/team/Darby-Back.png"
+  },
+  {
+    name: "Liam Ellis",
     title: "AI, ML, UX",
-    image: "/images/PortfolioSlider/slide4.jpg"
+    photo: "/images/team/Laim-Back.png", // Note: typo in filename
+    character: "/images/team/Liam-Front.png",
+    characterBack: "/images/team/Laim-Back.png"
   }
 ];
 
@@ -1009,7 +1017,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       <div className="flip-card-front">
                         <div className="card-image">
                           <img 
-                            src={member.image} 
+                            src={member.character} 
                             alt={`${member.name}`} 
                             style={{ 
                               width: '100%', 
@@ -1024,7 +1032,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       <div className="flip-card-back">
                         <div className="photo-container">
                           <img 
-                            src={member.image} 
+                            src={member.photo} 
                             alt={member.name} 
                           />
                         </div>
@@ -1049,9 +1057,14 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
             {selectedMobileCard === mobileCardOrder[0].name && (
               <div className="bio-text">
                 <p>
-                  {mobileCardOrder[0].name} brings exceptional talent to our team at ClubHaus. 
-                  With years of experience as a {mobileCardOrder[0].title.toLowerCase()}, 
-                  {mobileCardOrder[0].name} consistently delivers outstanding results for our clients.
+                  {mobileCardOrder[0].name === "Sam Morrow" && 
+                    "The creative force behind Clubhaus, Sam sets the vision, tone, and aesthetic for everything we build. He blends strategy with style, making sure every project hits hard and looks good doing it. Mostly found sketching concepts, obsessing over type, or rethinking the entire internet."}
+                  {mobileCardOrder[0].name === "Darby Shaw" && 
+                    "Darby brings the fine art edge to our digital world, with a BFA to back it up. She leads design with taste, intention, and a killer sense of composition. If it looks effortlessly cool, she probably made it."}
+                  {mobileCardOrder[0].name === "Noah Morrow" && 
+                    "Noah decodes the matrix and turns wild ideas into functional, fast-loading realities. He's fluent in frameworks, allergic to bloated code, and always two steps ahead of the tech curve. Basically, if it clicks, scrolls, or loads—it's Noah."}
+                  {mobileCardOrder[0].name === "Liam Ellis" && 
+                    "Liam is our machine whisperer, turning prompts into power tools. He prototypes, refines, and automates like it's second nature, making AI actually useful. Expect big brain energy and a surprisingly human-centered approach to all things technical."}
                 </p>
               </div>
             )}
@@ -1096,7 +1109,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                     <div className="flip-card-front">
                       <div className="card-image">
                         <img 
-                          src={member.image} 
+                          src={member.character} 
                           alt={`${member.name}`} 
                           style={{ 
                             width: '100%', 
@@ -1111,7 +1124,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                     <div className="flip-card-back">
                       <div className="photo-container">
                         <img 
-                          src={member.image} 
+                          src={member.photo} 
                           alt={member.name} 
                         />
                       </div>
@@ -1160,13 +1173,18 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                 
                 <div className="bio-text">
                   <p>
-                    {selectedMemberData.name} brings exceptional talent to our team at ClubHaus. 
-                    With years of experience as a {selectedMemberData.title.toLowerCase()}, 
-                    {selectedMemberData.name} consistently delivers outstanding results for our clients.
+                    {selectedMemberData.name === "Sam Morrow" && 
+                      "The creative force behind Clubhaus, Sam sets the vision, tone, and aesthetic for everything we build. He blends strategy with style, making sure every project hits hard and looks good doing it. Mostly found sketching concepts, obsessing over type, or rethinking the entire internet."}
+                    {selectedMemberData.name === "Darby Shaw" && 
+                      "Darby brings the fine art edge to our digital world, with a BFA to back it up. She leads design with taste, intention, and a killer sense of composition. If it looks effortlessly cool, she probably made it."}
+                    {selectedMemberData.name === "Noah Morrow" && 
+                      "Noah decodes the matrix and turns wild ideas into functional, fast-loading realities. He's fluent in frameworks, allergic to bloated code, and always two steps ahead of the tech curve. Basically, if it clicks, scrolls, or loads—it's Noah."}
+                    {selectedMemberData.name === "Liam Ellis" && 
+                      "Liam is our machine whisperer, turning prompts into power tools. He prototypes, refines, and automates like it's second nature, making AI actually useful. Expect big brain energy and a surprisingly human-centered approach to all things technical."}
                   </p>
                 </div>
                 
-                <p style={{ textAlign: 'right' }}>Core skills:</p>
+                <p style={{ textAlign: 'left' }}>Core skills:</p>
                 <div className="skills-list">
                   <span className="skill-tag">Strategic Thinking</span>
                   <span className="skill-tag">Problem Solving</span>
@@ -1227,7 +1245,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       <div className="flip-card-front">
                         <div className="card-image">
                           <img 
-                            src={member.image} 
+                            src={member.character} 
                             alt={`${member.name}`} 
                             style={{ 
                               width: '100%', 
@@ -1242,7 +1260,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       <div className="flip-card-back">
                         <div className="photo-container">
                           <img 
-                            src={member.image} 
+                            src={member.photo} 
                             alt={member.name} 
                           />
                         </div>

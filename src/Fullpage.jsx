@@ -244,12 +244,12 @@ var config = {
       lockAnchors={true}
       fixedElements='.breadcrumbs'
       dragAndMove={true}
-      touchSensitivity={15}
+      touchSensitivity={5}
       navigation={true}
       navigationPosition={'top'}
       showActiveTooltip={false}
       navigationTooltips={sectionNames}
-      scrollingSpeed={250}
+      scrollingSpeed={150}
       normalScrollElements=''
       bigSectionsDestination='top'
       scrollOverflow={true}
@@ -262,7 +262,7 @@ var config = {
       
       // Updated scroll behavior settings
       fitToSection={true}
-      fitToSectionDelay={100}
+      fitToSectionDelay={50}
       scrollBar={false}
       easingcss3={'ease-out'}
       easing={'easeOutQuart'}
@@ -407,11 +407,11 @@ var config = {
                 // Track scroll state
                 let isScrolling = false;
                 let lastScrollTime = 0;
-                const scrollDebounceTime = 300; // Reduced from 600ms to 300ms
+                const scrollDebounceTime = 100; // Reduced from 300ms to 100ms for more responsive scrolling
                 
                 // Team section scroll tracking
                 let teamSectionScrollAccumulator = 0;
-                const teamSectionScrollThreshold = 50; // Reduced from 100
+                const teamSectionScrollThreshold = 25; // Reduced from 50 to 25 for easier section changes
                 
                 // Use capture phase to intercept all wheel events before they reach fullpage
                 document.addEventListener('wheel', function(event) {
@@ -419,7 +419,7 @@ var config = {
                   const currentSection = window.fullpage_api ? window.fullpage_api.getActiveSection() : null;
                   const isOnTeamSectionCurrent = currentSection && currentSection.anchor === 'seventh';
                   
-                  // Special handling for team section - require more scroll to change sections
+                  // Special handling for team section - require less scroll to change sections
                   if (isOnTeamSectionCurrent) {
                     // Accumulate scroll delta for team section
                     teamSectionScrollAccumulator += Math.abs(event.deltaY);

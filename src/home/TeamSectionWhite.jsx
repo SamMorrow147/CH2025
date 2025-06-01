@@ -37,11 +37,6 @@ const flipCardStyles = `
     overflow: visible !important;
   }
 
-  /* Team content responsive height */
-  .team_content {
-    min-height: 80vh;
-  }
-
   /* Single card */
   .flip-card {
     background-color: transparent;
@@ -49,10 +44,10 @@ const flipCardStyles = `
     height: 380px;
     perspective: 1200px;
     position: absolute;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     cursor: pointer;
     transform: translateX(-50%);
-    will-change: transform, opacity;
+    will-change: transform;
     opacity: 1;
   }
   
@@ -89,41 +84,140 @@ const flipCardStyles = `
   .team-cards-container.stack-mode .flip-card.selected {
     left: 25%;
     top: 0;
-    z-index: 100;
+    z-index: 10;
     opacity: 1;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-1 {
     left: 25%;
     top: 15px;
     transform: translateX(-47%);
-    z-index: 99;
+    z-index: 9;
     opacity: 0.95;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-2 {
     left: 25%;
     top: 30px;
     transform: translateX(-44%);
-    z-index: 98;
+    z-index: 8;
     opacity: 0.9;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-3 {
     left: 25%;
     top: 45px;
     transform: translateX(-41%);
-    z-index: 97;
+    z-index: 7;
     opacity: 0.85;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
   }
   
   /* Card flip state */
   .flip-card.flipped .flip-card-inner {
     transform: rotateY(180deg) !important;
+  }
+  
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s ease;
+    transform-style: preserve-3d;
+  }
+  
+  /* Card faces */
+  .flip-card-front, 
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    transition: opacity 0.2s ease;
+    backface-visibility: hidden;
+  }
+  
+  /* Front side - visible by default */
+  .flip-card-front {
+    background-color: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
+    overflow: hidden;
+    opacity: 1;
+    z-index: 2;
+  }
+  
+  /* Back side - hidden by default */
+  .flip-card-back {
+    background-color: white;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    z-index: 1;
+    transform: rotateY(180deg);
+  }
+  
+  .flip-card-front .card-image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  
+  /* Desktop hover - opacity change with flip animation simulation */
+  @media (min-width: 769px) {
+    .flip-card {
+      perspective: 1000px;
+    }
+    
+    .flip-card-inner {
+      transition: transform 0.4s ease;
+    }
+    
+    .flip-card-front, 
+    .flip-card-back {
+      transition: opacity 0.2s ease;
+    }
+    
+    /* Only apply hover effects to cards that are NOT selected or stacked */
+    .flip-card:not(.selected):not([class*="stacked-"]):hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .flip-card:not(.selected):not([class*="stacked-"]):hover .flip-card-front {
+      opacity: 0;
+    }
+    
+    .flip-card:not(.selected):not([class*="stacked-"]):hover .flip-card-back {
+      opacity: 1;
+    }
+    
+    /* Selected and stacked cards should stay flipped to show photos */
+    .flip-card.selected .flip-card-front,
+    .flip-card[class*="stacked-"] .flip-card-front {
+      opacity: 0;
+    }
+    
+    .flip-card.selected .flip-card-back,
+    .flip-card[class*="stacked-"] .flip-card-back {
+      opacity: 1;
+    }
+    
+    .flip-card.selected .flip-card-inner,
+    .flip-card[class*="stacked-"] .flip-card-inner {
+      transform: rotateY(180deg);
+    }
   }
   
   /* Mobile Playing Card Stack - New Framer Motion Approach */
@@ -494,106 +588,6 @@ const flipCardStyles = `
     font-size: 14px;
   }
   
-  /* Simple opacity-based flip for both desktop and mobile */
-  .flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.3s ease;
-    transform-style: preserve-3d;
-  }
-  
-  /* Card faces - positioned on top of each other */
-  .flip-card-front, 
-  .flip-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    transition: opacity 0.2s ease;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-  
-  /* Front side - visible by default */
-  .flip-card-front {
-    background-color: #f8f8f8;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 0;
-    overflow: hidden;
-    opacity: 1;
-    z-index: 2;
-  }
-  
-  .flip-card-front .card-image {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-  }
-  
-  /* Back side - hidden by default */
-  .flip-card-back {
-    background-color: white;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    z-index: 1;
-  }
-  
-  /* Desktop hover - opacity change with flip animation simulation */
-  @media (min-width: 769px) {
-    .flip-card {
-      perspective: 1000px;
-    }
-    
-    .flip-card-inner {
-      transition: transform 0.4s ease;
-    }
-    
-    .flip-card-front, 
-    .flip-card-back {
-      transition: opacity 0.2s ease;
-    }
-    
-    /* Only apply hover effects to cards that are NOT selected or stacked */
-    .flip-card:not(.selected):not([class*="stacked-"]):hover .flip-card-inner {
-      transform: rotateY(180deg);
-    }
-    
-    .flip-card:not(.selected):not([class*="stacked-"]):hover .flip-card-front {
-      opacity: 0;
-    }
-    
-    .flip-card:not(.selected):not([class*="stacked-"]):hover .flip-card-back {
-      opacity: 1;
-    }
-    
-    /* Selected and stacked cards should stay flipped to show photos */
-    .flip-card.selected .flip-card-front,
-    .flip-card[class*="stacked-"] .flip-card-front {
-      opacity: 0;
-    }
-    
-    .flip-card.selected .flip-card-back,
-    .flip-card[class*="stacked-"] .flip-card-back {
-      opacity: 1;
-    }
-    
-    .flip-card.selected .flip-card-inner,
-    .flip-card[class*="stacked-"] .flip-card-inner {
-      transform: rotateY(180deg);
-    }
-  }
-  
   /* Mobile tap - simple opacity change */
   .mobile-card.flipped .flip-card-front {
     opacity: 0;
@@ -842,19 +836,13 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
     if (selectedMemberName === memberName) {
       handleCloseSelected();
     } else {
-      // First update the order to ensure the clicked card is at the front
-      const newOrder = [...teamMembersOrder];
-      const selectedIndex = newOrder.findIndex(m => m.name === memberName);
-      const selectedItem = newOrder.splice(selectedIndex, 1)[0];
-      newOrder.unshift(selectedItem);
-      setTeamMembersOrder(newOrder);
+      setSelectedMemberName(memberName);
       
-      // Then set the selected member after a small delay
+      // Show button and info panel after animation
       setTimeout(() => {
-        setSelectedMemberName(memberName);
         setShowButton(true);
         setShowInfo(true);
-      }, 50);
+      }, 400);
     }
   };
   
@@ -864,8 +852,17 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
     setShowButton(false);
     setShowInfo(false);
     
-    // Reset selected member immediately
-    setSelectedMemberName(null);
+    // Reorder the array to put the selected member at the front
+    const newOrder = [...teamMembersOrder];
+    const selectedIndex = newOrder.findIndex(m => m.name === selectedMemberName);
+    const selectedItem = newOrder.splice(selectedIndex, 1)[0];
+    newOrder.unshift(selectedItem);
+    setTeamMembersOrder(newOrder);
+    
+    // Reset selected member
+    setTimeout(() => {
+      setSelectedMemberName(null);
+    }, 600);
   };
   
   // Get the selected member data for the info panel
@@ -890,9 +887,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
         const stackIndex = teamMembersOrder
           .filter(m => m.name !== selectedMemberName)
           .findIndex(m => m.name === memberName);
-        if (stackIndex >= 0) {
-          classes.push(`stacked-${stackIndex + 1}`, "flipped");
-        }
+        classes.push(`stacked-${stackIndex + 1}`, "flipped");
       }
     }
     

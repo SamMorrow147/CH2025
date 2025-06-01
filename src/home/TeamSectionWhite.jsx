@@ -34,7 +34,7 @@ const flipCardStyles = `
     height: 550px;
     max-width: 1100px;
     margin: 0 auto;
-    overflow: visible !important; /* Allow cards to extend outside during animations */
+    overflow: visible !important;
   }
 
   /* Team content responsive height */
@@ -49,10 +49,10 @@ const flipCardStyles = `
     height: 380px;
     perspective: 1200px;
     position: absolute;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
     transform: translateX(-50%);
-    will-change: transform;
+    will-change: transform, opacity;
     opacity: 1;
   }
   
@@ -89,36 +89,36 @@ const flipCardStyles = `
   .team-cards-container.stack-mode .flip-card.selected {
     left: 25%;
     top: 0;
-    z-index: 10;
+    z-index: 100;
     opacity: 1;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-1 {
     left: 25%;
     top: 15px;
     transform: translateX(-47%);
-    z-index: 9;
+    z-index: 99;
     opacity: 0.95;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-2 {
     left: 25%;
     top: 30px;
     transform: translateX(-44%);
-    z-index: 8;
+    z-index: 98;
     opacity: 0.9;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-3 {
     left: 25%;
     top: 45px;
     transform: translateX(-41%);
-    z-index: 7;
+    z-index: 97;
     opacity: 0.85;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
   }
   
   /* Card flip state */
@@ -499,7 +499,7 @@ const flipCardStyles = `
     position: relative;
     width: 100%;
     height: 100%;
-    transition: transform 0.4s ease;
+    transition: transform 0.3s ease;
     transform-style: preserve-3d;
   }
   
@@ -512,6 +512,7 @@ const flipCardStyles = `
     border-radius: 10px;
     transition: opacity 0.2s ease;
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
   
   /* Front side - visible by default */
@@ -841,13 +842,19 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
     if (selectedMemberName === memberName) {
       handleCloseSelected();
     } else {
-      setSelectedMemberName(memberName);
+      // First update the order to ensure the clicked card is at the front
+      const newOrder = [...teamMembersOrder];
+      const selectedIndex = newOrder.findIndex(m => m.name === memberName);
+      const selectedItem = newOrder.splice(selectedIndex, 1)[0];
+      newOrder.unshift(selectedItem);
+      setTeamMembersOrder(newOrder);
       
-      // Show button and info panel after animation
+      // Then set the selected member after a small delay
       setTimeout(() => {
+        setSelectedMemberName(memberName);
         setShowButton(true);
         setShowInfo(true);
-      }, 400);
+      }, 50);
     }
   };
   
@@ -857,17 +864,8 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
     setShowButton(false);
     setShowInfo(false);
     
-    // Reorder the array to put the selected member at the front
-    const newOrder = [...teamMembersOrder];
-    const selectedIndex = newOrder.findIndex(m => m.name === selectedMemberName);
-    const selectedItem = newOrder.splice(selectedIndex, 1)[0];
-    newOrder.unshift(selectedItem);
-    setTeamMembersOrder(newOrder);
-    
-    // Reset selected member
-    setTimeout(() => {
-      setSelectedMemberName(null);
-    }, 600);
+    // Reset selected member immediately
+    setSelectedMemberName(null);
   };
   
   // Get the selected member data for the info panel
@@ -892,7 +890,9 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
         const stackIndex = teamMembersOrder
           .filter(m => m.name !== selectedMemberName)
           .findIndex(m => m.name === memberName);
-        classes.push(`stacked-${stackIndex + 1}`, "flipped");
+        if (stackIndex >= 0) {
+          classes.push(`stacked-${stackIndex + 1}`, "flipped");
+        }
       }
     }
     

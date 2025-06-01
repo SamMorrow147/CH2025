@@ -49,30 +49,35 @@ const flipCardStyles = `
     height: 380px;
     perspective: 1200px;
     position: absolute;
-    transition: all 0.8s cubic-bezier(0.34, 1.2, 0.64, 1);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     transform: translateX(-50%);
+    will-change: transform;
   }
   
   /* Position classes for the grid layout */
   .position-0 {
     left: calc(50% - 400px);
     top: 0;
+    z-index: 4;
   }
   
   .position-1 {
     left: calc(50% - 130px);
     top: 0;
+    z-index: 3;
   }
   
   .position-2 {
     left: calc(50% + 130px);
     top: 0;
+    z-index: 2;
   }
   
   .position-3 {
     left: calc(50% + 400px);
     top: 0;
+    z-index: 1;
   }
   
   /* Stacked position classes */
@@ -80,6 +85,7 @@ const flipCardStyles = `
     left: 25%;
     top: 0;
     z-index: 10;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-1 {
@@ -88,6 +94,7 @@ const flipCardStyles = `
     transform: translateX(-47%);
     z-index: 9;
     opacity: 0.95;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-2 {
@@ -96,6 +103,7 @@ const flipCardStyles = `
     transform: translateX(-44%);
     z-index: 8;
     opacity: 0.9;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-3 {
@@ -104,6 +112,7 @@ const flipCardStyles = `
     transform: translateX(-41%);
     z-index: 7;
     opacity: 0.85;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   /* Card flip state */
@@ -304,18 +313,18 @@ const flipCardStyles = `
       height: auto !important;
       overflow-x: hidden !important; /* Prevent horizontal scrolling */
       overflow-y: hidden !important; /* Prevent vertical scrolling */
-      padding-bottom: 20px !important;
+      padding-bottom: 0 !important;
       margin-bottom: 0 !important;
       max-height: 100vh !important;
     }
     
     /* Adjust spacing for mobile */
     .team_content {
-      padding: 25px 5px 8px !important;
+      padding: 25px 5px 0 !important;
       justify-content: flex-start !important;
       minHeight: auto !important;
       height: auto !important;
-      overflow: visible !important; /* Allow card animations to be visible */
+      overflow: visible !important;
       max-height: 100vh !important;
     }
     
@@ -917,7 +926,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
           flexDirection: 'column', 
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '40px 5px',
+          padding: '40px 5px 0',
           position: 'relative'
         }}>
           <h2 style={{ 

@@ -591,10 +591,26 @@ const flipCardStyles = `
   /* Mobile tap - simple opacity change */
   .mobile-card.flipped .flip-card-front {
     opacity: 0;
+    visibility: hidden;
   }
   
   .mobile-card.flipped .flip-card-back {
     opacity: 1;
+    visibility: visible;
+  }
+  
+  .mobile-card .flip-card-inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.4s ease;
+    transform-style: preserve-3d;
+  }
+  
+  .mobile-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
   }
   
   .flip-card-back .photo-container {
@@ -1008,7 +1024,8 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                         setIsDragging(false);
                       }, 100);
                     }}
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent event bubbling
                       // Only handle clicks on the top card and when not dragging
                       if (index === 0 && !isDragging) {
                         handleMobileCardTap(member.name);

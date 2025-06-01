@@ -263,7 +263,7 @@ export default function AboutTwo(props) {
               flex-direction: column;
               padding: 73px 20px;
               height: auto;
-              min-height: 100vh;
+              min-height: 0;
             }
             
             .video-container {
@@ -289,6 +289,10 @@ export default function AboutTwo(props) {
             
             .paragraph-content {
               text-align: center;
+            }
+
+            .paragraph-content p {
+              min-height: auto !important;
             }
           }
         `}

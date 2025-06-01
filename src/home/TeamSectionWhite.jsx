@@ -49,10 +49,11 @@ const flipCardStyles = `
     height: 380px;
     perspective: 1200px;
     position: absolute;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s ease;
     cursor: pointer;
     transform: translateX(-50%);
     will-change: transform;
+    opacity: 1;
   }
   
   /* Position classes for the grid layout */
@@ -60,24 +61,28 @@ const flipCardStyles = `
     left: calc(50% - 400px);
     top: 0;
     z-index: 4;
+    opacity: 1;
   }
   
   .position-1 {
     left: calc(50% - 130px);
     top: 0;
     z-index: 3;
+    opacity: 1;
   }
   
   .position-2 {
     left: calc(50% + 130px);
     top: 0;
     z-index: 2;
+    opacity: 1;
   }
   
   .position-3 {
     left: calc(50% + 400px);
     top: 0;
     z-index: 1;
+    opacity: 1;
   }
   
   /* Stacked position classes */
@@ -85,7 +90,8 @@ const flipCardStyles = `
     left: 25%;
     top: 0;
     z-index: 10;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    transition: all 0.4s ease;
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-1 {
@@ -94,7 +100,7 @@ const flipCardStyles = `
     transform: translateX(-47%);
     z-index: 9;
     opacity: 0.95;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s ease;
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-2 {
@@ -103,7 +109,7 @@ const flipCardStyles = `
     transform: translateX(-44%);
     z-index: 8;
     opacity: 0.9;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s ease;
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-3 {
@@ -112,7 +118,7 @@ const flipCardStyles = `
     transform: translateX(-41%);
     z-index: 7;
     opacity: 0.85;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s ease;
   }
   
   /* Card flip state */

@@ -67,7 +67,7 @@ export default function AboutTwo(props) {
   useEffect(() => {
       if (!shouldLoadVideo) return;
       
-      // For mobile Safari, use a static image instead of video
+      // For mobile Safari, skip video loading and just show content
       if (isMobileSafari) {
           setShowContent(true);
           setShowPoster(false);
@@ -163,14 +163,30 @@ export default function AboutTwo(props) {
     <div className="heart_section white_background">
       <style>
         {`
+          .heart_section {
+            width: 100vw;
+            min-height: 100vh;
+            position: relative;
+            overflow: visible;
+            margin: 0;
+            padding: 0;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+          }
+
           .about2_content {
             position: relative;
             width: 100%;
             height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 20px;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 73px;
+            max-width: 1600px;
+            margin: 0 auto;
           }
           
           .about2_content .btn2 {
@@ -206,29 +222,31 @@ export default function AboutTwo(props) {
           }
           
           .video-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
+            position: relative;
+            width: 45%;
+            max-width: 45%;
+            background-color: transparent;
+            opacity: ${videoLoaded ? 1 : 0};
+            transition: opacity 0.8s ease;
           }
           
           .video-container video {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            display: block;
+            object-fit: contain;
           }
           
           .content-wrapper {
             position: relative;
             z-index: 1;
-            max-width: 1200px;
-            margin: 0 auto;
+            width: 50%;
+            max-width: 50%;
+            padding-left: 40px;
           }
           
           .typing-container {
             margin-bottom: 30px;
+            width: 100%;
           }
           
           .typing-container h2 {
@@ -240,9 +258,31 @@ export default function AboutTwo(props) {
             font-weight: bold;
           }
           
+          .paragraph-content {
+            width: 100%;
+            opacity: ${showParagraph ? 1 : 0};
+            transform: translateY(${showParagraph ? '0' : '20px'});
+            transition: all 0.8s ease;
+          }
+          
           @media (max-width: 768px) {
             .about2_content {
-              padding: 40px 20px;
+              flex-direction: column;
+              padding: 73px 20px;
+              height: auto;
+              min-height: 100vh;
+            }
+            
+            .video-container {
+              width: 100%;
+              max-width: 100%;
+              margin-bottom: 40px;
+            }
+            
+            .content-wrapper {
+              width: 100%;
+              max-width: 100%;
+              padding-left: 0;
             }
             
             .typing-container h2 {
@@ -305,7 +345,8 @@ export default function AboutTwo(props) {
                       fontSize: '18px', 
                       marginBottom: '12px', 
                       color: '#293a8d', 
-                      fontWeight: 'bold'
+                      fontWeight: 'bold',
+                      minHeight: '10px'
                     }}>
                       Ready to build something real?
                     </p>
@@ -328,7 +369,8 @@ export default function AboutTwo(props) {
                       fontSize: '18px', 
                       marginBottom: '12px', 
                       color: '#293a8d', 
-                      fontWeight: 'bold' 
+                      fontWeight: 'bold',
+                      minHeight: '10px'
                     }}>
                       Ready to build something real?
                     </p>

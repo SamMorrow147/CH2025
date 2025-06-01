@@ -43,7 +43,7 @@ export default function AboutTwo(props) {
               // Reset all states
               setTypingKey(k => k + 1);
               setTypingComplete(false);
-              setShowContent(true); // Always show content
+              setShowContent(true);
               setHasVisited(true);
               
               // Start the sequence
@@ -67,7 +67,7 @@ export default function AboutTwo(props) {
   useEffect(() => {
       if (!shouldLoadVideo) return;
       
-      // For mobile Safari, skip video loading and just show content
+      // For mobile Safari, use a static image instead of video
       if (isMobileSafari) {
           setShowContent(true);
           setShowPoster(false);
@@ -96,12 +96,10 @@ export default function AboutTwo(props) {
                             })
                             .catch(err => {
                                 console.error("Error playing video:", err);
-                                // Show content even if video fails
                                 setShowContent(true);
                                 setShowPoster(false);
                             });
                       } else {
-                          // Fallback for browsers where play() doesn't return a promise
                           setVideoPlaying(true);
                           setShowContent(true);
                           setTimeout(() => setShowPoster(false), 500);
@@ -163,9 +161,18 @@ export default function AboutTwo(props) {
 
   return (
     <div className="heart_section white_background">
-      {/* Add the same hover effect CSS */}
       <style>
         {`
+          .about2_content {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+          }
+          
           .about2_content .btn2 {
             position: relative;
             overflow: hidden;
@@ -198,130 +205,110 @@ export default function AboutTwo(props) {
             opacity: 1;
           }
           
-          /* Video placeholder styling */
-          .video-placeholder {
-            width: 100%;
-            background-color: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-          }
-          
           .video-container {
-            position: relative;
-            width: 100%;
-            background-color: transparent;
-            opacity: ${videoLoaded ? 1 : 0};
-            transition: opacity 0.8s ease;
-          }
-          
-          .video-container video {
-            width: 100%;
-            display: block;
-          }
-          
-          .video-poster {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: ${showPoster ? 1 : 0};
-            transition: opacity 0.3s ease;
+            z-index: 0;
+          }
+          
+          .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+          
+          .content-wrapper {
+            position: relative;
             z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+          
+          .typing-container {
+            margin-bottom: 30px;
+          }
+          
+          .typing-container h2 {
+            font-size: clamp(42px, 12vw, 80px);
+            line-height: 1;
+            margin-bottom: 20px;
+            color: #293a8d;
+            font-family: 'eurostile-condensed', sans-serif;
+            font-weight: bold;
+          }
+          
+          @media (max-width: 768px) {
+            .about2_content {
+              padding: 40px 20px;
+            }
+            
+            .typing-container h2 {
+              text-align: center;
+            }
+            
+            .paragraph-content {
+              text-align: center;
+            }
           }
         `}
       </style>
       
-      {showContent ? (
-        <div className="about2_content content-wrapper">
-          <div className="typing-container">
-            <h2 style={isMobile ? { textAlign: 'center', marginBottom: '5px' } : { marginBottom: '5px' }}>
-              {props.paused === false ? (
-                <Suspense fallback={"No Luck Needed"}>
-                  <Typist key={typingKey} avgTypingDelay={100} cursor={{show: false}} style={{ marginBottom: '10px' }} onTypingDone={handleTypingComplete}>
-                    <strong style={{ fontWeight: 900, letterSpacing: '0.5px' }}>No Luck Needed</strong>
-                  </Typist>
-                </Suspense>
-              ) : (
-                <div style={{ marginBottom: '10px' }}><strong style={{ fontWeight: 900, letterSpacing: '0.5px' }}>No Luck Needed</strong></div>
+      {showContent && (
+        <div className="about2_content">
+          {!isMobileSafari && (
+            <div className="video-container">
+              {shouldLoadVideo && (
+                <video 
+                  ref={videoRef}
+                  muted
+                  playsInline
+                  autoPlay
+                  preload={isSafari ? "auto" : "metadata"}
+                  onLoadedData={handleVideoLoaded}
+                >
+                  <source src="/videos/Clubhaus.mp4" type="video/mp4" />
+                </video>
               )}
-            </h2>
-          </div>
+            </div>
+          )}
           
-          <div className="paragraph-content">
-            {isMobile ? (
-              <div style={{ position: 'relative' }}>
-                <p style={{ 
-                  marginBottom: '100px',
-                  ...mainTextStyle,
-                  fontSize: isMobile ? '22px' : '25px',
-                  paddingLeft: isMobile ? '20px' : '0',
-                  paddingRight: isMobile ? '20px' : '0'
-                }}>
-                  <Suspense fallback={<div>Loading...</div>}>
-                    <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
+          <div className="content-wrapper">
+            <div className="typing-container">
+              <h2>
+                {props.paused === false ? (
+                  <Suspense fallback={"No Luck Needed"}>
+                    <Typist key={typingKey} avgTypingDelay={100} cursor={{show: false}} onTypingDone={handleTypingComplete}>
+                      <strong>No Luck Needed</strong>
+                    </Typist>
                   </Suspense>
-                </p>
-                <div style={{
-                  position: 'absolute',
-                  top: '210px',
-                  left: 0,
-                  right: 0,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  marginTop: '12px'
-                }}>
+                ) : (
+                  <strong>No Luck Needed</strong>
+                )}
+              </h2>
+            </div>
+            
+            <div className="paragraph-content">
+              {isMobile ? (
+                <div>
                   <p style={{ 
-                    fontSize: '18px', 
-                    marginBottom: '12px', 
-                    color: '#293a8d', 
-                    fontWeight: 'bold',
-                    textAlign: 'center'
+                    ...mainTextStyle,
+                    fontSize: '22px',
+                    marginBottom: '40px'
                   }}>
-                    Ready to build something real?
-                  </p>
-                </div>
-                <div style={{
-                  position: 'absolute',
-                  top: '250px',
-                  left: 0,
-                  right: 0,
-                  display: 'flex',
-                  justifyContent: 'center'
-                }}>
-                  <button 
-                    onClick={() => navigateToSection('contact')} 
-                    className="btn2" 
-                    style={buttonStyle}
-                  >
-                    Let's talk.
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <>
-                <p style={mainTextStyle}>
-                  <Suspense fallback={<div>Loading...</div>}>
                     <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
-                  </Suspense>
-                </p>
-                <div style={{ marginTop: '24px' }}>
-                  <p style={{ 
-                    fontSize: '18px', 
-                    marginBottom: '12px', 
-                    color: '#293a8d', 
-                    fontWeight: 'bold' 
-                  }}>
-                    Ready to build something real?
                   </p>
-                  <div className="button-container" style={{
-                    display: 'flex',
-                    justifyContent: 'flex-start',
-                    marginTop: '10px',
-                    paddingLeft: '0'
-                  }}>
+                  <div style={{ textAlign: 'center' }}>
+                    <p style={{ 
+                      fontSize: '18px', 
+                      marginBottom: '12px', 
+                      color: '#293a8d', 
+                      fontWeight: 'bold'
+                    }}>
+                      Ready to build something real?
+                    </p>
                     <button 
                       onClick={() => navigateToSection('contact')} 
                       className="btn2" 
@@ -331,12 +318,33 @@ export default function AboutTwo(props) {
                     </button>
                   </div>
                 </div>
-              </>
-            )}
+              ) : (
+                <>
+                  <p style={mainTextStyle}>
+                    <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
+                  </p>
+                  <div style={{ marginTop: '24px' }}>
+                    <p style={{ 
+                      fontSize: '18px', 
+                      marginBottom: '12px', 
+                      color: '#293a8d', 
+                      fontWeight: 'bold' 
+                    }}>
+                      Ready to build something real?
+                    </p>
+                    <button 
+                      onClick={() => navigateToSection('contact')} 
+                      className="btn2" 
+                      style={buttonStyle}
+                    >
+                      Let's talk.
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
-      ) : (
-        <div></div>
       )}
       <DownArrow handleClick={props.arrowClick} />
     </div>

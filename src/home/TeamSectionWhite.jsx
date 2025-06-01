@@ -592,11 +592,13 @@ const flipCardStyles = `
   .mobile-card.flipped .flip-card-front {
     opacity: 0;
     visibility: hidden;
+    transform: rotateY(180deg);
   }
   
   .mobile-card.flipped .flip-card-back {
     opacity: 1;
     visibility: visible;
+    transform: rotateY(0deg);
   }
   
   .mobile-card .flip-card-inner {
@@ -607,9 +609,24 @@ const flipCardStyles = `
     overflow: hidden;
     transition: transform 0.4s ease;
     transform-style: preserve-3d;
+    perspective: 1000px;
   }
   
   .mobile-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .mobile-card .flip-card-front,
+  .mobile-card .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: transform 0.4s ease;
+  }
+
+  .mobile-card .flip-card-back {
     transform: rotateY(180deg);
   }
   
@@ -846,7 +863,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
       return newFlippedCards;
     });
   };
-  
+
   // Handle card click to expand view
   const handleCardClick = (memberName) => {
     if (selectedMemberName === memberName) {
@@ -993,7 +1010,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                   <motion.div
                     key={`mobile-${member.name}`}
                     className={`mobile-card mobile-card-${index} ${flippedCards.has(member.name) ? 'flipped' : ''}`}
-                    drag={index === 0 ? "x" : false} // Only allow top card to be dragged
+                    drag={index === 0 ? "x" : false}
                     dragMomentum={false}
                     dragElastic={0.1}
                     dragConstraints={{ 
@@ -1012,14 +1029,10 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       setIsDragging(true);
                     }}
                     onDragEnd={(event, info) => {
-                      // Only check horizontal drag distance for card cycling
                       const horizontalDragDistance = Math.abs(info.offset.x);
-                      
                       if (horizontalDragDistance > 50) {
                         handleDragEnd(index);
                       }
-                      
-                      // Reset dragging state after a short delay
                       setTimeout(() => {
                         setIsDragging(false);
                       }, 100);
@@ -1033,13 +1046,13 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                     }}
                     whileDrag={{
                       scale: 1.05,
-                      rotate: 5, // Simple rotation during drag
+                      rotate: 5,
                       zIndex: 200,
                       boxShadow: "0 25px 50px rgba(0, 0, 0, 0.3)"
                     }}
                     style={{
                       zIndex: transform.zIndex,
-                      pointerEvents: index === 0 ? 'auto' : 'none' // Only top card receives touch events
+                      pointerEvents: index === 0 ? 'auto' : 'none'
                     }}
                   >
                     <div className="flip-card-inner">

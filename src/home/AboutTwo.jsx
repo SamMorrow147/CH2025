@@ -7,6 +7,7 @@ const Typist = lazy(() => import('react-typist'));
 export default function AboutTwo(props) {
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const isMobileSafari = isIOS && isSafari;
   // Track window width for responsive design
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [typingKey, setTypingKey] = useState(0);
@@ -42,7 +43,7 @@ export default function AboutTwo(props) {
               // Reset all states
               setTypingKey(k => k + 1);
               setTypingComplete(false);
-              setShowContent(false);
+              setShowContent(true); // Always show content
               setHasVisited(true);
               
               // Start the sequence
@@ -64,7 +65,14 @@ export default function AboutTwo(props) {
   
   // Handle delayed video loading for better performance
   useEffect(() => {
-      if (!shouldLoadVideo || isIOS) return;
+      if (!shouldLoadVideo) return;
+      
+      // For mobile Safari, skip video loading and just show content
+      if (isMobileSafari) {
+          setShowContent(true);
+          setShowPoster(false);
+          return;
+      }
       
       // Load and play video with a slight delay for better Safari performance
       const loadTimer = setTimeout(() => {
@@ -83,52 +91,20 @@ export default function AboutTwo(props) {
                           playPromise
                             .then(() => {
                                 setVideoPlaying(true);
-                                setShowContent(true); // Show content as soon as video starts playing
-                                // Hide poster after video starts playing
-                                setTimeout(() => {
-                                    setShowPoster(false);
-                                }, 300);
+                                setShowContent(true);
+                                setTimeout(() => setShowPoster(false), 300);
                             })
                             .catch(err => {
                                 console.error("Error playing video:", err);
-                                
-                                // Safari sometimes needs a second attempt
-                                if (isSafari) {
-                                    setTimeout(() => {
-                                        if (videoRef.current) {
-                                            videoRef.current.play()
-                                                .then(() => {
-                                                    setVideoPlaying(true);
-                                                    setShowContent(true); // Show content on second attempt too
-                                                    setTimeout(() => setShowPoster(false), 300);
-                                                })
-                                                .catch(e => {
-                                                    console.error("Second play attempt failed:", e);
-                                                    
-                                                    // If Safari still fails, use a different approach
-                                                    setTimeout(() => {
-                                                        if (videoRef.current) {
-                                                            // Force reload and immediate play attempt
-                                                            videoRef.current.load();
-                                                            videoRef.current.play();
-                                                            // Just hide the poster anyway
-                                                            setVideoPlaying(true);
-                                                            setShowContent(true); // Show content even if video fails
-                                                            setShowPoster(false);
-                                                        }
-                                                    }, 800);
-                                                });
-                                        }
-                                    }, 500);
-                                }
+                                // Show content even if video fails
+                                setShowContent(true);
+                                setShowPoster(false);
                             });
                       } else {
                           // Fallback for browsers where play() doesn't return a promise
                           setVideoPlaying(true);
-                          setShowContent(true); // Show content in fallback case
-                          setTimeout(() => {
-                              setShowPoster(false);
-                          }, 500);
+                          setShowContent(true);
+                          setTimeout(() => setShowPoster(false), 500);
                       }
                   }
               }, isSafari ? 300 : 100);
@@ -138,16 +114,14 @@ export default function AboutTwo(props) {
       }, 100);
       
       return () => clearTimeout(loadTimer);
-  }, [shouldLoadVideo, isSafari, isIOS]);
+  }, [shouldLoadVideo, isSafari, isMobileSafari]);
 
   // Handle video loaded event
   const handleVideoLoaded = () => {
       setVideoLoaded(true);
-      // Don't hide poster yet - wait for play to succeed
   };
 
   const navigateToSection = (section) => {
-      // Navigate to the contact section
       if (window.fullpage_api) {
           if (section === 'contact') {
               window.fullpage_api.moveTo(7);
@@ -253,211 +227,100 @@ export default function AboutTwo(props) {
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            z-index: 2;
-            transition: opacity 0.4s ease;
-            background-color: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             opacity: ${showPoster ? 1 : 0};
-          }
-          
-          /* Add fade-in animation */
-          @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-          }
-          
-          .content_wrapper {
-            animation: fadeIn 0.5s ease-in-out;
-          }
-          
-          /* Video loading animation */
-          @keyframes videoLoading {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-          }
-          
-          .video-loading-indicator {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-            z-index: 3;
-          }
-          
-          .video-loading-indicator::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 50%;
-            height: 100%;
-            background-color: rgba(50, 158, 199, 0.6);
-            animation: videoLoading 1.5s infinite linear;
-          }
-          
-          .content-wrapper {
-            opacity: ${showContent ? 1 : 0};
-            transform: translateY(${showContent ? '0' : '20px'});
-            transition: opacity 0.8s ease, transform 0.8s ease;
-          }
-          
-          .typing-container {
-            opacity: ${showContent ? 1 : 0};
-            transition: opacity 0.5s ease;
-          }
-          
-          .paragraph-content {
-            opacity: 1;
-            transition: opacity 0.5s ease;
-          }
-
-          .paragraph-content p {
-            opacity: 1;
-            transition: color 0.8s ease;
-          }
-
-          .paragraph-content .button-container {
-            opacity: ${showParagraph ? 1 : 0};
-            transform: translateY(${showParagraph ? '0' : '20px'});
-            transition: opacity 1.2s ease, transform 1.2s ease;
-            transition-delay: ${showParagraph ? '0.6s' : '0s'};
-          }
-
-          .about2_content h2 {
-            color: #293a8d;
-            font-size: clamp(60px, 15vw, 120px) !important;
-            line-height: 1;
-            margin-bottom: 20px;
-            white-space: nowrap;
-            font-family: 'eurostile-condensed', sans-serif !important;
-            font-weight: bold !important;
-          }
-
-          .about2_content h2 strong {
-            font-weight: bold !important;
-            letter-spacing: 1px;
-            font-family: 'eurostile-condensed', sans-serif !important;
-            font-size: inherit !important;
-          }
-
-          @media (max-width: 768px) {
-            .about2_content h2 {
-              text-align: center;
-              font-size: clamp(42px, 12vw, 80px) !important;
-            }
+            transition: opacity 0.3s ease;
+            z-index: 1;
           }
         `}
       </style>
       
-      {props.paused === false ? <Background white={true} /> : ''}
-      {props.paused === false ? (
-        <div className="content_wrapper container">
-          <div className="video-container">
-            {isIOS ? (
-              <img src="images/Rotate.gif" style={{ width: '100%' }} alt="Animation" />
+      {showContent ? (
+        <div className="about2_content content-wrapper">
+          <div className="typing-container">
+            <h2 style={isMobile ? { textAlign: 'center', marginBottom: '5px' } : { marginBottom: '5px' }}>
+              {props.paused === false ? (
+                <Suspense fallback={"No Luck Needed"}>
+                  <Typist key={typingKey} avgTypingDelay={100} cursor={{show: false}} style={{ marginBottom: '10px' }} onTypingDone={handleTypingComplete}>
+                    <strong style={{ fontWeight: 900, letterSpacing: '0.5px' }}>No Luck Needed</strong>
+                  </Typist>
+                </Suspense>
+              ) : (
+                <div style={{ marginBottom: '10px' }}><strong style={{ fontWeight: 900, letterSpacing: '0.5px' }}>No Luck Needed</strong></div>
+              )}
+            </h2>
+          </div>
+          
+          <div className="paragraph-content">
+            {isMobile ? (
+              <div style={{ position: 'relative' }}>
+                <p style={{ 
+                  marginBottom: '100px',
+                  ...mainTextStyle,
+                  fontSize: isMobile ? '22px' : '25px',
+                  paddingLeft: isMobile ? '20px' : '0',
+                  paddingRight: isMobile ? '20px' : '0'
+                }}>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
+                  </Suspense>
+                </p>
+                <div style={{
+                  position: 'absolute',
+                  top: '210px',
+                  left: 0,
+                  right: 0,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginTop: '12px'
+                }}>
+                  <p style={{ 
+                    fontSize: '18px', 
+                    marginBottom: '12px', 
+                    color: '#293a8d', 
+                    fontWeight: 'bold',
+                    textAlign: 'center'
+                  }}>
+                    Ready to build something real?
+                  </p>
+                </div>
+                <div style={{
+                  position: 'absolute',
+                  top: '250px',
+                  left: 0,
+                  right: 0,
+                  display: 'flex',
+                  justifyContent: 'center'
+                }}>
+                  <button 
+                    onClick={() => navigateToSection('contact')} 
+                    className="btn2" 
+                    style={buttonStyle}
+                  >
+                    Let's talk.
+                  </button>
+                </div>
+              </div>
             ) : (
               <>
-                {/* Video poster that stays visible until video plays */}
-                {showPoster && (
-                  <div className="video-poster">
-                    <img 
-                      ref={posterRef}
-                      src="/images/ClubhausFirstFrame.jpg" 
-                      alt="Video thumbnail" 
-                      style={{ 
-                        width: '100%', 
-                        height: '100%', 
-                        objectFit: 'cover',
-                        opacity: posterLoaded ? 1 : 0,
-                        transition: 'opacity 0.3s ease'
-                      }}
-                      onLoad={() => setPosterLoaded(true)}
-                    />
-                    {!videoPlaying && <div className="video-loading-indicator"></div>}
-                  </div>
-                )}
-                
-                {shouldLoadVideo && (
-                  <video 
-                    ref={videoRef}
-                    muted
-                    playsInline
-                    autoPlay
-                    preload={isSafari ? "auto" : "metadata"}
-                    onLoadedData={handleVideoLoaded}
-                    style={{ 
-                      width: '100%',
-                      zIndex: 1
-                    }}
-                  >
-                    <source src="/videos/Clubhaus.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                )}
-              </>
-            )}
-          </div>
-          <div className="about2_content content-wrapper">
-            <div className="typing-container">
-              <h2 style={isMobile ? { textAlign: 'center', marginBottom: '5px' } : { marginBottom: '5px' }}>
-                {props.paused === false ? (
-                  <Suspense fallback={"No Luck Needed"}>
-                    <Typist key={typingKey} avgTypingDelay={100} cursor={{show: false}} style={{ marginBottom: '10px' }} onTypingDone={handleTypingComplete}>
-                      <strong style={{ fontWeight: 900, letterSpacing: '0.5px' }}>No Luck Needed</strong>
-                    </Typist>
+                <p style={mainTextStyle}>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
                   </Suspense>
-                ) : (
-                  <div style={{ marginBottom: '10px' }}><strong style={{ fontWeight: 900, letterSpacing: '0.5px' }}>No Luck Needed</strong></div>
-                )}
-              </h2>
-            </div>
-            
-            <div className="paragraph-content">
-              {isMobile ? (
-                <div style={{ position: 'relative' }}>
+                </p>
+                <div style={{ marginTop: '24px' }}>
                   <p style={{ 
-                    marginBottom: '100px',
-                    ...mainTextStyle,
-                    fontSize: isMobile ? '22px' : '25px',
-                    paddingLeft: isMobile ? '20px' : '0',
-                    paddingRight: isMobile ? '20px' : '0'
+                    fontSize: '18px', 
+                    marginBottom: '12px', 
+                    color: '#293a8d', 
+                    fontWeight: 'bold' 
                   }}>
-                    <Suspense fallback={<div>Loading...</div>}>
-                      <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
-                    </Suspense>
+                    Ready to build something real?
                   </p>
-                  <div style={{
-                    position: 'absolute',
-                    top: '210px',
-                    left: 0,
-                    right: 0,
+                  <div className="button-container" style={{
                     display: 'flex',
-                    justifyContent: 'center',
-                    marginTop: '12px'
-                  }}>
-                    <p style={{ 
-                      fontSize: '18px', 
-                      marginBottom: '12px', 
-                      color: '#293a8d', 
-                      fontWeight: 'bold',
-                      textAlign: 'center'
-                    }}>
-                      Ready to build something real?
-                    </p>
-                  </div>
-                  <div style={{
-                    position: 'absolute',
-                    top: '250px',
-                    left: 0,
-                    right: 0,
-                    display: 'flex',
-                    justifyContent: 'center'
+                    justifyContent: 'flex-start',
+                    marginTop: '10px',
+                    paddingLeft: '0'
                   }}>
                     <button 
                       onClick={() => navigateToSection('contact')} 
@@ -468,40 +331,8 @@ export default function AboutTwo(props) {
                     </button>
                   </div>
                 </div>
-              ) : (
-                <>
-                  <p style={mainTextStyle}>
-                    <Suspense fallback={<div>Loading...</div>}>
-                      <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
-                    </Suspense>
-                  </p>
-                  <div style={{ marginTop: '24px' }}>
-                    <p style={{ 
-                      fontSize: '18px', 
-                      marginBottom: '12px', 
-                      color: '#293a8d', 
-                      fontWeight: 'bold' 
-                    }}>
-                      Ready to build something real?
-                    </p>
-                    <div className="button-container" style={{
-                      display: 'flex',
-                      justifyContent: 'flex-start',
-                      marginTop: '10px',
-                      paddingLeft: '0'
-                    }}>
-                      <button 
-                        onClick={() => navigateToSection('contact')} 
-                        className="btn2" 
-                        style={buttonStyle}
-                      >
-                        Let's talk.
-                      </button>
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
+              </>
+            )}
           </div>
         </div>
       ) : (

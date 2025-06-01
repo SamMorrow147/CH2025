@@ -67,14 +67,7 @@ export default function AboutTwo(props) {
   useEffect(() => {
       if (!shouldLoadVideo) return;
       
-      // For mobile Safari, skip video loading and just show content
-      if (isMobileSafari) {
-          setShowContent(true);
-          setShowPoster(false);
-          return;
-      }
-      
-      // Load and play video with a slight delay for better Safari performance
+      // Load and play video with a slight delay for better performance
       const loadTimer = setTimeout(() => {
           if (videoRef.current) {
               // For Safari, use explicit load() call
@@ -112,7 +105,7 @@ export default function AboutTwo(props) {
       }, 100);
       
       return () => clearTimeout(loadTimer);
-  }, [shouldLoadVideo, isSafari, isMobileSafari]);
+  }, [shouldLoadVideo, isSafari]);
 
   // Handle video loaded event
   const handleVideoLoaded = () => {
@@ -276,7 +269,7 @@ export default function AboutTwo(props) {
             .video-container {
               width: 100%;
               max-width: 100%;
-              margin-bottom: 40px;
+              margin-bottom: 0;
             }
             
             .content-wrapper {
@@ -285,8 +278,13 @@ export default function AboutTwo(props) {
               padding-left: 0;
             }
             
+            .typing-container {
+              margin-bottom: 0;
+            }
+            
             .typing-container h2 {
               text-align: center;
+              line-height: 0.4;
             }
             
             .paragraph-content {
@@ -298,22 +296,20 @@ export default function AboutTwo(props) {
       
       {showContent && (
         <div className="about2_content">
-          {!isMobileSafari && (
-            <div className="video-container">
-              {shouldLoadVideo && (
-                <video 
-                  ref={videoRef}
-                  muted
-                  playsInline
-                  autoPlay
-                  preload={isSafari ? "auto" : "metadata"}
-                  onLoadedData={handleVideoLoaded}
-                >
-                  <source src="/videos/Clubhaus.mp4" type="video/mp4" />
-                </video>
-              )}
-            </div>
-          )}
+          <div className="video-container">
+            {shouldLoadVideo && (
+              <video 
+                ref={videoRef}
+                muted
+                playsInline
+                autoPlay
+                preload={isSafari ? "auto" : "metadata"}
+                onLoadedData={handleVideoLoaded}
+              >
+                <source src="/videos/Clubhaus.mp4" type="video/mp4" />
+              </video>
+            )}
+          </div>
           
           <div className="content-wrapper">
             <div className="typing-container">
@@ -336,7 +332,8 @@ export default function AboutTwo(props) {
                   <p style={{ 
                     ...mainTextStyle,
                     fontSize: '22px',
-                    marginBottom: '40px'
+                    marginBottom: '0px',
+                    minHeight: 'auto'
                   }}>
                     <strong style={{ fontWeight: 600 }}>We don't roll the dice on design, and neither should you.</strong> Forget the templates. Skip the one-size-fits-all fixes. We bring strategy with soul, design with bite, and a kaleidoscopic team built to solve complex problems with bold ideas.
                   </p>

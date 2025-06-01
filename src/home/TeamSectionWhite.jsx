@@ -493,6 +493,8 @@ const flipCardStyles = `
     position: relative;
     width: 100%;
     height: 100%;
+    transition: transform 0.4s ease;
+    transform-style: preserve-3d;
   }
   
   /* Card faces - positioned on top of each other */
@@ -502,7 +504,8 @@ const flipCardStyles = `
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.2s ease;
+    backface-visibility: hidden;
   }
   
   /* Front side - visible by default */

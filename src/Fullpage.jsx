@@ -172,6 +172,17 @@ let scrollTimeout;
 const handleScroll = (event) => {
   if (!isChrome) return; // Only apply to Chrome
   
+  // Get current section
+  const currentSection = window.fullpage_api ? window.fullpage_api.getActiveSection() : null;
+  const isOnModusSection = currentSection && currentSection.anchor === 'sixth';
+  
+  // Special handling for Modus Operandi section
+  if (isOnModusSection) {
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
+  }
+  
   if (isScrolling) {
     event.preventDefault();
     return;
@@ -285,8 +296,8 @@ useEffect(() => {
       scrollingSpeed={isChrome ? 1000 : 150} // Only increase speed for Chrome
       normalScrollElements=''
       bigSectionsDestination='top'
-      scrollOverflow={true}
-      scrollOverflowReset={true}
+      scrollOverflow={false} // Disable scroll overflow
+      scrollOverflowReset={false} // Disable scroll overflow reset
       keyboardScrolling={true}
       continuousVertical={false}
       resetSliders={true}

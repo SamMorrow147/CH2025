@@ -4,6 +4,30 @@ import React, {Suspense, lazy, useState, useEffect } from 'react';
 import DownArrow from '../components/DownArrow.jsx';
 const Typist = lazy(() => import('react-typist'));
 
+// Add global CSS for heart section
+const heartSectionStyles = `
+  .heart_section {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+  }
+  
+  .heart_wrapper {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    height: 100% !important;
+    max-height: 100vh !important;
+  }
+  
+  .heart_content {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    height: 100% !important;
+    max-height: 100vh !important;
+  }
+`;
+
 export default function HeartSection(props) {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     
@@ -23,6 +47,9 @@ export default function HeartSection(props) {
 
     return (    
         <div className="heart_section white_background">
+            {/* Include the heart section styles */}
+            <style dangerouslySetInnerHTML={{ __html: heartSectionStyles }} />
+            
             { props.paused === false ? <Background/> : '' }
 
             { props.paused === false ? 

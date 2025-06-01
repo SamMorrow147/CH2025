@@ -40,14 +40,33 @@ export default function AboutTwo(props) {
       if (prevPausedRef.current === true && props.paused === false) {
           // Section just became visible
           if (!hasVisited) {
-              // Reset all states
+              // Reset all states for first visit
               setTypingKey(k => k + 1);
               setTypingComplete(false);
               setShowContent(true);
               setHasVisited(true);
-              
-              // Start the sequence
-              setShouldLoadVideo(true);
+          }
+          
+          // Always start video sequence when section becomes visible
+          setShouldLoadVideo(true);
+          setVideoLoaded(false); // Reset video loaded state
+          
+          // Reset and play video if it exists
+          if (videoRef.current) {
+              videoRef.current.currentTime = 0;
+              videoRef.current.load(); // Force reload the video
+              const playPromise = videoRef.current.play();
+              if (playPromise !== undefined) {
+                  playPromise
+                      .then(() => {
+                          setVideoPlaying(true);
+                          setShowContent(true);
+                      })
+                      .catch(err => {
+                          console.error("Error playing video:", err);
+                          setShowContent(true);
+                      });
+              }
           }
       }
       // Update the ref with current paused state
@@ -110,6 +129,20 @@ export default function AboutTwo(props) {
   // Handle video loaded event
   const handleVideoLoaded = () => {
       setVideoLoaded(true);
+      if (videoRef.current) {
+          const playPromise = videoRef.current.play();
+          if (playPromise !== undefined) {
+              playPromise
+                  .then(() => {
+                      setVideoPlaying(true);
+                      setShowContent(true);
+                  })
+                  .catch(err => {
+                      console.error("Error playing video after load:", err);
+                      setShowContent(true);
+                  });
+          }
+      }
   };
 
   const navigateToSection = (section) => {

@@ -254,6 +254,7 @@ export default function AboutTwo(props) {
             background-color: transparent;
             opacity: ${videoLoaded ? 1 : 0};
             transition: opacity 0.8s ease;
+            margin-top: 1px;
             ${isMobileSafari ? `
               margin-top: 80px;
               transform: translateY(0);
@@ -305,7 +306,7 @@ export default function AboutTwo(props) {
           @media (max-width: 768px) {
             .about2_content {
               flex-direction: column;
-              padding: 73px 20px;
+              padding: 123px 20px;
               height: auto;
               min-height: 0;
               ${isMobileSafari ? `

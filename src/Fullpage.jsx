@@ -1169,8 +1169,8 @@ useEffect(() => {
           /* Desktop-only margin adjustments */
           @media (min-width: 769px) {
             .fp-viewing-sixth .heart_content {
-              margin-top: 200px; /* Increased top margin for desktop */
-              margin-left: 50px; /* Left margin for desktop */
+              margin-top: 470px !important; /* Increased top margin for desktop */
+              margin-left: 50px !important; /* Add left margin for desktop */
             }
           }
           

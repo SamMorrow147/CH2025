@@ -2300,7 +2300,7 @@ min-height: 100dvh;
   
   .team_content > div {
     height: 435px;
-    margin-top: 60px;
+    margin-top: 0px;
   }
 }
 

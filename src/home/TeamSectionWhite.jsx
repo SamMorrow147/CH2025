@@ -83,7 +83,7 @@ const flipCardStyles = `
   
   /* Stacked position classes */
   .team-cards-container.stack-mode .flip-card.selected {
-    left: 25%;
+    left: 7%;
     top: 0;
     z-index: 10;
     opacity: 1;
@@ -91,7 +91,7 @@ const flipCardStyles = `
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-1 {
-    left: 25%;
+    left: 7%;
     top: 15px;
     transform: translateX(-47%);
     z-index: 9;
@@ -100,7 +100,7 @@ const flipCardStyles = `
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-2 {
-    left: 25%;
+    left: 7%;
     top: 30px;
     transform: translateX(-44%);
     z-index: 8;
@@ -109,7 +109,7 @@ const flipCardStyles = `
   }
   
   .team-cards-container.stack-mode .flip-card.stacked-3 {
-    left: 25%;
+    left: 7%;
     top: 45px;
     transform: translateX(-41%);
     z-index: 7;

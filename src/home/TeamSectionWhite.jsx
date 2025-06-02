@@ -740,15 +740,17 @@ const teamMembers = [
 const cardVariants = {
   hidden: { 
     opacity: 0,
-    y: 50
+    y: 100, // Increased initial offset for more dramatic entrance
+    scale: 0.8 // Added scale for better stacking effect
   },
   visible: (i) => ({
     opacity: 1,
     y: 0,
+    scale: 1,
     transition: {
-      delay: 0.1 + (i * 0.2), // Reduced initial delay to 0.1s but kept stagger at 0.2s
-      duration: 0.6,
-      ease: "easeOut"
+      delay: 0.3 + (i * 0.3), // Increased delay between cards to 0.3s
+      duration: 0.8, // Increased duration for smoother animation
+      ease: [0.22, 1, 0.36, 1] // Custom easing for more natural motion
     }
   })
 };
@@ -989,9 +991,10 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
             fontSize: '36px', 
             marginBottom: '60px', 
             maxWidth: '800px', 
-            textAlign: 'center'
+            textAlign: 'center',
+            fontStretch: 'condensed'
           }}>
-            <span style={{ fontWeight: 'bold' }}>The Creative Leaders</span><br className="mobile-break" /> <span style={{ fontWeight: 'normal', fontStretch: 'condensed' }}>You're Dealing With.</span>
+            <span style={{ fontWeight: 'normal' }}>What You're Dealing With.</span>
           </h2>
           
           {/* New Mobile Playing Card Stack with Framer Motion - Moved up */}

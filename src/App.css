@@ -2276,6 +2276,10 @@ min-height: 100dvh;
 }
 
 @media (max-width: 768px) {
+  .team_content {
+    padding: 50px 5px 0 !important;
+  }
+  
   .team_content h2 {
     font-size: 50px;
   }

@@ -22,6 +22,10 @@ export default function About(props) {
         if (window.fullpage_api) {
             if (section === 'sixth') {
                 window.fullpage_api.moveTo(6);
+            } else if (section === 'seventh') {
+                window.fullpage_api.moveTo(7);
+            } else if (section === 'fifth') {
+                window.fullpage_api.moveTo(5);
             }
         }
     };
@@ -59,7 +63,6 @@ export default function About(props) {
                                             <strong>legends.</strong>, 
                                             <strong>icons.</strong>, 
                                             <strong>empires.</strong>, 
-                                            <strong>movements.</strong>, 
                                             <strong>buzz.</strong>
                                         ]}
                                     />
@@ -72,7 +75,8 @@ export default function About(props) {
                                     marginTop: '15px'
                                 }}>
                                     <button onClick={() => navigateToSection('sixth')} className="btn2">Purpose</button>
-                                    <a href="/projects" className="btn2">Projects</a>
+                                    <button onClick={() => navigateToSection('fifth')} className="btn2">Projects</button>
+                                    <button onClick={() => navigateToSection('seventh')} className="btn2">People</button>
                                 </div>
                             </p>
                         </div>
@@ -98,7 +102,6 @@ export default function About(props) {
                                             <strong>legends.</strong>, 
                                             <strong>icons.</strong>, 
                                             <strong>empires.</strong>, 
-                                            <strong>movements.</strong>, 
                                             <strong>buzz.</strong>
                                         ]}
                                     />
@@ -111,7 +114,8 @@ export default function About(props) {
                                     marginTop: '15px'
                                 }}>
                                     <button onClick={() => navigateToSection('sixth')} className="btn2">Purpose</button>
-                                    <a href="/projects" className="btn2">Projects</a>
+                                    <button onClick={() => navigateToSection('fifth')} className="btn2">Projects</button>
+                                    <button onClick={() => navigateToSection('seventh')} className="btn2">People</button>
                                 </div>
                             </p>
                         </>

@@ -322,7 +322,7 @@ const flipCardStyles = `
   @media (max-width: 768px) {
     .mobile-card-stack {
       display: block;
-      overflow: visible !important; /* Allow drag animations to extend outside */
+      overflow: visible !important;
     }
     
     /* Hide Swiper on mobile */
@@ -348,7 +348,7 @@ const flipCardStyles = `
       opacity: 1 !important;
       visibility: visible !important;
       min-height: 120px !important;
-      overflow: visible !important; /* Allow content to be visible */
+      overflow: visible !important;
     }
     
     .mobile-info-panel h3 {
@@ -421,7 +421,7 @@ const flipCardStyles = `
     
     /* Adjust spacing for mobile */
     .team_content {
-      padding: 25px 5px 0 !important;
+      padding: 95px 5px 0 !important;
       justify-content: flex-start !important;
       height: 689px !important;
       minHeight: 689px !important;
@@ -740,17 +740,24 @@ const teamMembers = [
 const cardVariants = {
   hidden: { 
     opacity: 0,
-    y: 100, // Increased initial offset for more dramatic entrance
-    scale: 0.8 // Added scale for better stacking effect
+    y: 1000,
+    scale: 0.8,
+    rotate: 5
   },
   visible: (i) => ({
     opacity: 1,
     y: 0,
     scale: 1,
+    rotate: 0,
     transition: {
-      delay: 0.3 + (i * 0.3), // Increased delay between cards to 0.3s
-      duration: 0.8, // Increased duration for smoother animation
-      ease: [0.22, 1, 0.36, 1] // Custom easing for more natural motion
+      delay: 0.05 + (i * 0.05),
+      duration: 0.4,
+      ease: [0.22, 1, 0.36, 1],
+      y: {
+        type: "spring",
+        stiffness: 200,
+        damping: 20
+      }
     }
   })
 };
@@ -980,7 +987,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
           flexDirection: 'column', 
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '40px 5px 0',
+          padding: '95px 5px 0',
           position: 'relative',
           height: '689px',
           minHeight: '689px',
@@ -1037,14 +1044,14 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       left: -150, 
                       right: 150 
                     }}
-                    initial={{ ...animateTransform, opacity: 0, y: 50 }}
-                    animate={!paused ? { ...animateTransform, opacity: 1, y: 0 } : { ...animateTransform, opacity: 0, y: 50 }}
+                    initial={{ ...animateTransform, opacity: 0, y: 1000 }}
+                    animate={!paused ? { ...animateTransform, opacity: 1, y: 0 } : { ...animateTransform, opacity: 0, y: 1000 }}
                     transition={{
                       type: "spring",
-                      stiffness: 300,
+                      stiffness: 100,
                       damping: 15,
-                      delay: index * 0.1,
-                      duration: 0.3
+                      delay: 0.3 + (index * 0.3),
+                      duration: 1.2
                     }}
                     whileDrag={{
                       scale: 1.05,

@@ -423,10 +423,10 @@ const flipCardStyles = `
     .team_content {
       padding: 25px 5px 0 !important;
       justify-content: flex-start !important;
-      minHeight: auto !important;
-      height: auto !important;
+      height: 689px !important;
+      minHeight: 689px !important;
+      maxHeight: 689px !important;
       overflow: visible !important;
-      max-height: 100vh !important;
     }
     
     /* Reduce title margins on mobile */
@@ -851,7 +851,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
       } else {
         setSelectedMobileCard(null);
       }
-    }, 400); // Match animation duration
+    }, 200); // Reduced from 400 to 200 for faster transition
   };
   
   // Handle card tap to flip
@@ -979,7 +979,10 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
           alignItems: 'center',
           justifyContent: 'center',
           padding: '40px 5px 0',
-          position: 'relative'
+          position: 'relative',
+          height: '689px',
+          minHeight: '689px',
+          maxHeight: '689px'
         }}>
           <h2 style={{ 
             color: '#293a8d', 
@@ -1035,19 +1038,19 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                     animate={!paused ? { ...animateTransform, opacity: 1, y: 0 } : { ...animateTransform, opacity: 0, y: 50 }}
                     transition={{
                       type: "spring",
-                      stiffness: 200,
-                      damping: 20,
-                      delay: index * 0.2,
-                      duration: 0.5
+                      stiffness: 300,
+                      damping: 15,
+                      delay: index * 0.1,
+                      duration: 0.3
                     }}
                     whileDrag={{
                       scale: 1.05,
                       rotate: 5,
                       zIndex: 200,
                       boxShadow: "0 25px 50px rgba(0, 0, 0, 0.3)",
-                      transition: { duration: 0.1 } // Make drag animation snappy
+                      transition: { duration: 0.02 }
                     }}
-                    dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }} // Make drag end animation snappy
+                    dragTransition={{ bounceStiffness: 1000, bounceDamping: 5 }}
                     onDragStart={() => {
                       setDraggedCardIndex(index);
                       setIsDragging(true);

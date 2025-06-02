@@ -3,7 +3,7 @@ import Item from './Item';
 import slugify from "react-slugify";
 import { createClient } from 'contentful';
 import MainMenu from '../home/MainMenu';
-import { useNavigate } from 'react-router-dom/dist';
+import { useNavigate, useLocation } from 'react-router-dom/dist';
 
 
 function getRandomRotation() {
@@ -20,6 +20,7 @@ const client = createClient({
 export default function Projects(props) {
     const [projectData, setProjectData] = useState([]);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         client.getEntries({
@@ -27,7 +28,58 @@ export default function Projects(props) {
         })
         .then(response => setProjectData(response.items))
         .catch(console.error);
-    }, []);
+
+        // Add event listener for afterLoad event
+        const handleAfterLoad = (origin, destination) => {
+            if (destination.anchor === 'first') {
+                window.fullpage_api.moveTo(5);
+            }
+        };
+
+        // Handle browser back button
+        const handlePopState = () => {
+            navigate('/');
+            const checkFullpage = () => {
+                if (window.fullpage_api) {
+                    window.fullpage_api.moveTo('fifth');
+                    return true;
+                }
+                return false;
+            };
+
+            // Try immediate navigation
+            if (!checkFullpage()) {
+                // If immediate navigation fails, try with increasing delays
+                const delays = [100, 300, 500];
+                delays.forEach((delay, index) => {
+                    setTimeout(() => {
+                        if (!checkFullpage() && index === delays.length - 1) {
+                            // If all attempts fail, try one last time with a rebuild
+                            setTimeout(() => {
+                                if (window.fullpage_api) {
+                                    window.fullpage_api.reBuild();
+                                    window.fullpage_api.moveTo('fifth');
+                                }
+                            }, 1000);
+                        }
+                    }, delay);
+                });
+            }
+        };
+
+        window.addEventListener('popstate', handlePopState);
+
+        if (window.fullpage_api) {
+            window.fullpage_api.on('afterLoad', handleAfterLoad);
+        }
+
+        return () => {
+            if (window.fullpage_api) {
+                window.fullpage_api.off('afterLoad', handleAfterLoad);
+            }
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [navigate]);
 
     const maxDelay = 1; // Maximum delay in seconds
     const baseDelay = maxDelay / projectData.length;
@@ -36,78 +88,93 @@ export default function Projects(props) {
     const handleBackToPortfolio = () => {
         // Navigate to home page first
         navigate('/');
-        // After navigation, wait for fullpage.js to initialize
-        setTimeout(() => {
+        
+        // Wait for Fullpage.js to initialize and then move to the projects section
+        const checkFullpage = () => {
             if (window.fullpage_api) {
-                // Temporarily set faster scrolling speed
-                window.fullpage_api.setScrollingSpeed(50);
-                // Move to the portfolio section (fifth section)
-                window.fullpage_api.moveTo(5);
-                // Reset scrolling speed after navigation
-                setTimeout(() => {
-                    window.fullpage_api.setScrollingSpeed(1000);
-                }, 100);
+                window.fullpage_api.moveTo('fifth');
+                return true;
             }
-        }, 500);
+            return false;
+        };
+
+        // Try immediate navigation
+        if (!checkFullpage()) {
+            // If immediate navigation fails, try with increasing delays
+            const delays = [100, 300, 500];
+            delays.forEach((delay, index) => {
+                setTimeout(() => {
+                    if (!checkFullpage() && index === delays.length - 1) {
+                        // If all attempts fail, try one last time with a rebuild
+                        setTimeout(() => {
+                            if (window.fullpage_api) {
+                                window.fullpage_api.reBuild();
+                                window.fullpage_api.moveTo('fifth');
+                            }
+                        }, 1000);
+                    }
+                }, delay);
+            });
+        }
     };
 
     return (
-<>
-        <MainMenu/>
-        
-        {/* Back to Portfolio Button */}
-        <div className="back-to-portfolio" style={{ paddingLeft: '30px' }}>
-            <button onClick={handleBackToPortfolio} className="back-btn">
-                ← Back to Portfolio
-            </button>
-        </div>
-        
-        <div className="project_section project_grid project_all">
-        <div className="project_title" style={{ marginBottom: 0 }}><h3> PROJECTS</h3></div>
-            <div className="project_wrapper container" style={{ paddingTop: 0 }}>
-                <div className="project_content ">
-                     
-                        {              
-                        projectData?.map(({ sys, fields, metadata }, index) => {
-                            const delay = (projectData.length - index) * baseDelay;
-                            return (
-                                <div className="grid_item"
-                                    key={`${index}_${fields.title}`}
-                                    style={{
-                                    zIndex: projectData.length - index < 0 ? projectData.length - index : 0,
-                                    animationDelay: `${.3}s`,
-                                    rotate: `${getRandomRotation()}deg`,
-                                    translate: `-${390 * (index % 4)}px -${Math.floor(index / 4) * 570 }px`,
-                                    position:'relative'
-                        
-                                }}>
+        <>
+            <MainMenu/>
+            
+            {/* Back to Portfolio Button */}
+            <div className="back-to-portfolio">
+                <button onClick={handleBackToPortfolio} className="back-btn">
+                    ← Back to Portfolio
+                </button>
+            </div>
+            
+            <div className="project_section project_grid project_all">
+                <div className="project_title"><h3> PROJECTS</h3></div>
+                <div className="project_wrapper container">
+                    <div className="project_content ">
+                         
+                            {              
+                            projectData?.map(({ sys, fields, metadata }, index) => {
+                                const delay = (projectData.length - index) * baseDelay;
+                                return (
+                                    <div className="grid_item"
+                                        key={`${index}_${fields.title}`}
+                                        style={{
+                                        zIndex: projectData.length - index < 0 ? projectData.length - index : 0,
+                                        animationDelay: `${.3}s`,
+                                        rotate: `${getRandomRotation()}deg`,
+                                        translate: `-${390 * (index % 4)}px -${Math.floor(index / 4) * 570 }px`,
+                                        position:'relative'
+                            
+                                    }}>
 
-                                    <Item
-                                        title={fields.title}
-                                        tags={fields.tags}
-                                        logo={fields.logo.fields.file.url}
-                                        sub={fields.subtitle}
-                                        img={fields.image.fields.file.url}
-                                        categories={fields.categories}
-                                        link={fields.link}
-                                        slug={slugify(fields.title)}
-                                        id={sys.id}
-                                        theIndex={index}
-                                        paused={props.paused}
-                                        key={index}
-                                        projectClick={props.projectClick}
-                                        totalIndex={projectData.length}
-                                        tag={metadata.tags}
-                                    />
-                                </div>
-                            );
-                        })
-                        }
-                 
-                </div>
-                <div className="project_text"></div>
-            </div> 
-        </div>
+                                        <Item
+                                            title={fields.title}
+                                            tags={fields.tags}
+                                            logo={fields.logo.fields.file.url}
+                                            sub={fields.subtitle}
+                                            img={fields.image.fields.file.url}
+                                            categories={fields.categories}
+                                            link={fields.link}
+                                            slug={slugify(fields.title)}
+                                            id={sys.id}
+                                            theIndex={index}
+                                            paused={props.paused}
+                                            key={index}
+                                            projectClick={props.projectClick}
+                                            totalIndex={projectData.length}
+                                            tag={metadata.tags}
+                                        />
+                                    </div>
+                                );
+                            })
+                            }
+                     
+                    </div>
+                    <div className="project_text"></div>
+                </div> 
+            </div>
         </>
     )
 }

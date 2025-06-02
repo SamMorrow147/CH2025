@@ -13,6 +13,16 @@ const flipCardStyles = `
     max-height: 100vh !important;
   }
   
+  /* Override JotForm styles */
+  .jfForm-wrapper {
+    padding-top: 0 !important;
+  }
+  
+  /* Override JotForm card max-height */
+  .jfCard {
+    max-height: 558.28px !important;
+  }
+  
   .team_wrapper {
     overflow-x: hidden !important;
     overflow-y: hidden !important;
@@ -860,7 +870,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
       } else {
         setSelectedMobileCard(null);
       }
-    }, 200); // Reduced from 400 to 200 for faster transition
+    }, 100); // Reduced from 200 to 100 for faster transition
   };
   
   // Handle card tap to flip
@@ -1039,7 +1049,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                     className={`mobile-card mobile-card-${index} ${flippedCards.has(member.name) ? 'flipped' : ''}`}
                     drag={index === 0 ? "x" : false}
                     dragMomentum={false}
-                    dragElastic={0.1}
+                    dragElastic={0.2}
                     dragConstraints={{ 
                       left: -150, 
                       right: 150 
@@ -1048,19 +1058,24 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                     animate={!paused ? { ...animateTransform, opacity: 1, y: 0 } : { ...animateTransform, opacity: 0, y: 1000 }}
                     transition={{
                       type: "spring",
-                      stiffness: 100,
-                      damping: 15,
-                      delay: 0.3 + (index * 0.3),
-                      duration: 1.2
+                      stiffness: 300,
+                      damping: 20,
+                      delay: 0.1 + (index * 0.1),
+                      duration: 0.6
                     }}
                     whileDrag={{
                       scale: 1.05,
                       rotate: 5,
                       zIndex: 200,
                       boxShadow: "0 25px 50px rgba(0, 0, 0, 0.3)",
-                      transition: { duration: 0.02 }
+                      transition: { duration: 0.01 }
                     }}
-                    dragTransition={{ bounceStiffness: 1000, bounceDamping: 5 }}
+                    dragTransition={{ 
+                      bounceStiffness: 3000, // Increased from 2000 for faster bounce
+                      bounceDamping: 15, // Adjusted for better bounce control
+                      power: 0.8, // Added power parameter for more immediate response
+                      timeConstant: 200 // Added timeConstant for faster completion
+                    }}
                     onDragStart={() => {
                       setDraggedCardIndex(index);
                       setIsDragging(true);
@@ -1072,7 +1087,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       }
                       setTimeout(() => {
                         setIsDragging(false);
-                      }, 100);
+                      }, 50); // Reduced from 100 to 50 for faster state update
                     }}
                     onClick={(e) => {
                       e.stopPropagation();

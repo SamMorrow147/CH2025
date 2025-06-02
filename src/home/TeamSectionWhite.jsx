@@ -49,32 +49,33 @@ const flipCardStyles = `
     transform: translateX(-50%);
     will-change: transform;
     opacity: 1;
+    margin: 0 7.5px; /* Add horizontal margin for spacing */
   }
   
   /* Position classes for the grid layout */
   .position-0 {
-    left: calc(50% - 400px);
+    left: calc(50% - 460px - 22.5px);
     top: 0;
     z-index: 4;
     opacity: 1;
   }
   
   .position-1 {
-    left: calc(50% - 130px);
+    left: calc(50% - 230px - 7.5px);
     top: 0;
     z-index: 3;
     opacity: 1;
   }
   
   .position-2 {
-    left: calc(50% + 130px);
+    left: calc(50% + 7.5px);
     top: 0;
     z-index: 2;
     opacity: 1;
   }
   
   .position-3 {
-    left: calc(50% + 400px);
+    left: calc(50% + 230px + 22.5px);
     top: 0;
     z-index: 1;
     opacity: 1;
@@ -489,21 +490,19 @@ const flipCardStyles = `
   /* Responsive grid for different screen sizes */
   @media (max-width: 1100px) and (min-width: 769px) {
     .position-0 {
-      left: calc(50% - 260px);
+      left: calc(50% - 345px - 22.5px);
     }
     
     .position-1 {
-      left: calc(50% + 260px);
+      left: calc(50% - 115px - 7.5px);
     }
     
     .position-2 {
-      left: calc(50% - 260px);
-      top: 400px;
+      left: calc(50% + 115px + 7.5px);
     }
     
     .position-3 {
-      left: calc(50% + 260px);
-      top: 400px;
+      left: calc(50% + 345px + 22.5px);
     }
     
     .team-cards-container {
@@ -670,7 +669,6 @@ const flipCardStyles = `
     color: white;
     padding: 20px 15px 15px;
     text-align: center;
-    transform: rotateY(180deg); /* Counter-rotate to fix flipped text */
     z-index: 2; /* Ensure it appears above the white overlay */
   }
   
@@ -737,6 +735,23 @@ const teamMembers = [
     characterBack: "/images/team/Laim-Back.png"
   }
 ];
+
+// Add animation variants
+const cardVariants = {
+  hidden: { 
+    opacity: 0,
+    y: 50
+  },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.1 + (i * 0.2), // Reduced initial delay to 0.1s but kept stagger at 0.2s
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  })
+};
 
 export default function TeamSectionWhite({ paused, arrowClick }) {
   // State to store the current order of team members
@@ -992,9 +1007,8 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
               {mobileCardOrder.map((member, index) => {
                 const transform = getCardTransform(index);
                 const isDragged = draggedCardIndex === index;
-                const isAnimatingOut = animatingDirection && index === 0; // Animate top card out
+                const isAnimatingOut = animatingDirection && index === 0;
                 
-                // Calculate animation transform
                 let animateTransform = transform;
                 if (isAnimatingOut) {
                   animateTransform = {
@@ -1017,13 +1031,23 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       left: -150, 
                       right: 150 
                     }}
-                    initial={animateTransform}
-                    animate={isDragged ? {} : animateTransform}
+                    initial={{ ...animateTransform, opacity: 0, y: 50 }}
+                    animate={!paused ? { ...animateTransform, opacity: 1, y: 0 } : { ...animateTransform, opacity: 0, y: 50 }}
                     transition={{
                       type: "spring",
                       stiffness: 200,
-                      damping: 20
+                      damping: 20,
+                      delay: index * 0.2,
+                      duration: 0.5
                     }}
+                    whileDrag={{
+                      scale: 1.05,
+                      rotate: 5,
+                      zIndex: 200,
+                      boxShadow: "0 25px 50px rgba(0, 0, 0, 0.3)",
+                      transition: { duration: 0.1 } // Make drag animation snappy
+                    }}
+                    dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }} // Make drag end animation snappy
                     onDragStart={() => {
                       setDraggedCardIndex(index);
                       setIsDragging(true);
@@ -1038,17 +1062,10 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       }, 100);
                     }}
                     onClick={(e) => {
-                      e.stopPropagation(); // Prevent event bubbling
-                      // Only handle clicks on the top card and when not dragging
+                      e.stopPropagation();
                       if (index === 0 && !isDragging) {
                         handleMobileCardTap(member.name);
                       }
-                    }}
-                    whileDrag={{
-                      scale: 1.05,
-                      rotate: 5,
-                      zIndex: 200,
-                      boxShadow: "0 25px 50px rgba(0, 0, 0, 0.3)"
                     }}
                     style={{
                       zIndex: transform.zIndex,
@@ -1141,44 +1158,50 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
           {/* Desktop version - all cards with absolute positioning */}
           <div style={{ position: 'relative', width: '100%', height: '550px' }}>
             <div className={`team-cards-container ${selectedMemberName ? 'stack-mode' : ''}`}>
-              {teamMembersOrder.map((member) => (
-                <div 
-                  key={`${member.name}`}
-                  className={getCardClasses(member.name)}
-                  onClick={() => handleCardClick(member.name)}
-                >
-                  <div className="flip-card-inner">
-                    {/* Front - Character Animation */}
-                    <div className="flip-card-front">
-                      <div className="card-image">
-                        <img 
-                          src={member.character} 
-                          alt={`${member.name}`} 
-                          style={{ 
-                            width: '100%', 
-                            height: '100%',
-                            objectFit: 'cover' 
-                          }} 
-                        />
+              <AnimatePresence>
+                {teamMembersOrder.map((member, index) => (
+                  <motion.div 
+                    key={`${member.name}`}
+                    className={getCardClasses(member.name)}
+                    onClick={() => handleCardClick(member.name)}
+                    variants={cardVariants}
+                    initial="hidden"
+                    animate={!paused ? "visible" : "hidden"}
+                    custom={index}
+                  >
+                    <div className="flip-card-inner">
+                      {/* Front - Character Animation */}
+                      <div className="flip-card-front">
+                        <div className="card-image">
+                          <img 
+                            src={member.character} 
+                            alt={`${member.name}`} 
+                            style={{ 
+                              width: '100%', 
+                              height: '100%',
+                              objectFit: 'cover' 
+                            }} 
+                          />
+                        </div>
+                      </div>
+                      
+                      {/* Back - Team Member Photo */}
+                      <div className="flip-card-back">
+                        <div className="photo-container">
+                          <img 
+                            src={member.photo} 
+                            alt={member.name} 
+                          />
+                        </div>
+                        <div className="card-info-overlay">
+                          <h3>{member.name}</h3>
+                          <h4>{member.title}</h4>
+                        </div>
                       </div>
                     </div>
-                    
-                    {/* Back - Team Member Photo */}
-                    <div className="flip-card-back">
-                      <div className="photo-container">
-                        <img 
-                          src={member.photo} 
-                          alt={member.name} 
-                        />
-                      </div>
-                      <div className="card-info-overlay">
-                        <h3>{member.name}</h3>
-                        <h4>{member.title}</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
             
             {/* Info panel that appears when card is selected */}

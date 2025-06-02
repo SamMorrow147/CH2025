@@ -254,7 +254,6 @@ export default function AboutTwo(props) {
             background-color: transparent;
             opacity: ${videoLoaded ? 1 : 0};
             transition: opacity 0.8s ease;
-            padding-top: 120px;
           }
           
           .video-container video {
@@ -269,7 +268,6 @@ export default function AboutTwo(props) {
             width: 50%;
             max-width: 50%;
             padding-left: 40px;
-            padding-top: 120px;
           }
           
           .typing-container {
@@ -305,14 +303,12 @@ export default function AboutTwo(props) {
               width: 100%;
               max-width: 100%;
               margin-bottom: 0;
-              padding-top: 60px;
             }
             
             .content-wrapper {
               width: 100%;
               max-width: 100%;
               padding-left: 0;
-              padding-top: 40px;
             }
             
             .typing-container {

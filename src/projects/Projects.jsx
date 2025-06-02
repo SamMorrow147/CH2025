@@ -34,7 +34,21 @@ export default function Projects(props) {
 
     // Handle back navigation to portfolio section
     const handleBackToPortfolio = () => {
-        navigate('/#fifth'); // Navigate to home page with portfolio section anchor
+        // Navigate to home page first
+        navigate('/');
+        // After navigation, wait for fullpage.js to initialize
+        setTimeout(() => {
+            if (window.fullpage_api) {
+                // Temporarily set faster scrolling speed
+                window.fullpage_api.setScrollingSpeed(50);
+                // Move to the portfolio section (fifth section)
+                window.fullpage_api.moveTo(5);
+                // Reset scrolling speed after navigation
+                setTimeout(() => {
+                    window.fullpage_api.setScrollingSpeed(1000);
+                }, 100);
+            }
+        }, 500);
     };
 
     return (
@@ -42,15 +56,15 @@ export default function Projects(props) {
         <MainMenu/>
         
         {/* Back to Portfolio Button */}
-        <div className="back-to-portfolio">
+        <div className="back-to-portfolio" style={{ paddingLeft: '30px' }}>
             <button onClick={handleBackToPortfolio} className="back-btn">
                 ← Back to Portfolio
             </button>
         </div>
         
         <div className="project_section project_grid project_all">
-        <div className="project_title"><h3> PROJECTS</h3></div>
-            <div className="project_wrapper container">
+        <div className="project_title" style={{ marginBottom: 0 }}><h3> PROJECTS</h3></div>
+            <div className="project_wrapper container" style={{ paddingTop: 0 }}>
                 <div className="project_content ">
                      
                         {              

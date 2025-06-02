@@ -321,11 +321,9 @@ export default function AboutTwo(props) {
               width: 100%;
               max-width: 100%;
               margin-bottom: 0;
-              ${isMobileSafari ? `
-                margin-top: 40px;
-                position: relative;
-                z-index: 1;
-              ` : ''}
+              margin-top: 0;
+              position: relative;
+              z-index: 1;
             }
             
             .content-wrapper {

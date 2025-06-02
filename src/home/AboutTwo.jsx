@@ -254,12 +254,23 @@ export default function AboutTwo(props) {
             background-color: transparent;
             opacity: ${videoLoaded ? 1 : 0};
             transition: opacity 0.8s ease;
+            ${isMobileSafari ? `
+              margin-top: 80px;
+              transform: translateY(0);
+              -webkit-transform: translateY(0);
+            ` : ''}
           }
           
           .video-container video {
             width: 100%;
             display: block;
             object-fit: contain;
+            ${isMobileSafari ? `
+              -webkit-transform: translateZ(0);
+              transform: translateZ(0);
+              backface-visibility: hidden;
+              -webkit-backface-visibility: hidden;
+            ` : ''}
           }
           
           .content-wrapper {
@@ -297,18 +308,35 @@ export default function AboutTwo(props) {
               padding: 73px 20px;
               height: auto;
               min-height: 0;
+              ${isMobileSafari ? `
+                padding-top: 40px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+              ` : ''}
             }
             
             .video-container {
               width: 100%;
               max-width: 100%;
               margin-bottom: 0;
+              ${isMobileSafari ? `
+                margin-top: 40px;
+                position: relative;
+                z-index: 1;
+              ` : ''}
             }
             
             .content-wrapper {
               width: 100%;
               max-width: 100%;
               padding-left: 0;
+              ${isMobileSafari ? `
+                margin-top: 20px;
+                position: relative;
+                z-index: 2;
+              ` : ''}
             }
             
             .typing-container {

@@ -305,16 +305,16 @@ export default function AboutTwo(props) {
           
           @media (max-width: 768px) {
             .about2_content {
-              flex-direction: column;
-              padding: 123px 20px;
-              height: auto;
-              min-height: 0;
+              flex-direction: column !important;
+              padding: 123px 20px !important;
+              height: auto !important;
+              min-height: 0 !important;
               ${isMobileSafari ? `
-                padding-top: 40px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
+                padding: 123px 20px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
               ` : ''}
             }
             

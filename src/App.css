@@ -1789,6 +1789,11 @@ video {max-width:100%;}
   .video-loading-indicator {
     margin-top: -100px;
   }
+
+  .about2_content {
+    flex-direction: column;
+    padding: 90px 20px;
+  }
 }
 
 .project_item > a {

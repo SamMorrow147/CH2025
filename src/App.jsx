@@ -8,6 +8,9 @@ import MobileMenu from './MobileMenu';
 import PortfolioSlider from './home/PortfolioSlider';
 const App = () => {
   
+    console.log('🧪 APP COMPONENT IS RUNNING - TEST MESSAGE');
+    console.log('🧪 If you see this, React is working!');
+    
     const [showResults, setShowResults] = React.useState(false)
     const showContact = () => setShowResults(true)
     const hideContact = () => setShowResults(false)

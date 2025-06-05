@@ -529,8 +529,8 @@ display:flex;
 
 .static-bar {
   top: 30px;
-    left: 140px; 
-    padding:10px;
+  left: 134px; 
+  padding: 10px;
 }
 
 .static-bar .logo {
@@ -547,7 +547,7 @@ height: auto;
 .top_content .logo {
   width:220px;
   margin-bottom:20px;
-  animation:fadeIn 2s forwards;
+  opacity: 1;
   aspect-ratio: attr(width) / attr(height);
   /* Fix for Safari GIF animation */
   transform: translateZ(0);
@@ -555,15 +555,13 @@ height: auto;
   -webkit-backface-visibility: hidden;
   -webkit-perspective: 1000;
   will-change: auto;
-  opacity: 0;
 }
 
 .top_content .wordmark {
   aspect-ratio: attr(width) / attr(height);
   height:auto;
-  animation:fadeIn 1s forwards;
+  opacity: 1;
   transition:1s;
-  opacity: 0;
 }
 
 .active-bar .wordmark {margin-left:10px;}
@@ -1200,41 +1198,58 @@ img.logo-bottom {
 }
 
 .active-bar {
-  position:fixed !important;
-  animation: move_up .5s forwards
+  position: fixed !important;
+  z-index: 999 !important;
+  animation: move_up .8s ease-out forwards;
+  transform-origin: center center;
+  display: flex;
+  align-items: center;
 }
 
-.active-bar  {
-  transition:1s;
+@media (min-width: 769px) {
+  .active-bar {
+    margin-left: -135px;
+    margin-top: -30px;
+  }
 }
 
 .active-bar .wordmark {
-animation: shorten .5s forwards !important;
+  animation: shorten .8s ease-out forwards !important;
+  margin-left: 10px;
+  opacity: 1 !important;
 }
 
 .active-bar .logo {
-  animation: logo_shorten .8s forwards !important;
+  animation: logo_shorten .8s ease-out forwards !important;
+  opacity: 1 !important;
 }
 
 .active-bar .button_wrapper {
- display:none;
+  display: none;
 }
 
-
-
 @keyframes move_up {
-  0% {top:50%; left:50%;}
-  100% {top:30px; left:134px; height:60px}
+  0% { 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+  }
+  100% { 
+    top: 30px; 
+    left: 134px; 
+    height: 60px;
+    transform: none;
+  }
 }
 
 @keyframes shorten {
-  0% {width:600px;}
-  100% {width:200px; }
+  0% {width: 600px; opacity: 1;}
+  100% {width: 200px; opacity: 1;}
 }
 
 @keyframes logo_shorten {
-  0% {width:230px; transform:rotate(0deg)}
-  100% {width:40px; height:auto; margin-bottom:0px; transform:rotate(360deg); }
+  0% {width: 230px; transform: rotate(0deg); opacity: 1;}
+  100% {width: 40px; height: auto; margin-bottom: 0px; transform: rotate(360deg); opacity: 1;}
 }
 
 @keyframes buttons_move {

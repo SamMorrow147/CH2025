@@ -44,6 +44,10 @@ const getThemeColorForSection = (sectionIndex) => {
 let currentIndex = 0;
 export default function Fullpage({onClick, setIsOpen}) {
   
+  console.log('🚨 FULLPAGE COMPONENT LOADING!');
+  console.log('🌐 Location:', window.location.href);
+  console.log('📱 User Agent:', navigator.userAgent);
+  
   var offset = '0';
   const [activeId, setActiveId] = useState(0);
   const [currentSection, setCurrentSection] = useState(0);
@@ -52,6 +56,10 @@ export default function Fullpage({onClick, setIsOpen}) {
   const fullpageApiRef = useRef(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isOnTeamSection, setIsOnTeamSection] = useState(false); // Track if we're on team section
+
+  console.log('✅ FULLPAGE STATE INITIALIZED');
+  console.log('  Current section name:', sectionNames[0]);
+  console.log('  Anchors:', anchors);
 
   // Analytics tracking state
   const [sectionEntryTime, setSectionEntryTime] = useState(Date.now());
@@ -239,6 +247,7 @@ useEffect(() => {
 
   return (
     <>
+    {console.log('🎬 RENDERING FULLPAGE COMPONENT')}
     <MainMenu currentScroll={currentSlider} onClick={setIsOpen} fullpageApi={fullpageApiRef.current}/>
     
     {/* Section Name Display */}
@@ -293,7 +302,7 @@ useEffect(() => {
       navigationPosition={'top'}
       showActiveTooltip={false}
       navigationTooltips={sectionNames}
-      scrollingSpeed={isChrome ? 1000 : 150} // Only increase speed for Chrome
+      scrollingSpeed={isChrome ? 500 : 300} // Reduced speed for better control - Chrome: 1000->500, Others: 150->300
       normalScrollElements=''
       bigSectionsDestination='top'
       scrollOverflow={false} // Disable scroll overflow
@@ -306,7 +315,7 @@ useEffect(() => {
       
       // Updated scroll behavior settings
       fitToSection={true}
-      fitToSectionDelay={isChrome ? 100 : 50} // Only increase delay for Chrome
+      fitToSectionDelay={isChrome ? 50 : 25} // Reduced delay for smoother transitions - Chrome: 100->50, Others: 50->25
       scrollBar={false}
       easingcss3={'ease-out'}
       easing={'easeOutQuart'}
@@ -320,6 +329,70 @@ useEffect(() => {
       
       // Modified onLeave function with Chrome-specific section skipping prevention
       onLeave={(origin, destination, direction, currentPanel, fullpageApi, state) => {
+        console.log('🚀 onLeave CALLBACK FIRED!');
+        console.log('  From:', origin?.anchor, 'To:', destination?.anchor, 'Direction:', direction);
+        
+        // Get top content element
+        const topContent = document.querySelector('.top_content');
+        const wrapper = document.querySelector('.wrapper');
+        const homeSection = document.querySelector('.top_section');
+        
+        console.log('🔎 DOM Elements:');
+        console.log('  topContent found:', !!topContent);
+        console.log('  wrapper found:', !!wrapper);
+        console.log('  homeSection found:', !!homeSection);
+        
+        // Handle logo animation based on destination section
+        if (destination.anchor === 'first') {
+          // Going to home section - return logo to original position
+          if (topContent && homeSection) {
+            console.log('🏠 RETURNING TO HOME');
+            if (topContent.parentElement !== homeSection) {
+              homeSection.appendChild(topContent);
+            }
+            topContent.classList.remove('active-bar');
+            console.log('  ✅ Logo returned to home');
+          }
+        } else if (destination.anchor === 'second' && origin?.anchor === 'first') {
+          // Going from home to about section - trigger logo animation
+          if (topContent && wrapper) {
+            console.log('🚀 LOGO ANIMATION TRIGGER: Home → About');
+            
+            // Move logo to wrapper
+            if (topContent.parentElement !== wrapper) {
+              wrapper.appendChild(topContent);
+              console.log('  📦 Logo moved to wrapper');
+            }
+            
+            // Add animation class
+            topContent.classList.add('active-bar');
+            console.log('  ✨ active-bar class added!');
+            
+            // Check CSS animation after a delay
+            setTimeout(() => {
+              console.log('  📊 Animation status:');
+              console.log('    Classes:', topContent.className);
+              console.log('    Position:', getComputedStyle(topContent).position);
+              console.log('    Animation:', getComputedStyle(topContent).animationName);
+            }, 100);
+          }
+        } else if (destination.anchor === 'second') {
+          // Going to about from other sections
+          if (topContent && wrapper) {
+            console.log('📍 Ensuring logo in navigation');
+            if (topContent.parentElement !== wrapper) {
+              wrapper.appendChild(topContent);
+            }
+            topContent.classList.add('active-bar');
+          }
+        } else {
+          // Going to other sections
+          if (topContent) {
+            console.log('🎯 Removing active-bar for:', destination.anchor);
+            topContent.classList.remove('active-bar');
+          }
+        }
+        
         // Remove the section skipping prevention
         // if (isChrome && Math.abs(destination.index - origin.index) > 1) {
         //   return false;
@@ -1233,6 +1306,12 @@ useEffect(() => {
       }}
 
       render={({ state, fullpageApi, origin, currentPanel}) => {
+        console.log('🔄 RENDER FUNCTION CALLED');
+        console.log('  State:', state);
+        console.log('  Last event:', state?.lastEvent);
+        console.log('  Origin:', state?.origin?.anchor);
+        console.log('  Destination:', state?.destination?.anchor);
+        
         // Store API reference
         if (fullpageApi && !fullpageApiRef.current) {
           fullpageApiRef.current = fullpageApi;
@@ -1259,44 +1338,123 @@ useEffect(() => {
             currentPanel = state.destination.anchor;
           }
   
-          // Get top content element
-          const topContent = document.querySelector('.top_content');
+          console.log('🔍 ===== DETAILED LOGO ANIMATION DEBUG =====');
+          console.log('📍 Transition Details:');
+          console.log('  From:', state.origin?.anchor, 'To:', state.destination.anchor, 'Direction:', state.direction);
+          console.log('  Event type:', state.lastEvent);
+          console.log('  Current index:', currentIndex);
           
-          // Only handle the first-to-second section transition
-          if (state.destination.anchor === 'second' && state.origin.anchor === 'first' && state.direction === 'down') {
-            // Only move logo when moving down from first (home) to second (about) section
-            const wrapper = document.querySelector('.wrapper');
-            if (topContent && wrapper) {
-              wrapper.appendChild(topContent);
-              topContent.classList.add('active-bar');
-            }
+          // Get DOM elements with detailed inspection
+          const topContent = document.querySelector('.top_content');
+          const wrapper = document.querySelector('.wrapper');
+          const homeSection = document.querySelector('.top_section');
+          
+          console.log('🔎 DOM Element Inspection:');
+          console.log('  .top_content found:', !!topContent);
+          console.log('  .wrapper found:', !!wrapper);
+          console.log('  .top_section found:', !!homeSection);
+          
+          if (topContent) {
+            console.log('  📦 topContent details:');
+            console.log('    Current parent class:', topContent.parentElement?.className || 'NO PARENT');
+            console.log('    Current classes:', topContent.className);
+            console.log('    Current style position:', getComputedStyle(topContent).position);
+            console.log('    Current top:', getComputedStyle(topContent).top);
+            console.log('    Current left:', getComputedStyle(topContent).left);
+          } else {
+            console.error('❌ .top_content element not found in DOM!');
           }
-          // When navigating to section 2 from any other section (except first)
-          else if (state.destination.anchor === 'second' && state.origin.anchor !== 'first') {
-            // Ensure the logo is in the top left when going from section 3 back to section 2
-            const wrapper = document.querySelector('.wrapper');
-            if (topContent && wrapper) {
-              // Check if it's already a child of wrapper
-              if (topContent.parentElement !== wrapper) {
-                wrapper.appendChild(topContent);
+          
+          if (wrapper) {
+            console.log('  📦 wrapper details:');
+            console.log('    Class:', wrapper.className);
+            console.log('    Children count:', wrapper.children.length);
+          }
+          
+          if (homeSection) {
+            console.log('  📦 homeSection details:');
+            console.log('    Class:', homeSection.className);
+            console.log('    Children count:', homeSection.children.length);
+          }
+          
+          // Handle logo animation with delay to ensure smooth transition
+          setTimeout(() => {
+            console.log('🎬 Starting animation logic...');
+            
+            if (state.destination.anchor === 'first') {
+              // Going to home section - return logo to original position
+              if (topContent && homeSection) {
+                console.log('🏠 RETURNING TO HOME: Moving logo back to home section');
+                if (topContent.parentElement !== homeSection) {
+                  console.log('  📍 Moving from', topContent.parentElement?.className, 'to .top_section');
+                  homeSection.appendChild(topContent);
+                  console.log('  ✅ Logo moved to home section');
+                } else {
+                  console.log('  ℹ️ Logo already in home section');
+                }
+                topContent.classList.remove('active-bar');
+                console.log('  ✅ active-bar class removed');
               }
-              topContent.classList.add('active-bar');
+            } else if (state.destination.anchor === 'second' && state.origin?.anchor === 'first') {
+              // Going from home to about section - trigger logo animation
+              if (topContent && wrapper) {
+                console.log('🚀 MAIN ANIMATION TRIGGER: Home → About');
+                console.log('  📊 Before animation:');
+                console.log('    Logo parent:', topContent.parentElement?.className);
+                console.log('    Logo classes:', topContent.className);
+                
+                // First ensure the logo is in the wrapper
+                if (topContent.parentElement !== wrapper) {
+                  console.log('  📦 Moving logo from', topContent.parentElement?.className, 'to .wrapper');
+                  wrapper.appendChild(topContent);
+                  console.log('  ✅ Logo moved to wrapper');
+                } else {
+                  console.log('  ℹ️ Logo already in wrapper');
+                }
+                
+                // Add the animation class
+                console.log('  ✨ Adding active-bar class...');
+                topContent.classList.add('active-bar');
+                console.log('  ✅ active-bar class added!');
+                
+                // Log final state after a short delay
+                setTimeout(() => {
+                  console.log('  📊 After animation setup:');
+                  console.log('    Logo parent:', topContent.parentElement?.className);
+                  console.log('    Logo classes:', topContent.className);
+                  console.log('    Logo computed position:', getComputedStyle(topContent).position);
+                  console.log('    Logo computed top:', getComputedStyle(topContent).top);
+                  console.log('    Logo computed left:', getComputedStyle(topContent).left);
+                  console.log('    Animation duration from CSS:', getComputedStyle(topContent).animationDuration);
+                  console.log('    Animation name from CSS:', getComputedStyle(topContent).animationName);
+                }, 100);
+              } else {
+                console.error('❌ ANIMATION FAILED: Missing required elements');
+                console.error('  topContent:', !!topContent);
+                console.error('  wrapper:', !!wrapper);
+              }
+            } else if (state.destination.anchor === 'second') {
+              // Going to about section from any other section - ensure logo is in navigation
+              if (topContent && wrapper) {
+                console.log('📍 ENSURING NAVIGATION: Going to About from other section');
+                if (topContent.parentElement !== wrapper) {
+                  wrapper.appendChild(topContent);
+                  console.log('  ✅ Logo moved to wrapper');
+                }
+                topContent.classList.add('active-bar');
+                console.log('  ✅ active-bar class added');
+              }
+            } else {
+              // Going to any other section - remove active-bar class but keep logo position
+              if (topContent) {
+                console.log('🎯 REMOVING ANIMATION: Going to section', state.destination.anchor);
+                topContent.classList.remove('active-bar');
+                console.log('  ✅ active-bar class removed');
+              }
             }
-          }
-          // Reset logo when returning to home section
-          else if (state.destination.anchor === 'first') {
-            const wrapper = document.querySelector('.top_section');
-            if (topContent && wrapper) {
-              wrapper.appendChild(topContent);
-              topContent.classList.remove('active-bar');
-            }
-          }
-          // For any other navigation, remove the active-bar class
-          else if (state.destination.anchor !== 'second' || state.origin.anchor !== 'first') {
-            if (topContent) {
-              topContent.classList.remove('active-bar');
-            }
-          }
+          }, 50); // Small delay to ensure transition has started
+          
+          console.log('🔍 ===== END DETAILED DEBUG =====');
         } 
 
         return (

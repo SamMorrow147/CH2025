@@ -13,7 +13,7 @@ import AboutTwo from './home/AboutTwo';
 import { trackSectionView, trackSectionExit, trackSectionMetrics } from './utils/analytics';
 
 const anchors = ["first", "second", "third","fourth","fifth", "sixth", "seventh", "eighth"];
-const sectionNames = ['Home', 'Who We Are', 'Our Services', 'Feeling Lucky?', 'Projects', 'Modus Operandi', 'People', 'Contact'];
+const sectionNames = ['Home', 'Who We Are', 'What We Do', 'Feeling Lucky?', 'Projects', 'Modus Operandi', 'People', 'Contact'];
 
 // Section theme colors mapping
 const sectionThemeColors = {

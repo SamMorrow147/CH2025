@@ -210,7 +210,7 @@ export default function AboutTwo(props) {
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            padding: 20px 73px;
+            padding: 63px 73px;
             max-width: 1600px;
             margin: 0 auto;
           }
@@ -306,11 +306,11 @@ export default function AboutTwo(props) {
           @media (max-width: 768px) {
             .about2_content {
               flex-direction: column !important;
-              padding: 123px 20px !important;
+              padding: 63px 20px !important;
               height: auto !important;
               min-height: 0 !important;
               ${isMobileSafari ? `
-                padding: 123px 20px !important;
+                padding: 63px 20px !important;
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;

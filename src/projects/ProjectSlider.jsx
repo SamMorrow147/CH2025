@@ -142,7 +142,7 @@ export default function ProjectSlider(props) {
                         })
                         }
                     </Swiper> 
-                    <a href="/projects" className="btn2 center">View All Projects</a>
+                    <a href="/projects" className="btn2 center" style={{ marginTop: '20px' }}>View All</a>
 
                 </div>
             </div> 

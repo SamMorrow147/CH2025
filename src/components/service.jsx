@@ -15,13 +15,19 @@ export default function Service(props) {
             }
         },
         preventDefaultTouchmoveEvent: true,
-        trackMouse: false
+        trackMouse: false,
+        delta: 10, // min distance (px) before a swipe starts
+        swipeDuration: 500, // max time (ms) for a swipe
+        touchEventOptions: { passive: false }, // prevent default touch events
+        trackTouch: true, // track touch events
+        rotationAngle: 0, // set a rotation angle
     });
 
     return (      
         <div 
             className={props.active ? 'service_wrap active' : 'service_wrap'} 
             {...handlers}
+            style={{ touchAction: 'pan-y pinch-zoom' }}
         >
             {props.active ? <div className="close" onClick={props.goBack}>X</div> : ''}
             {props.active ? '' : <div className="service_anchor" onClick={props.onClick}></div>}

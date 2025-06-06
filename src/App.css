@@ -1695,11 +1695,14 @@ video {max-width:100%;}
     position: relative;
     padding: 5px;
     z-index: 1;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y pinch-zoom;
   }
 
   .service_wrap.active {
     flex: 13;
     z-index: 2;
+    touch-action: pan-y pinch-zoom;
   }
 
   .service {
@@ -1708,6 +1711,7 @@ video {max-width:100%;}
     border: 2px solid #329ec7;
     height: 100%;
     touch-action: pan-y pinch-zoom;
+    -webkit-overflow-scrolling: touch;
   }
 
   .service_content {
@@ -1718,12 +1722,14 @@ video {max-width:100%;}
     border-top: unset;
     background: transparent;
     z-index: 3;
+    touch-action: pan-y pinch-zoom;
   }
 
   .service_content h2 {
     font-size: 23px;
     text-align: left;
     margin-left: 20px;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .service_wrap.active .service_content {
@@ -1736,6 +1742,7 @@ video {max-width:100%;}
     background: rgb(41,58,141);
     background: linear-gradient(0deg, rgba(41,58,141,1) 63%, rgba(41,58,141,0.8379726890756303) 78%, rgba(41,58,141,0.4990371148459384) 89%, rgba(41,58,141,0.08167016806722693) 96%, rgba(41,58,141,0) 100%);
     z-index: 3;
+    touch-action: pan-y pinch-zoom;
   }
 
   .service_anchor {
@@ -1745,6 +1752,7 @@ video {max-width:100%;}
     width: 100%;
     height: 100%;
     z-index: 4;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .close {
@@ -1761,6 +1769,7 @@ video {max-width:100%;}
     font-size: 20px;
     z-index: 5;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .heart_wrapper {

@@ -100,8 +100,7 @@ export default function ProjectSlider(props) {
                             768: {slidesPerView: 2},
 
                         }
-                        }
-                        style={{paddingTop:'65px'}}>
+                        }>
 
 
 

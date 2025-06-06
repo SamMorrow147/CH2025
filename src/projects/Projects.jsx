@@ -29,54 +29,14 @@ export default function Projects(props) {
         .then(response => setProjectData(response.items))
         .catch(console.error);
 
-        // Add event listener for afterLoad event
-        const handleAfterLoad = (origin, destination) => {
-            if (destination.anchor === 'first') {
-                window.fullpage_api.moveTo(5);
-            }
-        };
-
         // Handle browser back button
         const handlePopState = () => {
-            navigate('/');
-            const checkFullpage = () => {
-                if (window.fullpage_api) {
-                    window.fullpage_api.moveTo('fifth');
-                    return true;
-                }
-                return false;
-            };
-
-            // Try immediate navigation
-            if (!checkFullpage()) {
-                // If immediate navigation fails, try with increasing delays
-                const delays = [100, 300, 500];
-                delays.forEach((delay, index) => {
-                    setTimeout(() => {
-                        if (!checkFullpage() && index === delays.length - 1) {
-                            // If all attempts fail, try one last time with a rebuild
-                            setTimeout(() => {
-                                if (window.fullpage_api) {
-                                    window.fullpage_api.reBuild();
-                                    window.fullpage_api.moveTo('fifth');
-                                }
-                            }, 1000);
-                        }
-                    }, delay);
-                });
-            }
+            navigate('/portfolio');
         };
 
         window.addEventListener('popstate', handlePopState);
 
-        if (window.fullpage_api) {
-            window.fullpage_api.on('afterLoad', handleAfterLoad);
-        }
-
         return () => {
-            if (window.fullpage_api) {
-                window.fullpage_api.off('afterLoad', handleAfterLoad);
-            }
             window.removeEventListener('popstate', handlePopState);
         };
     }, [navigate]);
@@ -86,36 +46,7 @@ export default function Projects(props) {
 
     // Handle back navigation to portfolio section
     const handleBackToPortfolio = () => {
-        // Navigate to home page first
-        navigate('/');
-        
-        // Wait for Fullpage.js to initialize and then move to the projects section
-        const checkFullpage = () => {
-            if (window.fullpage_api) {
-                window.fullpage_api.moveTo('fifth');
-                return true;
-            }
-            return false;
-        };
-
-        // Try immediate navigation
-        if (!checkFullpage()) {
-            // If immediate navigation fails, try with increasing delays
-            const delays = [100, 300, 500];
-            delays.forEach((delay, index) => {
-                setTimeout(() => {
-                    if (!checkFullpage() && index === delays.length - 1) {
-                        // If all attempts fail, try one last time with a rebuild
-                        setTimeout(() => {
-                            if (window.fullpage_api) {
-                                window.fullpage_api.reBuild();
-                                window.fullpage_api.moveTo('fifth');
-                            }
-                        }, 1000);
-                    }
-                }, delay);
-            });
-        }
+        navigate('/portfolio');
     };
 
     return (

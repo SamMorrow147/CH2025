@@ -909,8 +909,26 @@ border-radius: 0px 0px 20px 20px;
 }
 .project_item .title {
   text-align: center;
-  color:white;
+  color: white;
+  padding: 0 10px;
+  margin-top: 0px;
+  transition: .2s;
+  width: 100%;
+  box-sizing: border-box;
+}
 
+.project_item .title h3 {
+  margin: 0px;
+  margin-top: 30px;
+  font-family: 'eurostile-condensed', sans-serif;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding-bottom: 3px;
+  bottom: 0px;
+  font-size: 35px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .heart_section {
@@ -930,17 +948,27 @@ overflow:hidden;
   animation-delay:.6s;
 }
 
-.project_item .title h3 {
-  margin: 0px;
-  margin-top: 30px;
-  font-family: 'eurostile-condensed', sans-serif;
-  font-weight: 200;
-  letter-spacing: 1px;
-  padding-bottom: 3px;
-  bottom: 0px;
-  font-size: 35px;
+.project_item .title span {
+  font-size: 12px;
+  margin-top: -5px;
 }
 
+@media screen and (max-width: 800px) {
+  .project_item .title {
+    padding: 0 15px;
+  }
+  
+  .project_item .title h3 {
+    font-size: 28px;
+    margin-top: 20px;
+    line-height: 1.2;
+  }
+  
+  .project_item .title span {
+    font-size: 12px;
+    margin-top: -5px;
+  }
+}
 
 .project_text {
   flex-grow: 1;

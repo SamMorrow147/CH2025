@@ -11,9 +11,22 @@ import { useSwipeable } from "react-swipeable";
 import ProjectSlider from './projects/ProjectSlider'
 import AboutTwo from './home/AboutTwo';
 import { trackSectionView, trackSectionExit, trackSectionMetrics } from './utils/analytics';
+import { useLocation } from 'react-router-dom';
 
-const anchors = ["first", "second", "third","fourth","fifth", "sixth", "seventh", "eighth"];
+const anchors = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth"];
 const sectionNames = ['Home', 'Who We Are', 'What We Do', 'Feeling Lucky?', 'Projects', 'Modus Operandi', 'People', 'Contact'];
+
+// URL to section index mapping
+const urlToSectionIndex = {
+  '/': 0,
+  '/who-we-are': 1,
+  '/services': 2,
+  '/why-clubhaus': 3,
+  '/portfolio': 4,
+  '/our-heart': 5,
+  '/team': 6,
+  '/contact': 7,
+};
 
 // Section theme colors mapping
 const sectionThemeColors = {
@@ -56,6 +69,8 @@ export default function Fullpage({onClick, setIsOpen}) {
   const fullpageApiRef = useRef(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isOnTeamSection, setIsOnTeamSection] = useState(false); // Track if we're on team section
+  const hasInitializedRef = useRef(false);
+  const location = useLocation();
 
   console.log('✅ FULLPAGE STATE INITIALIZED');
   console.log('  Current section name:', sectionNames[0]);
@@ -71,6 +86,71 @@ export default function Fullpage({onClick, setIsOpen}) {
     });
     return metrics;
   });
+
+  // Map paths to section numbers (1-based index)
+  const pathToSection = {
+    '/': 1,
+    '/who-we-are': 2,
+    '/services': 3,
+    '/why-clubhaus': 4,
+    '/portfolio': 5,
+    '/our-heart': 6,
+    '/contact': 7
+  };
+
+  // Handle initial URL loading
+  useEffect(() => {
+    const handleInitialURL = () => {
+      const currentPath = location.pathname;
+      const targetSection = pathToSection[currentPath];
+      
+      if (targetSection && window.fullpage_api) {
+        console.log('Moving to section:', targetSection, 'for path:', currentPath);
+        // Add a small delay to ensure fullpage is fully initialized
+        setTimeout(() => {
+          window.fullpage_api.moveTo(targetSection);
+          // Force a rebuild after moving to ensure proper layout
+          window.fullpage_api.reBuild();
+        }, 100);
+      }
+    };
+
+    // Try immediately
+    handleInitialURL();
+
+    // Try again after a longer delay to ensure fullpage is ready
+    const timer = setTimeout(() => {
+      handleInitialURL();
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
+
+  // Force rebuild after mount to handle any layout issues
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (window.fullpage_api) {
+        window.fullpage_api.reBuild();
+        console.log('🔄 Forced fullpage rebuild after mount');
+        
+        // Additional initialization for production environment
+        if (process.env.NODE_ENV === 'production') {
+          // Force a resize event to help fullpage.js recalculate heights
+          window.dispatchEvent(new Event('resize'));
+          
+          // Additional timeout to ensure fullpage has fully initialized
+          setTimeout(() => {
+            if (window.fullpage_api) {
+              window.fullpage_api.reBuild();
+              window.fullpage_api.setAllowScrolling(true);
+            }
+          }, 300);
+        }
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Force scroll to top on mount
   useEffect(() => {
@@ -298,38 +378,33 @@ useEffect(() => {
       lockAnchors={true}
       fixedElements='.breadcrumbs'
       dragAndMove={true}
-      touchSensitivity={isChrome ? 15 : 5} // Only increase sensitivity for Chrome
+      touchSensitivity={isChrome ? 15 : 5}
       navigation={true}
       navigationPosition={'top'}
       showActiveTooltip={false}
       navigationTooltips={sectionNames}
-      scrollingSpeed={isChrome ? 500 : 300} // Reduced speed for better control - Chrome: 1000->500, Others: 150->300
+      scrollingSpeed={isChrome ? 500 : 300}
       normalScrollElements=''
       bigSectionsDestination='top'
-      scrollOverflow={false} // Disable scroll overflow
-      scrollOverflowReset={false} // Disable scroll overflow reset
+      scrollOverflow={false}
+      scrollOverflowReset={false}
       keyboardScrolling={true}
       continuousVertical={false}
       resetSliders={true}
       animateAnchor={true}
       licenseKey={'YOUR_KEY_HERE'}
-      
-      // Updated scroll behavior settings
       fitToSection={true}
-      fitToSectionDelay={isChrome ? 50 : 25} // Reduced delay for smoother transitions - Chrome: 100->50, Others: 50->25
+      fitToSectionDelay={isChrome ? 50 : 25}
       scrollBar={false}
       easingcss3={'ease-out'}
       easing={'easeOutQuart'}
       css3={true}
       loopHorizontal={false}
-      
-      // Enable URL history management
       recordHistory={true}
       autoScrolling={true}
       scrollHorizontally={false}
       
-      // Modified onLeave function with Chrome-specific section skipping prevention
-      onLeave={(origin, destination, direction, currentPanel, fullpageApi, state) => {
+      onLeave={(origin, destination, direction) => {
         console.log('🚀 onLeave CALLBACK FIRED!');
         console.log('  From:', origin?.anchor, 'To:', destination?.anchor, 'Direction:', direction);
         
@@ -338,49 +413,26 @@ useEffect(() => {
         const wrapper = document.querySelector('.wrapper');
         const homeSection = document.querySelector('.top_section');
         
-        console.log('🔎 DOM Elements:');
-        console.log('  topContent found:', !!topContent);
-        console.log('  wrapper found:', !!wrapper);
-        console.log('  homeSection found:', !!homeSection);
-        
         // Handle logo animation based on destination section
         if (destination.anchor === 'first') {
           // Going to home section - return logo to original position
           if (topContent && homeSection) {
-            console.log('🏠 RETURNING TO HOME');
             if (topContent.parentElement !== homeSection) {
               homeSection.appendChild(topContent);
             }
             topContent.classList.remove('active-bar');
-            console.log('  ✅ Logo returned to home');
           }
         } else if (destination.anchor === 'second' && origin?.anchor === 'first') {
           // Going from home to about section - trigger logo animation
           if (topContent && wrapper) {
-            console.log('🚀 LOGO ANIMATION TRIGGER: Home → About');
-            
-            // Move logo to wrapper
             if (topContent.parentElement !== wrapper) {
               wrapper.appendChild(topContent);
-              console.log('  📦 Logo moved to wrapper');
             }
-            
-            // Add animation class
             topContent.classList.add('active-bar');
-            console.log('  ✨ active-bar class added!');
-            
-            // Check CSS animation after a delay
-            setTimeout(() => {
-              console.log('  📊 Animation status:');
-              console.log('    Classes:', topContent.className);
-              console.log('    Position:', getComputedStyle(topContent).position);
-              console.log('    Animation:', getComputedStyle(topContent).animationName);
-            }, 100);
           }
         } else if (destination.anchor === 'second') {
           // Going to about from other sections
           if (topContent && wrapper) {
-            console.log('📍 Ensuring logo in navigation');
             if (topContent.parentElement !== wrapper) {
               wrapper.appendChild(topContent);
             }
@@ -389,22 +441,54 @@ useEffect(() => {
         } else {
           // Going to other sections
           if (topContent) {
-            console.log('🎯 Removing active-bar for:', destination.anchor);
             topContent.classList.remove('active-bar');
           }
         }
-        
-        // Remove the section skipping prevention
-        // if (isChrome && Math.abs(destination.index - origin.index) > 1) {
-        //   return false;
-        // }
-        
-        // Rest of the onLeave function...
-        // ... existing code ...
+
+        // Update current section state
+        currentIndex = destination.index;
+        offset = destination.item.offsetTop;
+        setCurrentSlider(destination.index ?? 0);
+
+        // Update section name
+        if (destination.index !== undefined) {
+          setCurrentSectionName(sectionNames[destination.index]);
+        }
+
+        // Track analytics
+        trackSectionView(sectionNames[destination.index]);
+        trackSectionExit(sectionNames[origin.index], sectionEntryTime);
+        setSectionEntryTime(Date.now());
+
+        // Handle URL synchronization using history.replaceState
+        const sectionToPath = {
+          'first': '/',
+          'second': '/who-we-are',
+          'third': '/services',
+          'fourth': '/why-clubhaus',
+          'fifth': '/portfolio',
+          'sixth': '/our-heart',
+          'seventh': '/contact'
+        };
+
+        const newPath = sectionToPath[destination.anchor];
+        if (newPath && window.location.pathname !== newPath) {
+          window.history.replaceState(null, '', newPath);
+        }
       }}
       
-      // Add custom style for navigation dots on dark sections
       afterRender={() => {
+        if (!hasInitializedRef.current) {
+          hasInitializedRef.current = true;
+          const currentPath = location.pathname;
+          const targetSection = pathToSection[currentPath];
+          
+          if (targetSection && window.fullpage_api) {
+            console.log('After render - Moving to section:', targetSection);
+            window.fullpage_api.moveTo(targetSection);
+          }
+        }
+        
         // Store API reference
         if (window.fullpage_api) {
           fullpageApiRef.current = window.fullpage_api;

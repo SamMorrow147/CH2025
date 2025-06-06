@@ -39,7 +39,7 @@ const {id} = useParams();
 
   // Handle back navigation to portfolio section
   const handleBackToPortfolio = () => {
-    navigate('/#fifth'); // Navigate to home page with portfolio section anchor
+    navigate('/portfolio');
   };
 
   useEffect(() => {

@@ -71,7 +71,7 @@ export default function ProjectSlider(props) {
             <div className="project_wrapper container">
                 <div className="project_content">
                     <div className="project_title" ref={titleRef}>
-                        <h3 style={{ fontSize: '36px' }}>
+                        <h3 style={{ fontSize: '36px', margin: '0' }}>
                             {isVisible ? (
                                 <Suspense fallback={"Recent Projects"}>
                                     <Typist 
@@ -142,7 +142,7 @@ export default function ProjectSlider(props) {
                         })
                         }
                     </Swiper> 
-                    <a href="/projects" className="btn2 center" style={{ marginTop: '20px' }}>View All</a>
+                    <a href="/projects" className="btn2 center" style={{ marginTop: '40px' }}>View All</a>
 
                 </div>
             </div> 

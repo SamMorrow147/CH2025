@@ -1287,36 +1287,39 @@ img.logo-bottom {
 
 .city_animation {
   position: relative;
-  margin: auto;
   z-index: 1;
-  width: 1024px;
-  height: 750px;
+  width: 89vw;
+  height: 76%;
   max-width: 100%;
-  min-height: 750px;
+  min-height: 76%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 .city_animation > div {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
   height: 100%;
-  min-height: 750px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
 .city_animation canvas {
-  width: auto;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   max-width: 100%;
+  max-height: 100%;
   display: block;
-  min-height: 750px;
   object-fit: contain;
+  margin: 0;
+  padding: 0;
 }
 
 .second_section {
@@ -1595,7 +1598,7 @@ transform:rotate(30deg);
   font-size:16px
 }
 
-.table_animation, .city_animation, .heart_section .video {max-width:50%;}
+.table_animation, .city_animation, .heart_section .video {max-width:89vw;}
 
 }
 
@@ -2467,16 +2470,14 @@ min-height: 100dvh;
 
 @media (max-width: 768px) {
   .city_animation {
-    width: 100%;
-    height: auto;
-    min-height: 500px;
+    height: 76%;
+    min-height: 76%;
   }
   
   .city_animation > div,
   .city_animation canvas {
-    min-height: 500px;
-    width: auto;
     height: 100%;
+    min-height: 100%;
   }
 }
 
@@ -2743,4 +2744,16 @@ min-height: 100dvh;
   height: 40px;
   z-index: 1000;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 400px) {
+  .table_animation, .city_animation {
+    max-width: 89vw;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .table_animation, .city_animation {
+    max-width: 89vw;
+  }
 }

@@ -34,6 +34,19 @@ export default function Services(props) {
 
       }
     
+    const handleSwipe = (direction) => {
+        const currentIndex = values.findIndex(val => val.id === props.activeId);
+        if (currentIndex === -1) return;
+
+        let nextIndex;
+        if (direction === 'left') {
+            nextIndex = (currentIndex + 1) % values.length;
+        } else {
+            nextIndex = (currentIndex - 1 + values.length) % values.length;
+        }
+
+        makeActive(values[nextIndex].id, values[nextIndex].title);
+    }
 
     return (    
         <div className="services_section">
@@ -59,6 +72,7 @@ export default function Services(props) {
                         key={index}
                         link='/contact'
                         goBack={() => removeActive() }
+                        onSwipe={handleSwipe}
                         />
 
                         ))}

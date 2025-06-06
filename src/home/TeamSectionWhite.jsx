@@ -997,7 +997,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
           flexDirection: 'column', 
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '95px 5px 0',
+          padding: '10px 5px 0',
           position: 'relative',
           height: '689px',
           minHeight: '689px',

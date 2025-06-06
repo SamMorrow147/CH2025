@@ -13,7 +13,7 @@ import AboutTwo from './home/AboutTwo';
 import { trackSectionView, trackSectionExit, trackSectionMetrics } from './utils/analytics';
 
 const anchors = ["first", "second", "third","fourth","fifth", "sixth", "seventh", "eighth"];
-const sectionNames = ['Home', 'Who We Are', 'Our Services', 'Feeling Lucky?', 'Recent Projects', 'Modus Operandi', 'Face Cards', 'Reach Out'];
+const sectionNames = ['Home', 'Who We Are', 'Our Services', 'Feeling Lucky?', 'Projects', 'Modus Operandi', 'People', 'Contact'];
 
 // Section theme colors mapping
 const sectionThemeColors = {
@@ -265,6 +265,7 @@ useEffect(() => {
     </div>
     
     {/* Mobile Navigation Menu */}
+    <div className={`mobile-nav-overlay ${mobileMenuOpen ? 'open' : ''}`} onClick={toggleMobileMenu}></div>
     <div className={`mobile-nav-menu ${mobileMenuOpen ? 'open' : ''}`}>
       <div className="mobile-nav-items">
         {sectionNames.map((item, index) => (

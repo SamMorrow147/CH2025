@@ -1138,8 +1138,44 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
           
           {/* Mobile Info Panel - always shows top card info */}
           <div className="mobile-info-panel">
-            <h3>{mobileCardOrder[0].name}</h3>
-            <h4>{mobileCardOrder[0].title}</h4>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: selectedMobileCard === mobileCardOrder[0].name ? 'space-between' : 'center', 
+              width: '100%', 
+              gap: '10px' 
+            }}>
+              <h3 style={{ textAlign: selectedMobileCard === mobileCardOrder[0].name ? 'left' : 'center' }}>
+                {mobileCardOrder[0].name}
+              </h3>
+              {/* Mobile LinkedIn Icon - Only show for Sam, Liam, and Darby when card is flipped */}
+              {selectedMobileCard === mobileCardOrder[0].name && mobileCardOrder[0].name !== "Noah Morrow" && (
+                <svg 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    const linkedInUrls = {
+                      "Sam Morrow": "https://www.linkedin.com/in/mrwcreations/",
+                      "Liam Ellis": "https://www.linkedin.com/in/heyitsliam/",
+                      "Darby Shaw": "https://www.linkedin.com/in/darby-shaw-8a3a7ba2/"
+                    };
+                    window.open(linkedInUrls[mobileCardOrder[0].name], '_blank');
+                  }}
+                >
+                  <path 
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" 
+                    fill="#293a8d"
+                  />
+                </svg>
+              )}
+            </div>
+            <h4 style={{ textAlign: selectedMobileCard === mobileCardOrder[0].name ? 'left' : 'center' }}>
+              {mobileCardOrder[0].title}
+            </h4>
             
             {/* Only show bio text when a card is selected */}
             {selectedMobileCard === mobileCardOrder[0].name && (
@@ -1154,31 +1190,6 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                   {mobileCardOrder[0].name === "Liam Ellis" && 
                     "Liam is our machine whisperer, turning prompts into power tools. He prototypes, refines, and automates like it's second nature, making AI actually useful. Expect big brain energy and a surprisingly human-centered approach to all things technical."}
                 </p>
-              </div>
-            )}
-            
-            {/* LinkedIn Icon - Bottom of Mobile Panel - Only show when card is selected */}
-            {selectedMobileCard === mobileCardOrder[0].name && (
-              <div className="mobile-linkedin-icon" style={{ 
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: '25px',
-                paddingTop: '15px'
-              }}>
-                <svg 
-                  width="24" 
-                  height="24" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => window.open('#', '_blank')} // Replace # with actual LinkedIn URL
-                >
-                  <path 
-                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" 
-                    fill="#293a8d"
-                  />
-                </svg>
               </div>
             )}
           </div>
@@ -1262,8 +1273,45 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                   </svg>
                 </div>
                 
-                <h3>{selectedMemberData.name}</h3>
-                <h4>{selectedMemberData.title}</h4>
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: showInfo ? 'space-between' : 'center', 
+                  width: '100%', 
+                  gap: '10px', 
+                  marginBottom: '5px' 
+                }}>
+                  <h3 style={{ textAlign: showInfo ? 'left' : 'center' }}>
+                    {selectedMemberData.name}
+                  </h3>
+                  {/* LinkedIn Icon - Only show for Sam, Liam, and Darby when card is flipped */}
+                  {showInfo && selectedMemberData.name !== "Noah Morrow" && (
+                    <svg 
+                      width="24" 
+                      height="24" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => {
+                        const linkedInUrls = {
+                          "Sam Morrow": "https://www.linkedin.com/in/mrwcreations/",
+                          "Liam Ellis": "https://www.linkedin.com/in/heyitsliam/",
+                          "Darby Shaw": "https://www.linkedin.com/in/darby-shaw-8a3a7ba2/"
+                        };
+                        window.open(linkedInUrls[selectedMemberData.name], '_blank');
+                      }}
+                    >
+                      <path 
+                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" 
+                        fill="#293a8d"
+                      />
+                    </svg>
+                  )}
+                </div>
+                <h4 style={{ textAlign: showInfo ? 'left' : 'center' }}>
+                  {selectedMemberData.title}
+                </h4>
                 
                 <div className="bio-text">
                   <p style={{ textAlign: 'left' }}>
@@ -1285,38 +1333,6 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                   <span className="skill-tag">Client Relations</span>
                   <span className="skill-tag">Team Leadership</span>
                 </div>
-                
-                {/* LinkedIn Icon - Bottom Right Corner - Only show for Sam, Liam, and Darby */}
-                {selectedMemberData.name !== "Noah Morrow" && (
-                  <div className="linkedin-icon-container" style={{ 
-                    position: 'absolute',
-                    bottom: '20px',
-                    right: '20px',
-                    zIndex: 10
-                  }}>
-                    <svg 
-                      width="24" 
-                      height="24" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      xmlns="http://www.w3.org/2000/svg"
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => {
-                        const linkedInUrls = {
-                          "Sam Morrow": "https://www.linkedin.com/in/mrwcreations",
-                          "Liam Ellis": "https://www.linkedin.com/in/heyitsliam/",
-                          "Darby Shaw": "https://www.linkedin.com/in/darby-shaw-8a3a7ba2/"
-                        };
-                        window.open(linkedInUrls[selectedMemberData.name], '_blank');
-                      }}
-                    >
-                      <path 
-                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" 
-                        fill="#293a8d"
-                      />
-                    </svg>
-                  </div>
-                )}
               </div>
             )}
           </div>

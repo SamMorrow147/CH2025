@@ -931,13 +931,12 @@ overflow:hidden;
 }
 
 .project_item .title h3 {
- margin:0px;
- margin-top:30px;
+  margin: 0px;
+  margin-top: 30px;
   font-family: 'eurostile-condensed', sans-serif;
-  font-weight:200;
-  letter-spacing:2px;
+  font-weight: 200;
+  letter-spacing: 1px;
   padding-bottom: 3px;
-  font-variant: all-petite-caps;
   bottom: 0px;
   font-size: 35px;
 }
@@ -1989,7 +1988,7 @@ min-height: 100dvh;
 .mobile-nav-menu .social-icon img {
   width: 20px;
   height: 20px;
-  filter: brightness(0) invert(1);
+  filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(1183%) hue-rotate(176deg) brightness(97%) contrast(101%);
 }
 
 /* Ensure mobile navigation menu is visible when open */
@@ -2484,4 +2483,40 @@ min-height: 100dvh;
   .fp-section:not(.active) {
     transition: transform 0.1s ease-out;
   }
+}
+
+.mobile-nav-menu {
+  width: 50%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: black;
+  border-left: 3px solid #329ec7;
+}
+
+/* Mobile navigation menu overlay */
+.mobile-nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-nav-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Ensure mobile nav menu is above the overlay */
+.mobile-nav-menu {
+  z-index: 999;
 }

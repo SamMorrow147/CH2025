@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom/dist';
+import slugify from "react-slugify";
 
 export default React.memo(function Item(props) {
 

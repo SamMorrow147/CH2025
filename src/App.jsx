@@ -50,12 +50,12 @@ const App = () => {
   return (
     <div className="App">
       <Routes>
-        {/* Catch-all route for main sections */}
-        <Route path="*" element={<Fullpage onClick={showContact} setIsOpen={toggleOpen} />} />
-        
         {/* Project routes */}
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:id" element={<ProjectDetails />} />
+        
+        {/* Catch-all route for main sections */}
+        <Route path="*" element={<Fullpage onClick={showContact} setIsOpen={toggleOpen} />} />
       </Routes>
 
       { window.location.href.indexOf('contact') > -1 ? <ContactFixed onClick={hideContact}/> : null }

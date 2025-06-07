@@ -26,6 +26,55 @@ const heartSectionStyles = `
     height: 100% !important;
     max-height: 100vh !important;
   }
+
+  .heart_title {
+    color: #293a8d;
+    font-size: clamp(36px, 8vw, 80px) !important;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    font-family: 'eurostile-condensed', sans-serif !important;
+    font-weight: bold !important;
+    white-space: normal;
+    word-wrap: break-word;
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .heart_title strong {
+    font-weight: bold !important;
+    letter-spacing: 1px;
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    font-family: 'eurostile-condensed', sans-serif !important;
+    font-size: inherit !important;
+    display: inline-block;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .heart_title {
+      font-size: clamp(32px, 6vw, 60px) !important;
+      line-height: 1.3;
+      margin-bottom: 15px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .heart_title {
+      font-size: clamp(28px, 5vw, 40px) !important;
+      line-height: 1.4;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .fp-viewing-sixth .container {
+      padding-top: 130px;
+    }
+  }
 `;
 
 export default function HeartSection(props) {

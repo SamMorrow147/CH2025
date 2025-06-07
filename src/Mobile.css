@@ -533,7 +533,7 @@ display:none;
   }
 
   .table_animation, .city_animation {
-    max-width:89vw;
+    max-width:75vw;
   }
 
   .contact_card {
@@ -541,7 +541,7 @@ display:none;
     max-width: 280px;
     height: auto;
     margin-top: 30px;
-  }
+}
 
 
 

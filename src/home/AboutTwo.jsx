@@ -202,6 +202,11 @@ export default function AboutTwo(props) {
             margin-right: -50vw;
           }
 
+          .fp-viewing-sixth .heart_content {
+            margin-top: -200px;
+            margin-left: 0;
+          }
+
           .about2_content {
             position: relative;
             width: 100%;
@@ -210,7 +215,7 @@ export default function AboutTwo(props) {
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            padding: 80px 73px;
+            padding: 63px 73px;
             max-width: 1600px;
             margin: 0 auto;
           }
@@ -294,6 +299,9 @@ export default function AboutTwo(props) {
             color: #293a8d;
             font-family: 'eurostile-condensed', sans-serif;
             font-weight: bold;
+            word-wrap: break-word;
+            white-space: normal;
+            width: 100%;
           }
           
           .paragraph-content {
@@ -306,11 +314,11 @@ export default function AboutTwo(props) {
           @media (max-width: 768px) {
             .about2_content {
               flex-direction: column !important;
-              padding: 80px 20px !important;
+              padding: 63px 20px !important;
               height: auto !important;
               min-height: 0 !important;
               ${isMobileSafari ? `
-                padding: 80px 20px !important;
+                padding: 63px 20px !important;
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
@@ -344,7 +352,10 @@ export default function AboutTwo(props) {
             
             .typing-container h2 {
               text-align: center;
-              line-height: 0.4;
+              line-height: 1.2;
+              font-size: clamp(32px, 8vw, 60px);
+              word-break: break-word;
+              padding: 0 10px;
             }
             
             .paragraph-content {

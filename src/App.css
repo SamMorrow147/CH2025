@@ -1713,6 +1713,7 @@ video {max-width:100%;}
   .fp-viewing-sixth .container {
     padding: 20px;
     padding-bottom: 10px;
+    padding-top: 120px;
   }
 
   /* Restore original service styles */
@@ -1840,8 +1841,8 @@ video {max-width:100%;}
   }
 
   .about2_content {
-    flex-direction: column;
-    padding: 90px 20px;
+    flex-direction: column !important;
+    padding: 123px 20px !important;
   }
 }
 
@@ -2469,12 +2470,12 @@ min-height: 100dvh;
   .city_animation {
     width: 100%;
     height: auto;
-    min-height: 500px;
+    min-height: 420px;
   }
   
   .city_animation > div,
   .city_animation canvas {
-    min-height: 500px;
+    min-height: 420px;
     width: auto;
     height: 100%;
   }

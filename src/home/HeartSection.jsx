@@ -75,6 +75,10 @@ const heartSectionStyles = `
       padding-top: 130px;
     }
   }
+
+  .fp-viewing-sixth .heart_content {
+    margin-top: -30px;
+  }
 `;
 
 export default function HeartSection(props) {

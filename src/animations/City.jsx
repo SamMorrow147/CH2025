@@ -6,7 +6,7 @@ export default function City({paused}) {
             <style>
                 {`
                     .city_animation canvas {
-                        margin-top: -80px !important;
+                        margin-top: -59px !important;
                     }
                     
                     @media only screen and (max-width: 400px) {

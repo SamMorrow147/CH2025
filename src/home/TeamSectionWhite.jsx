@@ -431,7 +431,7 @@ const flipCardStyles = `
     
     /* Adjust spacing for mobile */
     .team_content {
-      padding: 95px 5px 0 !important;
+      padding: 10px 5px 0 !important;
       justify-content: flex-start !important;
       height: 689px !important;
       minHeight: 689px !important;

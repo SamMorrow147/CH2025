@@ -21,7 +21,7 @@ export default function AboutTwo(props) {
   const [showContent, setShowContent] = useState(false);
   const [showParagraph, setShowParagraph] = useState(false);
   const [showGifFallback, setShowGifFallback] = useState(false);
-  const [gifSrc, setGifSrc] = useState('/images/animated-logo.gif');
+  const [gifSrc, setGifSrc] = useState('/images/Rotate.gif');
   const videoRef = useRef(null);
   const posterRef = useRef(null);
   
@@ -30,7 +30,7 @@ export default function AboutTwo(props) {
   
   // Force GIF reload function (specifically for video fallback)
   const reloadClubhausGif = () => {
-    setGifSrc('/images/animated-logo.gif?' + Date.now());
+    setGifSrc('/images/Rotate.gif?' + Date.now());
   };
     
   useEffect(() => {

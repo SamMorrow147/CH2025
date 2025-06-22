@@ -435,12 +435,21 @@ body.project-details-page .menu {
     transition: none !important;
   }
   
-  /* Prevent any scroll-based scale/size animations on mobile projects page */
+  /* Prevent any scroll-based scale/size animations on mobile projects page, but allow title animations */
   .project_all .project_item {
-    animation: none !important;
+    /* Don't disable all animations - titles need their fadeIn animation */
   }
   
-  .project_all .grid_item {
+  /* Allow title animations to work on mobile - ensure titles are visible */
+  .project_all .grid_item .title {
+    animation: fadeIn 1s forwards !important;
+    opacity: 0 !important;
+    animation-delay: .6s !important;
+  }
+  
+  /* Also ensure project_item titles work */
+  .project_all .project_item .title {
+    opacity: 1 !important;
     animation: none !important;
   }
   

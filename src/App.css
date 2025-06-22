@@ -1230,6 +1230,25 @@ body:has(.project-details) .menu {
   z-index: 1 !important;
 }
 
+/* Mobile-specific fix for project navigation (for better browser compatibility) */
+@media (max-width: 768px) {
+  body:has(.project-details) .menu,
+  body.project-details-page .menu {
+    top: 0px !important;
+    z-index: 1 !important;
+    position: fixed !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* Ensure project navigation is always visible on mobile project pages */
+  body.project-details-page .menu {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
 .active-bar {
   position: fixed !important;
   z-index: 999 !important;

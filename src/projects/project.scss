@@ -330,7 +330,8 @@ transition:.2s;
 }
 
 /* Keep project navigation visible on project pages regardless of scroll position */
-body:has(.project-details) .menu {
+body:has(.project-details) .menu,
+body.project-details-page .menu {
   top: 0px !important;
   z-index: 1 !important;
 }
@@ -351,5 +352,18 @@ body:has(.project-details) .menu {
   .back-btn {
     padding: 10px 16px;
     font-size: 14px;
+  }
+
+  /* Mobile-specific fix for project navigation */
+  body:has(.project-details) .menu,
+  body.project-details-page .menu {
+    top: 0px !important;
+    z-index: 1 !important;
+    position: fixed !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    animation: none !important;
+    transition: none !important;
   }
 }

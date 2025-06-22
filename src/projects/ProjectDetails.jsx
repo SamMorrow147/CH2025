@@ -26,7 +26,7 @@ const ProjectDetails = () => {
     const isMobileSafari = isIOS && isSafari;
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [videoPlaying, setVideoPlaying] = useState(false);
-    const [showVideoFallback, setShowVideoFallback] = useState(false);
+    const [showVideoFallback, setShowVideoFallback] = useState(window.innerWidth < 768); // Start with poster on mobile
 
     useEffect(() => {
         setIsLoading(true);
@@ -61,15 +61,20 @@ const ProjectDetails = () => {
 
     // Handle video load and check autoplay capability
     const handleVideoLoaded = () => {
-        // On mobile devices, be more cautious about autoplay
-        if (isMobile && videoRef.current) {
-            // Small delay to let the browser attempt autoplay naturally
-            setTimeout(() => {
-                if (videoRef.current && videoRef.current.paused && !videoPlaying) {
-                    // If video is still paused after attempting autoplay, show poster
-                    setShowVideoFallback(true);
+        // On mobile devices, always show poster first
+        if (isMobile) {
+            setShowVideoFallback(true);
+        } else {
+            // On desktop, try autoplay
+            if (videoRef.current) {
+                const playPromise = videoRef.current.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        // If autoplay fails on desktop, show poster
+                        setShowVideoFallback(true);
+                    });
                 }
-            }, 500);
+            }
         }
     };
 
@@ -112,6 +117,14 @@ const ProjectDetails = () => {
             }, 100);
         }
     }, [singleprojectData?.items, isLoading]);
+
+    // Add body class for project details pages to ensure navigation stays visible
+    useEffect(() => {
+        document.body.classList.add('project-details-page');
+        return () => {
+            document.body.classList.remove('project-details-page');
+        };
+    }, []);
 
     if (isLoading) {
         return (
@@ -158,9 +171,10 @@ const ProjectDetails = () => {
                             ref={videoRef}
                             preload="auto" 
                             key={project.video.fields.title} 
-                            autoPlay={true} 
+                            autoPlay={!isMobile} 
                             muted 
                             playsInline
+                            poster={project?.headerImage?.fields?.file?.url}
                             onLoadedData={handleVideoLoaded}
                             onPlay={() => setVideoPlaying(true)}
                             onError={() => setShowVideoFallback(true)}

@@ -435,6 +435,18 @@ body.project-details-page .menu {
     scale: 1 !important;
   }
   
+  /* Prevent SlideIn animations from triggering during mobile scroll */
+  .project_all .grid_item {
+    animation: none !important;
+  }
+  
+  /* Ensure title animations still work */
+  .project_all .grid_item .title {
+    animation: fadeIn 1s forwards !important;
+    opacity: 0 !important;
+    animation-delay: .6s !important;
+  }
+  
   /* Ensure cards maintain consistent size on mobile */
   .project_all .project_item .project-card {
     min-height: 300px !important;

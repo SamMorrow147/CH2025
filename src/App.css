@@ -2794,3 +2794,12 @@ min-height: 100dvh;
   overflow: hidden;
   z-index: 1;
 }
+
+/* Override SlideIn/slideBack animations specifically on projects page */
+.project_all .active.section .swiper-slide {
+  animation: none !important;
+}
+
+.project_all .section:not(.active) .swiper-slide:nth-child(n + 2) {
+  animation: none !important;
+}

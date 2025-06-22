@@ -76,8 +76,10 @@ const heartSectionStyles = `
     }
   }
 
-  .fp-viewing-sixth .heart_content {
-    margin-top: -30px;
+  @media (min-width: 401px) {
+    .fp-viewing-sixth .heart_content {
+      margin-top: -30px;
+    }
   }
 `;
 

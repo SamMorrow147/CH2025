@@ -117,7 +117,7 @@ const ProjectDetails = () => {
         return (
             <>
                 <MainMenu/>
-                <div className="back-to-portfolio">
+                <div className="back-to-portfolio-detail">
                     <button onClick={handleBackToPortfolio} className="back-btn">
                         ← Back to Portfolio
                     </button>
@@ -136,7 +136,7 @@ const ProjectDetails = () => {
         <MainMenu/>
         
         {/* Back to Portfolio Button */}
-        <div className="back-to-portfolio">
+        <div className="back-to-portfolio-detail">
             <button onClick={handleBackToPortfolio} className="back-btn">
                 ← Back to Portfolio
             </button>

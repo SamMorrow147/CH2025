@@ -288,8 +288,16 @@ transition:.2s;
 /* Back to Portfolio Button Styling */
 .back-to-portfolio {
   position: fixed;
-  top: 20px;
+  top: 60px;
   left: 20px;
+  z-index: 1000;
+}
+
+/* Specific styling for individual project detail pages */
+.back-to-portfolio-detail {
+  position: fixed;
+  top: 6px;
+  left: 10px;
   z-index: 1000;
 }
 
@@ -321,11 +329,23 @@ transition:.2s;
   transform: translateY(0);
 }
 
+/* Keep project navigation visible on project pages regardless of scroll position */
+body:has(.project-details) .menu {
+  top: 0px !important;
+  z-index: 1 !important;
+}
+
 /* Mobile responsiveness for back button */
 @media (max-width: 768px) {
   .back-to-portfolio {
     top: 15px;
     left: 15px;
+  }
+  
+  /* Specific mobile styling for individual project detail pages */
+  .back-to-portfolio-detail {
+    top: 6px;
+    left: 10px;
   }
   
   .back-btn {

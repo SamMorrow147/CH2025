@@ -1203,6 +1203,41 @@ img.logo-bottom {
   background: #2a3b8d;
 }
 
+/* Stabilize project navigation menu - prevent animation conflicts */
+.menu.project-nav-menu,
+.menu.project-nav-active {
+  position: fixed !important;
+  top: 0px !important;
+  z-index: 1000 !important;
+  transition: none !important;
+  animation: none !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background: white !important;
+}
+
+/* Handle dark background for project navigation when needed */
+.menu.even.project-nav-menu,
+.menu.even.project-nav-active {
+  background: #2a3b8d !important;
+}
+
+.menu.even.project-nav-menu .project-nav > a,
+.menu.even.project-nav-active .project-nav > a {
+  color: white;
+}
+
+.menu.even.project-nav-menu .project-nav > a .card-icon,
+.menu.even.project-nav-active .project-nav > a .card-icon {
+  filter: brightness(0) invert(1);
+}
+
+.menu.even.project-nav-menu .project-nav > a:hover,
+.menu.even.project-nav-active .project-nav > a:hover {
+  color: #329ec7;
+  background-color: rgba(50, 158, 199, 0.2);
+}
+
 /* Ensure Face Cards section gets blue navigation */
 .fp-viewing-seventh .menu {
   background: #2a3b8d !important;
@@ -1253,7 +1288,9 @@ body:has(.project-details) .menu {
   }
   
   /* Ensure project navigation is always visible on mobile project pages */
-  body.project-details-page .menu {
+  body.project-details-page .menu,
+  .menu.project-nav-menu,
+  .menu.project-nav-active {
     animation: none !important;
     transition: none !important;
   }
@@ -1892,30 +1929,57 @@ video {max-width:100%;}
 
 .project-nav {
     display: flex;
-    height:100%;
-    width:100%;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .project-nav > a:first-child {
-  margin-left:0px;
-  margin-right:auto;
+  margin-left: 0px;
+  margin-right: auto;
+  flex-shrink: 0;
 }
-.project-nav > a:second-child {
-  margin-right:0px;
-  margin-left:auto;
+.project-nav > a:last-child {
+  margin-right: 0px;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .project-nav > a {
-  color:white;
-  display:flex;
+  color: #293a8d;
+  display: flex;
   justify-content: center;
   align-items: center;
-  padding:10px;
-  font-size:16px;
-  margin-right:20px;
+  padding: 10px 15px;
+  font-size: 16px;
   white-space: nowrap;
-  font-weight:700;
-  letter-spacing:3px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  border-radius: 4px;
+}
+
+.project-nav > a:hover {
+  color: #329ec7;
+  background-color: rgba(50, 158, 199, 0.1);
+}
+
+.card-icon {
+  width: auto;
+  max-height: 24px;
+  height: 24px;
+  position: relative;
+  margin-right: 8px;
+  flex-shrink: 0;
+  filter: brightness(0) saturate(100%) invert(22%) sepia(15%) saturate(3632%) hue-rotate(210deg) brightness(95%) contrast(91%);
+}
+
+.project-nav > a:hover .card-icon {
+  filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(180deg) brightness(118%) contrast(119%);
 }
 
 .chevron, .container_2 {
@@ -1997,10 +2061,13 @@ min-height: 100dvh;
 }
 
 .card-icon {
-  width:auto;
-  max-height:30px;
-  position:relative;
-  margin-right:10px;
+  width: auto;
+  max-height: 24px;
+  height: 24px;
+  position: relative;
+  margin-right: 8px;
+  flex-shrink: 0;
+  filter: brightness(0) saturate(100%) invert(22%) sepia(15%) saturate(3632%) hue-rotate(210deg) brightness(95%) contrast(91%);
 }
 
 /* Contact social icons styling */

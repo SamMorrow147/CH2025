@@ -8,8 +8,8 @@ export default function MainMenu({currentScroll, onClick, fullpageApi}) {
      }
      
     const [menuOpen, setMenuOpen] = useState(false);
-     const location = useLocation();
-     const showProjectNav = location.pathname.startsWith('/projects/');
+    const location = useLocation();
+    const showProjectNav = location.pathname.startsWith('/projects/');
 
     // Navigation menu items
     const navItems = [
@@ -38,6 +38,33 @@ export default function MainMenu({currentScroll, onClick, fullpageApi}) {
         });
     }, []);
 
+    // Stabilize project navigation menu positioning and prevent animation conflicts
+    useEffect(() => {
+        const menuElement = document.querySelector('.menu');
+        if (showProjectNav && menuElement) {
+            // Force immediate positioning for project pages to prevent animation conflicts
+            menuElement.style.top = '0px';
+            menuElement.style.transition = 'none';
+            menuElement.style.zIndex = '1000';
+            menuElement.classList.add('project-nav-active');
+            
+            // Re-enable transitions after positioning is stable
+            setTimeout(() => {
+                menuElement.style.transition = '';
+            }, 100);
+        } else if (menuElement) {
+            menuElement.classList.remove('project-nav-active');
+        }
+        
+        return () => {
+            // Cleanup when component unmounts or location changes
+            if (menuElement) {
+                menuElement.classList.remove('project-nav-active');
+                menuElement.style.transition = '';
+            }
+        };
+    }, [showProjectNav, location.pathname]);
+
     const handleNavClick = (anchorId, index) => {
         if (fullpageApi) {
             // Use direct section index for navigation (1-based indexing)
@@ -58,7 +85,7 @@ export default function MainMenu({currentScroll, onClick, fullpageApi}) {
 
     return (
         <>
-        <div className={`${isEven(currentScroll) ? 'menu' : 'menu even'} ${currentScroll !== 0 ? 'menu_active' : ''}`}>
+        <div className={`${isEven(currentScroll) ? 'menu' : 'menu even'} ${currentScroll !== 0 ? 'menu_active' : ''} ${showProjectNav ? 'project-nav-menu' : ''}`}>
 
            {/* Conditionally render the project navigation */}
                 {showProjectNav && (

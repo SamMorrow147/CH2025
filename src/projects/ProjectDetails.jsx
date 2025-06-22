@@ -26,7 +26,9 @@ const ProjectDetails = () => {
     const isMobileSafari = isIOS && isSafari;
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [videoPlaying, setVideoPlaying] = useState(false);
-    const [showVideoFallback, setShowVideoFallback] = useState(window.innerWidth < 768); // Start with poster on mobile
+    const [showCustomPoster, setShowCustomPoster] = useState(true); // Always start with poster visible
+    const [videoReady, setVideoReady] = useState(false);
+    const [isVideoLoading, setIsVideoLoading] = useState(false);
 
     useEffect(() => {
         setIsLoading(true);
@@ -61,42 +63,61 @@ const ProjectDetails = () => {
 
     // Handle video load and check autoplay capability
     const handleVideoLoaded = () => {
-        // On mobile devices, always show poster first
-        if (isMobile) {
-            setShowVideoFallback(true);
-        } else {
-            // On desktop, try autoplay
-            if (videoRef.current) {
-                const playPromise = videoRef.current.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(() => {
-                        // If autoplay fails on desktop, show poster
-                        setShowVideoFallback(true);
+        setVideoReady(true);
+        // On desktop, try autoplay if not mobile
+        if (!isMobile && videoRef.current) {
+            const playPromise = videoRef.current.play();
+            if (playPromise !== undefined) {
+                playPromise
+                    .then(() => {
+                        setVideoPlaying(true);
+                        setShowCustomPoster(false);
+                    })
+                    .catch(() => {
+                        // If autoplay fails, keep showing poster
+                        console.log("Autoplay failed, showing poster");
                     });
-                }
             }
         }
     };
 
     // Handle manual video play (when user clicks poster)
     const handleManualPlay = () => {
-        if (videoRef.current) {
-            const playPromise = videoRef.current.play();
-            if (playPromise !== undefined) {
-                playPromise
-                    .then(() => {
-                        setVideoPlaying(true);
-                        setShowVideoFallback(false);
-                    })
-                    .catch(err => {
-                        console.error("Manual video play failed:", err);
-                        // Keep poster visible if manual play also fails
-                    });
-            } else {
-                setVideoPlaying(true);
-                setShowVideoFallback(false);
-            }
+        if (videoRef.current && videoReady) {
+            setIsVideoLoading(true);
+            setShowCustomPoster(false); // Hide custom poster immediately
+            
+            // Small delay to ensure video is ready
+            setTimeout(() => {
+                const playPromise = videoRef.current.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            setVideoPlaying(true);
+                            setIsVideoLoading(false);
+                        })
+                        .catch(err => {
+                            console.error("Manual video play failed:", err);
+                            // Show poster again if play fails
+                            setShowCustomPoster(true);
+                            setIsVideoLoading(false);
+                        });
+                } else {
+                    setVideoPlaying(true);
+                    setIsVideoLoading(false);
+                }
+            }, 100);
         }
+    };
+
+    // Handle video play/pause events
+    const handleVideoPlay = () => {
+        setVideoPlaying(true);
+        setShowCustomPoster(false);
+    };
+
+    const handleVideoPause = () => {
+        setVideoPlaying(false);
     };
 
     const project = singleprojectData?.items?.[0]?.fields;
@@ -169,25 +190,57 @@ const ProjectDetails = () => {
                     <div className="video-container">
                         <video 
                             ref={videoRef}
-                            preload="auto" 
+                            preload="metadata" 
                             key={project.video.fields.title} 
-                            autoPlay={!isMobile} 
-                            muted 
+                            autoPlay={false}
+                            muted={!videoPlaying} // Unmute when playing for controls to work properly
                             playsInline
+                            controls={!showCustomPoster} // Show controls when video is visible
                             poster={project?.headerImage?.fields?.file?.url}
                             onLoadedData={handleVideoLoaded}
-                            onPlay={() => setVideoPlaying(true)}
-                            onError={() => setShowVideoFallback(true)}
+                            onPlay={handleVideoPlay}
+                            onPause={handleVideoPause}
+                            onError={() => setShowCustomPoster(true)}
                             style={{
-                                display: showVideoFallback ? 'none' : 'block'
+                                display: showCustomPoster ? 'none' : 'block',
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover'
                             }}
                         >
                             {project.video.fields.file.url && <source src={project.video.fields.file.url} type="video/mp4"/>}
                             Your browser does not support the video tag.
                         </video>
                         
-                        {/* Poster fallback with play button */}
-                        {showVideoFallback && (
+                        {/* Loading indicator */}
+                        {isVideoLoading && (
+                            <div 
+                                style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    zIndex: 10
+                                }}
+                            >
+                                <div style={{
+                                    width: '50px',
+                                    height: '50px',
+                                    border: '4px solid rgba(255, 255, 255, 0.3)',
+                                    borderTop: '4px solid white',
+                                    borderRadius: '50%',
+                                    animation: 'spin 1s linear infinite'
+                                }} />
+                            </div>
+                        )}
+
+                        {/* Custom poster with play button */}
+                        {showCustomPoster && (
                             <div 
                                 className="video-poster" 
                                 onClick={handleManualPlay}
@@ -209,24 +262,35 @@ const ProjectDetails = () => {
                                 <div 
                                     className="play-button"
                                     style={{
-                                        width: '80px',
-                                        height: '80px',
-                                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                                        width: '100px',
+                                        height: '100px',
+                                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
                                         borderRadius: '50%',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        transition: 'all 0.3s ease'
+                                        transition: 'all 0.3s ease',
+                                        border: '3px solid rgba(255, 255, 255, 0.8)',
+                                        backdropFilter: 'blur(10px)',
+                                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'scale(1.1)';
+                                        e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'scale(1)';
+                                        e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
                                     }}
                                 >
                                     <div 
                                         style={{
                                             width: 0,
                                             height: 0,
-                                            borderLeft: '20px solid white',
-                                            borderTop: '12px solid transparent',
-                                            borderBottom: '12px solid transparent',
-                                            marginLeft: '4px'
+                                            borderLeft: '25px solid white',
+                                            borderTop: '15px solid transparent',
+                                            borderBottom: '15px solid transparent',
+                                            marginLeft: '6px'
                                         }}
                                     />
                                 </div>

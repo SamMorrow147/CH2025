@@ -91,15 +91,52 @@ line-height:1.5;
   height: 100%;
 }
 
-.proj-header video {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  translate: -50% -50%;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  .proj-header video {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Enhance video controls styling */
+  .proj-header video::-webkit-media-controls-panel {
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+  }
+
+  .proj-header video::-webkit-media-controls-play-button,
+  .proj-header video::-webkit-media-controls-mute-button,
+  .proj-header video::-webkit-media-controls-volume-slider,
+  .proj-header video::-webkit-media-controls-timeline,
+  .proj-header video::-webkit-media-controls-current-time-display,
+  .proj-header video::-webkit-media-controls-time-remaining-display {
+    filter: brightness(1.2);
+  }
+
+  /* Video poster enhancement */
+  .video-poster {
+    background-attachment: fixed;
+  }
+
+  /* Loading spinner animation */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Ensure video controls are visible on mobile */
+  @media (max-width: 768px) {
+    .proj-header video {
+      object-fit: cover;
+    }
+    
+    .proj-header video::-webkit-media-controls-panel {
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+  }
 
 .proj-header .video-poster:hover .play-button {
   transform: scale(1.1);

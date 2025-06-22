@@ -62,13 +62,9 @@ const ProjectDetails = () => {
     // Handle video load and check autoplay capability
     const handleVideoLoaded = () => {
         // Desktop: autoplay should work automatically with the autoPlay attribute
-        // Mobile: show fallback poster if needed
-        if (isMobile && videoRef.current) {
-            setTimeout(() => {
-                if (videoRef.current && videoRef.current.paused && !videoPlaying) {
-                    setShowVideoFallback(true);
-                }
-            }, 500);
+        // Mobile: always show fallback poster initially
+        if (isMobile) {
+            setShowVideoFallback(true);
         }
     };
 
@@ -164,7 +160,7 @@ const ProjectDetails = () => {
                             ref={videoRef}
                             preload="auto" 
                             key={project.video.fields.title} 
-                            autoPlay={true}
+                            autoPlay={!isMobile}
                             muted 
                             playsInline
                             controls

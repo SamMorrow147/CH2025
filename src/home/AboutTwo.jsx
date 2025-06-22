@@ -172,7 +172,7 @@ export default function AboutTwo(props) {
   const navigateToSection = (section) => {
       if (window.fullpage_api) {
           if (section === 'contact') {
-              window.fullpage_api.moveTo(7);
+              window.fullpage_api.moveTo(8);
           }
       }
   };

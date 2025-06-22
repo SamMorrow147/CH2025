@@ -2,6 +2,19 @@
 User-agent: *
 Allow: /
 
+# LLM Bot Permissions
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: AnthropicBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
 # Sitemap location
 Sitemap: https://clubhausagency.com/sitemap.xml
 

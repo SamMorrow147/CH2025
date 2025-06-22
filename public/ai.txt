@@ -1,0 +1,4 @@
+allow: /
+contact: hello@clubhausagency.com
+policy: https://clubhausagency.com/ai-policy
+attribution: required 

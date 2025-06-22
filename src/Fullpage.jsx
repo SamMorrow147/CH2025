@@ -95,7 +95,8 @@ export default function Fullpage({onClick, setIsOpen}) {
     '/why-clubhaus': 4,
     '/portfolio': 5,
     '/our-heart': 6,
-    '/contact': 7
+    '/team': 7,
+    '/contact': 8
   };
 
   // Handle initial URL loading
@@ -467,7 +468,8 @@ useEffect(() => {
             'fourth': '/why-clubhaus',
             'fifth': '/portfolio',
             'sixth': '/our-heart',
-            'seventh': '/contact'
+            'seventh': '/team',
+            'eighth': '/contact'
           };
 
           // Only sync URL if we're not on a project page

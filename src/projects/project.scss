@@ -414,37 +414,18 @@ body.project-details-page .menu {
 
 /* Targeted fixes to prevent mobile scroll resize issues while keeping grid dispersion */
 
-/* Only disable specific scroll-triggered animations that cause resize issues */
-.project_all .active.section .swiper-slide {
-  animation: none !important;
-}
-
-.project_all .section:not(.active) .swiper-slide:nth-child(n + 2) {
-  animation: none !important;
-}
+/* The exact source of the problem is now fixed in App.css - SlideIn animations on .active.section .swiper-slide */
 
 /* Prevent any scale transforms on mobile that cause resizing during scroll */
 @media (max-width: 800px) {
-  
-  /* Only target the specific scale property that causes resize issues */
   .project_all .project_item .project-card {
     scale: 1 !important;
+    transition: none !important;
   }
   
   .project_all .project_item:hover .project-card {
     scale: 1 !important;
-  }
-  
-  /* Prevent SlideIn animations from triggering during mobile scroll */
-  .project_all .grid_item {
-    animation: none !important;
-  }
-  
-  /* Ensure title animations still work */
-  .project_all .grid_item .title {
-    animation: fadeIn 1s forwards !important;
-    opacity: 0 !important;
-    animation-delay: .6s !important;
+    transition: none !important;
   }
   
   /* Ensure cards maintain consistent size on mobile */

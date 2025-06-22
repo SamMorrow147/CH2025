@@ -849,9 +849,19 @@ z-index:2;}
   animation:SlideIn .6s forwards;
 }
 
+/* Prevent SlideIn animation from affecting project cards positioning */
+.project_all .active.section .swiper-slide {
+  animation: none !important;
+}
+
 .section:not(.active) .swiper-slide:nth-child(n + 2)  {
   animation:slideBack .3s;
   animation-delay:0s !important;
+}
+
+/* Prevent slideBack animation from affecting project cards positioning */
+.project_all .section:not(.active) .swiper-slide:nth-child(n + 2) {
+  animation: none !important;
 }
 
 .project_item .project-card {
@@ -2793,35 +2803,4 @@ min-height: 100dvh;
   height: 100%;
   overflow: hidden;
   z-index: 1;
-}
-
-/* Override SlideIn/slideBack animations specifically on projects page */
-.project_all .active.section .swiper-slide {
-  animation: none !important;
-}
-
-.project_all .section:not(.active) .swiper-slide:nth-child(n + 2) {
-  animation: none !important;
-}
-
-/* Prevent .active.section from triggering SlideIn animations on project cards */
-.project_all.active .grid_item,
-.project_all .active .grid_item,
-.active .project_all .grid_item {
-  animation: none !important;
-}
-
-.project_all.active .project_item,
-.project_all .active .project_item,  
-.active .project_all .project_item {
-  animation: none !important;
-}
-
-/* Ensure JavaScript positioning always overrides CSS animations */
-.project_all .grid_item[style*="translate"] {
-  animation: none !important;
-}
-
-.project_all .project_item[style*="translate"] {
-  animation: none !important;
 }

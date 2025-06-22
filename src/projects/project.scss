@@ -266,7 +266,7 @@ transition:.2s;
  }
  
  .project_item:hover .project-card {
-  scale:1.05;
+  /* scale:1.05; */
 }
 
 
@@ -410,4 +410,59 @@ body.project-details-page .menu {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* Targeted fixes to prevent mobile scroll resize issues while keeping grid dispersion */
+
+/* Prevent SlideIn animations that might be triggered during scroll on projects page */
+.project_all .active.section .swiper-slide {
+  animation: none !important;
+}
+
+.project_all .section:not(.active) .swiper-slide:nth-child(n + 2) {
+  animation: none !important;
+}
+
+/* Prevent any scale transforms on mobile that cause resizing during scroll */
+@media (max-width: 800px) {
+  .project_all .project_item .project-card {
+    scale: 1 !important;
+    transition: none !important;
+  }
+  
+  .project_all .project_item:hover .project-card {
+    scale: 1 !important;
+    transition: none !important;
+  }
+  
+  /* Prevent any scroll-based scale/size animations on mobile projects page */
+  .project_all .project_item {
+    animation: none !important;
+  }
+  
+  .project_all .grid_item {
+    animation: none !important;
+  }
+  
+  /* Prevent any slideIn animations triggered during mobile scroll */
+  .project_all .active.section .swiper-slide,
+  .project_all .section:not(.active) .swiper-slide {
+    animation: none !important;
+  }
+  
+  /* Ensure cards maintain consistent size on mobile */
+  .project_all .project_item .project-card {
+    min-height: 300px !important;
+    max-height: 300px !important;
+  }
+}
+
+/* Disable hover scale specifically on projects grid page */
+.project_all .project_item:hover .project-card {
+  scale: 1 !important;
+}
+
+/* Keep hover scale for other pages */
+.project_item:hover .project-card {
+  scale:1.05;
 }

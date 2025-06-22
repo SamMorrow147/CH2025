@@ -319,6 +319,12 @@ transition:.2s;
       height: auto;
     }
 
+    /* Reduce spacing between video and content on mobile */
+    .project-details .row {
+      padding-top: 10px;
+      padding-bottom: 0px;
+    }
+
     
   }
 

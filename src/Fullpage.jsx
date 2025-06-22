@@ -261,6 +261,12 @@ let scrollTimeout;
 const handleScroll = (event) => {
   if (!isChrome) return; // Only apply to Chrome
   
+  // Skip Chrome-specific scroll handling on projects page
+  const isOnProjectsPage = window.location.pathname.startsWith('/projects');
+  if (isOnProjectsPage) {
+    return; // Let normal scroll behavior work on projects page
+  }
+  
   // Get current section
   const currentSection = window.fullpage_api ? window.fullpage_api.getActiveSection() : null;
   const isOnModusSection = currentSection && currentSection.anchor === 'sixth';
@@ -542,6 +548,12 @@ useEffect(() => {
                   
                   // Use capture phase to intercept all wheel events before they reach fullpage
                   document.addEventListener('wheel', function(event) {
+                    // Skip Chrome-specific scroll handling on projects page
+                    const isOnProjectsPage = window.location.pathname.startsWith('/projects');
+                    if (isOnProjectsPage) {
+                      return; // Let normal scroll behavior work on projects page
+                    }
+                    
                     const now = Date.now();
                     const currentSection = window.fullpage_api ? window.fullpage_api.getActiveSection() : null;
                     const isOnTeamSectionCurrent = currentSection && currentSection.anchor === 'seventh';

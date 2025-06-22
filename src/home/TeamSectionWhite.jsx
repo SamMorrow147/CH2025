@@ -439,6 +439,13 @@ const flipCardStyles = `
       overflow: visible !important;
     }
     
+    /* Specific styles for devices under 400px */
+    @media (max-width: 400px) {
+      .team_content {
+        padding: 70px 5px 0 !important;
+      }
+    }
+    
     /* Reduce title margins on mobile */
     .team_content h2 {
       margin-bottom: 3px !important;
@@ -786,6 +793,8 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
   const [flippedCards, setFlippedCards] = useState(new Set()); // Track which cards are flipped
   const [isDragging, setIsDragging] = useState(false); // Track if currently dragging
   const [selectedMobileCard, setSelectedMobileCard] = useState(null); // Track selected card for info display
+  
+
   
   // Card stack positions and rotations for organic look
   const getCardTransform = (index) => {

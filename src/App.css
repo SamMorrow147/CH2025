@@ -2475,6 +2475,15 @@ min-height: 100dvh;
   }
 }
 
+/* Specific styling for devices under 400px */
+@media (max-width: 400px) {
+  .team_content {
+    padding: 70px 5px 0 !important;
+    justify-content: flex-start !important;
+    height: 689px !important;
+  }
+}
+
 /* Back to Portfolio Button Styling - Global */
 .back-to-portfolio {
   position: fixed;

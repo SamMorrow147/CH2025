@@ -26,7 +26,7 @@ const ProjectDetails = () => {
     const isMobileSafari = isIOS && isSafari;
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [videoPlaying, setVideoPlaying] = useState(false);
-    const [showVideoFallback, setShowVideoFallback] = useState(window.innerWidth < 768); // Start with poster on mobile
+    const [showVideoFallback, setShowVideoFallback] = useState(false);
 
     useEffect(() => {
         setIsLoading(true);
@@ -52,25 +52,16 @@ const ProjectDetails = () => {
     // Handle window resize for responsive design
     useEffect(() => {
         const handleResize = () => {
-            const newIsMobile = window.innerWidth < 768;
-            setIsMobile(newIsMobile);
-            // Update video fallback state based on screen size
-            if (newIsMobile && !videoPlaying) {
-                setShowVideoFallback(true);
-            } else if (!newIsMobile) {
-                setShowVideoFallback(false);
-            }
+            setIsMobile(window.innerWidth < 768);
         };
         
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [videoPlaying]);
+    }, []);
 
     // Handle video load and check autoplay capability
     const handleVideoLoaded = () => {
-        // Desktop: autoplay should work automatically with the autoPlay attribute
-        // Mobile: poster is already shown by default, no action needed
-        console.log('Video loaded, isMobile:', isMobile, 'showVideoFallback:', showVideoFallback);
+        console.log('Video loaded, isMobile:', isMobile, 'autoplay should work on both desktop and mobile');
     };
 
     // Handle manual video play (when user clicks poster)
@@ -181,7 +172,7 @@ const ProjectDetails = () => {
                             ref={videoRef}
                             preload="auto" 
                             key={project.video.fields.title} 
-                            autoPlay={!isMobile}
+                            autoPlay={true}
                             muted 
                             playsInline
                             controls

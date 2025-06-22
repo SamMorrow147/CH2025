@@ -26,7 +26,7 @@ const ProjectDetails = () => {
     const isMobileSafari = isIOS && isSafari;
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [videoPlaying, setVideoPlaying] = useState(false);
-    const [showVideoFallback, setShowVideoFallback] = useState(false);
+    const [showVideoFallback, setShowVideoFallback] = useState(window.innerWidth < 768); // Start with poster on mobile
 
     useEffect(() => {
         setIsLoading(true);
@@ -52,20 +52,25 @@ const ProjectDetails = () => {
     // Handle window resize for responsive design
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth < 768);
+            const newIsMobile = window.innerWidth < 768;
+            setIsMobile(newIsMobile);
+            // Update video fallback state based on screen size
+            if (newIsMobile && !videoPlaying) {
+                setShowVideoFallback(true);
+            } else if (!newIsMobile) {
+                setShowVideoFallback(false);
+            }
         };
         
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [videoPlaying]);
 
     // Handle video load and check autoplay capability
     const handleVideoLoaded = () => {
         // Desktop: autoplay should work automatically with the autoPlay attribute
-        // Mobile: always show fallback poster initially
-        if (isMobile) {
-            setShowVideoFallback(true);
-        }
+        // Mobile: poster is already shown by default, no action needed
+        console.log('Video loaded, isMobile:', isMobile, 'showVideoFallback:', showVideoFallback);
     };
 
     // Handle manual video play (when user clicks poster)
@@ -91,6 +96,22 @@ const ProjectDetails = () => {
     const project = singleprojectData?.items?.[0]?.fields;
     const projectId = singleprojectData?.items?.[0]?.sys?.id;
     const sections = project?.sections || [];
+    
+    // Get the header image URL for poster
+    const headerImageUrl = project?.headerImage?.fields?.file?.url;
+    
+    // Debug log
+    useEffect(() => {
+        if (project) {
+            console.log('Project data:', {
+                title: project.title,
+                headerImageUrl,
+                hasVideo: !!project.video,
+                isMobile,
+                showVideoFallback
+            });
+        }
+    }, [project, headerImageUrl, isMobile, showVideoFallback]);
 
     const modifiedURL = project?.url ? (/^https?:\/\//i.test(project.url) ? project.url : `https://${project.url}`) : null;
 
@@ -153,7 +174,7 @@ const ProjectDetails = () => {
         }
 
         <div className="project-details mt-5" ref={contentRef}>
-            <div className="proj-header" style={{backgroundImage:`url(${project?.headerImage?.fields?.file?.url})`}}>
+            <div className="proj-header" style={{backgroundImage:`url(${headerImageUrl})`}}>
                 {project?.video && (
                     <div className="video-container">
                         <video 
@@ -164,7 +185,7 @@ const ProjectDetails = () => {
                             muted 
                             playsInline
                             controls
-                            poster={project?.headerImage?.fields?.file?.url}
+                            poster={headerImageUrl}
                             onLoadedData={handleVideoLoaded}
                             onPlay={() => setVideoPlaying(true)}
                             onError={() => setShowVideoFallback(true)}
@@ -190,7 +211,8 @@ const ProjectDetails = () => {
                                     left: 0,
                                     width: '100%',
                                     height: '100%',
-                                    backgroundImage: `url(${project?.headerImage?.fields?.file?.url})`,
+                                    backgroundImage: headerImageUrl ? `url(${headerImageUrl})` : 'none',
+                                    backgroundColor: headerImageUrl ? 'transparent' : '#1a1a1a',
                                     backgroundSize: 'cover',
                                     backgroundPosition: 'center',
                                     cursor: 'pointer',

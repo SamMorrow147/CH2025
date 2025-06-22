@@ -20,11 +20,18 @@ export default function AboutTwo(props) {
   const [hasVisited, setHasVisited] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [showParagraph, setShowParagraph] = useState(false);
+  const [showGifFallback, setShowGifFallback] = useState(false);
+  const [gifSrc, setGifSrc] = useState('/images/animated-logo.gif');
   const videoRef = useRef(null);
   const posterRef = useRef(null);
   
   // Track previous paused state to detect changes
   const prevPausedRef = React.useRef(true);
+  
+  // Force GIF reload function (specifically for video fallback)
+  const reloadClubhausGif = () => {
+    setGifSrc('/images/animated-logo.gif?' + Date.now());
+  };
     
   useEffect(() => {
       const handleResize = () => {
@@ -51,6 +58,14 @@ export default function AboutTwo(props) {
           setShouldLoadVideo(true);
           setVideoLoaded(false); // Reset video loaded state
           
+          // For Safari mobile, immediately fallback to GIF since autoplay is typically blocked
+          if (isMobileSafari) {
+              setShowGifFallback(true);
+              reloadClubhausGif();
+          } else {
+              setShowGifFallback(false);
+          }
+          
           // Reset and play video if it exists
           if (videoRef.current) {
               videoRef.current.currentTime = 0;
@@ -61,10 +76,13 @@ export default function AboutTwo(props) {
                       .then(() => {
                           setVideoPlaying(true);
                           setShowContent(true);
+                          setShowGifFallback(false); // Ensure GIF is hidden when video plays
                       })
                       .catch(err => {
-                          console.error("Error playing video:", err);
+                          console.error("Video autoplay failed, falling back to GIF:", err);
+                          setShowGifFallback(true);
                           setShowContent(true);
+                          reloadClubhausGif();
                       });
               }
           }
@@ -104,12 +122,15 @@ export default function AboutTwo(props) {
                             .then(() => {
                                 setVideoPlaying(true);
                                 setShowContent(true);
+                                setShowGifFallback(false); // Ensure GIF is hidden when video plays
                                 setTimeout(() => setShowPoster(false), 300);
                             })
                             .catch(err => {
-                                console.error("Error playing video:", err);
+                                console.error("Video autoplay failed in delayed loading, falling back to GIF:", err);
+                                setShowGifFallback(true);
                                 setShowContent(true);
                                 setShowPoster(false);
+                                reloadClubhausGif();
                             });
                       } else {
                           setVideoPlaying(true);
@@ -136,10 +157,13 @@ export default function AboutTwo(props) {
                   .then(() => {
                       setVideoPlaying(true);
                       setShowContent(true);
+                      setShowGifFallback(false); // Ensure GIF is hidden when video plays
                   })
                   .catch(err => {
-                      console.error("Error playing video after load:", err);
+                      console.error("Video autoplay failed after load, falling back to GIF:", err);
+                      setShowGifFallback(true);  
                       setShowContent(true);
+                      reloadClubhausGif();
                   });
           }
       }
@@ -257,7 +281,7 @@ export default function AboutTwo(props) {
             width: 45%;
             max-width: 45%;
             background-color: transparent;
-            opacity: ${videoLoaded ? 1 : 0};
+            opacity: ${videoLoaded || showGifFallback ? 1 : 0};
             transition: opacity 0.8s ease;
             margin-top: 1px;
             ${isMobileSafari ? `
@@ -372,7 +396,7 @@ export default function AboutTwo(props) {
       {showContent && (
         <div className="about2_content">
           <div className="video-container">
-            {shouldLoadVideo && (
+            {shouldLoadVideo && !showGifFallback && (
               <video 
                 ref={videoRef}
                 muted
@@ -383,6 +407,17 @@ export default function AboutTwo(props) {
               >
                 <source src="/videos/Clubhaus.mp4" type="video/mp4" />
               </video>
+            )}
+            {showGifFallback && (
+              <img 
+                src={gifSrc}
+                alt="ClubHaus Animation"
+                style={{
+                  width: '100%',
+                  display: 'block',
+                  objectFit: 'contain'
+                }}
+              />
             )}
           </div>
           

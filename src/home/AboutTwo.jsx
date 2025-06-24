@@ -357,6 +357,12 @@ export default function AboutTwo(props) {
               margin-top: 0;
               position: relative;
               z-index: 1;
+              /* Add minimum height to prevent layout shift */
+              min-height: 280px;
+              aspect-ratio: 1;
+              display: flex;
+              align-items: center;
+              justify-content: center;
             }
             
             .content-wrapper {
@@ -414,6 +420,7 @@ export default function AboutTwo(props) {
                 alt="ClubHaus Animation"
                 style={{
                   width: '100%',
+                  height: '100%',
                   display: 'block',
                   objectFit: 'contain'
                 }}

@@ -2482,6 +2482,11 @@ min-height: 100dvh;
     justify-content: flex-start !important;
     height: 689px !important;
   }
+  
+  /* Hide contact social icons on very small screens */
+  .contact-social-icons {
+    display: none !important;
+  }
 }
 
 /* Back to Portfolio Button Styling - Global */

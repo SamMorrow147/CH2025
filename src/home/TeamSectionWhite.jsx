@@ -442,7 +442,7 @@ const flipCardStyles = `
     /* Specific styles for devices under 400px */
     @media (max-width: 400px) {
       .team_content {
-        padding: 70px 5px 0 !important;
+        padding: 45px 5px 0 !important;
       }
     }
     

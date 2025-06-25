@@ -98,15 +98,7 @@ const FaceCards = () => {
               <h3>{selectedMember.name}</h3>
               <h4>{selectedMember.title}</h4>
               <p className="bio-text">{selectedMember.bio}</p>
-              <div className="skills-container">
-                <p>Core skills:</p>
-                <div className="skills-list">
-                  <span className="skill-tag">Strategic Thinking</span>
-                  <span className="skill-tag">Problem Solving</span>
-                  <span className="skill-tag">Client Relations</span>
-                  <span className="skill-tag">Team Leadership</span>
-                </div>
-              </div>
+
             </div>
           </div>
         )}

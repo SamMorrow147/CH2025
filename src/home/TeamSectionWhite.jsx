@@ -387,16 +387,7 @@ const flipCardStyles = `
       margin-bottom: -30px !important;
     }
     
-    .mobile-info-panel .skills-list {
-      justify-content: center !important;
-      margin-top: 10px !important;
-      gap: 6px !important;
-    }
-    
-    .mobile-info-panel .skill-tag {
-      font-size: 11px !important;
-      padding: 2px 6px !important;
-    }
+
     
     /* Completely hide desktop elements on mobile */
     .team-cards-container {
@@ -589,20 +580,7 @@ const flipCardStyles = `
     margin-bottom: 20px;
   }
   
-  .stack-info-panel .skills-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 15px;
-  }
-  
-  .stack-info-panel .skill-tag {
-    background-color: rgba(50, 158, 199, 0.1);
-    color: #329ec7;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 14px;
-  }
+
   
   /* Mobile tap - simple opacity change */
   .mobile-card.flipped .flip-card-front {
@@ -1335,13 +1313,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                   </p>
                 </div>
                 
-                <p style={{ textAlign: 'left' }}>Core skills:</p>
-                <div className="skills-list">
-                  <span className="skill-tag">Strategic Thinking</span>
-                  <span className="skill-tag">Problem Solving</span>
-                  <span className="skill-tag">Client Relations</span>
-                  <span className="skill-tag">Team Leadership</span>
-                </div>
+
               </div>
             )}
           </div>

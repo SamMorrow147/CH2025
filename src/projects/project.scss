@@ -159,7 +159,7 @@ line-height:1.5;
   max-width:50%;
 }
 .project-content {
-  overflow:hidden;
+  overflow:visible;
 }
 
 
@@ -443,4 +443,32 @@ body.project-details-page .menu {
 /* Keep hover scale for other pages */
 .project_item:hover .project-card {
   scale:1.05;
+}
+
+/* Fix for Swiper container to allow scaled cards to show properly */
+.swiper-container,
+.swiper {
+  overflow: visible !important;
+}
+
+.swiper-wrapper {
+  overflow: visible !important;
+}
+
+.swiper-slide {
+  overflow: visible !important;
+}
+
+/* Ensure project slider containers allow overflow for hover effects */
+.project-slider .swiper,
+.project-slider .swiper-container {
+  overflow: visible !important;
+}
+
+.project-slider .swiper-wrapper {
+  overflow: visible !important;
+}
+
+.project-slider .swiper-slide {
+  overflow: visible !important;
 }

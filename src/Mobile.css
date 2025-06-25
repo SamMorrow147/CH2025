@@ -177,6 +177,7 @@ justify-content:center;
 
   .top_content .wordmark {
     width:100%;
+    opacity: 0;
 }
 .top_content {
     max-width: 300px;;

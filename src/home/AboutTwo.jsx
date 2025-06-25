@@ -358,7 +358,7 @@ export default function AboutTwo(props) {
               position: relative;
               z-index: 1;
               /* Add minimum height to prevent layout shift */
-              min-height: 280px;
+              min-height: 200px;
               aspect-ratio: 1;
               display: flex;
               align-items: center;

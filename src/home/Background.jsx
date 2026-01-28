@@ -1,6 +1,6 @@
 export default function Background(props) {
     return (
-        <div className={props.white == true ? 'animation-back white':'animation-back' } >
+        <div className={props.white === true ? 'animation-back white':'animation-back' } >
             <div className="glimmer"></div>
             <div className="lines">
 
@@ -17,8 +17,8 @@ export default function Background(props) {
                      <polygon  pathLength="100" className="path-bottom-right" fill="transparent" stroke="black"    points="0 100,100 100, 100 0, 0 0"  />
                 </svg>
                
-                <img src="../images/logo.png" className="logo-top"/>
-                <img src="../images/logo.png" className="logo-bottom"/>
+                <img src="../images/logo.png" className="logo-top" alt="ClubHaus Logo"/>
+                <img src="../images/logo.png" className="logo-bottom" alt="ClubHaus Logo"/>
 
             </div>
 

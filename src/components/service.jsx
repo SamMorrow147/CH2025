@@ -1,4 +1,4 @@
-import { Grid, Image, Modal } from 'semantic-ui-react'
+import { Image } from 'semantic-ui-react'
 import Button from '../components/button/button'
 import { useSwipeable } from 'react-swipeable'
 

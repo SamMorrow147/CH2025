@@ -1,5 +1,3 @@
-import City from '../animations/City.jsx'
-import Background from './Background'
 import React, { Suspense, lazy, useState, useEffect, useRef } from 'react';
 import DownArrow from '../components/DownArrow.jsx';
 const Typist = lazy(() => import('react-typist'));
@@ -12,18 +10,13 @@ export default function AboutTwo(props) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [typingKey, setTypingKey] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const [videoPlaying, setVideoPlaying] = useState(false);
-  const [showPoster, setShowPoster] = useState(true);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
-  const [posterLoaded, setPosterLoaded] = useState(false);
-  const [typingComplete, setTypingComplete] = useState(false);
   const [hasVisited, setHasVisited] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [showParagraph, setShowParagraph] = useState(false);
   const [showGifFallback, setShowGifFallback] = useState(false);
   const [gifSrc, setGifSrc] = useState('/images/Rotate.gif');
   const videoRef = useRef(null);
-  const posterRef = useRef(null);
   
   // Track previous paused state to detect changes
   const prevPausedRef = React.useRef(true);
@@ -89,11 +82,10 @@ export default function AboutTwo(props) {
       }
       // Update the ref with current paused state
       prevPausedRef.current = props.paused;
-  }, [props.paused, hasVisited]);
+  }, [props.paused, hasVisited, isMobileSafari, gifSrc]);
   
   // Handle typing completion
   const handleTypingComplete = () => {
-    setTypingComplete(true);
     // Add delay before showing paragraph
     setTimeout(() => {
       setShowParagraph(true);
@@ -120,22 +112,17 @@ export default function AboutTwo(props) {
                       if (playPromise !== undefined) {
                           playPromise
                             .then(() => {
-                                setVideoPlaying(true);
                                 setShowContent(true);
                                 setShowGifFallback(false); // Ensure GIF is hidden when video plays
-                                setTimeout(() => setShowPoster(false), 300);
                             })
                             .catch(err => {
                                 console.error("Video autoplay failed in delayed loading, falling back to GIF:", err);
                                 setShowGifFallback(true);
                                 setShowContent(true);
-                                setShowPoster(false);
                                 reloadClubhausGif();
                             });
                       } else {
-                          setVideoPlaying(true);
                           setShowContent(true);
-                          setTimeout(() => setShowPoster(false), 500);
                       }
                   }
               }, isSafari ? 300 : 100);
@@ -155,7 +142,6 @@ export default function AboutTwo(props) {
           if (playPromise !== undefined) {
               playPromise
                   .then(() => {
-                      setVideoPlaying(true);
                       setShowContent(true);
                       setShowGifFallback(false); // Ensure GIF is hidden when video plays
                   })

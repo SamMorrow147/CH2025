@@ -1,11 +1,10 @@
-import Contact_card from '../components/Contact_card';
-import Background from '../home/Background'
+import ContactCard from '../components/Contact_card';
 import React from 'react';
 
 const Contact = () => {
     return (    
       <div className="services_section">
-          <Contact_card/>
+          <ContactCard/>
 
           {/* Social Media Icons - repositioned to bottom right */}
           <div className="contact-social-icons">

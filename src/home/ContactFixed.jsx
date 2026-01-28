@@ -1,4 +1,4 @@
-import Contact_card from "../components/Contact_card"
+import ContactCard from "../components/Contact_card"
 import { useNavigate } from 'react-router-dom';
 
 export default function ContactFixed() {
@@ -15,7 +15,7 @@ export default function ContactFixed() {
 
         <div className="contact_fixed">
             <div className="contact_back" onClick={removeActive}></div>
-            <Contact_card/>
+            <ContactCard/>
         </div>
         
     )

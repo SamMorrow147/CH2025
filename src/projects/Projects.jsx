@@ -3,7 +3,7 @@ import Item from './Item';
 import slugify from "react-slugify";
 import { createClient } from 'contentful';
 import MainMenu from '../home/MainMenu';
-import { useNavigate, useLocation } from 'react-router-dom/dist';
+import { useNavigate } from 'react-router-dom/dist';
 
 
 function getRandomRotation() {
@@ -20,7 +20,6 @@ const client = createClient({
 export default function Projects(props) {
     const [projectData, setProjectData] = useState([]);
     const navigate = useNavigate();
-    const location = useLocation();
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
 
     useEffect(() => {
@@ -121,9 +120,6 @@ export default function Projects(props) {
         }
     }, [navigate, isMobile]);
 
-    const maxDelay = 1; // Maximum delay in seconds
-    const baseDelay = maxDelay / projectData.length;
-
     // Handle back navigation to portfolio section
     const handleBackToPortfolio = () => {
         navigate('/portfolio');
@@ -170,7 +166,6 @@ export default function Projects(props) {
                          
                             {              
                             projectData?.map(({ sys, fields, metadata }, index) => {
-                                const delay = (projectData.length - index) * baseDelay;
                                 return (
                                     <div className="grid_item"
                                         key={`${index}_${fields.title}`}

@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Item from './Item';
 import slugify from "react-slugify";
-import DownArrow from "../components/DownArrow";
 import { createClient } from 'contentful';
 import { FreeMode, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,9 +10,6 @@ const Typist = lazy(() => import('react-typist'));
 function getRandomRotation() {
     return Math.random() * 15 - 5; // Generates a random number between -5 and 5
   }
-
-let isMobile = window.innerWidth <= 821; // Set the threshold for mobile devices
-let leftValue = isMobile ? 320 : 360;
   
 
 let client = createClient({
@@ -52,13 +48,14 @@ export default function ProjectSlider(props) {
             { threshold: 0.2 } // Trigger when at least 20% of the element is visible
         );
         
-        if (titleRef.current) {
-            observer.observe(titleRef.current);
+        const currentTitle = titleRef.current;
+        if (currentTitle) {
+            observer.observe(currentTitle);
         }
         
         return () => {
-            if (titleRef.current) {
-                observer.unobserve(titleRef.current);
+            if (currentTitle) {
+                observer.unobserve(currentTitle);
             }
         };
     }, []); // No dependencies to ensure observer is only set up once

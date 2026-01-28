@@ -4,7 +4,7 @@ import MainMenu from './home/MainMenu';
 import HeartSection from './home/HeartSection'
 import TeamSectionWhite from './home/TeamSectionWhite'
 import Services from './home/Services';
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useMemo} from 'react';
 import Contact from './home/Contact'
 import ReactFullpage from '@fullpage/react-fullpage';
 import { useSwipeable } from "react-swipeable";
@@ -49,7 +49,7 @@ export default function Fullpage({onClick, setIsOpen}) {
   });
 
   // Map paths to section numbers (1-based index)
-  const pathToSection = {
+  const pathToSection = useMemo(() => ({
     '/': 1,
     '/who-we-are': 2,
     '/services': 3,
@@ -58,7 +58,7 @@ export default function Fullpage({onClick, setIsOpen}) {
     '/our-heart': 6,
     '/team': 7,
     '/contact': 8
-  };
+  }), []);
 
   // Handle initial URL loading
   useEffect(() => {

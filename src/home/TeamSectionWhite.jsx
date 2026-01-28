@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Navigation } from 'swiper';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -766,7 +766,6 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
   // State to store the current order of team members
   const [teamMembersOrder, setTeamMembersOrder] = useState([...teamMembers]);
   const [selectedMemberName, setSelectedMemberName] = useState(null);
-  const [showButton, setShowButton] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   
   // Mobile card stack state - New Framer Motion approach
@@ -899,7 +898,6 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
       
       // Show button and info panel after animation
       setTimeout(() => {
-        setShowButton(true);
         setShowInfo(true);
       }, 400);
     }
@@ -907,8 +905,7 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
   
   // Handle closing the selected card with animation
   const handleCloseSelected = () => {
-    // Hide button and info first
-    setShowButton(false);
+    // Hide info first
     setShowInfo(false);
     
     // Reorder the array to put the selected member at the front
@@ -978,8 +975,8 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
           <svg xmlns="http://www.w3.org/2000/svg" className="bottom-right" height="50%" width="50%" viewBox="0 0 100 100" preserveAspectRatio="none">
             <polygon pathLength="100" className="path-bottom-right" fill="transparent" stroke="black" points="0 100,100 100, 100 0, 0 0"></polygon>
           </svg>
-          <img src="../images/logo.png" className="logo-top" />
-          <img src="../images/logo.png" className="logo-bottom" />
+          <img src="../images/logo.png" className="logo-top" alt="ClubHaus Logo" />
+          <img src="../images/logo.png" className="logo-bottom" alt="ClubHaus Logo" />
         </div>
       </div>
       
@@ -1021,7 +1018,6 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
             <AnimatePresence>
               {mobileCardOrder.map((member, index) => {
                 const transform = getCardTransform(index);
-                const isDragged = draggedCardIndex === index;
                 const isAnimatingOut = animatingDirection && index === 0;
                 
                 let animateTransform = transform;

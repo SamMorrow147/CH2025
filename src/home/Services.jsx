@@ -1,5 +1,5 @@
 import Service from '../components/service'
-import React, {useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import DownArrow from '../components/DownArrow';
 
@@ -52,7 +52,7 @@ export default function Services(props) {
         <div className="services_section">
 
         
-          {props.paused == false ?  
+          {props.paused === false ?  
           
             <div className="membership_wrapper container_full_width">
 

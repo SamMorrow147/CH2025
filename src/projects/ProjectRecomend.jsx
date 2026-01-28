@@ -29,12 +29,6 @@ export default function ProjectRecomend(props) {
         .then(response => setProjectData(response.items))
         .catch(console.error);
     }, []);
-
-
-
-      
-    const maxDelay = 1; // Maximum delay in seconds
-    const baseDelay = maxDelay / projectData.length;
     
 console.log(projectData);
 

@@ -22,10 +22,6 @@ export default function MainMenu({currentScroll, onClick, fullpageApi}) {
         { id: 'seventh', name: 'Reach Out' }
     ];
 
-    const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
-    };
-
     // Add direct DOM manipulation to hide mobile icon after component mounts
     useEffect(() => {
         // Forcefully hide any mobile_icon elements using direct DOM manipulation
@@ -91,8 +87,8 @@ export default function MainMenu({currentScroll, onClick, fullpageApi}) {
                 {showProjectNav && (
                     <div className="project-nav">
                         {/* Project navigation content */}
-                        <Link to="/#fifth"> <img src="/images/arrowhead-left.svg" className="card-icon"/> <span>HOME</span></Link>
-                        <a href="/projects"><img src="/images/card-icon.svg" className="card-icon"/> <span>VIEW ALL</span></a>
+                        <Link to="/#fifth"> <img src="/images/arrowhead-left.svg" className="card-icon" alt="Home"/> <span>HOME</span></Link>
+                        <a href="/projects"><img src="/images/card-icon.svg" className="card-icon" alt="View all projects"/> <span>VIEW ALL</span></a>
                     </div>
                 )}
 
@@ -105,6 +101,7 @@ export default function MainMenu({currentScroll, onClick, fullpageApi}) {
                             height="220" 
                             src="/images/animated-logo.gif" 
                             key="static-menu-logo"
+                            alt="ClubHaus Logo"
                         />
                 <img
                   className="wordmark"
@@ -115,6 +112,7 @@ export default function MainMenu({currentScroll, onClick, fullpageApi}) {
                       ? '../images/wordmark.png'
                       : '../images/wordmark_white.png'
                   }
+                  alt="ClubHaus Wordmark"
                 />
               </a>
           </div>

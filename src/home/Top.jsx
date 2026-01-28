@@ -1,5 +1,4 @@
 import Alt_background from '../components/alt_background/Alt_background'
-import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 
 
@@ -7,7 +6,6 @@ export default function Top({currentScroll,arrowClick}) {
     // Reference to the top_content container for accessing its children
     const contentRef = useRef(null);
     const prevScrollRef = useRef(currentScroll);
-    const [logoKey, setLogoKey] = useState(Date.now()); // Key for logo animation control
     const [gifSrc, setGifSrc] = useState('/images/animated-logo.gif');
     
     // Force GIF reload on mount and section changes
@@ -27,7 +25,7 @@ export default function Top({currentScroll,arrowClick}) {
     }, [currentScroll]);
 
     function isEven(n) {
-        return n % 2 == 0;
+        return n % 2 === 0;
     }
     
     return (
@@ -36,10 +34,9 @@ export default function Top({currentScroll,arrowClick}) {
             
             <div 
                 ref={contentRef}
-                className={`${isEven(currentScroll) && currentScroll != 0 ? 'top_content even' : 'top_content'}`}
+                className={`${isEven(currentScroll) && currentScroll !== 0 ? 'top_content even' : 'top_content'}`}
             >
                 <img 
-                    key={logoKey}
                     className="logo" 
                     width="220" 
                     height="220" 
@@ -51,7 +48,7 @@ export default function Top({currentScroll,arrowClick}) {
                     className="wordmark" 
                     height="200" 
                     width="600" 
-                    src={isEven(currentScroll) && currentScroll != 0 ? '../images/wordmark.png' : '../images/wordmark_white.png'} 
+                    src={isEven(currentScroll) && currentScroll !== 0 ? '../images/wordmark.png' : '../images/wordmark_white.png'} 
                     alt="ClubHaus Wordmark"
                 />  
               

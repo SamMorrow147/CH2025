@@ -2,12 +2,7 @@ import './App.css';
 import './Mobile.css';
 import Fullpage from './Fullpage';
 import React, { useEffect } from 'react';
-import ContactFixed from './home/ContactFixed'
-import MobileMenu from './MobileMenu';
-// import Cursor from './components/Cursor'
-import PortfolioSlider from './home/PortfolioSlider';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import Portfolio from './portfolio/Portfolio';
+import { Routes, Route } from 'react-router-dom';
 import ProjectDetails from './projects/ProjectDetails';
 import Projects from './projects/Projects';
 
@@ -15,13 +10,8 @@ const App = () => {
   
     console.log('🧪 APP COMPONENT IS RUNNING - TEST MESSAGE');
     console.log('🧪 If you see this, React is working!');
-    
-    const [showResults, setShowResults] = React.useState(false)
-    const showContact = () => setShowResults(true)
-    const hideContact = () => setShowResults(false)
 
     const [isOpen, setIsOpen] = React.useState(false);
-    const toggleOpen = () => setIsOpen(!isOpen)
 
     // Force scroll to top and remove hash on initial load
     useEffect(() => {
@@ -44,8 +34,6 @@ const App = () => {
       }, 500); // Reduced from 1000ms to 500ms
       
     }, []);
-
-  const location = useLocation();
 
   return (
     <div className="App">

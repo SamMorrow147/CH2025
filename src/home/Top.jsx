@@ -1,4 +1,4 @@
-import Alt_background from '../components/alt_background/Alt_background'
+import AltBackground from '../components/alt_background/Alt_background'
 import { useEffect, useRef, useState } from 'react';
 
 
@@ -30,7 +30,7 @@ export default function Top({currentScroll,arrowClick}) {
     
     return (
         <div className="top_section">
-            <Alt_background arrowClick={arrowClick}/>
+            <AltBackground arrowClick={arrowClick}/>
             
             <div 
                 ref={contentRef}

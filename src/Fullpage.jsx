@@ -16,44 +16,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const anchors = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth"];
 const sectionNames = ['Home', 'Who We Are', 'What We Do', 'Feeling Lucky?', 'Projects', 'Modus Operandi', 'People', 'Contact'];
 
-// URL to section index mapping
-const urlToSectionIndex = {
-  '/': 0,
-  '/who-we-are': 1,
-  '/services': 2,
-  '/why-clubhaus': 3,
-  '/portfolio': 4,
-  '/our-heart': 5,
-  '/team': 6,
-  '/contact': 7,
-};
-
-// Section theme colors mapping
-const sectionThemeColors = {
-  first: '#293a8d', // Home - dark blue (same as navigation)
-  second: '#293a8d', // Who We Are - dark blue
-  third: '#ffffff', // Services - white
-  fourth: '#293a8d', // Why ClubHaus - dark blue 
-  fifth: '#ffffff', // Our Work - white
-  sixth: '#293a8d', // Modus Operandi - dark blue (same as navigation)
-  seventh: '#ffffff', // Face Cards - white
-  eighth: '#ffffff', // Reach Out - white
-};
-
-// Function to get the appropriate theme color based on section
-const getThemeColorForSection = (sectionIndex) => {
-  if (sectionIndex === undefined || sectionIndex < 0 || sectionIndex >= anchors.length) {
-    return '#293a8d'; // Default dark blue color
-  }
-  
-  const sectionAnchor = anchors[sectionIndex];
-  
-  // Return the color from our mapping
-  return sectionThemeColors[sectionAnchor] || '#293a8d';
-};
-
-// Removed the simple navigation dots style definitions
-
 let currentIndex = 0;
 export default function Fullpage({onClick, setIsOpen}) {
   
@@ -63,12 +25,10 @@ export default function Fullpage({onClick, setIsOpen}) {
   
   var offset = '0';
   const [activeId, setActiveId] = useState(0);
-  const [currentSection, setCurrentSection] = useState(0);
   const [currentSlider, setCurrentSlider] = useState(0);
   const [currentSectionName, setCurrentSectionName] = useState(sectionNames[0]);
   const fullpageApiRef = useRef(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isOnTeamSection, setIsOnTeamSection] = useState(false); // Track if we're on team section
   const hasInitializedRef = useRef(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -79,7 +39,7 @@ export default function Fullpage({onClick, setIsOpen}) {
 
   // Analytics tracking state
   const [sectionEntryTime, setSectionEntryTime] = useState(Date.now());
-  const [sectionMetrics, setSectionMetrics] = useState(() => {
+  const [sectionMetrics] = useState(() => {
     // Initialize metrics object for each section
     const metrics = {};
     sectionNames.forEach(section => {
@@ -126,7 +86,7 @@ export default function Fullpage({onClick, setIsOpen}) {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [location.pathname]);
+  }, [location.pathname, pathToSection]);
 
   // Force rebuild after mount to handle any layout issues
   useEffect(() => {
@@ -238,6 +198,10 @@ export default function Fullpage({onClick, setIsOpen}) {
           console.log(activeId)
           if(activeId === -1){ setActiveId(0)}
         break;
+        
+        default:
+          // No action for unknown direction
+        break;
       }
   
   }
@@ -255,52 +219,50 @@ var config = {
 // Add Chrome detection
 const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 
-// Add scroll debouncing only for Chrome
-let isScrolling = false;
-let scrollTimeout;
-
-const handleScroll = (event) => {
-  if (!isChrome) return; // Only apply to Chrome
-  
-  // Skip Chrome-specific scroll handling on projects page
-  const isOnProjectsPage = window.location.pathname.startsWith('/projects');
-  if (isOnProjectsPage) {
-    return; // Let normal scroll behavior work on projects page
-  }
-  
-  // Get current section
-  const currentSection = window.fullpage_api ? window.fullpage_api.getActiveSection() : null;
-  const isOnModusSection = currentSection && currentSection.anchor === 'sixth';
-  
-  // Special handling for Modus Operandi section
-  if (isOnModusSection) {
-    event.preventDefault();
-    event.stopPropagation();
-    return false;
-  }
-  
-  if (isScrolling) {
-    event.preventDefault();
-    return;
-  }
-  
-  isScrolling = true;
-  clearTimeout(scrollTimeout);
-  
-  scrollTimeout = setTimeout(() => {
-    isScrolling = false;
-  }, 1000); // 1 second debounce
-};
-
 // Add scroll event listener only for Chrome
 useEffect(() => {
-  if (isChrome) {
-    window.addEventListener('wheel', handleScroll, { passive: false });
-    return () => {
-      window.removeEventListener('wheel', handleScroll);
-    };
-  }
-}, [handleScroll, isChrome]);
+  if (!isChrome) return;
+  
+  // Add scroll debouncing only for Chrome
+  let isScrolling = false;
+  let scrollTimeout;
+
+  const handleScroll = (event) => {
+    // Skip Chrome-specific scroll handling on projects page
+    const isOnProjectsPage = window.location.pathname.startsWith('/projects');
+    if (isOnProjectsPage) {
+      return; // Let normal scroll behavior work on projects page
+    }
+    
+    // Get current section
+    const currentSection = window.fullpage_api ? window.fullpage_api.getActiveSection() : null;
+    const isOnModusSection = currentSection && currentSection.anchor === 'sixth';
+    
+    // Special handling for Modus Operandi section
+    if (isOnModusSection) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    }
+    
+    if (isScrolling) {
+      event.preventDefault();
+      return;
+    }
+    
+    isScrolling = true;
+    clearTimeout(scrollTimeout);
+    
+    scrollTimeout = setTimeout(() => {
+      isScrolling = false;
+    }, 1000); // 1 second debounce
+  };
+
+  window.addEventListener('wheel', handleScroll, { passive: false });
+  return () => {
+    window.removeEventListener('wheel', handleScroll);
+  };
+}, [isChrome]);
 
   const handlers = useSwipeable({
     onSwipedDown: (eventData) => swipeFunction('down'),

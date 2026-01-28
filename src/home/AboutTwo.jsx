@@ -42,7 +42,6 @@ export default function AboutTwo(props) {
           if (!hasVisited) {
               // Reset all states for first visit
               setTypingKey(k => k + 1);
-              setTypingComplete(false);
               setShowContent(true);
               setHasVisited(true);
           }
@@ -67,7 +66,6 @@ export default function AboutTwo(props) {
               if (playPromise !== undefined) {
                   playPromise
                       .then(() => {
-                          setVideoPlaying(true);
                           setShowContent(true);
                           setShowGifFallback(false); // Ensure GIF is hidden when video plays
                       })

@@ -1,4 +1,4 @@
-import AnimateCC, { GetAnimationObjectParameter } from "react-adobe-animate";
+import AnimateCC from "react-adobe-animate";
 
 export default function City({paused}) {
     return (

@@ -1,6 +1,5 @@
-import AnimateCC, { GetAnimationObjectParameter } from "react-adobe-animate";
+import AnimateCC from "react-adobe-animate";
 import useScript from '../animations.js'
-import {useEffect} from 'react'
 
 export default function Table({paused}) {
 

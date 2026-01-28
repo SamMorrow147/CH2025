@@ -770,7 +770,6 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
   
   // Mobile card stack state - New Framer Motion approach
   const [mobileCardOrder, setMobileCardOrder] = useState([...teamMembers]);
-  const [draggedCardIndex, setDraggedCardIndex] = useState(null);
   const [animatingDirection, setAnimatingDirection] = useState(null); // 'forward' or 'backward'
   const [flippedCards, setFlippedCards] = useState(new Set()); // Track which cards are flipped
   const [isDragging, setIsDragging] = useState(false); // Track if currently dragging
@@ -818,7 +817,6 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
     const draggedCard = newOrder.splice(cardIndex, 1)[0];
     newOrder.push(draggedCard); // Move to back
     setMobileCardOrder(newOrder);
-    setDraggedCardIndex(null);
     
     // Check if the new top card should be selected (if it's flipped)
     const newTopCard = newOrder[0];
@@ -1065,7 +1063,6 @@ export default function TeamSectionWhite({ paused, arrowClick }) {
                       timeConstant: 200 // Added timeConstant for faster completion
                     }}
                     onDragStart={() => {
-                      setDraggedCardIndex(index);
                       setIsDragging(true);
                     }}
                     onDragEnd={(event, info) => {

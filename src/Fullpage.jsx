@@ -230,13 +230,13 @@ export default function Fullpage({onClick, setIsOpen}) {
         case 'up':
           setActiveId(activeId + 1);
           console.log(activeId);
-          if(activeId == 4){ setActiveId(0)}
+          if(activeId === 4){ setActiveId(0)}
         break;
 
         case 'down':
           setActiveId(activeId - 1);
           console.log(activeId)
-          if(activeId == -1){ setActiveId(0)}
+          if(activeId === -1){ setActiveId(0)}
         break;
       }
   
@@ -300,21 +300,13 @@ useEffect(() => {
       window.removeEventListener('wheel', handleScroll);
     };
   }
-}, []);
+}, [handleScroll, isChrome]);
 
   const handlers = useSwipeable({
     onSwipedDown: (eventData) => swipeFunction('down'),
     onSwipedUp: (eventData) => swipeFunction('up'),
     ...config,
   });
-
-  var handleArrowClick = (fullpageApi) => {
-    fullpageApi.moveSectionDown();
-  };
-
-  function isEven(n) {
-    return n % 2 == 0;
- }
 
   // Toggle mobile menu
   const toggleMobileMenu = () => {
@@ -1426,7 +1418,7 @@ useEffect(() => {
           }
 
           // Handle section transitions and scrolling
-          if (state.lastEvent === "onLeave" && state.destination.anchor === "third" && activeId != 0) {
+          if (state.lastEvent === "onLeave" && state.destination.anchor === "third" && activeId !== 0) {
             fullpageApi.setAllowScrolling(false);
           } else if (fullpageApi) {
             fullpageApi.setAllowScrolling(true);

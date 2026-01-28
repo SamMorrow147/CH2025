@@ -65,14 +65,12 @@ const ProjectDetails = () => {
             if (playPromise !== undefined) {
                 playPromise
                     .then(() => {
-                        setVideoPlaying(true);
                         setShowVideoFallback(false);
                     })
                     .catch(err => {
                         console.error("Manual video play failed:", err);
                     });
             } else {
-                setVideoPlaying(true);
                 setShowVideoFallback(false);
             }
         }

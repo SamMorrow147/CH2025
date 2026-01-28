@@ -52,10 +52,8 @@ console.log(projectData);
 
                         {              
                         projectData?.slice(0,5).map(({ sys, fields, metadata }, index) => {
-                            const delay = (projectData.length - index) * baseDelay;
-                            
                             return (
-                             props.skip != sys.id &&   
+                             props.skip !== sys.id &&   
                              <div 
                                     className="grid_item"
                                     key={`${index}_${fields.title}`}

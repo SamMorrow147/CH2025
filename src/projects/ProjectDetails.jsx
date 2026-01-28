@@ -1,10 +1,8 @@
 import { createClient } from 'contentful'
 import React, { useState, useEffect, useRef} from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom/dist';
-import ReactFullpage from '@fullpage/react-fullpage';
+import { useParams, useNavigate } from 'react-router-dom/dist';
 import MainMenu from '../home/MainMenu';
 import "./project.scss"
-import Item from './Item';
 import ProjectRecomend from './ProjectRecomend';
 
 const client = createClient({
@@ -21,11 +19,7 @@ const ProjectDetails = () => {
     const videoRef = useRef(null);
 
     // Mobile detection and video playback states
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    const isMobileSafari = isIOS && isSafari;
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
-    const [videoPlaying, setVideoPlaying] = useState(false);
     const [showVideoFallback, setShowVideoFallback] = useState(false);
 
     useEffect(() => {
@@ -162,7 +156,7 @@ const ProjectDetails = () => {
         
         {project?.url &&
             <div className="project-url">
-                <a href={modifiedURL} target="_BLANK">
+                <a href={modifiedURL} target="_BLANK" rel="noreferrer">
                     VISIT <img src={`${project.logo?.fields?.file?.url}`} alt="Project Logo"/> WEBSITE!
                 </a>
             </div>
@@ -182,7 +176,6 @@ const ProjectDetails = () => {
                             controls
                             poster={headerImageUrl}
                             onLoadedData={handleVideoLoaded}
-                            onPlay={() => setVideoPlaying(true)}
                             onError={() => setShowVideoFallback(true)}
                             style={{
                                 display: showVideoFallback ? 'none' : 'block',
@@ -273,7 +266,7 @@ const ProjectDetails = () => {
                                         const { contentType, url } = mediaItem.fields.file;
 
                                         if (contentType.startsWith('image/')) {
-                                            return <img key={mediaItem.id} src={url} />;
+                                            return <img key={mediaItem.id} src={url} alt={item.fields?.title || "Project content"} />;
                                         } else if (contentType.startsWith('video/')) {
                                             return (
                                                 <video key={mediaItem.id} src={url} autoplay="false" >

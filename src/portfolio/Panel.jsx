@@ -4,9 +4,6 @@ import React from 'react';
 
 export default React.memo(function Panel(props) {
 
-    var today = new Date().toLocaleString();
-
-   var upperTitle = props.title.toUpperCase
   return (
         <div className="panel">
            <div className="topBanner" style={{backgroundImage:`url(${props.img})`}}>

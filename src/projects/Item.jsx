@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom/dist';
-import slugify from "react-slugify";
 
 export default React.memo(function Item(props) {
 
@@ -27,7 +26,7 @@ export default React.memo(function Item(props) {
             </div>
 
             <div className="card-inner">
-                <img src={props.logo} />
+                <img src={props.logo} alt={props.title || "Project logo"} />
             </div>
 
         </div>       

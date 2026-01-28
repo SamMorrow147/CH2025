@@ -9,78 +9,36 @@ import React from 'react'
 
 export default function Portfolio() {
 
-
-
-    const [selected, setSelected] = useState("featured");
     const [data, setData] = useState([]);
-
     const [currentpanel, setCurrentpanel] = useState(0);
 
-const reRender = function() {
-document.querySelector('.work').style.display = 'none';
-
-setTimeout(function() {
-document.querySelector('.work').style.display = 'grid';
-}, 10);
-
-setCurrentpanel(0);
-}
-    
-    const list = [
-        {
-            id:'featured',
-            title:'Favorites',
-        },
-        {
-            id:'wordpress',
-            title:'Wordpress',
-        },
-           {
-            id:'magento',
-            title:'Magento',
-        },
-        {
-            id:'shopify',
-            title:'Shopify',
-        },
-        {
-            id:'other',
-            title:'Other',
-        },
-    ];
-
     useEffect(()=>{
-        
-                setData(PortfolioData)
-        
-    });
+        setData(PortfolioData)
+    }, []);
     
     function ActivePanel() {
-        {         
-            if(currentpanel != 0 ) 
-            {
-                return (
-                data.filter(data => data.id === currentpanel)
-                .map(item  => (
-                    <Panel
-                    title={item.title}
-                    tags={item.tags}
-                    img={item.img}
-                    categories={item.category}
-                    link={item.link}
-                    slug={slugify(item.title)}
-                    id={item.id}
-                    mobileImage={item.mobileImage}
-                    />
-                ))
+        if(currentpanel !== 0 ) {
+            return (
+            data.filter(data => data.id === currentpanel)
+            .map(item  => (
+                <Panel
+                title={item.title}
+                tags={item.tags}
+                img={item.img}
+                categories={item.category}
+                link={item.link}
+                slug={slugify(item.title)}
+                id={item.id}
+                mobileImage={item.mobileImage}
+                />
+            ))
+        )
+        }
+
+        else {
+            return (
+                <div>test</div>
             )
-                }
-    
-            else {
-                return (
-                    <div>test</div>
-                )
-            }
         }
     }
 

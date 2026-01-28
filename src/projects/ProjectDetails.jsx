@@ -24,7 +24,7 @@ const ProjectDetails = () => {
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const isMobileSafari = isIOS && isSafari;
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
     const [videoPlaying, setVideoPlaying] = useState(false);
     const [showVideoFallback, setShowVideoFallback] = useState(false);
 
@@ -52,7 +52,7 @@ const ProjectDetails = () => {
     // Handle window resize for responsive design
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth < 768);
+            setIsMobile(window.innerWidth <= 520);
         };
         
         window.addEventListener('resize', handleResize);
@@ -106,9 +106,13 @@ const ProjectDetails = () => {
 
     const modifiedURL = project?.url ? (/^https?:\/\//i.test(project.url) ? project.url : `https://${project.url}`) : null;
 
-    // Handle back navigation to portfolio section
+    // Handle back navigation - go to mobile swipe deck if on mobile, otherwise portfolio section
     const handleBackToPortfolio = () => {
-        navigate('/portfolio');
+        if (isMobile) {
+            navigate('/projects');
+        } else {
+            navigate('/portfolio');
+        }
     };
 
     useEffect(() => {

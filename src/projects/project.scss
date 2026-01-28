@@ -472,3 +472,246 @@ body.project-details-page .menu {
 .project-slider .swiper-slide {
   overflow: visible !important;
 }
+
+/* Mobile Swipe Deck Styles */
+/* Behind layer project preview - MUST match ProjectCard component styles exactly */
+
+.behind-preview-fullscreen {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.behind-preview-corner-logo-wrapper {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 52px;
+  height: 52px;
+  z-index: 11;
+}
+
+.behind-preview-corner-logo {
+  width: 100%;
+  height: auto;
+  position: relative;
+  filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.behind-preview-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60%;
+}
+
+.behind-preview-logo {
+  max-width: 640px;
+  max-height: 400px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+}
+
+.behind-preview-title {
+  position: absolute;
+  bottom: 30px;
+  left: 50px;
+  right: 30px;
+  text-align: left;
+  color: #293a8d;
+  z-index: 2;
+}
+
+.behind-preview-title h3 {
+  margin: 0;
+  font-family: eurostile, sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: clamp(32px, 6vw, 56px);
+  word-wrap: break-word;
+  text-shadow: 0 2px 4px rgba(255,255,255,0.8);
+}
+
+.behind-preview-title span {
+  display: block;
+  font-size: clamp(16px, 2.5vw, 24px);
+  margin-top: 12px;
+  font-family: eurostile, sans-serif;
+  opacity: 0.9;
+  text-shadow: 0 1px 3px rgba(255,255,255,0.8);
+}
+
+/* Animated chevron down arrow */
+.container_2 {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.chevron {
+  position: absolute;
+  width: 56px;
+  height: 16px;
+  opacity: 0;
+  transform: scale3d(0.5, 0.5, 0.5);
+  animation: move 3s ease-out infinite;
+  left: 50%;
+  margin-left: -28px;
+}
+
+.chevron:first-child {
+  animation: move 3s ease-out 1s infinite;
+}
+
+.chevron:nth-child(2) {
+  animation: move 3s ease-out 2s infinite;
+}
+
+.chevron:before,
+.chevron:after {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 51%;
+  background: #ffffff;
+}
+
+.chevron:before {
+  left: 0;
+  transform: skew(0deg, 30deg);
+}
+
+.chevron:after {
+  right: 0;
+  width: 50%;
+  transform: skew(0deg, -30deg);
+}
+
+@keyframes move {
+  25% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 1;
+    transform: translateY(30px) scale3d(0.5, 0.5, 0.5);
+  }
+  67% {
+    opacity: 1;
+    transform: translateY(45px) scale3d(0.5, 0.5, 0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(60px) scale3d(0.5, 0.5, 0.5);
+  }
+}
+
+/* Right-pointing chevron (rotated 90° counterclockwise) */
+.container_2_right {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  bottom: -10px;
+  right: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  transform: rotate(-90deg);
+}
+
+.chevron_right {
+  position: absolute;
+  width: 56px;
+  height: 16px;
+  opacity: 0;
+  transform: scale3d(0.5, 0.5, 0.5);
+  animation: moveRight 3s ease-out infinite;
+  left: 50%;
+  margin-left: -28px;
+}
+
+.chevron_right:first-child {
+  animation: moveRight 3s ease-out 1s infinite;
+}
+
+.chevron_right:nth-child(2) {
+  animation: moveRight 3s ease-out 2s infinite;
+}
+
+.chevron_right:before,
+.chevron_right:after {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 51%;
+  background: #ffffff;
+}
+
+.chevron_right:before {
+  left: 0;
+  transform: skew(0deg, 30deg);
+}
+
+.chevron_right:after {
+  right: 0;
+  width: 50%;
+  transform: skew(0deg, -30deg);
+}
+
+/* Blue version for project cards */
+.chevron_right.blue:before,
+.chevron_right.blue:after {
+  background: #293a8d;
+}
+
+@keyframes moveRight {
+  25% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 1;
+    transform: translateY(30px) scale3d(0.5, 0.5, 0.5);
+  }
+  67% {
+    opacity: 1;
+    transform: translateY(45px) scale3d(0.5, 0.5, 0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(60px) scale3d(0.5, 0.5, 0.5);
+  }
+}
+
+/* Mobile styles for swipe deck */
+@media (max-width: 520px) {
+  .behind-preview-logo {
+    max-width: 480px;
+    max-height: 300px;
+  }
+  
+  .behind-preview-title {
+    bottom: 20px;
+    left: 35px;
+    right: 20px;
+  }
+}

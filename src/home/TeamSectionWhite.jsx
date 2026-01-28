@@ -493,6 +493,11 @@ const flipCardStyles = `
     .mobile-info-panel {
       display: none;
     }
+    
+    /* Hide mobile swiper on desktop */
+    .mobile-only-swiper {
+      display: none !important;
+    }
   }
   
   /* Responsive grid for different screen sizes */

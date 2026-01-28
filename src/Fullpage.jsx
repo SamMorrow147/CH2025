@@ -11,7 +11,7 @@ import { useSwipeable } from "react-swipeable";
 import ProjectSlider from './projects/ProjectSlider'
 import AboutTwo from './home/AboutTwo';
 import { trackSectionView, trackSectionExit, trackSectionMetrics } from './utils/analytics';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const anchors = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth"];
 const sectionNames = ['Home', 'Who We Are', 'What We Do', 'Feeling Lucky?', 'Projects', 'Modus Operandi', 'People', 'Contact'];
@@ -71,6 +71,7 @@ export default function Fullpage({onClick, setIsOpen}) {
   const [isOnTeamSection, setIsOnTeamSection] = useState(false); // Track if we're on team section
   const hasInitializedRef = useRef(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   console.log('✅ FULLPAGE STATE INITIALIZED');
   console.log('  Current section name:', sectionNames[0]);
@@ -326,6 +327,13 @@ useEffect(() => {
 
   // Handle navigation click from mobile menu
   const handleMobileNavClick = (index) => {
+    // If clicking "Projects" (index 4) on mobile, navigate directly to /projects
+    if (index === 4 && window.innerWidth <= 520) {
+      navigate('/projects');
+      setMobileMenuOpen(false);
+      return;
+    }
+    
     if (fullpageApiRef.current) {
       fullpageApiRef.current.moveTo(index + 1);
       setMobileMenuOpen(false);

@@ -133,16 +133,18 @@ export default function Projects(props) {
                 src="/mobile-projects/"
                 style={{ 
                     width: '100%', 
-                    height: '100vh', 
+                    height: '100dvh', // Use dynamic viewport height for Safari
                     border: 'none',
                     position: 'fixed',
                     top: 0,
                     left: 0,
                     zIndex: 9999,
-                    backgroundColor: 'transparent'
+                    backgroundColor: 'transparent',
+                    overflow: 'hidden'
                 }}
                 title="Mobile Projects"
                 allow="fullscreen"
+                scrolling="no"
             />
         );
     }

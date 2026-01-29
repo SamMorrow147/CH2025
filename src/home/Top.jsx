@@ -36,6 +36,10 @@ export default function Top({currentScroll,arrowClick}) {
                 ref={contentRef}
                 className={`${isEven(currentScroll) && currentScroll !== 0 ? 'top_content even' : 'top_content'}`}
             >
+                <h1 style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}>
+                    Clubhaus Agency - Minneapolis Creative & Marketing Powerhouse
+                </h1>
+                
                 <img 
                     className="logo" 
                     width="220" 

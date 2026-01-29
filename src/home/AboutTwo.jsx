@@ -413,7 +413,7 @@ export default function AboutTwo(props) {
           
           <div className="content-wrapper">
             <div className="typing-container">
-              <h2>
+              <h1 style={{ margin: 0, padding: 0 }}>
                 {props.paused === false ? (
                   <Suspense fallback={"No Luck Needed"}>
                     <Typist key={typingKey} avgTypingDelay={100} cursor={{show: false}} onTypingDone={handleTypingComplete}>
@@ -423,7 +423,7 @@ export default function AboutTwo(props) {
                 ) : (
                   <strong>No Luck Needed</strong>
                 )}
-              </h2>
+              </h1>
             </div>
             
             <div className="paragraph-content">

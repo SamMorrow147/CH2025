@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import Item from './Item';
 import slugify from "react-slugify";
 import { createClient } from 'contentful';
@@ -152,6 +153,17 @@ export default function Projects(props) {
     // Desktop version
     return (
         <>
+            <Helmet>
+                <title>Our Projects - Clubhaus Agency Portfolio</title>
+                <meta name="description" content="Explore Clubhaus Agency's portfolio of creative projects. From branding to web design, see our work with breweries, healthcare, nonprofits, and more." />
+                <meta name="keywords" content="creative portfolio, branding projects, web design portfolio, Clubhaus Agency work, Minneapolis creative agency" />
+                <link rel="canonical" href="https://clubhausagency.com/projects" />
+                
+                <meta property="og:title" content="Our Projects - Clubhaus Agency Portfolio" />
+                <meta property="og:description" content="Explore Clubhaus Agency's portfolio of creative projects across industries." />
+                <meta property="og:url" content="https://clubhausagency.com/projects" />
+            </Helmet>
+            
             <MainMenu/>
             
             {/* Back to Portfolio Button */}
@@ -162,7 +174,7 @@ export default function Projects(props) {
             </div>
             
             <div className="project_section project_grid project_all">
-                <div className="project_title"><h3> PROJECTS</h3></div>
+                <div className="project_title"><h1> PROJECTS</h1></div>
                 <div className="project_wrapper container">
                     <div className="project_content ">
                          

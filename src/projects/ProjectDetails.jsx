@@ -1,6 +1,7 @@
 import { createClient } from 'contentful'
 import React, { useState, useEffect, useRef} from 'react';
 import { useParams, useNavigate } from 'react-router-dom/dist';
+import { Helmet } from 'react-helmet';
 import MainMenu from '../home/MainMenu';
 import "./project.scss"
 import ProjectRecomend from './ProjectRecomend';
@@ -143,6 +144,52 @@ const ProjectDetails = () => {
 
     return (
         <>
+        <Helmet>
+            <title>{project.title} - Clubhaus Agency Case Study</title>
+            <meta name="description" content={project.subtitle || `${project.title} - A creative project by Clubhaus Agency`} />
+            <meta name="keywords" content={`${project.title}, ${project.tags?.join(', ') || 'branding, web design, creative agency'}, Clubhaus Agency, Minneapolis`} />
+            
+            {/* Open Graph / Facebook */}
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content={`https://clubhausagency.com/projects/${id}`} />
+            <meta property="og:title" content={`${project.title} - Clubhaus Agency`} />
+            <meta property="og:description" content={project.subtitle || `${project.title} - A creative project by Clubhaus Agency`} />
+            {project.image?.fields?.file?.url && (
+                <meta property="og:image" content={`https:${project.image.fields.file.url}`} />
+            )}
+            
+            {/* Twitter */}
+            <meta property="twitter:card" content="summary_large_image" />
+            <meta property="twitter:url" content={`https://clubhausagency.com/projects/${id}`} />
+            <meta property="twitter:title" content={`${project.title} - Clubhaus Agency`} />
+            <meta property="twitter:description" content={project.subtitle || `${project.title} - A creative project by Clubhaus Agency`} />
+            {project.image?.fields?.file?.url && (
+                <meta property="twitter:image" content={`https:${project.image.fields.file.url}`} />
+            )}
+            
+            {/* Canonical URL */}
+            <link rel="canonical" href={`https://clubhausagency.com/projects/${id}`} />
+            
+            {/* Structured Data - CreativeWork Schema */}
+            <script type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "CreativeWork",
+                    "name": project.title,
+                    "description": project.subtitle || `${project.title} by Clubhaus Agency`,
+                    "image": project.image?.fields?.file?.url ? `https:${project.image.fields.file.url}` : undefined,
+                    "creator": {
+                        "@type": "Organization",
+                        "name": "Clubhaus Agency",
+                        "url": "https://clubhausagency.com"
+                    },
+                    "keywords": project.tags?.join(', ') || undefined,
+                    "url": `https://clubhausagency.com/projects/${id}`,
+                    "inLanguage": "en-US"
+                })}
+            </script>
+        </Helmet>
+        
         <MainMenu/>
         
         {/* Back to Portfolio Button */}

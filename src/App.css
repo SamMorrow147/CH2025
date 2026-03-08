@@ -2788,6 +2788,18 @@ min-height: 100dvh;
   height: 100%;
 }
 
+/* Match link nav item to div items (override global a font-weight/line-height) */
+a.mobile-nav-item {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 20px;
+  color: inherit;
+}
+a.mobile-nav-item .mobile-nav-text {
+  color: inherit;
+}
+
 /* Remove all icon-specific styles */
 .mobile-nav-item:nth-child(1).active:before,
 .mobile-nav-item:nth-child(2).active:before,
@@ -2827,8 +2839,26 @@ min-height: 100dvh;
 
 .top_section .container_2 {
   opacity: 0;
-  animation: fadeIn 1s ease-out forwards;
-  animation-delay: 4s; /* Wait for text to load */
+  animation: fadeInCenter 1s ease-out forwards;
+  animation-delay: 6s; /* Wait for logo and text to load */
+}
+
+/* Keep services section arrow centered (fadeIn would overwrite translateX(-50%)) */
+.services_section .container_2 {
+  animation: fadeInCenter 2s ease-out forwards;
+  animation-delay: 3s;
+}
+
+/* Preserves translateX(-50%) so arrow stays centered on desktop */
+@keyframes fadeInCenter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
 @keyframes fadeIn {

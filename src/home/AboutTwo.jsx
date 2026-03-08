@@ -300,6 +300,7 @@ export default function AboutTwo(props) {
             width: 100%;
           }
           
+          .typing-container h1,
           .typing-container h2 {
             font-size: clamp(42px, 12vw, 80px);
             line-height: 1;
@@ -363,6 +364,7 @@ export default function AboutTwo(props) {
               margin-bottom: 0;
             }
             
+            .typing-container h1,
             .typing-container h2 {
               text-align: center;
               line-height: 1.2;

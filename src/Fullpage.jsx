@@ -326,6 +326,15 @@ useEffect(() => {
             </div>
           ))}
           
+          <a
+            href="https://clubhaus-ai.vercel.app"
+            className="mobile-nav-item"
+            onClick={() => setMobileMenuOpen(false)}
+            style={{ fontFamily: 'inherit', fontWeight: 'bold', fontSize: '18px', lineHeight: '20px', color: 'white', textDecoration: 'none' }}
+          >
+            <span className="mobile-nav-text" style={{ fontFamily: 'inherit', fontWeight: 'bold', fontSize: '18px', lineHeight: '20px', color: 'white' }}>Talk to our bot</span>
+          </a>
+          
           {/* Social Media Icons */}
           <div className="social-icons">
             <a href="https://www.linkedin.com/in/mrwcreations" target="_blank" rel="noopener noreferrer" className="social-icon">
@@ -1142,6 +1151,18 @@ useEffect(() => {
               display: flex;
               align-items: center;
               height: 100%;
+            }
+            
+            /* Match link nav item (Talk to our bot) to other items - override global a styles */
+            a.mobile-nav-item {
+              text-decoration: none;
+              font-size: 18px;
+              font-weight: bold;
+              line-height: 20px;
+              color: inherit;
+            }
+            a.mobile-nav-item .mobile-nav-text {
+              color: inherit;
             }
             
             /* Social media icons styling - for contact page only */
